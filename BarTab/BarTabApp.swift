@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct BarTabApp: App {
+    @StateObject var userStore = UserStore()
+    @StateObject var drinkStore = DrinkStore()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
+                .environmentObject(userStore)
+                .environmentObject(drinkStore)
         }
     }
 }
