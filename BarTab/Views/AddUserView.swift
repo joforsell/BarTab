@@ -9,7 +9,7 @@ import SwiftUI
 import Introspect
 
 struct AddUserView: View {
-    @EnvironmentObject var userStore: UserStore
+    @EnvironmentObject var userStore: UserViewModel
     @Environment(\.presentationMode) var presentationMode
     
     enum Field {
@@ -104,11 +104,11 @@ struct AddUserView_Previews: PreviewProvider {
     static var previews: some View {
         if #available(iOS 15.0, *) {
             AddUserView()
-                .environmentObject(UserStore())
+                .environmentObject(UserViewModel())
                 .previewInterfaceOrientation(.landscapeRight)
         } else {
             AddUserView()
-                .environmentObject(UserStore())
+                .environmentObject(UserViewModel())
         }
     }
 }

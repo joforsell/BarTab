@@ -14,10 +14,10 @@
 		3E662B5E2700C76A00033A11 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 3E662B5D2700C76A00033A11 /* Introspect */; };
 		3E662B60270100D800033A11 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E662B5F270100D800033A11 /* OrderView.swift */; };
 		3E694A422700670400DF0A08 /* AddUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E694A412700670400DF0A08 /* AddUserView.swift */; };
-		3E7BEFDC26FCDD1900453C1B /* UserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFDB26FCDD1900453C1B /* UserList.swift */; };
-		3E7BEFDE26FCDD2800453C1B /* DrinkStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFDD26FCDD2800453C1B /* DrinkStore.swift */; };
-		3E7BEFE126FCDD6D00453C1B /* DrinkList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFE026FCDD6D00453C1B /* DrinkList.swift */; };
-		3E7BEFE426FCDD9900453C1B /* UserStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFE326FCDD9900453C1B /* UserStore.swift */; };
+		3E7BEFDC26FCDD1900453C1B /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFDB26FCDD1900453C1B /* UserModel.swift */; };
+		3E7BEFDE26FCDD2800453C1B /* DrinkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFDD26FCDD2800453C1B /* DrinkViewModel.swift */; };
+		3E7BEFE126FCDD6D00453C1B /* DrinkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFE026FCDD6D00453C1B /* DrinkModel.swift */; };
+		3E7BEFE426FCDD9900453C1B /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFE326FCDD9900453C1B /* UserViewModel.swift */; };
 		3E7BEFE726FCDDC400453C1B /* UserListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFE626FCDDC400453C1B /* UserListView.swift */; };
 		3E7BEFE926FCDDD200453C1B /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFE826FCDDD200453C1B /* InputView.swift */; };
 		3E7BEFEB26FCDDDE00453C1B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFEA26FCDDDE00453C1B /* SettingsView.swift */; };
@@ -32,10 +32,10 @@
 		3E65094126FCB26900ACDF41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E662B5F270100D800033A11 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
 		3E694A412700670400DF0A08 /* AddUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserView.swift; sourceTree = "<group>"; };
-		3E7BEFDB26FCDD1900453C1B /* UserList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserList.swift; sourceTree = "<group>"; };
-		3E7BEFDD26FCDD2800453C1B /* DrinkStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkStore.swift; sourceTree = "<group>"; };
-		3E7BEFE026FCDD6D00453C1B /* DrinkList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkList.swift; sourceTree = "<group>"; };
-		3E7BEFE326FCDD9900453C1B /* UserStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStore.swift; sourceTree = "<group>"; };
+		3E7BEFDB26FCDD1900453C1B /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		3E7BEFDD26FCDD2800453C1B /* DrinkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkViewModel.swift; sourceTree = "<group>"; };
+		3E7BEFE026FCDD6D00453C1B /* DrinkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkModel.swift; sourceTree = "<group>"; };
+		3E7BEFE326FCDD9900453C1B /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		3E7BEFE626FCDDC400453C1B /* UserListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListView.swift; sourceTree = "<group>"; };
 		3E7BEFE826FCDDD200453C1B /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 		3E7BEFEA26FCDDDE00453C1B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -94,8 +94,8 @@
 		3E7BEFDF26FCDD2D00453C1B /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				3E7BEFDB26FCDD1900453C1B /* UserList.swift */,
-				3E7BEFE026FCDD6D00453C1B /* DrinkList.swift */,
+				3E7BEFDB26FCDD1900453C1B /* UserModel.swift */,
+				3E7BEFE026FCDD6D00453C1B /* DrinkModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -103,8 +103,8 @@
 		3E7BEFE226FCDD7400453C1B /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				3E7BEFE326FCDD9900453C1B /* UserStore.swift */,
-				3E7BEFDD26FCDD2800453C1B /* DrinkStore.swift */,
+				3E7BEFE326FCDD9900453C1B /* UserViewModel.swift */,
+				3E7BEFDD26FCDD2800453C1B /* DrinkViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -198,15 +198,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E7BEFE726FCDDC400453C1B /* UserListView.swift in Sources */,
-				3E7BEFE426FCDD9900453C1B /* UserStore.swift in Sources */,
-				3E7BEFDC26FCDD1900453C1B /* UserList.swift in Sources */,
+				3E7BEFE426FCDD9900453C1B /* UserViewModel.swift in Sources */,
+				3E7BEFDC26FCDD1900453C1B /* UserModel.swift in Sources */,
 				3E7BEFEB26FCDDDE00453C1B /* SettingsView.swift in Sources */,
-				3E7BEFE126FCDD6D00453C1B /* DrinkList.swift in Sources */,
+				3E7BEFE126FCDD6D00453C1B /* DrinkModel.swift in Sources */,
 				3E65093B26FCB26900ACDF41 /* MainView.swift in Sources */,
 				3E7BEFE926FCDDD200453C1B /* InputView.swift in Sources */,
 				3E694A422700670400DF0A08 /* AddUserView.swift in Sources */,
 				3E662B60270100D800033A11 /* OrderView.swift in Sources */,
-				3E7BEFDE26FCDD2800453C1B /* DrinkStore.swift in Sources */,
+				3E7BEFDE26FCDD2800453C1B /* DrinkViewModel.swift in Sources */,
 				3E65093926FCB26900ACDF41 /* BarTabApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

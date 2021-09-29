@@ -8,23 +8,22 @@
 import SwiftUI
 
 struct InputView: View {
-    @EnvironmentObject var userStore: UserStore
-    @EnvironmentObject var drinkStore: DrinkStore
+    @EnvironmentObject var userStore: UserViewModel
+    @EnvironmentObject var drinkStore: DrinkViewModel
     
     @State private var isShowingOrderView = false
-    @State private var drinkPrice = 0
+    @State private var selectedDrink: Drink? = nil
     
     private var rows = [GridItem(.adaptive(minimum: 100)), GridItem(.adaptive(minimum: 100))]
     
     var body: some View {
         ZStack {
-            Color.blue.ignoresSafeArea()
             VStack {
                 HStack {
                     Spacer()
                     ForEach(drinkStore.drinks.prefix(3)) { drink in
                         Button(action: {
-                            drinkPrice = drink.price
+                            selectedDrink = drink
                             isShowingOrderView = true
                         }) {
                             VStack {
@@ -35,25 +34,21 @@ struct InputView: View {
                                 Text("\(drink.price) kr")
                                     .font(.system(size: 30))
                             }
-                                .onTapGesture {
-                                    drinkPrice = drink.price
-                                    isShowingOrderView = true
-                                }
-                                .frame(width: UIScreen.main.bounds.width / 3.15, height: UIScreen.main.bounds.height / 3, alignment: .center)
+                            .frame(width: UIScreen.main.bounds.width / 3.15, height: UIScreen.main.bounds.height / 3, alignment: .center)
                         }
-                        .background(Color.white.opacity(0.6))
+                        .background(Color.blue)
                         .cornerRadius(15)
-                        .foregroundColor(.black)
+                        .foregroundColor(.white)
                     }
                     .padding(.top)
                     Spacer()
                 }
                 ScrollView(.horizontal) {
                     LazyHGrid(rows: rows, spacing: 5) {
-                        ForEach(drinkStore.drinks.suffix(drinkStore.drinks.count - 3)) { drink in
+                        ForEach(gridViewDrinkList) { drink in
                             
                             Button(action: {
-                                drinkPrice = drink.price
+                                selectedDrink = drink
                                 isShowingOrderView = true
                             }) {
                                 VStack {
@@ -66,22 +61,31 @@ struct InputView: View {
                                 }
                             }
                             .frame(width: UIScreen.main.bounds.width / 4.2, height: UIScreen.main.bounds.height / 4, alignment: .center)
-                            .background(Color.white.opacity(0.6))
+                            .background(Color.blue)
                             .cornerRadius(15)
-                            .foregroundColor(.black)
+                            .foregroundColor(.white)
                         }
                     }
-                    .frame(width: .infinity, height: UIScreen.main.bounds.height / 2)
+                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2)
                 }
                 .padding(.horizontal)
                 Spacer()
+                    .sheet(isPresented: $isShowingOrderView) {
+                        OrderView(drink: selectedDrink!)
+                            .environmentObject(userStore)
+                            .environmentObject(drinkStore)
+                }
             }
-            .sheet(isPresented: $isShowingOrderView) {
-                OrderView(price: $drinkPrice)
-                    .environmentObject(userStore)
         }
+        .blur(radius: isShowingOrderView ? 8 : 0)
+    }
+    
+    var gridViewDrinkList: [Drink] {
+        if drinkStore.drinks.count > 3 {
+            return drinkStore.drinks.suffix(drinkStore.drinks.count - 3)
+        } else {
+            return [Drink(name: "Placeholder", price: 0)]
         }
-
     }
 }
 
@@ -89,13 +93,13 @@ struct InputView_Previews: PreviewProvider {
     static var previews: some View {
         if #available(iOS 15.0, *) {
             InputView()
-                .environmentObject(UserStore())
-                .environmentObject(DrinkStore())
+                .environmentObject(UserViewModel())
+                .environmentObject(DrinkViewModel())
                 .previewInterfaceOrientation(.landscapeRight)
         } else {
             InputView()
-                .environmentObject(UserStore())
-                .environmentObject(DrinkStore())
+                .environmentObject(UserViewModel())
+                .environmentObject(DrinkViewModel())
         }
     }
 }

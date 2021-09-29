@@ -9,8 +9,8 @@ import SwiftUI
 
 @main
 struct BarTabApp: App {
-    @StateObject var userStore = UserStore()
-    @StateObject var drinkStore = DrinkStore()
+    @StateObject var userStore = UserViewModel()
+    @StateObject var drinkStore = DrinkViewModel()
     
     var body: some Scene {
         WindowGroup {

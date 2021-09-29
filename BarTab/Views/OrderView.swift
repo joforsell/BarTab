@@ -9,11 +9,11 @@ import SwiftUI
 import Introspect
 
 struct OrderView: View {
-    @EnvironmentObject var userStore: UserStore
+    @EnvironmentObject var userStore: UserViewModel
     @Environment(\.presentationMode) var presentationMode
     
     @State private var tagKey = ""
-    @Binding var price: Int
+    var drink: Drink
     
     var body: some View {
         ZStack {
@@ -24,11 +24,16 @@ struct OrderView: View {
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
                 .background(Color.black.opacity(0.4))
                 .onChange(of: tagKey) { _ in
-                    userStore.drinkBought(by: self.tagKey, for: self.price)
+                    userStore.drinkBought(by: self.tagKey, for: self.drink.price)
                     presentationMode.wrappedValue.dismiss()
                 }
-            Image(systemName: "sensor.tag.radiowaves.forward")
-                .font(.system(size: 300))
+            VStack {
+                Image(systemName: "sensor.tag.radiowaves.forward")
+                    .font(.system(size: 300))
+                Text("Vill du köpa \(drink.name) för \(drink.price) kr?")
+                    .foregroundColor(.white)
+                    .padding()
+            }
             VStack {
                 HStack {
                     Spacer()
@@ -47,6 +52,6 @@ struct OrderView: View {
 
 struct OrderView_Previews: PreviewProvider {
     static var previews: some View {
-        OrderView(price: .constant(20))
+        OrderView(drink: Drink(name: "Öl", price: 20))
     }
 }

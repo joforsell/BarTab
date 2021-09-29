@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct MainView: View {
-    @EnvironmentObject var userStore: UserStore
-    @EnvironmentObject var drinkStore: DrinkStore
+    @EnvironmentObject var userStore: UserViewModel
+    @EnvironmentObject var drinkStore: DrinkViewModel
     
     var body: some View {
         TabView {
@@ -32,8 +32,8 @@ struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         if #available(iOS 15.0, *) {
             MainView()
-                .environmentObject(UserStore())
-                .environmentObject(DrinkStore())
+                .environmentObject(UserViewModel())
+                .environmentObject(DrinkViewModel())
                 .previewInterfaceOrientation(.landscapeRight)
         } else {
             MainView()

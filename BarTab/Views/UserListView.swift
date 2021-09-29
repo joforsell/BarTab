@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct UserListView: View {
-    @EnvironmentObject var userStore: UserStore
+    @EnvironmentObject var userStore: UserViewModel
     
     @State private var isShowingAddMemberSheet = false
     @State private var editingBalanceMode = false
@@ -64,11 +64,11 @@ struct UserListView_Previews: PreviewProvider {
     static var previews: some View {
         if #available(iOS 15.0, *) {
             UserListView()
-                .environmentObject(UserStore())
+                .environmentObject(UserViewModel())
                 .previewInterfaceOrientation(.landscapeRight)
         } else {
             UserListView()
-                .environmentObject(UserStore())
+                .environmentObject(UserViewModel())
         }
     }
 }
