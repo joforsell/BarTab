@@ -43,32 +43,34 @@ struct InputView: View {
                     .padding(.top)
                     Spacer()
                 }
-                ScrollView(.horizontal) {
-                    LazyHGrid(rows: rows, spacing: 5) {
-                        ForEach(gridViewDrinkList) { drink in
-                            
-                            Button(action: {
-                                selectedDrink = drink
-                                isShowingOrderView = true
-                            }) {
-                                VStack {
-                                    Text(drink.name)
-                                        .font(.system(size: 40))
-                                        .fontWeight(.bold)
-                                        .padding(.vertical, -15)
-                                    Text("\(drink.price) kr")
-                                        .font(.system(size: 30))
+                if drinkStore.drinks.count > 3 {
+                    ScrollView(.horizontal) {
+                        LazyHGrid(rows: rows, spacing: 5) {
+                            ForEach(gridViewDrinkList) { drink in
+                                
+                                Button(action: {
+                                    selectedDrink = drink
+                                    isShowingOrderView = true
+                                }) {
+                                    VStack {
+                                        Text(drink.name)
+                                            .font(.system(size: 40))
+                                            .fontWeight(.bold)
+                                            .padding(.vertical, -15)
+                                        Text("\(drink.price) kr")
+                                            .font(.system(size: 30))
+                                    }
                                 }
+                                .frame(width: UIScreen.main.bounds.width / 4.2, height: UIScreen.main.bounds.height / 4, alignment: .center)
+                                .background(Color.blue)
+                                .cornerRadius(15)
+                                .foregroundColor(.white)
                             }
-                            .frame(width: UIScreen.main.bounds.width / 4.2, height: UIScreen.main.bounds.height / 4, alignment: .center)
-                            .background(Color.blue)
-                            .cornerRadius(15)
-                            .foregroundColor(.white)
                         }
+                        .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height / 2)
                     }
-                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2)
+                    .padding(.horizontal)
                 }
-                .padding(.horizontal)
                 Spacer()
                     .sheet(isPresented: $isShowingOrderView) {
                         OrderView(drink: selectedDrink!)
@@ -81,11 +83,7 @@ struct InputView: View {
     }
     
     var gridViewDrinkList: [Drink] {
-        if drinkStore.drinks.count > 3 {
-            return drinkStore.drinks.suffix(drinkStore.drinks.count - 3)
-        } else {
-            return [Drink(name: "Placeholder", price: 0)]
-        }
+        return drinkStore.drinks.suffix(drinkStore.drinks.count - 3)
     }
 }
 

@@ -39,6 +39,13 @@ struct AddUserView: View {
                 }
             }
             VStack {
+                HStack {
+                    Image(systemName: "person.fill.badge.plus")
+                        .font(.largeTitle)
+                    Text("Lägg till medlem")
+                        .font(.largeTitle)
+                }
+
                 TextField("Namn", text: $name)
                     .frame(width: UIScreen.main.bounds.width / 3, alignment: .center)
                     .padding()
@@ -51,21 +58,16 @@ struct AddUserView: View {
                     .overlay(RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.black))
                     .keyboardType(.numberPad)
-                HStack {
-                    if #available(iOS 15.0, *) {
+
                         Button(action: { isShowingTagView = true }) {
-                            Text("Skicka")
+                            Text("Lägg till")
+                                .frame(width: UIScreen.main.bounds.width / 3, alignment: .center)
+                                .padding()
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
                         }
                         .padding()
-                        .buttonStyle(.borderedProminent)
-                    } else {
-                        Button(action: { isShowingTagView = true }) {
-                            Text("Skicka")
-                        }
-                        .padding()
-                    }
-                }
-                .frame(width: UIScreen.main.bounds.width / 3, alignment: .center)
             }
             .blur(radius: isShowingTagView ? 8 : 0)
             if isShowingTagView {

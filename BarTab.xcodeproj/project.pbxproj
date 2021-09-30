@@ -21,6 +21,9 @@
 		3E7BEFE726FCDDC400453C1B /* UserListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFE626FCDDC400453C1B /* UserListView.swift */; };
 		3E7BEFE926FCDDD200453C1B /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFE826FCDDD200453C1B /* InputView.swift */; };
 		3E7BEFEB26FCDDDE00453C1B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFEA26FCDDDE00453C1B /* SettingsView.swift */; };
+		3E7BF0B0270654E200BB230F /* DrinkSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BF0AF270654E200BB230F /* DrinkSettingsView.swift */; };
+		3E7BF0B22706552500BB230F /* AddDrinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BF0B12706552500BB230F /* AddDrinkView.swift */; };
+		3E7BF0B42706558500BB230F /* UserSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BF0B32706558500BB230F /* UserSettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +42,9 @@
 		3E7BEFE626FCDDC400453C1B /* UserListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListView.swift; sourceTree = "<group>"; };
 		3E7BEFE826FCDDD200453C1B /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 		3E7BEFEA26FCDDDE00453C1B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		3E7BF0AF270654E200BB230F /* DrinkSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkSettingsView.swift; sourceTree = "<group>"; };
+		3E7BF0B12706552500BB230F /* AddDrinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDrinkView.swift; sourceTree = "<group>"; };
+		3E7BF0B32706558500BB230F /* UserSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,13 +119,40 @@
 			isa = PBXGroup;
 			children = (
 				3E65093A26FCB26900ACDF41 /* MainView.swift */,
-				3E7BEFE826FCDDD200453C1B /* InputView.swift */,
-				3E662B5F270100D800033A11 /* OrderView.swift */,
-				3E7BEFE626FCDDC400453C1B /* UserListView.swift */,
-				3E694A412700670400DF0A08 /* AddUserView.swift */,
-				3E7BEFEA26FCDDDE00453C1B /* SettingsView.swift */,
+				3E7BF0AC270654AB00BB230F /* Ordering */,
+				3E7BF0AD270654BE00BB230F /* Users */,
+				3E7BF0AE270654CA00BB230F /* Settings */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		3E7BF0AC270654AB00BB230F /* Ordering */ = {
+			isa = PBXGroup;
+			children = (
+				3E7BEFE826FCDDD200453C1B /* InputView.swift */,
+				3E662B5F270100D800033A11 /* OrderView.swift */,
+			);
+			path = Ordering;
+			sourceTree = "<group>";
+		};
+		3E7BF0AD270654BE00BB230F /* Users */ = {
+			isa = PBXGroup;
+			children = (
+				3E7BEFE626FCDDC400453C1B /* UserListView.swift */,
+				3E694A412700670400DF0A08 /* AddUserView.swift */,
+			);
+			path = Users;
+			sourceTree = "<group>";
+		};
+		3E7BF0AE270654CA00BB230F /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				3E7BEFEA26FCDDDE00453C1B /* SettingsView.swift */,
+				3E7BF0B32706558500BB230F /* UserSettingsView.swift */,
+				3E7BF0AF270654E200BB230F /* DrinkSettingsView.swift */,
+				3E7BF0B12706552500BB230F /* AddDrinkView.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,15 +231,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E7BEFE726FCDDC400453C1B /* UserListView.swift in Sources */,
+				3E7BF0B22706552500BB230F /* AddDrinkView.swift in Sources */,
 				3E7BEFE426FCDD9900453C1B /* UserViewModel.swift in Sources */,
 				3E7BEFDC26FCDD1900453C1B /* UserModel.swift in Sources */,
 				3E7BEFEB26FCDDDE00453C1B /* SettingsView.swift in Sources */,
 				3E7BEFE126FCDD6D00453C1B /* DrinkModel.swift in Sources */,
 				3E65093B26FCB26900ACDF41 /* MainView.swift in Sources */,
+				3E7BF0B0270654E200BB230F /* DrinkSettingsView.swift in Sources */,
 				3E7BEFE926FCDDD200453C1B /* InputView.swift in Sources */,
 				3E694A422700670400DF0A08 /* AddUserView.swift in Sources */,
 				3E662B60270100D800033A11 /* OrderView.swift in Sources */,
 				3E7BEFDE26FCDD2800453C1B /* DrinkViewModel.swift in Sources */,
+				3E7BF0B42706558500BB230F /* UserSettingsView.swift in Sources */,
 				3E65093926FCB26900ACDF41 /* BarTabApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
