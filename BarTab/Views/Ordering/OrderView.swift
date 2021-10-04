@@ -9,7 +9,7 @@ import SwiftUI
 import Introspect
 
 struct OrderView: View {
-    @EnvironmentObject var userStore: UserViewModel
+    @EnvironmentObject var userVM: UserViewModel
     @Environment(\.presentationMode) var presentationMode
     
     @State private var tagKey = ""
@@ -17,16 +17,15 @@ struct OrderView: View {
     
     var body: some View {
         ZStack {
-            TextField("Läs av tag", text: $tagKey)
+            TextField("Läs av tag", text: $tagKey, onCommit: {
+                userVM.drinkBought(by: self.tagKey, for: self.drink.price)
+                presentationMode.wrappedValue.dismiss()
+            })
                 .introspectTextField { textField in
                     textField.becomeFirstResponder()
                 }
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
                 .background(Color.black.opacity(0.4))
-                .onChange(of: tagKey) { _ in
-                    userStore.drinkBought(by: self.tagKey, for: self.drink.price)
-                    presentationMode.wrappedValue.dismiss()
-                }
             VStack {
                 Image(systemName: "sensor.tag.radiowaves.forward")
                     .font(.system(size: 300))

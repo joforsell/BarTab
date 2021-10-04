@@ -9,7 +9,7 @@ import SwiftUI
 import Introspect
 
 struct AddUserView: View {
-    @EnvironmentObject var userStore: UserViewModel
+    @EnvironmentObject var userVM: UserViewModel
     @Environment(\.presentationMode) var presentationMode
     
     enum Field {
@@ -59,29 +59,28 @@ struct AddUserView: View {
                                 .stroke(Color.black))
                     .keyboardType(.numberPad)
 
-                        Button(action: { isShowingTagView = true }) {
-                            Text("Lägg till")
-                                .frame(width: UIScreen.main.bounds.width / 3, alignment: .center)
-                                .padding()
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                        }
-                        .padding()
+                    Button(action: { isShowingTagView = true }) {
+                        Text("Lägg till")
+                            .frame(width: UIScreen.main.bounds.width / 3, alignment: .center)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    .padding()
             }
             .blur(radius: isShowingTagView ? 8 : 0)
             if isShowingTagView {
                 ZStack {
-                    TextField("Läs av tag", text: $tagKey)
+                    TextField("Läs av tag", text: $tagKey, onCommit: {
+                        userVM.addUser(name: self.name, balance: Int(self.balance) ?? 0, key: self.tagKey)
+                        presentationMode.wrappedValue.dismiss()
+                    })
                         .introspectTextField { textField in
                             textField.becomeFirstResponder()
                         }
                         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
                         .background(Color.black.opacity(0.4))
-                        .onChange(of: tagKey) { _ in
-                            userStore.addUser(name: self.name, balance: Int(self.balance) ?? 0, key: self.tagKey)
-                            presentationMode.wrappedValue.dismiss()
-                        }
                     Image(systemName: "sensor.tag.radiowaves.forward")
                         .font(.system(size: 300))
                     VStack {

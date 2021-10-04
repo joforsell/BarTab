@@ -6,17 +6,23 @@
 //
 
 import SwiftUI
+import Combine
 
 class DrinkViewModel: ObservableObject {
+    @Published var drinkRepository = DrinkRepository()
     @Published var drinks = [Drink]()
     
-    init(){}
+    var subscriptions = Set<AnyCancellable>()
     
-//    [Drink(name: "Finöl", price: 40), Drink(name: "Fulöl", price: 20), Drink(name: "Gin & Tonic", price: 50), Drink(name: "Snaps", price: 30), Drink(name: "Rött vin", price: 40), ,Drink(name: "Vitt vin", price: 40), Drink(name: "Cider", price: 60), Drink(name: "Shot", price: 30), Drink(name: "Kaffe Karlsson", price: 80)]
-                
+    init(){
+        drinkRepository.$drinks
+            .assign(to: \.drinks, on: self)
+            .store(in: &subscriptions)
+    }
+                    
     func addDrink(name: String, price: Int) {
         let newDrink = Drink(name: name, price: price)
-        drinks.append(newDrink)
+        drinkRepository.addDrink(newDrink)
     }
     
     func removeDrinkBy(id: String) {
