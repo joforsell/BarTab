@@ -6,11 +6,16 @@
 //
 
 import SwiftUI
+import Firebase
 
 @main
 struct BarTabApp: App {
     @StateObject var userStore = UserViewModel()
     @StateObject var drinkStore = DrinkViewModel()
+    
+    init() {
+        FirebaseApp.configure()
+    }
     
     var body: some Scene {
         WindowGroup {

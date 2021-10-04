@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct UserListView: View {
-    @EnvironmentObject var userStore: UserViewModel
+    @EnvironmentObject var userVM: UserViewModel
     
     @State private var isShowingAddMemberSheet = false
-    @State private var editingBalanceMode = false
     
     var body: some View {
         VStack {
@@ -23,30 +22,15 @@ struct UserListView: View {
                 Button(action: { isShowingAddMemberSheet = true }) {
                     Image(systemName: "person.fill.badge.plus")
                 }
-                .padding(.vertical)
-                .foregroundColor(.black)
-                .font(.system(size: 30))
-                Button(action: { editingBalanceMode.toggle() }) {
-                    Image(systemName: "dollarsign.circle.fill")
-                }
                 .padding()
                 .foregroundColor(.black)
                 .font(.system(size: 30))
             }
             List {
-                ForEach(userStore.users) { user in
+                ForEach(userVM.users) { user in
                     HStack {
                         Text(user.name)
                         Spacer()
-                        if editingBalanceMode {
-                            // TODO: Add pop-up numpad to type addition or subtraction.
-                            Image(systemName: "minus.circle.fill")
-                                .onTapGesture { userStore.subtractFromBalanceOf(user.id) }
-                                .foregroundColor(.red)
-                            Image(systemName: "plus.circle.fill")
-                                .onTapGesture { userStore.addToBalanceOf(user.id) }
-                                .foregroundColor(.green)
-                        }
                         Text("\(user.balance) kr")
                             .foregroundColor(user.balance < 0 ? .red : .green)
                     }

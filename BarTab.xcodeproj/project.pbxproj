@@ -13,6 +13,7 @@
 		3E65094026FCB26900ACDF41 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E65093F26FCB26900ACDF41 /* Preview Assets.xcassets */; };
 		3E662B5E2700C76A00033A11 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 3E662B5D2700C76A00033A11 /* Introspect */; };
 		3E662B60270100D800033A11 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E662B5F270100D800033A11 /* OrderView.swift */; };
+		3E68107F27081D6D00C0F5B0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3E68107E27081D6D00C0F5B0 /* GoogleService-Info.plist */; };
 		3E694A422700670400DF0A08 /* AddUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E694A412700670400DF0A08 /* AddUserView.swift */; };
 		3E7BEFDC26FCDD1900453C1B /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFDB26FCDD1900453C1B /* UserModel.swift */; };
 		3E7BEFDE26FCDD2800453C1B /* DrinkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFDD26FCDD2800453C1B /* DrinkViewModel.swift */; };
@@ -24,6 +25,9 @@
 		3E7BF0B0270654E200BB230F /* DrinkSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BF0AF270654E200BB230F /* DrinkSettingsView.swift */; };
 		3E7BF0B22706552500BB230F /* AddDrinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BF0B12706552500BB230F /* AddDrinkView.swift */; };
 		3E7BF0B42706558500BB230F /* UserSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BF0B32706558500BB230F /* UserSettingsView.swift */; };
+		3EBC4986270A4D7F006B4857 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBC4985270A4D7F006B4857 /* UserRepository.swift */; };
+		3EBC4988270B8845006B4857 /* DrinkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBC4987270B8845006B4857 /* DrinkRepository.swift */; };
+		586320732036D4A5209C7973 /* Pods_BarTab.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8551DB09EF5412BB8AE6E7 /* Pods_BarTab.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +38,7 @@
 		3E65093F26FCB26900ACDF41 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3E65094126FCB26900ACDF41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E662B5F270100D800033A11 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
+		3E68107E27081D6D00C0F5B0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3E694A412700670400DF0A08 /* AddUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserView.swift; sourceTree = "<group>"; };
 		3E7BEFDB26FCDD1900453C1B /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		3E7BEFDD26FCDD2800453C1B /* DrinkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkViewModel.swift; sourceTree = "<group>"; };
@@ -45,6 +50,11 @@
 		3E7BF0AF270654E200BB230F /* DrinkSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkSettingsView.swift; sourceTree = "<group>"; };
 		3E7BF0B12706552500BB230F /* AddDrinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDrinkView.swift; sourceTree = "<group>"; };
 		3E7BF0B32706558500BB230F /* UserSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsView.swift; sourceTree = "<group>"; };
+		3EBC4985270A4D7F006B4857 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		3EBC4987270B8845006B4857 /* DrinkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkRepository.swift; sourceTree = "<group>"; };
+		AAF6AB6870B6B64E324130C1 /* Pods-BarTab.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarTab.release.xcconfig"; path = "Target Support Files/Pods-BarTab/Pods-BarTab.release.xcconfig"; sourceTree = "<group>"; };
+		E90418CBFEB0D63834D6DEA9 /* Pods-BarTab.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarTab.debug.xcconfig"; path = "Target Support Files/Pods-BarTab/Pods-BarTab.debug.xcconfig"; sourceTree = "<group>"; };
+		FA8551DB09EF5412BB8AE6E7 /* Pods_BarTab.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BarTab.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +63,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E662B5E2700C76A00033A11 /* Introspect in Frameworks */,
+				586320732036D4A5209C7973 /* Pods_BarTab.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,6 +75,8 @@
 			children = (
 				3E65093726FCB26900ACDF41 /* BarTab */,
 				3E65093626FCB26900ACDF41 /* Products */,
+				B1685B6C9723AF419DBD9DB8 /* Pods */,
+				620FABD8F687369F0A9BF8CA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -81,8 +94,10 @@
 				3E65093826FCB26900ACDF41 /* BarTabApp.swift */,
 				3E7BEFE526FCDDA300453C1B /* Views */,
 				3E7BEFE226FCDD7400453C1B /* ViewModels */,
+				3EBC4984270A4D64006B4857 /* Repositories */,
 				3E7BEFDF26FCDD2D00453C1B /* Models */,
 				3E65093C26FCB26900ACDF41 /* Assets.xcassets */,
+				3E68107E27081D6D00C0F5B0 /* GoogleService-Info.plist */,
 				3E65094126FCB26900ACDF41 /* Info.plist */,
 				3E65093E26FCB26900ACDF41 /* Preview Content */,
 			);
@@ -155,6 +170,33 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		3EBC4984270A4D64006B4857 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				3EBC4985270A4D7F006B4857 /* UserRepository.swift */,
+				3EBC4987270B8845006B4857 /* DrinkRepository.swift */,
+			);
+			name = Repositories;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		620FABD8F687369F0A9BF8CA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FA8551DB09EF5412BB8AE6E7 /* Pods_BarTab.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B1685B6C9723AF419DBD9DB8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E90418CBFEB0D63834D6DEA9 /* Pods-BarTab.debug.xcconfig */,
+				AAF6AB6870B6B64E324130C1 /* Pods-BarTab.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -162,9 +204,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3E65094426FCB26900ACDF41 /* Build configuration list for PBXNativeTarget "BarTab" */;
 			buildPhases = (
+				76029C455681D13C75FC8DC5 /* [CP] Check Pods Manifest.lock */,
 				3E65093126FCB26900ACDF41 /* Sources */,
 				3E65093226FCB26900ACDF41 /* Frameworks */,
 				3E65093326FCB26900ACDF41 /* Resources */,
+				596C2D2D67EF835689764267 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -220,10 +264,53 @@
 			files = (
 				3E65094026FCB26900ACDF41 /* Preview Assets.xcassets in Resources */,
 				3E65093D26FCB26900ACDF41 /* Assets.xcassets in Resources */,
+				3E68107F27081D6D00C0F5B0 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		596C2D2D67EF835689764267 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BarTab/Pods-BarTab-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BarTab/Pods-BarTab-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BarTab/Pods-BarTab-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		76029C455681D13C75FC8DC5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BarTab-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3E65093126FCB26900ACDF41 /* Sources */ = {
@@ -238,6 +325,8 @@
 				3E7BEFE126FCDD6D00453C1B /* DrinkModel.swift in Sources */,
 				3E65093B26FCB26900ACDF41 /* MainView.swift in Sources */,
 				3E7BF0B0270654E200BB230F /* DrinkSettingsView.swift in Sources */,
+				3EBC4988270B8845006B4857 /* DrinkRepository.swift in Sources */,
+				3EBC4986270A4D7F006B4857 /* UserRepository.swift in Sources */,
 				3E7BEFE926FCDDD200453C1B /* InputView.swift in Sources */,
 				3E694A422700670400DF0A08 /* AddUserView.swift in Sources */,
 				3E662B60270100D800033A11 /* OrderView.swift in Sources */,
@@ -368,6 +457,7 @@
 		};
 		3E65094526FCB26900ACDF41 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E90418CBFEB0D63834D6DEA9 /* Pods-BarTab.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -390,6 +480,7 @@
 		};
 		3E65094626FCB26900ACDF41 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AAF6AB6870B6B64E324130C1 /* Pods-BarTab.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

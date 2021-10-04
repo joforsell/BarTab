@@ -6,22 +6,31 @@
 //
 
 import SwiftUI
+import Combine
+import Firebase
 
 class UserViewModel: ObservableObject {
+    @Published var userRepository = UserRepository()
     @Published var users = [User]()
     
-    init(){}
-        
+    var subscriptions = Set<AnyCancellable>()
+    
+    init(){
+        userRepository.$users
+            .assign(to: \.users, on: self)
+            .store(in: &subscriptions)
+    }
+    
     func addUser(name: String, balance: Int, key: String) {
-        let newUser = User(name: name, balance: balance, key: key, drinksBought: [])
-        users.append(newUser)
+        let newUser = User(name: name, balance: balance, key: key)
+        userRepository.addUser(newUser)
     }
     
     func removeUserBy(id: String) {
         users.removeAll(where: { $0.id == id })
     }
     
-    func addToBalanceOf(_ id: String) {
+    func addToBalance(of id: String) {
         if let index = users.firstIndex(where: { $0.id == id }) {
             users[index].balance += 10
         } else {
@@ -29,7 +38,7 @@ class UserViewModel: ObservableObject {
         }
     }
     
-    func subtractFromBalanceOf(_ id: String) {
+    func subtractFromBalance(of id: String) {
         if let index = users.firstIndex(where: { $0.id == id }) {
             users[index].balance -= 10
         } else {

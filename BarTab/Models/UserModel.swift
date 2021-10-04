@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
 struct User: Codable, Identifiable {
-    var id = UUID().uuidString
+    @DocumentID var id = UUID().uuidString
     var name: String
     var balance: Int
     var key: String
-    var drinksBought: [Drink]
+//    var drinksBought: [Drink]
 }

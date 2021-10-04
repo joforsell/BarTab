@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
 struct Drink: Codable, Identifiable {
-    var id = UUID().uuidString
+    @DocumentID var id = UUID().uuidString
     var name: String
     var price: Int
 }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>398136155549-c2ds2k1g8bdql2vbrpon85a89gmnh19i.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.398136155549-c2ds2k1g8bdql2vbrpon85a89gmnh19i</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAf43A-xhh9HbkITPTE5w66aKVsxGN0EVg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>398136155549</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.joforsell.BarTab</string>
+	<key>PROJECT_ID</key>
+	<string>bartab-d48b2</string>
+	<key>STORAGE_BUCKET</key>
+	<string>bartab-d48b2.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:398136155549:ios:6adac72b03d905ab026374</string>
+</dict>
+</plist>
