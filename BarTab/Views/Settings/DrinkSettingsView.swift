@@ -8,35 +8,60 @@
 import SwiftUI
 
 struct DrinkSettingsView: View {
-    @EnvironmentObject var drinkViewModel: DrinkViewModel
+    @EnvironmentObject var drinkVM: DrinkViewModel
     
+    @State var editMode: EditMode = .inactive
     @State private var showingAddDrinkView = false
+    @State private var newPrice = ""
     
     var body: some View {
         VStack {
-            List(drinkViewModel.drinks) { drink in
-                HStack {
-                    Text(drink.name)
-                    Spacer()
-                    Text("\(drink.price) kr")
+            List {
+                ForEach(drinkVM.drinks) { drink in
+                    HStack {
+                        Text(drink.name)
+                        Spacer()
+                        if editMode == .active {
+                            TextField("Nytt pris", text: $newPrice, onCommit: {
+                                drinkVM.adjustPriceOf(drink: drink.id!, to: Int(newPrice) ?? 0)
+                            })
+                                .frame(maxWidth: UIScreen.main.bounds.width / 8)
+                                .padding(4)
+                                .overlay(
+                                            RoundedRectangle(cornerRadius: 4)
+                                                .stroke(Color.black, lineWidth: 1)
+                                        )
+                            Image(systemName: "checkmark.circle.fill")
+                                .onTapGesture(perform: { drinkVM.adjustPriceOf(drink: drink.id!, to: Int(newPrice) ?? 0) })
+                        }
+                        Text("\(drink.price) kr")
+                            .frame(minWidth: UIScreen.main.bounds.width / 8, alignment: .trailing)
+                    }
                 }
+                .onDelete(perform: delete)
             }
             .sheet(isPresented: $showingAddDrinkView) {
                 AddDrinkView()
-                    .environmentObject(drinkViewModel)
+                    .environmentObject(drinkVM)
             }
             .navigationTitle("Drycker")
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: { showingAddDrinkView = true }) {
-                        Image(systemName: "plus.circle.fill")
-                            .font(.system(size: 30))
-                            .foregroundColor(.black)
-                            .padding()
-                    }
+                ToolbarItem(placement: .navigationBarTrailing) { EditButton()
+                        .font(.system(size: 30))
+                        .foregroundColor(.black)
+                        .padding()
                 }
             }
+            .environment(\.editMode, $editMode)
         }
+    }
+    
+    
+    func delete(at offsets: IndexSet) {
+        for index in offsets {
+            drinkVM.removeDrink(drinkVM.drinks[index].id!)
+        }
+        drinkVM.drinks.remove(atOffsets: offsets)
     }
 }
 

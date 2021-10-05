@@ -26,21 +26,28 @@ class UserViewModel: ObservableObject {
         userRepository.addUser(newUser)
     }
     
-    func removeUserBy(id: String) {
-        users.removeAll(where: { $0.id == id })
-    }
-    
-    func addToBalance(of id: String) {
+    func removeUser(_ id: String) {
         if let index = users.firstIndex(where: { $0.id == id }) {
-            users[index].balance += 10
+            let user = users[index]
+            userRepository.removeUser(user)
+        }
+    }
+        
+    func addToBalance(of id: String, by adjustment: Int) {
+        if let index = users.firstIndex(where: { $0.id == id }) {
+            var user = users[index]
+            user.balance += adjustment
+            userRepository.updateUser(user)
         } else {
             return
         }
     }
     
-    func subtractFromBalance(of id: String) {
+    func subtractFromBalance(of id: String, by adjustment: Int) {
         if let index = users.firstIndex(where: { $0.id == id }) {
-            users[index].balance -= 10
+            var user = users[index]
+            user.balance -= adjustment
+            userRepository.updateUser(user)
         } else {
             return
         }

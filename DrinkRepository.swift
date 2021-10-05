@@ -36,4 +36,24 @@ class DrinkRepository: ObservableObject {
             fatalError("Unable to encode user: \(error.localizedDescription)")
         }
     }
+    
+    func removeDrink(_ drink: Drink) {
+        if let drinkID = drink.id {
+            db.collection("drinks").document(drinkID).delete() { error in
+                if let error = error {
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    func updateDrink(_ drink: Drink) {
+        if let drinkID = drink.id{
+            do {
+                try db.collection("drinks").document(drinkID).setData(from: drink)
+            } catch {
+                fatalError("Unable to encode user: \(error.localizedDescription)")
+            }
+        }
+    }
 }
