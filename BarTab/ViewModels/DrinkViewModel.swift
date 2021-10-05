@@ -25,13 +25,18 @@ class DrinkViewModel: ObservableObject {
         drinkRepository.addDrink(newDrink)
     }
     
-    func removeDrinkBy(id: String) {
-        drinks.removeAll(where: { $0.id == id })
+    func removeDrink(_ id: String) {
+        if let index = drinks.firstIndex(where: { $0.id == id }) {
+            let drink = drinks[index]
+            drinkRepository.removeDrink(drink)
+        }
     }
     
-    func adjustPriceOfDrinkTo(_ newPrice: Int, id: String) {
+    func adjustPriceOf(drink id: String, to newPrice: Int) {
         if let index = drinks.firstIndex(where: { $0.id == id }) {
-            drinks[index].price = newPrice
+            var drink = drinks[index]
+            drink.price = newPrice
+            drinkRepository.updateDrink(drink)
         } else {
             return
         }

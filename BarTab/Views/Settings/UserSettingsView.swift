@@ -9,40 +9,47 @@ import SwiftUI
 
 struct UserSettingsView: View {
     @EnvironmentObject var userVM: UserViewModel
-    @Environment(\.editMode) var editMode
     
-    @State private var editingBalanceMode = false
+    @State var editMode: EditMode = .inactive
     
     var body: some View {
         VStack {
-            List(userVM.users) { user in
-                HStack {
-                    Text(user.name)
-                    Spacer()
-                    if editMode?.wrappedValue.isEditing ?? false {
-                        // TODO: Add pop-up numpad to type addition or subtraction.
-                        Image(systemName: "minus.circle.fill")
-                            .onTapGesture { userVM.subtractFromBalance(of: user.id!) }
-                            .foregroundColor(.red)
-                        Image(systemName: "plus.circle.fill")
-                            .onTapGesture { userVM.addToBalance(of: user.id!) }
-                            .foregroundColor(.green)
+            List {
+                ForEach(userVM.users) { user in
+                    HStack {
+                        Text(user.name)
+                        Spacer()
+                        if editMode == .active {
+                            // TODO: Add pop-up numpad to type addition or subtraction.
+                            Image(systemName: "minus.circle.fill")
+                                .onTapGesture { userVM.subtractFromBalance(of: user.id!, by: 10) }
+                                .foregroundColor(.red)
+                            Image(systemName: "plus.circle.fill")
+                                .onTapGesture { userVM.addToBalance(of: user.id!, by: 10) }
+                                .foregroundColor(.green)
+                        }
+                        Text("\(user.balance) kr")
                     }
-                    Text("\(user.balance) kr")
                 }
+                .onDelete(perform: delete)
             }
             .navigationTitle("Medlemmar")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) { EditButton()
-//                    Button(action: { editingBalanceMode.toggle() }) {
-//                        Image(systemName: "dollarsign.circle.fill")
                             .font(.system(size: 30))
                             .foregroundColor(.black)
                             .padding()
-//                    }
                 }
             }
+            .environment(\.editMode, $editMode)
         }
+    }
+    
+    func delete(at offsets: IndexSet) {
+        for index in offsets {
+            userVM.removeUser(userVM.users[index].id!)
+        }
+        userVM.users.remove(atOffsets: offsets)
     }
 }
 

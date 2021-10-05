@@ -25,6 +25,7 @@
 		3E7BF0B0270654E200BB230F /* DrinkSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BF0AF270654E200BB230F /* DrinkSettingsView.swift */; };
 		3E7BF0B22706552500BB230F /* AddDrinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BF0B12706552500BB230F /* AddDrinkView.swift */; };
 		3E7BF0B42706558500BB230F /* UserSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BF0B32706558500BB230F /* UserSettingsView.swift */; };
+		3E7EA78F270CEF1900CAB50C /* RoundedRectangleButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7EA78E270CEF1900CAB50C /* RoundedRectangleButtonStyle.swift */; };
 		3EBC4986270A4D7F006B4857 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBC4985270A4D7F006B4857 /* UserRepository.swift */; };
 		3EBC4988270B8845006B4857 /* DrinkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBC4987270B8845006B4857 /* DrinkRepository.swift */; };
 		586320732036D4A5209C7973 /* Pods_BarTab.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8551DB09EF5412BB8AE6E7 /* Pods_BarTab.framework */; };
@@ -50,6 +51,7 @@
 		3E7BF0AF270654E200BB230F /* DrinkSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkSettingsView.swift; sourceTree = "<group>"; };
 		3E7BF0B12706552500BB230F /* AddDrinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDrinkView.swift; sourceTree = "<group>"; };
 		3E7BF0B32706558500BB230F /* UserSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsView.swift; sourceTree = "<group>"; };
+		3E7EA78E270CEF1900CAB50C /* RoundedRectangleButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedRectangleButtonStyle.swift; sourceTree = "<group>"; };
 		3EBC4985270A4D7F006B4857 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		3EBC4987270B8845006B4857 /* DrinkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkRepository.swift; sourceTree = "<group>"; };
 		AAF6AB6870B6B64E324130C1 /* Pods-BarTab.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarTab.release.xcconfig"; path = "Target Support Files/Pods-BarTab/Pods-BarTab.release.xcconfig"; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 		3E7BEFE526FCDDA300453C1B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3E7EA78D270CEF0100CAB50C /* Styling */,
 				3E65093A26FCB26900ACDF41 /* MainView.swift */,
 				3E7BF0AC270654AB00BB230F /* Ordering */,
 				3E7BF0AD270654BE00BB230F /* Users */,
@@ -168,6 +171,14 @@
 				3E7BF0B12706552500BB230F /* AddDrinkView.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		3E7EA78D270CEF0100CAB50C /* Styling */ = {
+			isa = PBXGroup;
+			children = (
+				3E7EA78E270CEF1900CAB50C /* RoundedRectangleButtonStyle.swift */,
+			);
+			path = Styling;
 			sourceTree = "<group>";
 		};
 		3EBC4984270A4D64006B4857 /* Repositories */ = {
@@ -319,6 +330,7 @@
 			files = (
 				3E7BEFE726FCDDC400453C1B /* UserListView.swift in Sources */,
 				3E7BF0B22706552500BB230F /* AddDrinkView.swift in Sources */,
+				3E7EA78F270CEF1900CAB50C /* RoundedRectangleButtonStyle.swift in Sources */,
 				3E7BEFE426FCDD9900453C1B /* UserViewModel.swift in Sources */,
 				3E7BEFDC26FCDD1900453C1B /* UserModel.swift in Sources */,
 				3E7BEFEB26FCDDDE00453C1B /* SettingsView.swift in Sources */,

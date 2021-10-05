@@ -36,4 +36,24 @@ class UserRepository: ObservableObject {
             fatalError("Unable to encode user: \(error.localizedDescription)")
         }
     }
+    
+    func removeUser(_ user: User) {
+        if let userID = user.id {
+            db.collection("users").document(userID).delete() { error in
+                if let error = error {
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    func updateUser(_ user: User) {
+        if let userID = user.id{
+            do {
+                try db.collection("users").document(userID).setData(from: user)
+            } catch {
+                fatalError("Unable to encode user: \(error.localizedDescription)")
+            }
+        }
+    }
 }
