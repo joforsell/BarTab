@@ -9,7 +9,7 @@ import SwiftUI
 import Introspect
 
 struct AddUserView: View {
-    @EnvironmentObject var userVM: UserViewModel
+    @EnvironmentObject var userVM: CustomerViewModel
     @Environment(\.presentationMode) var presentationMode
     
     enum Field {
@@ -73,7 +73,7 @@ struct AddUserView: View {
             if isShowingTagView {
                 ZStack {
                     TextField("Läs av tag", text: $tagKey, onCommit: {
-                        userVM.addUser(name: self.name, balance: Int(self.balance) ?? 0, key: self.tagKey)
+                        userVM.addCustomer(name: self.name, balance: Int(self.balance) ?? 0, key: self.tagKey)
                         presentationMode.wrappedValue.dismiss()
                     })
                         .introspectTextField { textField in
@@ -105,11 +105,11 @@ struct AddUserView_Previews: PreviewProvider {
     static var previews: some View {
         if #available(iOS 15.0, *) {
             AddUserView()
-                .environmentObject(UserViewModel())
+                .environmentObject(CustomerViewModel())
                 .previewInterfaceOrientation(.landscapeRight)
         } else {
             AddUserView()
-                .environmentObject(UserViewModel())
+                .environmentObject(CustomerViewModel())
         }
     }
 }

@@ -46,10 +46,20 @@ struct DrinkSettingsView: View {
             }
             .navigationTitle("Drycker")
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) { EditButton()
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    HStack {
+                        Button(action: {
+                            showingAddDrinkView = true
+                        }) {
+                            Image(systemName: "plus.circle.fill")
+                                .foregroundColor(.black)
+                        }
+
+                        EditButton()
                         .font(.system(size: 30))
                         .foregroundColor(.black)
                         .padding()
+                    }
                 }
             }
             .environment(\.editMode, $editMode)

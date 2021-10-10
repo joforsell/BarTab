@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct InputView: View {
-    @EnvironmentObject var userStore: UserViewModel
+    @EnvironmentObject var userStore: CustomerViewModel
     @EnvironmentObject var drinkStore: DrinkViewModel
     
     @State private var isShowingOrderView = false
@@ -91,12 +91,12 @@ struct InputView_Previews: PreviewProvider {
     static var previews: some View {
         if #available(iOS 15.0, *) {
             InputView()
-                .environmentObject(UserViewModel())
+                .environmentObject(CustomerViewModel())
                 .environmentObject(DrinkViewModel())
                 .previewInterfaceOrientation(.landscapeRight)
         } else {
             InputView()
-                .environmentObject(UserViewModel())
+                .environmentObject(CustomerViewModel())
                 .environmentObject(DrinkViewModel())
         }
     }

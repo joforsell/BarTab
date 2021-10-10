@@ -10,8 +10,9 @@ import Firebase
 
 @main
 struct BarTabApp: App {
-    @StateObject var userStore = UserViewModel()
-    @StateObject var drinkStore = DrinkViewModel()
+    @StateObject var customerVM = CustomerViewModel()
+    @StateObject var drinkVM = DrinkViewModel()
+    @StateObject var userInfo = UserInfo()
     
     init() {
         FirebaseApp.configure()
@@ -20,8 +21,9 @@ struct BarTabApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()
-                .environmentObject(userStore)
-                .environmentObject(drinkStore)
+                .environmentObject(customerVM)
+                .environmentObject(drinkVM)
+                .environmentObject(userInfo)
         }
     }
 }

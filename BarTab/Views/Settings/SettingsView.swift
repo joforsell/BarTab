@@ -8,17 +8,19 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @EnvironmentObject var drinkViewModel: DrinkViewModel
-    @EnvironmentObject var userViewModel: UserViewModel
+
     
     var body: some View {
         NavigationView {
             List {
-                NavigationLink(destination: DrinkSettingsView().environmentObject(drinkViewModel)) {
+                NavigationLink(destination: DrinkSettingsView()) {
                     Text("Drycker")
                 }
-                NavigationLink(destination: UserSettingsView().environmentObject(userViewModel)) {
+                NavigationLink(destination: CustomerSettingsView()) {
                     Text("Medlemmar")
+                }
+                NavigationLink(destination: UserSettingsView()) {
+                    Text("Användare")
                 }
             }
             .navigationTitle("Inställningar")
