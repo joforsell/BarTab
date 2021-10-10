@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct UserListView: View {
-    @EnvironmentObject var userVM: UserViewModel
+    @EnvironmentObject var customerVM: CustomerViewModel
     
     @State private var isShowingAddMemberSheet = false
     
@@ -27,12 +27,12 @@ struct UserListView: View {
                 .font(.system(size: 30))
             }
             List {
-                ForEach(userVM.users) { user in
+                ForEach(customerVM.customers) { customer in
                     HStack {
-                        Text(user.name)
+                        Text(customer.name)
                         Spacer()
-                        Text("\(user.balance) kr")
-                            .foregroundColor(user.balance < 0 ? .red : .green)
+                        Text("\(customer.balance) kr")
+                            .foregroundColor(customer.balance < 0 ? .red : .green)
                     }
                 }
             }
@@ -48,11 +48,11 @@ struct UserListView_Previews: PreviewProvider {
     static var previews: some View {
         if #available(iOS 15.0, *) {
             UserListView()
-                .environmentObject(UserViewModel())
+                .environmentObject(CustomerViewModel())
                 .previewInterfaceOrientation(.landscapeRight)
         } else {
             UserListView()
-                .environmentObject(UserViewModel())
+                .environmentObject(CustomerViewModel())
         }
     }
 }

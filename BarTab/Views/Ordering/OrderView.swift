@@ -9,7 +9,7 @@ import SwiftUI
 import Introspect
 
 struct OrderView: View {
-    @EnvironmentObject var userVM: UserViewModel
+    @EnvironmentObject var userVM: CustomerViewModel
     @Environment(\.presentationMode) var presentationMode
     
     @State private var tagKey = ""

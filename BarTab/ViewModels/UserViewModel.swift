@@ -2,62 +2,82 @@
 //  UserViewModel.swift
 //  BarTab
 //
-//  Created by Johan Forsell on 2021-09-23.
+//  Created by Johan Forsell on 2021-10-09.
 //
 
 import SwiftUI
-import Combine
-import Firebase
 
-class UserViewModel: ObservableObject {
-    @Published var userRepository = UserRepository()
-    @Published var users = [User]()
+struct UserViewModel {
+    var email: String = ""
+    var password: String = ""
+    var displayName: String = ""
+    var confirmPassword: String = ""
     
-    var subscriptions = Set<AnyCancellable>()
-    
-    init(){
-        userRepository.$users
-            .assign(to: \.users, on: self)
-            .store(in: &subscriptions)
+    func passwordsMatch(_confirmPassword: String) -> Bool {
+        _confirmPassword == password
     }
     
-    func addUser(name: String, balance: Int, key: String) {
-        let newUser = User(name: name, balance: balance, key: key)
-        userRepository.addUser(newUser)
+    func isEmpty(_field: String) -> Bool {
+        _field.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
     
-    func removeUser(_ id: String) {
-        if let index = users.firstIndex(where: { $0.id == id }) {
-            let user = users[index]
-            userRepository.removeUser(user)
+    func isEmailValid(_email: String) -> Bool {
+        let passwordTest = NSPredicate(format: "SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
+        return passwordTest.evaluate(with: email)
+    }
+    
+    func isPasswordValid(_password: String) -> Bool {
+        let passwordTest = NSPredicate(format: "SELF MATCHES %@", "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$")
+        return passwordTest.evaluate(with: password)
+    }
+    
+    var isSignInComplete: Bool {
+        if  !isEmailValid(_email: email) ||
+            isEmpty(_field: displayName) ||
+            !isPasswordValid(_password: password) ||
+                !passwordsMatch(_confirmPassword: confirmPassword) {
+            return false
+        }
+        return true
+    }
+    
+    var isLoginComplete: Bool {
+        if  isEmpty(_field: email) ||
+                isEmpty(_field: password) {
+            return false
+        }
+        return true
+    }
+    
+    var validNameText: String {
+        if !isEmpty(_field: displayName) {
+            return ""
+        } else {
+            return "Skriv in önskat användarnamn."
         }
     }
-        
-    func addToBalance(of id: String, by adjustment: Int) {
-        if let index = users.firstIndex(where: { $0.id == id }) {
-            var user = users[index]
-            user.balance += adjustment
-            userRepository.updateUser(user)
+    
+    var validEmailAddressText: String {
+        if isEmailValid(_email: email) {
+            return ""
         } else {
-            return
+            return "Skriv in giltig mailadress."
         }
     }
     
-    func subtractFromBalance(of id: String, by adjustment: Int) {
-        if let index = users.firstIndex(where: { $0.id == id }) {
-            var user = users[index]
-            user.balance -= adjustment
-            userRepository.updateUser(user)
+    var validPasswordText: String {
+        if isPasswordValid(_password: password) {
+            return ""
         } else {
-            return
+            return "Lösenordet måste innehålla minst 8 tecken, varav ett nummer och en versal."
         }
     }
     
-    func drinkBought(by key: String, for price: Int) {
-        if let index = users.firstIndex(where: { $0.key == key }) {
-            users[index].balance -= price
+    var validConfirmPasswordText: String {
+        if passwordsMatch(_confirmPassword: confirmPassword) {
+            return ""
         } else {
-            return
+            return "Lösenordsfälten matchar inte."
         }
     }
 }
