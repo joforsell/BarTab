@@ -21,6 +21,7 @@ struct SignInWithEmailView: View {
             TextField("Mailadress", text: $user.email)
                 .autocapitalization(.none)
                 .keyboardType(.emailAddress)
+                .disableAutocorrection(true)
             SecureField("Lösenord", text: $user.password)
             HStack {
                 Spacer()
