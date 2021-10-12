@@ -22,23 +22,33 @@ struct SignInWithEmailView: View {
                 .autocapitalization(.none)
                 .keyboardType(.emailAddress)
                 .disableAutocorrection(true)
-            SecureField("Lösenord", text: $user.password)
+            SecureField("Lösenord", text: $user.password, onCommit: {
+                Authentication.authenticate(withEmail: user.email, password: user.password) { result in
+                    switch result {
+                    case .failure(let error):
+                        authError = error
+                        showAlert = true
+                    case .success( _):
+                        print("Inloggad")
+                    }
+                }
+            })
             HStack {
                 Spacer()
                 Button(action: {
-                    self.action = .resetPassword
-                    self.showSheet = true
+                    action = .resetPassword
+                    showSheet = true
                 }) {
                     Text("Glömt lösenordet")
                 }
             }.padding(.bottom)
             VStack(spacing: 10) {
                 Button(action: {
-                    Authentication.authenticate(withEmail: self.user.email, password: self.user.password) { result in
+                    Authentication.authenticate(withEmail: user.email, password: user.password) { result in
                         switch result {
                         case .failure(let error):
-                            self.authError = error
-                            self.showAlert = true
+                            authError = error
+                            showAlert = true
                         case .success( _):
                             print("Inloggad")
                         }
@@ -53,8 +63,8 @@ struct SignInWithEmailView: View {
                         .opacity(user.isLoginComplete ? 1 : 0.7)
                 }.disabled(!user.isLoginComplete)
                 Button(action: {
-                    self.action = .signUp
-                    self.showSheet = true
+                    action = .signUp
+                    showSheet = true
                 }) {
                     Text("Skapa konto")
                         .padding(.vertical, 15)
@@ -65,12 +75,12 @@ struct SignInWithEmailView: View {
                 }
             }
             .alert(isPresented: $showAlert) {
-                Alert(title: Text("Fel vid inloggning"), message: Text(self.authError?.localizedDescription ?? "Okänt fel"), dismissButton: .default(Text("OK")) {
-                    if self.authError == .incorrectPassword {
-                        self.user.password = ""
+                Alert(title: Text("Fel vid inloggning"), message: Text(authError?.localizedDescription ?? "Okänt fel"), dismissButton: .default(Text("OK")) {
+                    if authError == .incorrectPassword {
+                        user.password = ""
                     } else {
-                        self.user.password = ""
-                        self.user.email = ""
+                        user.password = ""
+                        user.email = ""
                     }
                 })
             }
