@@ -7,19 +7,24 @@
 
 import SwiftUI
 import Introspect
+import ToastUI
 
 struct OrderView: View {
     @EnvironmentObject var userVM: CustomerViewModel
     @Environment(\.presentationMode) var presentationMode
     
     @State private var tagKey = ""
+    @State private var showToast = false
     var drink: Drink
     
     var body: some View {
         ZStack {
             TextField("Läs av tag", text: $tagKey, onCommit: {
-                userVM.drinkBought(by: self.tagKey, for: self.drink.price)
-                presentationMode.wrappedValue.dismiss()
+                userVM.drinkBought(by: tagKey, for: drink.price)
+                showToast = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    presentationMode.wrappedValue.dismiss()
+                }
             })
                 .introspectTextField { textField in
                     textField.becomeFirstResponder()
@@ -45,6 +50,9 @@ struct OrderView: View {
                 }
                 Spacer()
             }
+        }
+        .toast(isPresented: $showToast, dismissAfter: 2) {
+            CheckmarkView(height: 60, width: 60, drink: drink)
         }
     }
 }

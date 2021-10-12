@@ -18,7 +18,7 @@ struct LoginView: View {
     var body: some View {
         SignInWithEmailView(showSheet: $showSheet, action: $action)
             .sheet(isPresented: $showSheet) {
-                if self.action == .signUp {
+                if action == .signUp {
                     SignUpView()
                 } else {
                     ForgotPasswordView()

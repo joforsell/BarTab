@@ -20,17 +20,17 @@ extension EmailAuthError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .incorrectPassword:
-            return NSLocalizedString("Incorrect Password for this account", comment: "")
+            return NSLocalizedString("Lösenordet stämmer inte med användaren.", comment: "")
         case .invalidEmail:
-             return NSLocalizedString("Not a valid email address.", comment: "")
+             return NSLocalizedString("Ej giltig mailadress.", comment: "")
         case .accoundDoesNotExist:
-            return NSLocalizedString("Not a valid email address.  This account does not exist.", comment: "")
+            return NSLocalizedString("Mailadress ej registrerad till en användare.", comment: "")
         case .unknownError:
-            return NSLocalizedString("Unknown error.  Cannot log in.", comment: "")
+            return NSLocalizedString("Okänt fel.", comment: "")
         case .couldNotCreate:
-            return NSLocalizedString("Could not create user at this time.", comment: "")
+            return NSLocalizedString("Kunde inte skapa ett konto.", comment: "")
         case .extraDataNotCreated:
-            return NSLocalizedString("Could not save user's full name.", comment: "")
+            return NSLocalizedString("Kunde inte spara användarnamn.", comment: "")
         }
     }
 }

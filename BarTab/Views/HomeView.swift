@@ -29,7 +29,7 @@ struct HomeView: View {
                 case .failure(let error):
                     print(error.localizedDescription)
                 case .success(let user):
-                    self.userInfo.user = user
+                    userInfo.user = user
                 }
             }
         }

@@ -19,25 +19,25 @@ struct SignUpView: View {
             VStack {
                 Group {
                     VStack(alignment: .leading) {
-                        TextField("Användarnamn", text: self.$user.displayName).autocapitalization(.words).disableAutocorrection(true)
+                        TextField("Användarnamn", text: $user.displayName).autocapitalization(.words).disableAutocorrection(true)
                         if !user.validNameText.isEmpty {
                             Text(user.validNameText).font(.caption).foregroundColor(.red)
                         }
                     }
                     VStack(alignment: .leading) {
-                        TextField("Mailadress", text: self.$user.email).autocapitalization(.none).disableAutocorrection(true).keyboardType(.emailAddress)
+                        TextField("Mailadress", text: $user.email).autocapitalization(.none).disableAutocorrection(true).keyboardType(.emailAddress)
                         if !user.validEmailAddressText.isEmpty {
                             Text(user.validEmailAddressText).font(.caption).foregroundColor(.red)
                         }
                     }
                     VStack(alignment: .leading) {
-                        SecureField("Lösenord", text: self.$user.password)
+                        SecureField("Lösenord", text: $user.password)
                         if !user.validPasswordText.isEmpty {
                             Text(user.validPasswordText).font(.caption).foregroundColor(.red)
                         }
                     }
                     VStack(alignment: .leading) {
-                        SecureField("Bekräfta lösenord", text: self.$user.confirmPassword)
+                        SecureField("Bekräfta lösenord", text: $user.confirmPassword)
                         if !user.passwordsMatch(_confirmPassword: user.confirmPassword) {
                             Text(user.validConfirmPasswordText).font(.caption).foregroundColor(.red)
                         }
@@ -47,7 +47,7 @@ struct SignUpView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 VStack(spacing: 20) {
                     Button(action: {
-                        Authentication.createUser(withEmail: self.user.email, name: self.user.displayName, password: self.user.password) { result in
+                        Authentication.createUser(withEmail: user.email, name: user.displayName, password: user.password) { result in
                             switch result {
                             case .failure(let error):
                                 errorString = error.localizedDescription
@@ -76,7 +76,7 @@ struct SignUpView: View {
             }
             .navigationBarTitle("Skapa konto", displayMode: .inline)
             .navigationBarItems(trailing: Button("Stäng") {
-                self.presentationMode.wrappedValue.dismiss()
+                presentationMode.wrappedValue.dismiss()
             })
         }
     }
