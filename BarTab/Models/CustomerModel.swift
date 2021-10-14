@@ -13,6 +13,6 @@ struct Customer: Codable, Identifiable {
     var name: String
     var balance: Int
     var key: String
-    var email: String?
+    var email: String
 //    var drinksBought: [Drink]
 }

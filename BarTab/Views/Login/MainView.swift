@@ -13,7 +13,8 @@ struct MainView: View {
     var body: some View {
         Group {
             if userInfo.isUserAuthenticated == .undefined {
-                Text("Loading...")
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
             } else if userInfo.isUserAuthenticated == .signedOut {
                 LoginView()
             } else {

@@ -52,13 +52,14 @@ struct DrinkSettingsView: View {
                             showingAddDrinkView = true
                         }) {
                             Image(systemName: "plus.circle.fill")
+                                .font(.largeTitle)
                                 .foregroundColor(.black)
                         }
 
                         EditButton()
-                        .font(.system(size: 30))
-                        .foregroundColor(.black)
-                        .padding()
+                            .font(.largeTitle)
+                            .foregroundColor(.black)
+                            .padding()
                     }
                 }
             }

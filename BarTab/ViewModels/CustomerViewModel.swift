@@ -12,6 +12,7 @@ import Firebase
 class CustomerViewModel: ObservableObject {
     @Published var customerRepository = CustomerRepository()
     @Published var customers = [Customer]()
+    let emailSender = EmailSender()
     
     var subscriptions = Set<AnyCancellable>()
     
@@ -21,8 +22,8 @@ class CustomerViewModel: ObservableObject {
             .store(in: &subscriptions)
     }
     
-    func addCustomer(name: String, balance: Int, key: String) {
-        let newCustomer = Customer(name: name, balance: balance, key: key)
+    func addCustomer(name: String, balance: Int, key: String, email: String) {
+        let newCustomer = Customer(name: name, balance: balance, key: key, email: email)
         customerRepository.addCustomer(newCustomer)
     }
     
@@ -59,5 +60,9 @@ class CustomerViewModel: ObservableObject {
         } else {
             return
         }
+    }
+    
+    func sendEmails(from association: String?) {
+        emailSender.sendEmails(to: customers, from: association)
     }
 }

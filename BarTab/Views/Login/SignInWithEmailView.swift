@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SignInWithEmailView: View {
-    @EnvironmentObject var userInfo: UserInfo
     @State var user: UserViewModel = UserViewModel()
     @Binding var showSheet: Bool
     @Binding var action: LoginView.Action?
