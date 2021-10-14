@@ -15,7 +15,7 @@ class UserInfo: ObservableObject {
     }
     
     @Published var isUserAuthenticated: AuthState = .undefined
-    @Published var user: User = .init(uid: "", displayName: "", email: "")
+    @Published var user: User = .init(uid: "", displayName: "", email: "", association: "")
     
     var authStateDidChangeListenerHandle: AuthStateDidChangeListenerHandle?
     
@@ -26,14 +26,6 @@ class UserInfo: ObservableObject {
                 return
             }
             self.isUserAuthenticated = .signedIn
-//            UserHandling.retrieveUser(uid: user.uid) { result in
-//                switch result {
-//                case .failure(let error):
-//                    print(error.localizedDescription)
-//                case .success(let user):
-//                    self.user = user
-//                }
-//            }
         })
     }
 }

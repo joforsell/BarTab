@@ -17,6 +17,7 @@ struct AddUserView: View {
     }
     
     @State private var name = ""
+    @State private var email = ""
     @State private var balance = ""
     @State private var tagKey = ""
     @State private var isShowingTagView = false
@@ -52,6 +53,12 @@ struct AddUserView: View {
                     .overlay(RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.black))
                     .padding()
+                TextField("Mailadress", text: $email)
+                    .frame(width: UIScreen.main.bounds.width / 3, alignment: .center)
+                    .padding()
+                    .overlay(RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.black))
+                    .padding()
                 TextField("Saldo", text: $balance)
                     .frame(width: UIScreen.main.bounds.width / 3, alignment: .center)
                     .padding()
@@ -73,7 +80,7 @@ struct AddUserView: View {
             if isShowingTagView {
                 ZStack {
                     TextField("Läs av tag", text: $tagKey, onCommit: {
-                        userVM.addCustomer(name: self.name, balance: Int(self.balance) ?? 0, key: self.tagKey)
+                        userVM.addCustomer(name: self.name, balance: Int(self.balance) ?? 0, key: self.tagKey, email: self.email)
                         presentationMode.wrappedValue.dismiss()
                     })
                         .introspectTextField { textField in

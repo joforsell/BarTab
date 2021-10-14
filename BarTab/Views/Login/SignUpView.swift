@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SignUpView: View {
-    @EnvironmentObject var userInfo: UserInfo
     @State private var user: UserViewModel = UserViewModel()
     @Environment(\.presentationMode) var presentationMode
     @State private var showError = false

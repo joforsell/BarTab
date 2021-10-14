@@ -17,5 +17,6 @@ enum UserKeys {
         static let uid = "uid"
         static let displayName = "displayName"
         static let email = "email"
+        static let association = "association"
     }
 }

@@ -16,7 +16,7 @@ struct UserListView: View {
         VStack {
             HStack {
                 Label("Medlemmar", systemImage: "person.2.fill")
-                    .font(.system(size: 30))
+                    .font(.largeTitle)
                     .padding(EdgeInsets(top: 20, leading: 20, bottom: 10, trailing: 0))
                 Spacer()
                 Button(action: { isShowingAddMemberSheet = true }) {

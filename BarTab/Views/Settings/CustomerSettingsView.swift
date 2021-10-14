@@ -9,7 +9,8 @@ import SwiftUI
 
 struct CustomerSettingsView: View {
     @EnvironmentObject var customerVM: CustomerViewModel
-    
+    @EnvironmentObject var userInfo: UserInfo
+
     @State var editMode: EditMode = .inactive
     
     var body: some View {
@@ -35,8 +36,18 @@ struct CustomerSettingsView: View {
             }
             .navigationTitle("Medlemmar")
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) { EditButton()
-                            .font(.system(size: 30))
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        customerVM.sendEmails(from: userInfo.user.association)
+                    } label: {
+                        Image(systemName: "envelope.fill")
+                            .font(.largeTitle)
+                            .foregroundColor(.black)
+                    }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    EditButton()
+                            .font(.largeTitle)
                             .foregroundColor(.black)
                             .padding()
                 }

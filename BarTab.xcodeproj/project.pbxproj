@@ -42,6 +42,7 @@
 		3E7BF0B22706552500BB230F /* AddDrinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BF0B12706552500BB230F /* AddDrinkView.swift */; };
 		3E7BF0B42706558500BB230F /* CustomerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BF0B32706558500BB230F /* CustomerSettingsView.swift */; };
 		3E7EA78F270CEF1900CAB50C /* RoundedRectangleButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7EA78E270CEF1900CAB50C /* RoundedRectangleButtonStyle.swift */; };
+		3E8645D52718A3C0009BFFAA /* EmailSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8645D42718A3C0009BFFAA /* EmailSender.swift */; };
 		3EBC4986270A4D7F006B4857 /* CustomerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBC4985270A4D7F006B4857 /* CustomerRepository.swift */; };
 		3EBC4988270B8845006B4857 /* DrinkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBC4987270B8845006B4857 /* DrinkRepository.swift */; };
 		3EE4101A27137C4E00A808B6 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 3EE4101927137C4E00A808B6 /* FirebaseAnalytics */; };
@@ -86,6 +87,7 @@
 		3E7BF0B12706552500BB230F /* AddDrinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDrinkView.swift; sourceTree = "<group>"; };
 		3E7BF0B32706558500BB230F /* CustomerSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSettingsView.swift; sourceTree = "<group>"; };
 		3E7EA78E270CEF1900CAB50C /* RoundedRectangleButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedRectangleButtonStyle.swift; sourceTree = "<group>"; };
+		3E8645D42718A3C0009BFFAA /* EmailSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSender.swift; sourceTree = "<group>"; };
 		3EBC4985270A4D7F006B4857 /* CustomerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerRepository.swift; sourceTree = "<group>"; };
 		3EBC4987270B8845006B4857 /* DrinkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -250,6 +252,7 @@
 			children = (
 				3EBC4985270A4D7F006B4857 /* CustomerRepository.swift */,
 				3EBC4987270B8845006B4857 /* DrinkRepository.swift */,
+				3E8645D42718A3C0009BFFAA /* EmailSender.swift */,
 			);
 			name = Repositories;
 			path = ..;
@@ -339,6 +342,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E7BEFE726FCDDC400453C1B /* UserListView.swift in Sources */,
+				3E8645D52718A3C0009BFFAA /* EmailSender.swift in Sources */,
 				3E7BF0B22706552500BB230F /* AddDrinkView.swift in Sources */,
 				3E7EA78F270CEF1900CAB50C /* RoundedRectangleButtonStyle.swift in Sources */,
 				3E60E3B127117A5200F1363B /* SignInWithEmailView.swift in Sources */,
