@@ -10,8 +10,13 @@ import SwiftUI
 struct CustomerSettingsView: View {
     @EnvironmentObject var customerVM: CustomerViewModel
     @EnvironmentObject var userInfo: UserInfo
+    
+    @AppStorage("latestEmail") var latestEmail: Date = Date(timeIntervalSinceReferenceDate: 60000)
 
     @State var editMode: EditMode = .inactive
+    
+    @State private var showError = false
+    @State private var errorString = ""
     
     var body: some View {
         VStack {
@@ -38,11 +43,25 @@ struct CustomerSettingsView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        customerVM.sendEmails(from: userInfo.user.association)
+                        if -latestEmail.timeIntervalSinceNow > 86400 {
+                            customerVM.sendEmails(from: userInfo.user.association) { result in
+                                switch result {
+                                case .failure(let error):
+                                    errorString = error.localizedDescription
+                                    showError = true
+                                case .success( _):
+                                    latestEmail = Date()
+                                }
+                            }
+                            latestEmail = Date()
+                        } else {
+                            errorString = "Du kan inte göra mailutskick oftare än var 24:e timma."
+                            showError = true
+                        }
                     } label: {
                         Image(systemName: "envelope.fill")
                             .font(.largeTitle)
-                            .foregroundColor(.black)
+                            .foregroundColor(-latestEmail.timeIntervalSinceNow > 86400 ? .black : .gray)
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -54,6 +73,9 @@ struct CustomerSettingsView: View {
             }
             .environment(\.editMode, $editMode)
         }
+        .alert(isPresented: $showError) {
+            Alert(title: Text("Kunde inte göra mailutskick"), message: Text(errorString), dismissButton: .default(Text("OK")))
+        }
     }
     
     func delete(at offsets: IndexSet) {
@@ -61,6 +83,11 @@ struct CustomerSettingsView: View {
             customerVM.removeCustomer(customerVM.customers[index].id!)
         }
         customerVM.customers.remove(atOffsets: offsets)
+    }
+    
+    func hasOneDayElapsedSinceLatestEmail(_ date: Date) -> Bool {
+        let timeSinceLatestEmail = -latestEmail.timeIntervalSinceNow
+        return timeSinceLatestEmail > 86400
     }
 }
 

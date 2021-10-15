@@ -29,6 +29,7 @@
 		3E662B60270100D800033A11 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E662B5F270100D800033A11 /* OrderView.swift */; };
 		3E68107F27081D6D00C0F5B0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3E68107E27081D6D00C0F5B0 /* GoogleService-Info.plist */; };
 		3E694A422700670400DF0A08 /* AddUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E694A412700670400DF0A08 /* AddUserView.swift */; };
+		3E6E508A2719B603009040FC /* Date+RawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6E50892719B603009040FC /* Date+RawRepresentable.swift */; };
 		3E7062D727148D4A00B02C4E /* CheckmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7062D627148D4A00B02C4E /* CheckmarkView.swift */; };
 		3E7062DA27149AB500B02C4E /* ToastUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3E7062D927149AB500B02C4E /* ToastUI */; };
 		3E7BEFDC26FCDD1900453C1B /* CustomerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFDB26FCDD1900453C1B /* CustomerModel.swift */; };
@@ -75,6 +76,7 @@
 		3E662B5F270100D800033A11 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
 		3E68107E27081D6D00C0F5B0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3E694A412700670400DF0A08 /* AddUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserView.swift; sourceTree = "<group>"; };
+		3E6E50892719B603009040FC /* Date+RawRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+RawRepresentable.swift"; sourceTree = "<group>"; };
 		3E7062D627148D4A00B02C4E /* CheckmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckmarkView.swift; sourceTree = "<group>"; };
 		3E7BEFDB26FCDD1900453C1B /* CustomerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerModel.swift; sourceTree = "<group>"; };
 		3E7BEFDD26FCDD2800453C1B /* DrinkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkViewModel.swift; sourceTree = "<group>"; };
@@ -154,10 +156,11 @@
 			isa = PBXGroup;
 			children = (
 				3E65093826FCB26900ACDF41 /* BarTabApp.swift */,
+				3E6E50882719B5C0009040FC /* Extensions */,
 				3E7BEFE526FCDDA300453C1B /* Views */,
 				3E7BEFE226FCDD7400453C1B /* ViewModels */,
-				3EBC4984270A4D64006B4857 /* Repositories */,
 				3E7BEFDF26FCDD2D00453C1B /* Models */,
+				3EBC4984270A4D64006B4857 /* Repositories */,
 				3E5F335C2712AD87005340B6 /* Authentication */,
 				3E65093C26FCB26900ACDF41 /* Assets.xcassets */,
 				3E68107E27081D6D00C0F5B0 /* GoogleService-Info.plist */,
@@ -173,6 +176,14 @@
 				3E65093F26FCB26900ACDF41 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		3E6E50882719B5C0009040FC /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3E6E50892719B603009040FC /* Date+RawRepresentable.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		3E7BEFDF26FCDD2D00453C1B /* Models */ = {
@@ -366,6 +377,7 @@
 				3E7BEFDE26FCDD2800453C1B /* DrinkViewModel.swift in Sources */,
 				3E60E3AB271161A500F1363B /* LoginView.swift in Sources */,
 				3E60E3B427117A7F00F1363B /* ForgotPasswordView.swift in Sources */,
+				3E6E508A2719B603009040FC /* Date+RawRepresentable.swift in Sources */,
 				3E60E3AD2711740D00F1363B /* UserSettingsView.swift in Sources */,
 				3E7BF0B42706558500BB230F /* CustomerSettingsView.swift in Sources */,
 				3E5F33642712AF95005340B6 /* UserHandling.swift in Sources */,
