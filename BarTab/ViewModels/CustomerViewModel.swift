@@ -62,7 +62,9 @@ class CustomerViewModel: ObservableObject {
         }
     }
     
-    func sendEmails(from association: String?) {
-        emailSender.sendEmails(to: customers, from: association)
+    func sendEmails(from association: String?, completion: @escaping (Result<Bool, Error>) -> Void) {
+        emailSender.sendEmails(to: customers, from: association) { result in
+            completion(result)
+        }
     }
 }

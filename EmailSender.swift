@@ -13,7 +13,7 @@ class EmailSender {
     
     let db = Firestore.firestore()
     
-    func sendEmails(to customers: [Customer], from association: String?) {
+    func sendEmails(to customers: [Customer], from association: String?, completion: @escaping (Result<Bool, Error>) -> ()) {
         for customer in customers {
             db.collection("mail").addDocument(data: [
                 "to" : customer.email,
@@ -24,8 +24,10 @@ class EmailSender {
             ]) { error in
                 if let error = error {
                     print("Fel vid skrivande av dokument: \(error)")
+                    completion(.failure(error))
                 } else {
                     print("Dokumentet skrevs.")
+                    completion(.success(true))
                 }
             }
         }

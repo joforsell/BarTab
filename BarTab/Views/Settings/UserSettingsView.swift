@@ -67,6 +67,7 @@ struct UserSettingsView: View {
                     Label("Logga ut", systemImage: "rectangle.portrait.and.arrow.right")
                         .font(.largeTitle)
                         .foregroundColor(.black)
+                        .padding()
                 }
             }
         }
@@ -83,8 +84,14 @@ struct UserSettingsView: View {
             association: association
         )
         
-        UserHandling.mergeUser(data, uid: userInfo.user.uid) { _ in
-            
+        UserHandling.mergeUser(data, uid: userInfo.user.uid) { result in
+            switch result {
+            case .failure(let error):
+                errorString = error.localizedDescription
+                showError = true
+            case .success( _):
+                print("Uppdaterade förening eller företag.")
+            }
         }
         
         userInfo.user.association = association
