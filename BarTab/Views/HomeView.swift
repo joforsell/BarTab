@@ -15,7 +15,7 @@ struct HomeView: View {
         TabView {
             InputView()
                 .tabItem { Label("Beställ", systemImage: "plus.circle.fill") }
-            UserListView()
+            CustomerListView()
                 .tabItem { Label("Medlemmar", systemImage: "person.2.fill") }
             SettingsView()
                 .tabItem { Label("Inställningar", systemImage: "gearshape.fill") }

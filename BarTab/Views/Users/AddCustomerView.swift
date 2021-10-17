@@ -1,5 +1,5 @@
 //
-//  AddUserView.swift
+//  AddCustomerView.swift
 //  BarTab
 //
 //  Created by Johan Forsell on 2021-09-26.
@@ -8,7 +8,7 @@
 import SwiftUI
 import Introspect
 
-struct AddUserView: View {
+struct AddCustomerView: View {
     @EnvironmentObject var userVM: CustomerViewModel
     @Environment(\.presentationMode) var presentationMode
     
@@ -48,18 +48,23 @@ struct AddUserView: View {
                 }
 
                 TextField("Namn", text: $name)
+                    .disableAutocorrection(true)
                     .frame(width: UIScreen.main.bounds.width / 3, alignment: .center)
                     .padding()
                     .overlay(RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.black))
                     .padding()
                 TextField("Mailadress", text: $email)
+                    .autocapitalization(.none)
+                    .keyboardType(.emailAddress)
+                    .disableAutocorrection(true)
                     .frame(width: UIScreen.main.bounds.width / 3, alignment: .center)
                     .padding()
                     .overlay(RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.black))
                     .padding()
                 TextField("Saldo", text: $balance)
+                    .keyboardType(.numberPad)
                     .frame(width: UIScreen.main.bounds.width / 3, alignment: .center)
                     .padding()
                     .overlay(RoundedRectangle(cornerRadius: 10)
@@ -108,14 +113,14 @@ struct AddUserView: View {
     }
 }
 
-struct AddUserView_Previews: PreviewProvider {
+struct AddCustomerView_Previews: PreviewProvider {
     static var previews: some View {
         if #available(iOS 15.0, *) {
-            AddUserView()
+            AddCustomerView()
                 .environmentObject(CustomerViewModel())
                 .previewInterfaceOrientation(.landscapeRight)
         } else {
-            AddUserView()
+            AddCustomerView()
                 .environmentObject(CustomerViewModel())
         }
     }

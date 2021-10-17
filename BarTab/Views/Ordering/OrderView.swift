@@ -20,7 +20,7 @@ struct OrderView: View {
     var body: some View {
         ZStack {
             TextField("Läs av tag", text: $tagKey, onCommit: {
-                userVM.drinkBought(by: tagKey, for: drink.price)
+                userVM.customerBought(drink, key: tagKey)
                 showToast = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     presentationMode.wrappedValue.dismiss()
