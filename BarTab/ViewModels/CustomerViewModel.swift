@@ -54,9 +54,12 @@ class CustomerViewModel: ObservableObject {
         }
     }
     
-    func drinkBought(by key: String, for price: Int) {
+    func customerBought(_ drink: Drink, key: String) {
         if let index = customers.firstIndex(where: { $0.key == key }) {
-            customers[index].balance -= price
+            var customer = customers[index]
+            customer.balance -= drink.price
+            customer.drinksBought.append(drink)
+            customerRepository.updateCustomer(customer)
         } else {
             return
         }
