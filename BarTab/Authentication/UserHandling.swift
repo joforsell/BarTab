@@ -29,7 +29,7 @@ enum UserHandling {
         
     }
     
-    static func mergeUser(_ data: [String: Any], uid: String, completion: @escaping (Result<Bool, Error>) -> ()) {
+    static func mergeUser(_ data: [String : Any], uid: String, completion: @escaping (Result<Bool, Error>) -> ()) {
         let reference = Firestore
             .firestore()
             .collection(UserKeys.CollectionPath.users)

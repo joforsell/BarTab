@@ -15,4 +15,5 @@ struct Customer: Codable, Identifiable {
     var key: String
     var email: String
     var drinksBought: [Drink] = []
+    var userId: String?
 }

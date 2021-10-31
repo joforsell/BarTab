@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
@@ -20,7 +21,11 @@ class DrinkRepository: ObservableObject {
     }
     
     func loadData() {
-        db.collection("drinks").addSnapshotListener { (querySnapshot, error) in
+        let userId = Auth.auth().currentUser?.uid
+        
+        db.collection("drinks")
+            .whereField("userId", isEqualTo: userId as Any)
+            .addSnapshotListener { (querySnapshot, error) in
             if let querySnapshot = querySnapshot {
                 self.drinks = querySnapshot.documents.compactMap { document in
                     try? document.data(as: Drink.self)
@@ -31,9 +36,11 @@ class DrinkRepository: ObservableObject {
     
     func addDrink(_ drink: Drink) {
         do {
-            let _ = try db.collection("drinks").addDocument(from: drink)
+            var addedDrink = drink
+            addedDrink.userId = Auth.auth().currentUser?.uid
+            let _ = try db.collection("drinks").addDocument(from: addedDrink)
         } catch {
-            fatalError("Unable to encode user: \(error.localizedDescription)")
+            fatalError("Unable to encode drink: \(error.localizedDescription)")
         }
     }
     
@@ -52,7 +59,7 @@ class DrinkRepository: ObservableObject {
             do {
                 try db.collection("drinks").document(drinkID).setData(from: drink)
             } catch {
-                fatalError("Unable to encode user: \(error.localizedDescription)")
+                fatalError("Unable to encode drink: \(error.localizedDescription)")
             }
         }
     }

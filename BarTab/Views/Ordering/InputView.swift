@@ -36,7 +36,7 @@ struct InputView: View {
                             }
                             .frame(width: UIScreen.main.bounds.width / 3.15, height: UIScreen.main.bounds.height / 3, alignment: .center)
                         }
-                        .background(Color.blue)
+                        .background(Color("AppBlue"))
                         .cornerRadius(15)
                         .foregroundColor(.white)
                     }
@@ -62,7 +62,7 @@ struct InputView: View {
                                     }
                                 }
                                 .frame(width: UIScreen.main.bounds.width / 4.2, height: UIScreen.main.bounds.height / 4, alignment: .center)
-                                .background(Color.blue)
+                                .background(Color("AppBlue"))
                                 .cornerRadius(15)
                                 .foregroundColor(.white)
                             }
