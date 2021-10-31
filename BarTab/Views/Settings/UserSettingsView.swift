@@ -9,6 +9,7 @@ import SwiftUI
 
 struct UserSettingsView: View {
     @EnvironmentObject var userInfo: UserInfo
+    @EnvironmentObject var settings: UserSettingsViewModel
     
     @State private var association = ""
     @State private var editingAssociation = false
@@ -18,11 +19,10 @@ struct UserSettingsView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("Användarnamn: \(userInfo.user.displayName)")
             Text("Mailadress: \(userInfo.user.email)")
             HStack {
                 if editingAssociation {
-                    Text("Företag eller förening:")
+                    Text("Organisation:")
                     TextField("\(userInfo.user.association ?? "Ej angett")", text: $association, onCommit: {
                         if association != "" {
                             updateAssociation(to: association)
@@ -36,21 +36,36 @@ struct UserSettingsView: View {
                         editingAssociation.toggle()
                     } label: {
                         Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(.black)
+                            .foregroundColor(Color("AppYellow"))
+                            .font(.headline)
                     }
                 } else {
-                    Text("Företag eller förening: \(userInfo.user.association ?? "Ej angett")")
+                    Text("Organisation: \(userInfo.user.association ?? "Ej angett")")
                     Button {
                         editingAssociation.toggle()
                         association = ""
                     } label: {
                         Image(systemName: "pencil")
-                            .foregroundColor(.black)
+                            .foregroundColor(Color("AppYellow"))
+                            .font(.headline)
                     }
+                    Spacer()
                 }
             }
+            Toggle("Använd RFID-taggar", isOn: $settings.settings.usingTag)
+                .toggleStyle(SwitchToggleStyle(tint: Color("AppYellow")))
         }
-        .navigationTitle("Inloggad som \(userInfo.user.displayName)")
+        .onAppear {
+            if !userInfo.user.settingsLoaded {
+                settings.createSettings()
+            }
+            userInfo.user.settingsLoaded = true
+        }
+        .frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height * 0.4)
+        .foregroundColor(.white)
+        .padding(.horizontal)
+        .background(Color("AppBlue"))
+        .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
@@ -79,9 +94,9 @@ struct UserSettingsView: View {
     func updateAssociation(to: String) {
         let data = User.dataDict(
             uid: userInfo.user.uid,
-            displayName: userInfo.user.displayName,
             email: userInfo.user.email,
-            association: association
+            association: association,
+            settingsLoaded: userInfo.user.settingsLoaded
         )
         
         UserHandling.mergeUser(data, uid: userInfo.user.uid) { result in
@@ -101,5 +116,6 @@ struct UserSettingsView: View {
 struct UserSettingsView_Previews: PreviewProvider {
     static var previews: some View {
         UserSettingsView()
+            .environmentObject(UserInfo())
     }
 }

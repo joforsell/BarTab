@@ -10,7 +10,7 @@ import Introspect
 import ToastUI
 
 struct OrderView: View {
-    @EnvironmentObject var userVM: CustomerViewModel
+    @EnvironmentObject var customerVM: CustomerViewModel
     @Environment(\.presentationMode) var presentationMode
     
     @State private var tagKey = ""
@@ -20,37 +20,58 @@ struct OrderView: View {
     var body: some View {
         ZStack {
             TextField("Läs av tag", text: $tagKey, onCommit: {
-                userVM.customerBought(drink, key: tagKey)
+                customerVM.customerBought(drink, key: tagKey)
                 showToast = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     presentationMode.wrappedValue.dismiss()
                 }
             })
+                .opacity(0)
                 .introspectTextField { textField in
                     textField.becomeFirstResponder()
                 }
-                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
-                .background(Color.black.opacity(0.4))
-            VStack {
-                Image(systemName: "sensor.tag.radiowaves.forward")
-                    .font(.system(size: 300))
-                Text("Vill du köpa \(drink.name) för \(drink.price) kr?")
-                    .foregroundColor(.white)
-                    .padding()
-            }
-            VStack {
-                HStack {
+                    Image(systemName: "sensor.tag.radiowaves.forward")
+                        .font(.system(size: 300))
+                        .foregroundColor(Color.white)
+                        .padding()
+            HStack {
+                VStack {
+                    HStack {
+                        Text("\(drink.name)")
+                            .font(.largeTitle)
+                            .fontWeight(.heavy)
+                            .foregroundColor(.white)
+                            .padding()
+                        Text("\(drink.price) kr")
+                            .font(.largeTitle)
+                            .foregroundColor(.white)
+                    }
                     Spacer()
-                    Image(systemName: "xmark.circle")
-                        .font(.system(size: 30))
-                        .foregroundColor(.black)
-                        .padding(EdgeInsets(top: UIScreen.main.bounds.height / 12, leading: 0, bottom: 0, trailing: UIScreen.main.bounds.width / 6))
-                        .onTapGesture { presentationMode.wrappedValue.dismiss() }
-                        .zIndex(2)
                 }
                 Spacer()
+                VStack{
+                    Menu {
+                        ForEach(customerVM.customers) { customer in
+                            Button("\(customer.name)") {
+                                tagKey = customer.key
+                                customerVM.customerBought(drink, key: tagKey)
+                                showToast = true
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+                            }
+                        }
+                    } label: {
+                        Image(systemName: "person.2.fill")
+                            .font(.largeTitle)
+                            .foregroundColor(Color.white)
+                            .padding()
+                    }
+                    Spacer()
+                }
             }
         }
+        .background(Color("AppYellow").ignoresSafeArea())
         .toast(isPresented: $showToast, dismissAfter: 2) {
             CheckmarkView(height: 60, width: 60, drink: drink)
         }
@@ -60,5 +81,6 @@ struct OrderView: View {
 struct OrderView_Previews: PreviewProvider {
     static var previews: some View {
         OrderView(drink: Drink(name: "Öl", price: 20))
+            .environmentObject(CustomerViewModel())
     }
 }

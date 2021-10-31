@@ -10,7 +10,6 @@ import SwiftUI
 struct UserViewModel {
     var email: String = ""
     var password: String = ""
-    var displayName: String = ""
     var confirmPassword: String = ""
     
     func passwordsMatch(_confirmPassword: String) -> Bool {
@@ -33,7 +32,6 @@ struct UserViewModel {
     
     var isSignInComplete: Bool {
         if  !isEmailValid(_email: email) ||
-            isEmpty(_field: displayName) ||
             !isPasswordValid(_password: password) ||
                 !passwordsMatch(_confirmPassword: confirmPassword) {
             return false
@@ -48,15 +46,7 @@ struct UserViewModel {
         }
         return true
     }
-    
-    var validNameText: String {
-        if !isEmpty(_field: displayName) {
-            return ""
-        } else {
-            return "Skriv in önskat användarnamn."
-        }
-    }
-    
+        
     var validEmailAddressText: String {
         if isEmailValid(_email: email) {
             return ""

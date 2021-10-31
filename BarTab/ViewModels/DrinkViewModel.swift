@@ -14,7 +14,7 @@ class DrinkViewModel: ObservableObject {
     
     var subscriptions = Set<AnyCancellable>()
     
-    init(){
+    init() {
         drinkRepository.$drinks
             .assign(to: \.drinks, on: self)
             .store(in: &subscriptions)

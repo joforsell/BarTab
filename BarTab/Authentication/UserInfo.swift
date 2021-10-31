@@ -15,17 +15,17 @@ class UserInfo: ObservableObject {
     }
     
     @Published var isUserAuthenticated: AuthState = .undefined
-    @Published var user: User = .init(uid: "", displayName: "", email: "", association: "")
+    @Published var user: User = .init(uid: "", email: "", association: "")
     
     var authStateDidChangeListenerHandle: AuthStateDidChangeListenerHandle?
     
     func configureFirebaseStateDidChange() {
-        authStateDidChangeListenerHandle = Auth.auth().addStateDidChangeListener({ (_, user) in
+        authStateDidChangeListenerHandle = Auth.auth().addStateDidChangeListener { _, user in
             guard let _ = user else  {
                 self.isUserAuthenticated = .signedOut
                 return
             }
             self.isUserAuthenticated = .signedIn
-        })
+        }
     }
 }

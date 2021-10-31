@@ -48,7 +48,7 @@ struct Authentication {
     }
     
     // MARK: - User creation
-    static func createUser(withEmail email: String, name: String, password: String, completionHandler: @escaping (Result<Bool,Error>) -> Void) {
+    static func createUser(withEmail email: String, password: String, completionHandler: @escaping (Result<Bool,Error>) -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if let err = error {
                 completionHandler(.failure(err))
@@ -60,9 +60,9 @@ struct Authentication {
             }
             let data = User.dataDict(
                 uid: authResult!.user.uid,
-                displayName: name,
                 email: authResult!.user.email!,
-                association: ""
+                association: "",
+                settingsLoaded: false
             )
             
             UserHandling.mergeUser(data, uid: authResult!.user.uid) { result in

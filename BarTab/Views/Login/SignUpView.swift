@@ -18,12 +18,6 @@ struct SignUpView: View {
             VStack {
                 Group {
                     VStack(alignment: .leading) {
-                        TextField("Användarnamn", text: $user.displayName).autocapitalization(.words).disableAutocorrection(true)
-                        if !user.validNameText.isEmpty {
-                            Text(user.validNameText).font(.caption).foregroundColor(.red)
-                        }
-                    }
-                    VStack(alignment: .leading) {
                         TextField("Mailadress", text: $user.email).autocapitalization(.none).disableAutocorrection(true).keyboardType(.emailAddress)
                         if !user.validEmailAddressText.isEmpty {
                             Text(user.validEmailAddressText).font(.caption).foregroundColor(.red)
@@ -46,7 +40,7 @@ struct SignUpView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 VStack(spacing: 20) {
                     Button(action: {
-                        Authentication.createUser(withEmail: user.email, name: user.displayName, password: user.password) { result in
+                        Authentication.createUser(withEmail: user.email, password: user.password) { result in
                             switch result {
                             case .failure(let error):
                                 errorString = error.localizedDescription

@@ -14,4 +14,5 @@ struct Drink: Codable, Identifiable {
     var name: String
     var price: Int
     @ServerTimestamp var timeBought: Timestamp?
+    var userId: String?
 }

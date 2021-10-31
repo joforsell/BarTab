@@ -15,11 +15,14 @@ class EmailSender {
     
     func sendEmails(to customers: [Customer], from association: String?, completion: @escaping (Result<Bool, Error>) -> ()) {
         for customer in customers {
+            let customerName = customer.name
+            let firstName = customerName.components(separatedBy: " ").first
+            
             db.collection("mail").addDocument(data: [
                 "to" : customer.email,
                 "message" : [
                     "subject" : "Nuvarande saldo hos \(association ?? "BarTab")",
-                    "html" : "Hej \(customer.name)! Ditt nuvarande saldo är \(customer.balance)."
+                    "html" : "Hej \(firstName ?? "")! Ditt nuvarande saldo är \(customer.balance)."
                 ]
             ]) { error in
                 if let error = error {

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
@@ -20,7 +21,11 @@ class CustomerRepository: ObservableObject {
     }
     
     func loadData() {
-        db.collection("customers").addSnapshotListener { (querySnapshot, error) in
+        let userId = Auth.auth().currentUser?.uid
+        
+        db.collection("customers")
+            .whereField("userId", isEqualTo: userId as Any)
+            .addSnapshotListener { querySnapshot, error in
             if let querySnapshot = querySnapshot {
                 self.customers = querySnapshot.documents.compactMap { document in
                     try? document.data(as: Customer.self)
@@ -31,7 +36,9 @@ class CustomerRepository: ObservableObject {
     
     func addCustomer(_ customer: Customer) {
         do {
-            let _ = try db.collection("customers").addDocument(from: customer)
+            var addedCustomer = customer
+            addedCustomer.userId = Auth.auth().currentUser?.uid
+            let _ = try db.collection("customers").addDocument(from: addedCustomer)
         } catch {
             fatalError("Unable to encode user: \(error.localizedDescription)")
         }
@@ -48,7 +55,7 @@ class CustomerRepository: ObservableObject {
     }
     
     func updateCustomer(_ customer: Customer) {
-        if let customerID = customer.id{
+        if let customerID = customer.id {
             do {
                 try db.collection("customers").document(customerID).setData(from: customer)
             } catch {
