@@ -12,7 +12,7 @@ import ToastUI
 struct OrderView: View {
     @EnvironmentObject var customerVM: CustomerViewModel
     @Environment(\.presentationMode) var presentationMode
-    
+        
     @State private var tagKey = ""
     @State private var showToast = false
     var drink: Drink

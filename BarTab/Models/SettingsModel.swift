@@ -1,15 +1,13 @@
 //
-//  UserSettings.swift
+//  SettingsModel.swift
 //  BarTab
 //
-//  Created by Johan Forsell on 2021-10-19.
+//  Created by Johan Forsell on 2021-11-01.
 //
 
 import Foundation
-import FirebaseAuth
-import FirebaseFirestoreSwift
 
-struct UserSettings: Codable {
+struct Settings: Codable {
     var usingTag: Bool
     var requestingPassword: Bool
     
@@ -18,4 +16,3 @@ struct UserSettings: Codable {
         self.requestingPassword = requestingPassword
     }
 }
-
