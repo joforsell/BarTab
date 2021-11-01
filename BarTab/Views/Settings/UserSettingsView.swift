@@ -9,7 +9,7 @@ import SwiftUI
 
 struct UserSettingsView: View {
     @EnvironmentObject var userInfo: UserInfo
-    @EnvironmentObject var settings: UserSettingsViewModel
+    @EnvironmentObject var settingsManager: SettingsManager
     
     @State private var association = ""
     @State private var editingAssociation = false
@@ -18,8 +18,9 @@ struct UserSettingsView: View {
     @State private var errorString = ""
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 20) {
             Text("Mailadress: \(userInfo.user.email)")
+            Divider()
             HStack {
                 if editingAssociation {
                     Text("Organisation:")
@@ -52,14 +53,13 @@ struct UserSettingsView: View {
                     Spacer()
                 }
             }
-            Toggle("Använd RFID-taggar", isOn: $settings.settings.usingTag)
+            Divider()
+            Toggle("Använd RFID-taggar", isOn: $settingsManager.settings.usingTag)
                 .toggleStyle(SwitchToggleStyle(tint: Color("AppYellow")))
-        }
-        .onAppear {
-            if !userInfo.user.settingsLoaded {
-                settings.createSettings()
-            }
-            userInfo.user.settingsLoaded = true
+            Divider()
+            Toggle("Begär adminlösenord", isOn: $settingsManager.settings.requestingPassword)
+                .toggleStyle(SwitchToggleStyle(tint: Color("AppYellow")))
+
         }
         .frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height * 0.4)
         .foregroundColor(.white)
@@ -95,8 +95,7 @@ struct UserSettingsView: View {
         let data = User.dataDict(
             uid: userInfo.user.uid,
             email: userInfo.user.email,
-            association: association,
-            settingsLoaded: userInfo.user.settingsLoaded
+            association: association
         )
         
         UserHandling.mergeUser(data, uid: userInfo.user.uid) { result in

@@ -27,14 +27,14 @@
 		3E65094026FCB26900ACDF41 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E65093F26FCB26900ACDF41 /* Preview Assets.xcassets */; };
 		3E662B5E2700C76A00033A11 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 3E662B5D2700C76A00033A11 /* Introspect */; };
 		3E662B60270100D800033A11 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E662B5F270100D800033A11 /* OrderView.swift */; };
-		3E67AEEB271F4AC700D09084 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E67AEEA271F4AC700D09084 /* UserSettings.swift */; };
+		3E6739DF27308DD700FC3B78 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6739DE27308DD700FC3B78 /* SettingsManager.swift */; };
+		3E6739E127308F3900FC3B78 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6739E027308F3900FC3B78 /* SettingsModel.swift */; };
 		3E68107F27081D6D00C0F5B0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3E68107E27081D6D00C0F5B0 /* GoogleService-Info.plist */; };
 		3E694A422700670400DF0A08 /* AddCustomerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E694A412700670400DF0A08 /* AddCustomerView.swift */; };
 		3E6E508A2719B603009040FC /* Date+RawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6E50892719B603009040FC /* Date+RawRepresentable.swift */; };
 		3E6F02DE271CA5CF00DD7C6E /* CustomerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6F02DD271CA5CF00DD7C6E /* CustomerDetailView.swift */; };
 		3E7062D727148D4A00B02C4E /* CheckmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7062D627148D4A00B02C4E /* CheckmarkView.swift */; };
 		3E7062DA27149AB500B02C4E /* ToastUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3E7062D927149AB500B02C4E /* ToastUI */; };
-		3E7089D3272F3D52005E08AE /* UserSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7089D2272F3D52005E08AE /* UserSettingsViewModel.swift */; };
 		3E7BEFDC26FCDD1900453C1B /* CustomerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFDB26FCDD1900453C1B /* CustomerModel.swift */; };
 		3E7BEFDE26FCDD2800453C1B /* DrinkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFDD26FCDD2800453C1B /* DrinkViewModel.swift */; };
 		3E7BEFE126FCDD6D00453C1B /* DrinkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFE026FCDD6D00453C1B /* DrinkModel.swift */; };
@@ -49,7 +49,6 @@
 		3E8645D52718A3C0009BFFAA /* EmailSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8645D42718A3C0009BFFAA /* EmailSender.swift */; };
 		3EBC4986270A4D7F006B4857 /* CustomerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBC4985270A4D7F006B4857 /* CustomerRepository.swift */; };
 		3EBC4988270B8845006B4857 /* DrinkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBC4987270B8845006B4857 /* DrinkRepository.swift */; };
-		3EC70D5427220C0700A165C9 /* UserSettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC70D5327220C0700A165C9 /* UserSettingsRepository.swift */; };
 		3EE4101A27137C4E00A808B6 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 3EE4101927137C4E00A808B6 /* FirebaseAnalytics */; };
 		3EE4101C27137C4E00A808B6 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3EE4101B27137C4E00A808B6 /* FirebaseAuth */; };
 		3EE4101E27137C4E00A808B6 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3EE4101D27137C4E00A808B6 /* FirebaseFirestore */; };
@@ -78,13 +77,13 @@
 		3E65093F26FCB26900ACDF41 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3E65094126FCB26900ACDF41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E662B5F270100D800033A11 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
-		3E67AEEA271F4AC700D09084 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+		3E6739DE27308DD700FC3B78 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
+		3E6739E027308F3900FC3B78 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		3E68107E27081D6D00C0F5B0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3E694A412700670400DF0A08 /* AddCustomerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomerView.swift; sourceTree = "<group>"; };
 		3E6E50892719B603009040FC /* Date+RawRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+RawRepresentable.swift"; sourceTree = "<group>"; };
 		3E6F02DD271CA5CF00DD7C6E /* CustomerDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerDetailView.swift; sourceTree = "<group>"; };
 		3E7062D627148D4A00B02C4E /* CheckmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckmarkView.swift; sourceTree = "<group>"; };
-		3E7089D2272F3D52005E08AE /* UserSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsViewModel.swift; sourceTree = "<group>"; };
 		3E7BEFDB26FCDD1900453C1B /* CustomerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerModel.swift; sourceTree = "<group>"; };
 		3E7BEFDD26FCDD2800453C1B /* DrinkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkViewModel.swift; sourceTree = "<group>"; };
 		3E7BEFE026FCDD6D00453C1B /* DrinkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkModel.swift; sourceTree = "<group>"; };
@@ -99,7 +98,6 @@
 		3E8645D42718A3C0009BFFAA /* EmailSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSender.swift; sourceTree = "<group>"; };
 		3EBC4985270A4D7F006B4857 /* CustomerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerRepository.swift; sourceTree = "<group>"; };
 		3EBC4987270B8845006B4857 /* DrinkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkRepository.swift; sourceTree = "<group>"; };
-		3EC70D5327220C0700A165C9 /* UserSettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,7 +198,7 @@
 				3E7BEFDB26FCDD1900453C1B /* CustomerModel.swift */,
 				3E60E3A4271147A500F1363B /* UserModel.swift */,
 				3E7BEFE026FCDD6D00453C1B /* DrinkModel.swift */,
-				3E67AEEA271F4AC700D09084 /* UserSettings.swift */,
+				3E6739E027308F3900FC3B78 /* SettingsModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -208,10 +206,10 @@
 		3E7BEFE226FCDD7400453C1B /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				3E6739DE27308DD700FC3B78 /* SettingsManager.swift */,
 				3E7BEFE326FCDD9900453C1B /* CustomerViewModel.swift */,
 				3E60E3AE2711751C00F1363B /* UserViewModel.swift */,
 				3E7BEFDD26FCDD2800453C1B /* DrinkViewModel.swift */,
-				3E7089D2272F3D52005E08AE /* UserSettingsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -272,7 +270,6 @@
 		3EBC4984270A4D64006B4857 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				3EC70D5327220C0700A165C9 /* UserSettingsRepository.swift */,
 				3EBC4985270A4D7F006B4857 /* CustomerRepository.swift */,
 				3EBC4987270B8845006B4857 /* DrinkRepository.swift */,
 				3E8645D42718A3C0009BFFAA /* EmailSender.swift */,
@@ -372,18 +369,17 @@
 				3E7BEFE426FCDD9900453C1B /* CustomerViewModel.swift in Sources */,
 				3E7BEFDC26FCDD1900453C1B /* CustomerModel.swift in Sources */,
 				3E7BEFEB26FCDDDE00453C1B /* SettingsView.swift in Sources */,
+				3E6739DF27308DD700FC3B78 /* SettingsManager.swift in Sources */,
+				3E6739E127308F3900FC3B78 /* SettingsModel.swift in Sources */,
 				3E7BEFE126FCDD6D00453C1B /* DrinkModel.swift in Sources */,
 				3E60E3B627118FD000F1363B /* SignUpView.swift in Sources */,
 				3E65093B26FCB26900ACDF41 /* HomeView.swift in Sources */,
 				3E7BF0B0270654E200BB230F /* DrinkSettingsView.swift in Sources */,
 				3EBC4988270B8845006B4857 /* DrinkRepository.swift in Sources */,
-				3E67AEEB271F4AC700D09084 /* UserSettings.swift in Sources */,
-				3E7089D3272F3D52005E08AE /* UserSettingsViewModel.swift in Sources */,
 				3E60E3AF2711751C00F1363B /* UserViewModel.swift in Sources */,
 				3EBC4986270A4D7F006B4857 /* CustomerRepository.swift in Sources */,
 				3E5F33622712AF8B005340B6 /* AuthError.swift in Sources */,
 				3E7BEFE926FCDDD200453C1B /* InputView.swift in Sources */,
-				3EC70D5427220C0700A165C9 /* UserSettingsRepository.swift in Sources */,
 				3E5F335E2712ADA9005340B6 /* UserKeys.swift in Sources */,
 				3E6F02DE271CA5CF00DD7C6E /* CustomerDetailView.swift in Sources */,
 				3E5F33682712B7C9005340B6 /* EmailAuthError.swift in Sources */,

@@ -61,8 +61,7 @@ struct Authentication {
             let data = User.dataDict(
                 uid: authResult!.user.uid,
                 email: authResult!.user.email!,
-                association: "",
-                settingsLoaded: false
+                association: ""
             )
             
             UserHandling.mergeUser(data, uid: authResult!.user.uid) { result in

@@ -11,6 +11,7 @@ import Firebase
 @main
 struct BarTabApp: App {
     @StateObject var userInfo = UserInfo()
+    @StateObject var settings = SettingsManager()
     
     init() {
         FirebaseApp.configure()
@@ -20,6 +21,7 @@ struct BarTabApp: App {
         WindowGroup {
             MainView()
                 .environmentObject(userInfo)
+                .environmentObject(settings)
         }
     }
 }

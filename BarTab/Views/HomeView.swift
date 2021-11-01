@@ -12,24 +12,20 @@ struct HomeView: View {
     @EnvironmentObject var userInfo: UserInfo
     @StateObject var customerVM = CustomerViewModel()
     @StateObject var drinkVM = DrinkViewModel()
-    @StateObject var settings = UserSettingsViewModel()
     
     var body: some View {
         TabView {
             InputView()
                 .environmentObject(customerVM)
                 .environmentObject(drinkVM)
-                .environmentObject(settings)
                 .tabItem { Label("Beställ", systemImage: "plus.circle.fill") }
             CustomerListView()
                 .environmentObject(customerVM)
                 .environmentObject(drinkVM)
-                .environmentObject(settings)
                 .tabItem { Label("Medlemmar", systemImage: "person.2.fill") }
             SettingsView()
                 .environmentObject(customerVM)
                 .environmentObject(drinkVM)
-                .environmentObject(settings)
                 .tabItem { Label("Inställningar", systemImage: "gearshape.fill") }
         }
         .accentColor(Color("AppYellow"))
@@ -55,7 +51,6 @@ struct HomeView_Previews: PreviewProvider {
             HomeView()
                 .environmentObject(CustomerViewModel())
                 .environmentObject(DrinkViewModel())
-                .environmentObject(UserSettingsViewModel())
                 .previewInterfaceOrientation(.landscapeRight)
         } else {
             HomeView()
