@@ -10,6 +10,7 @@ import Introspect
 
 struct AddCustomerView: View {
     @EnvironmentObject var userVM: CustomerViewModel
+    @EnvironmentObject var settingsManager: SettingsManager
     @Environment(\.presentationMode) var presentationMode
     
     enum Field {
@@ -71,7 +72,14 @@ struct AddCustomerView: View {
                                 .stroke(Color.black))
                     .keyboardType(.numberPad)
 
-                    Button(action: { isShowingTagView = true }) {
+                    Button(action: {
+                        if settingsManager.settings.usingTag {
+                            isShowingTagView = true
+                        } else {
+                            userVM.addCustomer(name: self.name, balance: Int(self.balance) ?? 0, key: "Placeholder", email: self.email)
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }) {
                         Text("Lägg till")
                             .frame(width: UIScreen.main.bounds.width / 3, alignment: .center)
                             .padding()

@@ -31,9 +31,7 @@ struct UserViewModel {
     }
     
     var isSignInComplete: Bool {
-        if  !isEmailValid(_email: email) ||
-            !isPasswordValid(_password: password) ||
-                !passwordsMatch(_confirmPassword: confirmPassword) {
+        if !isPasswordValid(_password: password) || !passwordsMatch(_confirmPassword: confirmPassword) {
             return false
         }
         return true
