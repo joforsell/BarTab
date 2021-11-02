@@ -19,9 +19,6 @@ struct SignUpView: View {
                 Group {
                     VStack(alignment: .leading) {
                         TextField("Mailadress", text: $user.email).autocapitalization(.none).disableAutocorrection(true).keyboardType(.emailAddress)
-                        if !user.validEmailAddressText.isEmpty {
-                            Text(user.validEmailAddressText).font(.caption).foregroundColor(.red)
-                        }
                     }
                     VStack(alignment: .leading) {
                         SecureField("Lösenord", text: $user.password)

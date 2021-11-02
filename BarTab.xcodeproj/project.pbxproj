@@ -222,7 +222,7 @@
 				3E7EA78D270CEF0100CAB50C /* Styling */,
 				3E60E3B227117A6000F1363B /* Login */,
 				3E7BF0AC270654AB00BB230F /* Ordering */,
-				3E7BF0AD270654BE00BB230F /* Users */,
+				3E7BF0AD270654BE00BB230F /* Customers */,
 				3E7BF0AE270654CA00BB230F /* Settings */,
 			);
 			path = Views;
@@ -237,13 +237,13 @@
 			path = Ordering;
 			sourceTree = "<group>";
 		};
-		3E7BF0AD270654BE00BB230F /* Users */ = {
+		3E7BF0AD270654BE00BB230F /* Customers */ = {
 			isa = PBXGroup;
 			children = (
 				3E7BEFE626FCDDC400453C1B /* CustomerListView.swift */,
 				3E694A412700670400DF0A08 /* AddCustomerView.swift */,
 			);
-			path = Users;
+			path = Customers;
 			sourceTree = "<group>";
 		};
 		3E7BF0AE270654CA00BB230F /* Settings */ = {

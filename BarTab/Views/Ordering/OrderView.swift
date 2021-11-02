@@ -11,13 +11,22 @@ import ToastUI
 
 struct OrderView: View {
     @EnvironmentObject var customerVM: CustomerViewModel
+    @EnvironmentObject var settingsManager: SettingsManager
     @Environment(\.presentationMode) var presentationMode
-        
+    
     @State private var tagKey = ""
     @State private var showToast = false
     var drink: Drink
     
     var body: some View {
+        if settingsManager.settings.usingTag {
+            orderWithTagView
+        } else {
+            orderWithoutTagView
+        }
+    }
+    
+    var orderWithTagView: some View {
         ZStack {
             TextField("Läs av tag", text: $tagKey, onCommit: {
                 customerVM.customerBought(drink, key: tagKey)
@@ -30,10 +39,10 @@ struct OrderView: View {
                 .introspectTextField { textField in
                     textField.becomeFirstResponder()
                 }
-                    Image(systemName: "sensor.tag.radiowaves.forward")
-                        .font(.system(size: 300))
-                        .foregroundColor(Color.white)
-                        .padding()
+            Image(systemName: "sensor.tag.radiowaves.forward")
+                .font(.system(size: 300))
+                .foregroundColor(Color.white)
+                .padding()
             HStack {
                 VStack {
                     HStack {
@@ -53,7 +62,7 @@ struct OrderView: View {
                     Menu {
                         ForEach(customerVM.customers) { customer in
                             Button("\(customer.name)") {
-                                tagKey = customer.key
+                                tagKey = customer.key ?? "Placeholder"
                                 customerVM.customerBought(drink, key: tagKey)
                                 showToast = true
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
@@ -75,6 +84,47 @@ struct OrderView: View {
         .toast(isPresented: $showToast, dismissAfter: 2) {
             CheckmarkView(height: 60, width: 60, drink: drink)
         }
+    }
+    
+    var orderWithoutTagView: some View {
+        ZStack {
+            Color("AppYellow").ignoresSafeArea()
+            VStack {
+                HStack {
+                    Text("\(drink.name)")
+                        .font(.largeTitle)
+                        .fontWeight(.heavy)
+                        .foregroundColor(.white)
+                        .padding()
+                    Text("\(drink.price) kr")
+                        .font(.largeTitle)
+                        .foregroundColor(.white)
+                    Spacer()
+                }
+                Spacer()
+            }
+            Menu {
+                ForEach(customerVM.customers) { customer in
+                    Button("\(customer.name)") {
+                        tagKey = customer.key ?? "Placeholder"
+                        customerVM.customerBought(drink, key: tagKey)
+                        showToast = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }
+                }
+            } label: {
+                Image(systemName: "person.2.fill")
+                    .font(.system(size: 200))
+                    .foregroundColor(Color.white)
+                    .padding()
+            }
+        }
+        .toast(isPresented: $showToast, dismissAfter: 2) {
+            CheckmarkView(height: 60, width: 60, drink: drink)
+        }
+        
     }
 }
 
