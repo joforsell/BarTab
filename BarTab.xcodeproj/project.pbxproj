@@ -12,6 +12,7 @@
 		3E5F33642712AF95005340B6 /* UserHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F33632712AF94005340B6 /* UserHandling.swift */; };
 		3E5F33662712B73C005340B6 /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F33652712B73C005340B6 /* Authentication.swift */; };
 		3E5F33682712B7C9005340B6 /* EmailAuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F33672712B7C9005340B6 /* EmailAuthError.swift */; };
+		3E5FC625274064F3005C6442 /* ClearModalBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5FC624274064F3005C6442 /* ClearModalBackground.swift */; };
 		3E60E3A5271147A500F1363B /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E60E3A4271147A500F1363B /* UserModel.swift */; };
 		3E60E3A727114B0300F1363B /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E60E3A627114B0300F1363B /* UserInfo.swift */; };
 		3E60E3A9271160A600F1363B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E60E3A8271160A600F1363B /* MainView.swift */; };
@@ -33,6 +34,8 @@
 		3E694A422700670400DF0A08 /* AddCustomerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E694A412700670400DF0A08 /* AddCustomerView.swift */; };
 		3E6E508A2719B603009040FC /* Date+RawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6E50892719B603009040FC /* Date+RawRepresentable.swift */; };
 		3E6F02DE271CA5CF00DD7C6E /* CustomerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6F02DD271CA5CF00DD7C6E /* CustomerDetailView.swift */; };
+		3E6F9D31273AF8B400CF5677 /* NumberPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6F9D30273AF8B400CF5677 /* NumberPad.swift */; };
+		3E6F9D33273B162D00CF5677 /* NumberPadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6F9D32273B162D00CF5677 /* NumberPadViewModel.swift */; };
 		3E7062D727148D4A00B02C4E /* CheckmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7062D627148D4A00B02C4E /* CheckmarkView.swift */; };
 		3E7062DA27149AB500B02C4E /* ToastUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3E7062D927149AB500B02C4E /* ToastUI */; };
 		3E7BEFDC26FCDD1900453C1B /* CustomerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFDB26FCDD1900453C1B /* CustomerModel.swift */; };
@@ -61,6 +64,7 @@
 		3E5F33632712AF94005340B6 /* UserHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserHandling.swift; sourceTree = "<group>"; };
 		3E5F33652712B73C005340B6 /* Authentication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		3E5F33672712B7C9005340B6 /* EmailAuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailAuthError.swift; sourceTree = "<group>"; };
+		3E5FC624274064F3005C6442 /* ClearModalBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearModalBackground.swift; sourceTree = "<group>"; };
 		3E60E3A4271147A500F1363B /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		3E60E3A627114B0300F1363B /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		3E60E3A8271160A600F1363B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -83,6 +87,8 @@
 		3E694A412700670400DF0A08 /* AddCustomerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomerView.swift; sourceTree = "<group>"; };
 		3E6E50892719B603009040FC /* Date+RawRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+RawRepresentable.swift"; sourceTree = "<group>"; };
 		3E6F02DD271CA5CF00DD7C6E /* CustomerDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerDetailView.swift; sourceTree = "<group>"; };
+		3E6F9D30273AF8B400CF5677 /* NumberPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberPad.swift; sourceTree = "<group>"; };
+		3E6F9D32273B162D00CF5677 /* NumberPadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberPadViewModel.swift; sourceTree = "<group>"; };
 		3E7062D627148D4A00B02C4E /* CheckmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckmarkView.swift; sourceTree = "<group>"; };
 		3E7BEFDB26FCDD1900453C1B /* CustomerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerModel.swift; sourceTree = "<group>"; };
 		3E7BEFDD26FCDD2800453C1B /* DrinkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkViewModel.swift; sourceTree = "<group>"; };
@@ -206,6 +212,7 @@
 		3E7BEFE226FCDD7400453C1B /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				3E6F9D32273B162D00CF5677 /* NumberPadViewModel.swift */,
 				3E6739DE27308DD700FC3B78 /* SettingsManager.swift */,
 				3E7BEFE326FCDD9900453C1B /* CustomerViewModel.swift */,
 				3E60E3AE2711751C00F1363B /* UserViewModel.swift */,
@@ -241,6 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				3E7BEFE626FCDDC400453C1B /* CustomerListView.swift */,
+				3E6F02DD271CA5CF00DD7C6E /* CustomerDetailView.swift */,
 				3E694A412700670400DF0A08 /* AddCustomerView.swift */,
 			);
 			path = Customers;
@@ -251,10 +259,10 @@
 			children = (
 				3E7BEFEA26FCDDDE00453C1B /* SettingsView.swift */,
 				3E7BF0B32706558500BB230F /* CustomerSettingsView.swift */,
+				3E6F9D30273AF8B400CF5677 /* NumberPad.swift */,
 				3E7BF0AF270654E200BB230F /* DrinkSettingsView.swift */,
 				3E7BF0B12706552500BB230F /* AddDrinkView.swift */,
 				3E60E3AC2711740D00F1363B /* UserSettingsView.swift */,
-				3E6F02DD271CA5CF00DD7C6E /* CustomerDetailView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -263,6 +271,7 @@
 			isa = PBXGroup;
 			children = (
 				3E7EA78E270CEF1900CAB50C /* RoundedRectangleButtonStyle.swift */,
+				3E5FC624274064F3005C6442 /* ClearModalBackground.swift */,
 			);
 			path = Styling;
 			sourceTree = "<group>";
@@ -362,6 +371,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E7BEFE726FCDDC400453C1B /* CustomerListView.swift in Sources */,
+				3E5FC625274064F3005C6442 /* ClearModalBackground.swift in Sources */,
 				3E8645D52718A3C0009BFFAA /* EmailSender.swift in Sources */,
 				3E7BF0B22706552500BB230F /* AddDrinkView.swift in Sources */,
 				3E7EA78F270CEF1900CAB50C /* RoundedRectangleButtonStyle.swift in Sources */,
@@ -377,6 +387,7 @@
 				3E7BF0B0270654E200BB230F /* DrinkSettingsView.swift in Sources */,
 				3EBC4988270B8845006B4857 /* DrinkRepository.swift in Sources */,
 				3E60E3AF2711751C00F1363B /* UserViewModel.swift in Sources */,
+				3E6F9D31273AF8B400CF5677 /* NumberPad.swift in Sources */,
 				3EBC4986270A4D7F006B4857 /* CustomerRepository.swift in Sources */,
 				3E5F33622712AF8B005340B6 /* AuthError.swift in Sources */,
 				3E7BEFE926FCDDD200453C1B /* InputView.swift in Sources */,
@@ -385,6 +396,7 @@
 				3E5F33682712B7C9005340B6 /* EmailAuthError.swift in Sources */,
 				3E694A422700670400DF0A08 /* AddCustomerView.swift in Sources */,
 				3E7062D727148D4A00B02C4E /* CheckmarkView.swift in Sources */,
+				3E6F9D33273B162D00CF5677 /* NumberPadViewModel.swift in Sources */,
 				3E662B60270100D800033A11 /* OrderView.swift in Sources */,
 				3E7BEFDE26FCDD2800453C1B /* DrinkViewModel.swift in Sources */,
 				3E60E3AB271161A500F1363B /* LoginView.swift in Sources */,
