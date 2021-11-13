@@ -27,6 +27,11 @@ class CustomerViewModel: ObservableObject {
         customerRepository.addCustomer(newCustomer)
     }
     
+    func addCustomerWithoutKey(name: String, balance: Int, email: String) {
+        let newCustomer = Customer(name: name, balance: balance, email: email)
+        customerRepository.addCustomer(newCustomer)
+    }
+    
     func removeCustomer(_ id: String) {
         if let index = customers.firstIndex(where: { $0.id == id }) {
             let customer = customers[index]
@@ -35,23 +40,17 @@ class CustomerViewModel: ObservableObject {
     }
         
     func addToBalance(of id: String, by adjustment: Int) {
-        if let index = customers.firstIndex(where: { $0.id == id }) {
+        guard let index = customers.firstIndex(where: { $0.id == id }) else { return }
             var customer = customers[index]
             customer.balance += adjustment
             customerRepository.updateCustomer(customer)
-        } else {
-            return
-        }
     }
     
     func subtractFromBalance(of id: String, by adjustment: Int) {
-        if let index = customers.firstIndex(where: { $0.id == id }) {
+        guard let index = customers.firstIndex(where: { $0.id == id }) else { return }
             var customer = customers[index]
             customer.balance -= adjustment
             customerRepository.updateCustomer(customer)
-        } else {
-            return
-        }
     }
     
     func customerBought(_ drink: Drink, key: String) {

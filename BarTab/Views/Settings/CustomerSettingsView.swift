@@ -17,25 +17,12 @@ struct CustomerSettingsView: View {
     
     @State private var showError = false
     @State private var errorString = ""
-    
+        
     var body: some View {
         VStack {
             List {
-                ForEach(customerVM.customers) { customer in
-                    HStack {
-                        Text(customer.name)
-                        Spacer()
-                        if editMode == .active {
-                            // TODO: Add pop-up numpad to type addition or subtraction.
-                            Image(systemName: "minus.circle.fill")
-                                .onTapGesture { customerVM.subtractFromBalance(of: customer.id!, by: 10) }
-                                .foregroundColor(.red)
-                            Image(systemName: "plus.circle.fill")
-                                .onTapGesture { customerVM.addToBalance(of: customer.id!, by: 10) }
-                                .foregroundColor(.green)
-                        }
-                        Text("\(customer.balance) kr")
-                    }
+                ForEach($customerVM.customers) { $customer in
+                    CustomerRow(customer: $customer, editMode: $editMode)
                 }
                 .onDelete(perform: delete)
             }
@@ -88,6 +75,31 @@ struct CustomerSettingsView: View {
     func hasOneDayElapsedSinceLatestEmail(_ date: Date) -> Bool {
         let timeSinceLatestEmail = -latestEmail.timeIntervalSinceNow
         return timeSinceLatestEmail > 86400
+    }
+}
+
+struct CustomerRow: View {
+    @Binding var customer: Customer
+    @Binding var editMode: EditMode
+    
+    @State private var showingNumpad = false
+    
+    var body: some View {
+        HStack {
+            Text(customer.name)
+            Spacer()
+            if editMode == .active {
+                // TODO: Add pop-up numpad to type addition or subtraction.
+                Image(systemName: "pencil")
+                    .onTapGesture { showingNumpad.toggle() }
+                    .foregroundColor(Color("AppYellow"))
+                    .sheet(isPresented: $showingNumpad) {
+                        NumberPad(customer: customer)
+                            .clearModalBackground()
+                    }
+            }
+            Text("\(customer.balance) kr")
+        }
     }
 }
 

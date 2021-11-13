@@ -9,7 +9,7 @@ import SwiftUI
 import Introspect
 
 struct AddCustomerView: View {
-    @EnvironmentObject var userVM: CustomerViewModel
+    @EnvironmentObject var customerVM: CustomerViewModel
     @EnvironmentObject var settingsManager: SettingsManager
     @Environment(\.presentationMode) var presentationMode
     
@@ -76,7 +76,7 @@ struct AddCustomerView: View {
                         if settingsManager.settings.usingTag {
                             isShowingTagView = true
                         } else {
-                            userVM.addCustomer(name: self.name, balance: Int(self.balance) ?? 0, key: "Placeholder", email: self.email)
+                            customerVM.addCustomerWithoutKey(name: self.name, balance: Int(self.balance) ?? 0, email: self.email)
                             presentationMode.wrappedValue.dismiss()
                         }
                     }) {
@@ -93,7 +93,7 @@ struct AddCustomerView: View {
             if isShowingTagView {
                 ZStack {
                     TextField("Läs av tag", text: $tagKey, onCommit: {
-                        userVM.addCustomer(name: self.name, balance: Int(self.balance) ?? 0, key: self.tagKey, email: self.email)
+                        customerVM.addCustomer(name: self.name, balance: Int(self.balance) ?? 0, key: self.tagKey, email: self.email)
                         presentationMode.wrappedValue.dismiss()
                     })
                         .introspectTextField { textField in
