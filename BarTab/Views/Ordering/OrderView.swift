@@ -29,7 +29,7 @@ struct OrderView: View {
     var orderWithTagView: some View {
         ZStack {
             TextField("Läs av tag", text: $tagKey, onCommit: {
-                customerVM.customerBought(drink, key: tagKey)
+                customerVM.customerBoughtWithKey(drink, key: tagKey)
                 showToast = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     presentationMode.wrappedValue.dismiss()
@@ -62,8 +62,7 @@ struct OrderView: View {
                     Menu {
                         ForEach(customerVM.customers) { customer in
                             Button("\(customer.name)") {
-                                tagKey = customer.key ?? "Placeholder"
-                                customerVM.customerBought(drink, key: tagKey)
+                                customerVM.customerBought(drink, id: customer.id ?? "")
                                 showToast = true
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                     presentationMode.wrappedValue.dismiss()
@@ -106,8 +105,7 @@ struct OrderView: View {
             Menu {
                 ForEach(customerVM.customers) { customer in
                     Button("\(customer.name)") {
-                        tagKey = customer.key ?? "Placeholder"
-                        customerVM.customerBought(drink, key: tagKey)
+                        customerVM.customerBought(drink, id: customer.id ?? "")
                         showToast = true
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                             presentationMode.wrappedValue.dismiss()

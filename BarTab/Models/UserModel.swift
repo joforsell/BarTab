@@ -9,10 +9,10 @@ import Foundation
 
 struct User: Codable {
     var uid: String
-    var email: String
+    var email: String?
     var association: String?
     
-    init(uid: String, email: String, association: String? = "") {
+    init(uid: String, email: String? = "", association: String? = "") {
         self.uid = uid
         self.email = email
         self.association = association

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SignInWithEmailView: View {
+    @Environment(\.presentationMode) var presentationMode
+    
     @State var user: UserViewModel = UserViewModel()
     @Binding var showSheet: Bool
     @Binding var action: LoginView.Action?
@@ -50,6 +52,7 @@ struct SignInWithEmailView: View {
                             showAlert = true
                         case .success( _):
                             print("Inloggad")
+                            presentationMode.wrappedValue.dismiss()
                         }
                     }
                 }) {

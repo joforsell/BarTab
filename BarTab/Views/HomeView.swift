@@ -33,17 +33,22 @@ struct HomeView: View {
             guard let uid = Auth.auth().currentUser?.uid else {
                 return
             }
-            UserHandling.retrieveUser(uid: uid) { result in
-                switch result {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                case .success(let user):
-                    userInfo.user = user
+            if !userInfo.isAppAlreadyLaunchedOnce() {
+                userInfo.user = User(uid: uid)
+            } else {
+                UserHandling.retrieveUser(uid: uid) { result in
+                    switch result {
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    case .success(let user):
+                        userInfo.user = user
+                    }
                 }
             }
         }
     }
 }
+
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {

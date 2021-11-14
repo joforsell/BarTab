@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct UserSettingsView: View {
     @EnvironmentObject var userInfo: UserInfo
@@ -17,14 +18,16 @@ struct UserSettingsView: View {
     @State private var showError = false
     @State private var errorString = ""
     
+    @State private var isShowingLoginScreen = false
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            Text("Mailadress: \(userInfo.user.email)")
+            Text("Mailadress: \(userInfo.user.email ?? "Ej angiven")")
             Divider()
             HStack {
                 if editingAssociation {
                     Text("Organisation:")
-                    TextField("\(userInfo.user.association ?? "Ej angett")", text: $association, onCommit: {
+                    TextField("\(userInfo.user.association ?? "Ej angiven")", text: $association, onCommit: {
                         if association != "" {
                             updateAssociation(to: association)
                         }
@@ -56,10 +59,11 @@ struct UserSettingsView: View {
             Divider()
             Toggle("Använd RFID-taggar", isOn: $settingsManager.settings.usingTag)
                 .toggleStyle(SwitchToggleStyle(tint: Color("AppYellow")))
-            Divider()
-            Toggle("Begär adminlösenord", isOn: $settingsManager.settings.requestingPassword)
-                .toggleStyle(SwitchToggleStyle(tint: Color("AppYellow")))
-
+            if !Auth.auth().currentUser!.isAnonymous {
+                Divider()
+                Toggle("Begär adminlösenord", isOn: $settingsManager.settings.requestingPassword)
+                    .toggleStyle(SwitchToggleStyle(tint: Color("AppYellow")))
+            }
         }
         .frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height * 0.4)
         .foregroundColor(.white)
@@ -85,16 +89,32 @@ struct UserSettingsView: View {
                         .padding()
                 }
             }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    if Auth.auth().currentUser!.isAnonymous {
+                        isShowingLoginScreen.toggle()
+                    }
+                } label: {
+                    if Auth.auth().currentUser!.isAnonymous {
+                        Text("Logga in")
+                            .background(Color("AppYellow"))
+                            .cornerRadius(20)
+                    }
+                }
+            }
         }
         .alert(isPresented: $showError) {
             Alert(title: Text("Kunde inte logga ut"), message: Text(errorString), dismissButton: .default(Text("OK")))
+        }
+        .fullScreenCover(isPresented: $isShowingLoginScreen) {
+            LoginView()
         }
     }
     
     func updateAssociation(to: String) {
         let data = User.dataDict(
             uid: userInfo.user.uid,
-            email: userInfo.user.email,
+            email: userInfo.user.email ?? "",
             association: association
         )
         
