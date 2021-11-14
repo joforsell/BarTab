@@ -49,7 +49,9 @@ struct Authentication {
     
     // MARK: - User creation
     static func createUser(withEmail email: String, password: String, completionHandler: @escaping (Result<Bool,Error>) -> Void) {
-        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+        let credential = EmailAuthProvider.credential(withEmail: email, password: password)
+        
+        Auth.auth().currentUser?.link(with: credential) { authResult, error in
             if let err = error {
                 completionHandler(.failure(err))
                 return
@@ -58,15 +60,7 @@ struct Authentication {
                 completionHandler(.failure(error!))
                 return
             }
-            let data = User.dataDict(
-                uid: authResult!.user.uid,
-                email: authResult!.user.email!,
-                association: ""
-            )
             
-            UserHandling.mergeUser(data, uid: authResult!.user.uid) { result in
-                completionHandler(result)
-            }
             completionHandler(.success(true))
         }
     }
@@ -80,6 +74,21 @@ struct Authentication {
             completion(.success(true))
         } catch let err {
             completion(.failure(err))
+        }
+    }
+    
+    // MARK: - Re-authenticate
+    
+    static func reauthenticate(withEmail email: String, password: String, completion: @escaping (Result<Bool, Error>) -> ()) {
+        let credential = EmailAuthProvider.credential(withEmail: email, password: password)
+        
+        Auth.auth().currentUser?.reauthenticate(with: credential) { _, error in
+            if let error = error {
+                print("Could not reauthenticate")
+                completion(.failure(error))
+            }
+            
+            completion(.success(true))
         }
     }
     

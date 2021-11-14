@@ -36,7 +36,7 @@ struct SignUpView: View {
                 .frame(width: 300)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 VStack(spacing: 20) {
-                    Button(action: {
+                    Button {
                         Authentication.createUser(withEmail: user.email, password: user.password) { result in
                             switch result {
                             case .failure(let error):
@@ -44,9 +44,10 @@ struct SignUpView: View {
                                 showError = true
                             case .success( _):
                                 print("Kontot skapades")
+                                presentationMode.wrappedValue.dismiss()
                             }
                         }
-                    }) {
+                    } label: {
                         Text("Skapa konto")
                             .frame(width: 200)
                             .padding(.vertical, 15)

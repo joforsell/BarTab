@@ -24,7 +24,6 @@ struct CustomerSettingsView: View {
                 ForEach($customerVM.customers) { $customer in
                     CustomerRow(customer: $customer, editMode: $editMode)
                 }
-                .onDelete(perform: delete)
             }
             .navigationTitle("Medlemmar")
             .toolbar {

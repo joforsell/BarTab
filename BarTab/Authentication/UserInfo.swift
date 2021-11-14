@@ -28,4 +28,18 @@ class UserInfo: ObservableObject {
             self.isUserAuthenticated = .signedIn
         }
     }
+    
+    func isAppAlreadyLaunchedOnce() -> Bool {
+            let defaults = UserDefaults.standard
+
+            if let isAppAlreadyLaunchedOnce = defaults.string(forKey: "isAppAlreadyLaunchedOnce") {
+                print("App already launched: \(isAppAlreadyLaunchedOnce)")
+                return true
+            } else {
+                defaults.set(true, forKey: "isAppAlreadyLaunchedOnce")
+                print("App launched first time")
+                return false
+            }
+        }
+
 }

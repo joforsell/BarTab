@@ -53,7 +53,7 @@ class CustomerViewModel: ObservableObject {
             customerRepository.updateCustomer(customer)
     }
     
-    func customerBought(_ drink: Drink, key: String) {
+    func customerBoughtWithKey(_ drink: Drink, key: String) {
         if let index = customers.firstIndex(where: { $0.key == key }) {
             var customer = customers[index]
             customer.balance -= drink.price
@@ -63,6 +63,18 @@ class CustomerViewModel: ObservableObject {
             return
         }
     }
+    
+    func customerBought(_ drink: Drink, id: String) {
+        if let index = customers.firstIndex(where: { $0.id == id }) {
+            var customer = customers[index]
+            customer.balance -= drink.price
+            customer.drinksBought.append(drink)
+            customerRepository.updateCustomer(customer)
+        } else {
+            return
+        }
+    }
+
     
     func sendEmails(from association: String?, completion: @escaping (Result<Bool, Error>) -> Void) {
         emailSender.sendEmails(to: customers, from: association) { result in

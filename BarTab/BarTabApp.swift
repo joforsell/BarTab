@@ -15,13 +15,17 @@ struct BarTabApp: App {
     
     init() {
         FirebaseApp.configure()
+        if Auth.auth().currentUser == nil {
+            Auth.auth().signInAnonymously()
+        }
     }
     
     var body: some Scene {
         WindowGroup {
-            MainView()
+            HomeView()
                 .environmentObject(userInfo)
                 .environmentObject(settings)
         }
     }
 }
+
