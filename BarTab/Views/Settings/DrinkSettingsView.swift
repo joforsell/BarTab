@@ -17,26 +17,8 @@ struct DrinkSettingsView: View {
     var body: some View {
         VStack {
             List {
-                ForEach(drinkVM.drinks) { drink in
-                    HStack {
-                        Text(drink.name)
-                        Spacer()
-                        if editMode == .active {
-                            TextField("Nytt pris", text: $newPrice, onCommit: {
-                                drinkVM.adjustPriceOf(drink: drink.id!, to: Int(newPrice) ?? 0)
-                            })
-                                .frame(maxWidth: UIScreen.main.bounds.width / 8)
-                                .padding(4)
-                                .overlay(
-                                            RoundedRectangle(cornerRadius: 4)
-                                                .stroke(Color.black, lineWidth: 1)
-                                        )
-                            Image(systemName: "checkmark.circle.fill")
-                                .onTapGesture(perform: { drinkVM.adjustPriceOf(drink: drink.id!, to: Int(newPrice) ?? 0) })
-                        }
-                        Text("\(drink.price) kr")
-                            .frame(minWidth: UIScreen.main.bounds.width / 8, alignment: .trailing)
-                    }
+                ForEach($drinkVM.drinks) { $drink in
+                    DrinkRow(drink: $drink)
                 }
                 .onDelete(perform: delete)
             }
@@ -53,12 +35,12 @@ struct DrinkSettingsView: View {
                         }) {
                             Image(systemName: "plus.circle.fill")
                                 .font(.largeTitle)
-                                .foregroundColor(.black)
+                                .foregroundColor(.accentColor)
                         }
 
                         EditButton()
                             .font(.largeTitle)
-                            .foregroundColor(.black)
+                            .foregroundColor(.accentColor)
                             .padding()
                     }
                 }
@@ -73,6 +55,34 @@ struct DrinkSettingsView: View {
             drinkVM.removeDrink(drinkVM.drinks[index].id!)
         }
         drinkVM.drinks.remove(atOffsets: offsets)
+    }
+}
+
+struct DrinkRow: View {
+    @Binding var drink: Drink
+    
+    var body: some View {
+        NavigationLink(destination: DrinkSettingsDetailView(drink: $drink)) {
+            HStack {
+                Text(drink.name)
+                Spacer()
+//                if editMode == .active {
+//                    TextField("Nytt pris", text: $newPrice, onCommit: {
+//                        drinkVM.adjustPriceOf(drink: drink.id!, to: Int(newPrice) ?? 0)
+//                    })
+//                        .frame(maxWidth: UIScreen.main.bounds.width / 8)
+//                        .padding(4)
+//                        .overlay(
+//                                    RoundedRectangle(cornerRadius: 4)
+//                                        .stroke(Color.black, lineWidth: 1)
+//                                )
+//                    Image(systemName: "checkmark.circle.fill")
+//                        .onTapGesture(perform: { drinkVM.adjustPriceOf(drink: drink.id!, to: Int(newPrice) ?? 0) })
+//                }
+                Text("\(drink.price) kr")
+                    .frame(minWidth: UIScreen.main.bounds.width / 8, alignment: .trailing)
+            }
+        }
     }
 }
 

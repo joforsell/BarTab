@@ -54,7 +54,7 @@ struct CustomerSettingsView: View {
     
     func oneDayHasElapsedSince(_ date: Date) -> Bool {
         let timeSinceLatestEmail = -latestEmail.timeIntervalSinceNow
-        return timeSinceLatestEmail > 10
+        return timeSinceLatestEmail > 86400
     }
     
     var mailButton: some View {
@@ -96,20 +96,22 @@ struct CustomerRow: View {
     @State private var showingNumpad = false
     
     var body: some View {
-        HStack {
-            Text(customer.name)
-            Spacer()
-            if editMode == .active {
-                // TODO: Add pop-up numpad to type addition or subtraction.
-                Image(systemName: "pencil")
-                    .onTapGesture { showingNumpad.toggle() }
-                    .foregroundColor(Color("AppYellow"))
-                    .sheet(isPresented: $showingNumpad) {
-                        NumberPad(customer: customer)
-                            .clearModalBackground()
-                    }
+        NavigationLink(destination: CustomerSettingsDetailView(customer: $customer)) {
+            HStack {
+                Text(customer.name)
+                Spacer()
+                if editMode == .active {
+                    // TODO: Add pop-up numpad to type addition or subtraction.
+                    Image(systemName: "pencil")
+                        .onTapGesture { showingNumpad.toggle() }
+                        .foregroundColor(Color("AppYellow"))
+                        .sheet(isPresented: $showingNumpad) {
+                            NumberPad(customer: customer)
+                                .clearModalBackground()
+                        }
+                }
+                Text("\(customer.balance) kr")
             }
-            Text("\(customer.balance) kr")
         }
     }
 }
