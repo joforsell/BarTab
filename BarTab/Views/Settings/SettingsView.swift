@@ -8,21 +8,40 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @State private var isShowingEmailSuccessToast = false
     
     var body: some View {
-        NavigationView {
-            List {
-                NavigationLink(destination: DrinkSettingsView()) {
-                    Text("Drycker")
+        ZStack {
+            NavigationView {
+                List {
+                    NavigationLink(destination: DrinkSettingsView()) {
+                        Text("Drycker")
+                    }
+                    NavigationLink(destination: CustomerSettingsView(isShowingEmailSuccessToast: $isShowingEmailSuccessToast)) {
+                        Text("Medlemmar")
+                    }
+                    NavigationLink(destination: UserSettingsView()) {
+                        Text("Användare")
+                    }
                 }
-                NavigationLink(destination: CustomerSettingsView()) {
-                    Text("Medlemmar")
+                .navigationTitle("Inställningar")
+            }
+            if isShowingEmailSuccessToast {
+                VStack {
+                    HStack(alignment: .top) {
+                        ToastView(systemImage: ("envelope.fill", Color("AppYellow"), 50), title: "Mail skickades", subTitle: "Nuvarande saldo skickades till samtliga kunder.")
+                    }
+                    Spacer()
                 }
-                NavigationLink(destination: UserSettingsView()) {
-                    Text("Användare")
+                .transition(.move(edge: .top))
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                        withAnimation {
+                            isShowingEmailSuccessToast = false
+                        }
+                    }
                 }
             }
-            .navigationTitle("Inställningar")
         }
     }
 }
