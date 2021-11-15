@@ -35,6 +35,8 @@
 		3E68107F27081D6D00C0F5B0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3E68107E27081D6D00C0F5B0 /* GoogleService-Info.plist */; };
 		3E694A422700670400DF0A08 /* AddCustomerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E694A412700670400DF0A08 /* AddCustomerView.swift */; };
 		3E6E508A2719B603009040FC /* Date+RawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6E50892719B603009040FC /* Date+RawRepresentable.swift */; };
+		3E6E914327430C360051A906 /* CustomerSettingsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6E914227430C360051A906 /* CustomerSettingsDetailView.swift */; };
+		3E6E914527430F130051A906 /* DrinkSettingsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6E914427430F130051A906 /* DrinkSettingsDetailView.swift */; };
 		3E6F02DE271CA5CF00DD7C6E /* CustomerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6F02DD271CA5CF00DD7C6E /* CustomerDetailView.swift */; };
 		3E6F9D31273AF8B400CF5677 /* NumberPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6F9D30273AF8B400CF5677 /* NumberPad.swift */; };
 		3E6F9D33273B162D00CF5677 /* NumberPadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6F9D32273B162D00CF5677 /* NumberPadViewModel.swift */; };
@@ -89,6 +91,8 @@
 		3E68107E27081D6D00C0F5B0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3E694A412700670400DF0A08 /* AddCustomerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomerView.swift; sourceTree = "<group>"; };
 		3E6E50892719B603009040FC /* Date+RawRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+RawRepresentable.swift"; sourceTree = "<group>"; };
+		3E6E914227430C360051A906 /* CustomerSettingsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSettingsDetailView.swift; sourceTree = "<group>"; };
+		3E6E914427430F130051A906 /* DrinkSettingsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkSettingsDetailView.swift; sourceTree = "<group>"; };
 		3E6F02DD271CA5CF00DD7C6E /* CustomerDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerDetailView.swift; sourceTree = "<group>"; };
 		3E6F9D30273AF8B400CF5677 /* NumberPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberPad.swift; sourceTree = "<group>"; };
 		3E6F9D32273B162D00CF5677 /* NumberPadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberPadViewModel.swift; sourceTree = "<group>"; };
@@ -264,8 +268,10 @@
 			children = (
 				3E7BEFEA26FCDDDE00453C1B /* SettingsView.swift */,
 				3E7BF0B32706558500BB230F /* CustomerSettingsView.swift */,
+				3E6E914227430C360051A906 /* CustomerSettingsDetailView.swift */,
 				3E6F9D30273AF8B400CF5677 /* NumberPad.swift */,
 				3E7BF0AF270654E200BB230F /* DrinkSettingsView.swift */,
+				3E6E914427430F130051A906 /* DrinkSettingsDetailView.swift */,
 				3E7BF0B12706552500BB230F /* AddDrinkView.swift */,
 				3E60E3AC2711740D00F1363B /* UserSettingsView.swift */,
 			);
@@ -405,6 +411,8 @@
 				3E694A422700670400DF0A08 /* AddCustomerView.swift in Sources */,
 				3E7062D727148D4A00B02C4E /* CheckmarkView.swift in Sources */,
 				3E6F9D33273B162D00CF5677 /* NumberPadViewModel.swift in Sources */,
+				3E6E914527430F130051A906 /* DrinkSettingsDetailView.swift in Sources */,
+				3E6E914327430C360051A906 /* CustomerSettingsDetailView.swift in Sources */,
 				3E662B60270100D800033A11 /* OrderView.swift in Sources */,
 				3E7BEFDE26FCDD2800453C1B /* DrinkViewModel.swift in Sources */,
 				3E60E3AB271161A500F1363B /* LoginView.swift in Sources */,
