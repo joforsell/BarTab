@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E5F333D2741703000AA54AA /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 3E5F333C2741703000AA54AA /* AlertToast */; };
+		3E5F333F274173B500AA54AA /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F333E274173B500AA54AA /* ToastView.swift */; };
 		3E5F335E2712ADA9005340B6 /* UserKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F335D2712ADA9005340B6 /* UserKeys.swift */; };
 		3E5F33622712AF8B005340B6 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F33612712AF8B005340B6 /* AuthError.swift */; };
 		3E5F33642712AF95005340B6 /* UserHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F33632712AF94005340B6 /* UserHandling.swift */; };
@@ -59,6 +61,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E5F333E274173B500AA54AA /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		3E5F335D2712ADA9005340B6 /* UserKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserKeys.swift; sourceTree = "<group>"; };
 		3E5F33612712AF8B005340B6 /* AuthError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
 		3E5F33632712AF94005340B6 /* UserHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserHandling.swift; sourceTree = "<group>"; };
@@ -112,6 +115,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E7062DA27149AB500B02C4E /* ToastUI in Frameworks */,
+				3E5F333D2741703000AA54AA /* AlertToast in Frameworks */,
 				3EE4101A27137C4E00A808B6 /* FirebaseAnalytics in Frameworks */,
 				3EE4101E27137C4E00A808B6 /* FirebaseFirestore in Frameworks */,
 				3EE4102027137C4E00A808B6 /* FirebaseFirestoreSwift-Beta in Frameworks */,
@@ -226,6 +230,7 @@
 			children = (
 				3E65093A26FCB26900ACDF41 /* HomeView.swift */,
 				3E7062D627148D4A00B02C4E /* CheckmarkView.swift */,
+				3E5F333E274173B500AA54AA /* ToastView.swift */,
 				3E7EA78D270CEF0100CAB50C /* Styling */,
 				3E60E3B227117A6000F1363B /* Login */,
 				3E7BF0AC270654AB00BB230F /* Ordering */,
@@ -310,6 +315,7 @@
 				3EE4101D27137C4E00A808B6 /* FirebaseFirestore */,
 				3EE4101F27137C4E00A808B6 /* FirebaseFirestoreSwift-Beta */,
 				3E7062D927149AB500B02C4E /* ToastUI */,
+				3E5F333C2741703000AA54AA /* AlertToast */,
 			);
 			productName = BarTab;
 			productReference = 3E65093526FCB26900ACDF41 /* BarTab.app */;
@@ -342,6 +348,7 @@
 				3E662B5C2700C76A00033A11 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				3EE4101827137C4E00A808B6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				3E7062D827149AB500B02C4E /* XCRemoteSwiftPackageReference "ToastUI" */,
+				3E5F333B2741703000AA54AA /* XCRemoteSwiftPackageReference "AlertToast" */,
 			);
 			productRefGroup = 3E65093626FCB26900ACDF41 /* Products */;
 			projectDirPath = "";
@@ -394,6 +401,7 @@
 				3E5F335E2712ADA9005340B6 /* UserKeys.swift in Sources */,
 				3E6F02DE271CA5CF00DD7C6E /* CustomerDetailView.swift in Sources */,
 				3E5F33682712B7C9005340B6 /* EmailAuthError.swift in Sources */,
+				3E5F333F274173B500AA54AA /* ToastView.swift in Sources */,
 				3E694A422700670400DF0A08 /* AddCustomerView.swift in Sources */,
 				3E7062D727148D4A00B02C4E /* CheckmarkView.swift in Sources */,
 				3E6F9D33273B162D00CF5677 /* NumberPadViewModel.swift in Sources */,
@@ -600,6 +608,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3E5F333B2741703000AA54AA /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/elai950/AlertToast.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		3E662B5C2700C76A00033A11 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
@@ -627,6 +643,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3E5F333C2741703000AA54AA /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E5F333B2741703000AA54AA /* XCRemoteSwiftPackageReference "AlertToast" */;
+			productName = AlertToast;
+		};
 		3E662B5D2700C76A00033A11 /* Introspect */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3E662B5C2700C76A00033A11 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
