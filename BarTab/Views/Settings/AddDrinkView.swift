@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AddDrinkView: View {
-    @EnvironmentObject var drinkViewModel: DrinkViewModel
+    @EnvironmentObject var drinkViewModel: DrinkListViewModel
     @Environment(\.presentationMode) var presentationMode
     
     @State private var name = ""

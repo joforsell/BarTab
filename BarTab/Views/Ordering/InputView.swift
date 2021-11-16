@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct InputView: View {
-    @EnvironmentObject var userStore: CustomerViewModel
-    @EnvironmentObject var drinkStore: DrinkViewModel
+    @EnvironmentObject var customerListVM: CustomerListViewModel
+    @EnvironmentObject var drinkListVM: DrinkListViewModel
     
     @State private var isShowingOrderView = false
     @State private var selectedDrink: Drink? = nil
@@ -21,7 +21,7 @@ struct InputView: View {
             VStack {
                 HStack {
                     Spacer()
-                    ForEach(drinkStore.drinks.prefix(3)) { drink in
+                    ForEach(drinkListVM.drinks.prefix(3)) { drink in
                         Button(action: {
                             selectedDrink = drink
                             isShowingOrderView = true
@@ -43,7 +43,7 @@ struct InputView: View {
                     .padding(.top)
                     Spacer()
                 }
-                if drinkStore.drinks.count > 3 {
+                if drinkListVM.drinks.count > 3 {
                     ScrollView(.horizontal) {
                         LazyHGrid(rows: rows, spacing: 5) {
                             ForEach(gridViewDrinkList) { drink in
@@ -74,8 +74,8 @@ struct InputView: View {
                 Spacer()
                     .sheet(isPresented: $isShowingOrderView) {
                         OrderView(drink: selectedDrink!)
-                            .environmentObject(userStore)
-                            .environmentObject(drinkStore)
+                            .environmentObject(customerListVM)
+                            .environmentObject(drinkListVM)
                 }
             }
         }
@@ -83,7 +83,7 @@ struct InputView: View {
     }
     
     var gridViewDrinkList: [Drink] {
-        return drinkStore.drinks.suffix(drinkStore.drinks.count - 3)
+        return drinkListVM.drinks.suffix(drinkListVM.drinks.count - 3)
     }
 }
 
@@ -91,13 +91,13 @@ struct InputView_Previews: PreviewProvider {
     static var previews: some View {
         if #available(iOS 15.0, *) {
             InputView()
-                .environmentObject(CustomerViewModel())
-                .environmentObject(DrinkViewModel())
+                .environmentObject(CustomerListViewModel())
+                .environmentObject(DrinkListViewModel())
                 .previewInterfaceOrientation(.landscapeRight)
         } else {
             InputView()
-                .environmentObject(CustomerViewModel())
-                .environmentObject(DrinkViewModel())
+                .environmentObject(CustomerListViewModel())
+                .environmentObject(DrinkListViewModel())
         }
     }
 }

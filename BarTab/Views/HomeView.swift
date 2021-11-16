@@ -10,8 +10,8 @@ import Firebase
 
 struct HomeView: View {
     @EnvironmentObject var userInfo: UserInfo
-    @StateObject var customerVM = CustomerViewModel()
-    @StateObject var drinkVM = DrinkViewModel()
+    @StateObject var customerVM = CustomerListViewModel()
+    @StateObject var drinkVM = DrinkListViewModel()
     
     var body: some View {
         TabView {
@@ -54,8 +54,8 @@ struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         if #available(iOS 15.0, *) {
             HomeView()
-                .environmentObject(CustomerViewModel())
-                .environmentObject(DrinkViewModel())
+                .environmentObject(CustomerListViewModel())
+                .environmentObject(DrinkListViewModel())
                 .previewInterfaceOrientation(.landscapeRight)
         } else {
             HomeView()

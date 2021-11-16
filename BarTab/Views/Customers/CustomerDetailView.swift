@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct CustomerDetailView: View {
-    var customer: Customer
+    var customerVM: CustomerViewModel
     var uniqueDrinks: [String] {
         var drinks: [String] = []
-        for drink in customer.drinksBought {
+        for drink in customerVM.customer.drinksBought {
             if !drinks.contains(drink.name) {
                 drinks.append(drink.name)
             }
@@ -23,7 +23,7 @@ struct CustomerDetailView: View {
         List {
             Section {
                 ForEach(uniqueDrinks, id: \.self) { drink in
-                    Text("\(drink): \(addDrinksWithSameName(drinkArray: customer.drinksBought, selectedDrink: drink))")
+                    Text("\(drink): \(addDrinksWithSameName(drinkArray: customerVM.customer.drinksBought, selectedDrink: drink))")
                 }
             } header: {
                 Text("Köpta drycker")
@@ -49,6 +49,6 @@ struct CustomerDetailView: View {
 
 struct UserDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        CustomerDetailView(customer: Customer(name: "Johan", balance: 500, key: "TETEEE", email: "k.g@y.com"))
+        CustomerDetailView(customerVM: CustomerViewModel(customer: Customer(name: "Johan", balance: 500, key: "TETEEE", email: "k.g@y.com")))
     }
 }

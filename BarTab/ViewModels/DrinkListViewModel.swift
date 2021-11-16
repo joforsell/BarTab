@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-class DrinkViewModel: ObservableObject {
+class DrinkListViewModel: ObservableObject {
     @Published var drinkRepository = DrinkRepository()
     @Published var drinks = [Drink]()
     

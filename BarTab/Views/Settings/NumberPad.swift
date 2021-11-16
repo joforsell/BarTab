@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NumberPad: View {
-    @EnvironmentObject var customerVM: CustomerViewModel
+    @EnvironmentObject var customerVM: CustomerListViewModel
     @ObservedObject var numPadVM = NumberPadViewModel()
     
     @Environment(\.presentationMode) var presentationMode

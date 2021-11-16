@@ -1,84 +1,36 @@
 //
-//  UserViewModel.swift
+//  CustomerViewModel.swift
 //  BarTab
 //
-//  Created by Johan Forsell on 2021-09-23.
+//  Created by Johan Forsell on 2021-11-16.
 //
 
-import SwiftUI
+import Foundation
 import Combine
-import Firebase
 
-class CustomerViewModel: ObservableObject {
+class CustomerViewModel: ObservableObject, Identifiable {
     @Published var customerRepository = CustomerRepository()
-    @Published var customers = [Customer]()
-    let emailSender = EmailSender()
+    @Published var customer: Customer
     
-    var subscriptions = Set<AnyCancellable>()
-    
-    init(){
-        customerRepository.$customers
-            .assign(to: \.customers, on: self)
-            .store(in: &subscriptions)
-    }
-    
-    func addCustomer(name: String, balance: Int, key: String, email: String) {
-        let newCustomer = Customer(name: name, balance: balance, key: key, email: email)
-        customerRepository.addCustomer(newCustomer)
-    }
-    
-    func addCustomerWithoutKey(name: String, balance: Int, email: String) {
-        let newCustomer = Customer(name: name, balance: balance, email: email)
-        customerRepository.addCustomer(newCustomer)
-    }
-    
-    func removeCustomer(_ id: String) {
-        if let index = customers.firstIndex(where: { $0.id == id }) {
-            let customer = customers[index]
-            customerRepository.removeCustomer(customer)
-        }
-    }
+    var id = ""
         
-    func addToBalance(of id: String, by adjustment: Int) {
-        guard let index = customers.firstIndex(where: { $0.id == id }) else { return }
-            var customer = customers[index]
-            customer.balance += adjustment
-            customerRepository.updateCustomer(customer)
-    }
+    private var cancellables = Set<AnyCancellable>()
     
-    func subtractFromBalance(of id: String, by adjustment: Int) {
-        guard let index = customers.firstIndex(where: { $0.id == id }) else { return }
-            var customer = customers[index]
-            customer.balance -= adjustment
-            customerRepository.updateCustomer(customer)
-    }
-    
-    func customerBoughtWithKey(_ drink: Drink, key: String) {
-        if let index = customers.firstIndex(where: { $0.key == key }) {
-            var customer = customers[index]
-            customer.balance -= drink.price
-            customer.drinksBought.append(drink)
-            customerRepository.updateCustomer(customer)
-        } else {
-            return
-        }
-    }
-    
-    func customerBought(_ drink: Drink, id: String) {
-        if let index = customers.firstIndex(where: { $0.id == id }) {
-            var customer = customers[index]
-            customer.balance -= drink.price
-            customer.drinksBought.append(drink)
-            customerRepository.updateCustomer(customer)
-        } else {
-            return
-        }
-    }
-
-    
-    func sendEmails(from association: String?, completion: @escaping (Result<Bool, Error>) -> Void) {
-        emailSender.sendEmails(to: customers, from: association) { result in
-            completion(result)
-        }
+    init(customer: Customer) {
+        self.customer = customer
+        
+        $customer
+            .compactMap { customer in
+                customer.id
+            }
+            .assign(to: \.id, on: self)
+            .store(in: &cancellables)
+        
+        $customer
+            .debounce(for: 1, scheduler: RunLoop.main)
+            .sink { customer in
+                self.customerRepository.updateCustomer(customer)
+            }
+            .store(in: &cancellables)
     }
 }

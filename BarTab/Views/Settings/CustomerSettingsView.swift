@@ -9,13 +9,11 @@ import SwiftUI
 import AlertToast
 
 struct CustomerSettingsView: View {
-    @EnvironmentObject var customerVM: CustomerViewModel
+    @EnvironmentObject var customerListVM: CustomerListViewModel
     @EnvironmentObject var userInfo: UserInfo
     
     @AppStorage("latestEmail") var latestEmail: Date = Date(timeIntervalSinceReferenceDate: 60000)
-    
-    @State var editMode: EditMode = .inactive
-    
+        
     @State private var showError = false
     @State private var errorString = ""
     
@@ -25,8 +23,8 @@ struct CustomerSettingsView: View {
     var body: some View {
         VStack {
             List {
-                ForEach($customerVM.customers) { $customer in
-                    CustomerRow(customer: $customer, editMode: $editMode)
+                ForEach($customerListVM.customerVMs) { $customerVM in
+                    CustomerRow(customerVM: $customerVM)
                 }
             }
             .navigationTitle("Medlemmar")
@@ -37,14 +35,7 @@ struct CustomerSettingsView: View {
                             Alert(title: Text("Vill du göra ett mailutskick?"), message: Text("Vill du skicka ett mail med nuvarande saldo till samtliga kunder?"), primaryButton: .default(Text("OK"), action: emailButtonAction), secondaryButton: .destructive(Text("Avbryt")) { isShowingEmailConfirmation = false } )
                         }
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                        .font(.largeTitle)
-                        .foregroundColor(.accentColor)
-                        .padding()
-                }
             }
-            .environment(\.editMode, $editMode)
         }
         .alert(isPresented: $showError) {
             Alert(title: Text("Kunde inte göra mailutskick"), message: Text(errorString), dismissButton: .default(Text("OK")))
@@ -73,7 +64,7 @@ struct CustomerSettingsView: View {
     }
     
     func emailButtonAction() {
-        customerVM.sendEmails(from: userInfo.user.association) { result in
+        customerListVM.sendEmails(from: userInfo.user.association) { result in
             switch result {
             case .failure(let error):
                 errorString = error.localizedDescription
@@ -90,27 +81,16 @@ struct CustomerSettingsView: View {
 }
 
 struct CustomerRow: View {
-    @Binding var customer: Customer
-    @Binding var editMode: EditMode
+    @Binding var customerVM: CustomerViewModel
     
     @State private var showingNumpad = false
     
     var body: some View {
-        NavigationLink(destination: CustomerSettingsDetailView(customer: $customer)) {
+        NavigationLink(destination: CustomerSettingsDetailView(customerVM: $customerVM)) {
             HStack {
-                Text(customer.name)
+                Text(customerVM.customer.name)
                 Spacer()
-                if editMode == .active {
-                    // TODO: Add pop-up numpad to type addition or subtraction.
-                    Image(systemName: "pencil")
-                        .onTapGesture { showingNumpad.toggle() }
-                        .foregroundColor(Color("AppYellow"))
-                        .sheet(isPresented: $showingNumpad) {
-                            NumberPad(customer: customer)
-                                .clearModalBackground()
-                        }
-                }
-                Text("\(customer.balance) kr")
+                Text("\(customerVM.customer.balance) kr")
             }
         }
     }

@@ -9,7 +9,7 @@ import SwiftUI
 import Introspect
 
 struct AddCustomerView: View {
-    @EnvironmentObject var customerVM: CustomerViewModel
+    @EnvironmentObject var customerListVM: CustomerListViewModel
     @EnvironmentObject var settingsManager: SettingsManager
     @Environment(\.presentationMode) var presentationMode
     
@@ -76,7 +76,7 @@ struct AddCustomerView: View {
                         if settingsManager.settings.usingTag {
                             isShowingTagView = true
                         } else {
-                            customerVM.addCustomerWithoutKey(name: self.name, balance: Int(self.balance) ?? 0, email: self.email)
+                            customerListVM.addCustomerWithoutKey(name: self.name, balance: Int(self.balance) ?? 0, email: self.email)
                             presentationMode.wrappedValue.dismiss()
                         }
                     }) {
@@ -93,7 +93,7 @@ struct AddCustomerView: View {
             if isShowingTagView {
                 ZStack {
                     TextField("Läs av tag", text: $tagKey, onCommit: {
-                        customerVM.addCustomer(name: self.name, balance: Int(self.balance) ?? 0, key: self.tagKey, email: self.email)
+                        customerListVM.addCustomer(name: self.name, balance: Int(self.balance) ?? 0, key: self.tagKey, email: self.email)
                         presentationMode.wrappedValue.dismiss()
                     })
                         .introspectTextField { textField in
@@ -125,11 +125,11 @@ struct AddCustomerView_Previews: PreviewProvider {
     static var previews: some View {
         if #available(iOS 15.0, *) {
             AddCustomerView()
-                .environmentObject(CustomerViewModel())
+                .environmentObject(CustomerListViewModel())
                 .previewInterfaceOrientation(.landscapeRight)
         } else {
             AddCustomerView()
-                .environmentObject(CustomerViewModel())
+                .environmentObject(CustomerListViewModel())
         }
     }
 }
