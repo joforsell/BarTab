@@ -8,20 +8,20 @@
 import SwiftUI
 
 struct CustomerListView: View {
-    @EnvironmentObject var customerVM: CustomerViewModel
+    @EnvironmentObject var customerListVM: CustomerListViewModel
     
     @State private var isShowingAddMemberSheet = false
     
     var body: some View {
         NavigationView {
                 List {
-                    ForEach(customerVM.customers) { customer in
-                        NavigationLink(destination: CustomerDetailView(customer: customer)) {
+                    ForEach(customerListVM.customerVMs) { customerVM in
+                        NavigationLink(destination: CustomerDetailView(customerVM: customerVM)) {
                             HStack {
-                                Text(customer.name)
+                                Text(customerVM.customer.name)
                                 Spacer()
-                                Text("\(customer.balance) kr")
-                                    .foregroundColor(customer.balance < 0 ? .red : .green)
+                                Text("\(customerVM.customer.balance) kr")
+                                    .foregroundColor(customerVM.customer.balance < 0 ? .red : .green)
                             }
                         }
                         
@@ -57,11 +57,11 @@ struct CustomerListView_Previews: PreviewProvider {
     static var previews: some View {
         if #available(iOS 15.0, *) {
             CustomerListView()
-                .environmentObject(CustomerViewModel())
+                .environmentObject(CustomerListViewModel())
                 .previewInterfaceOrientation(.landscapeRight)
         } else {
             CustomerListView()
-                .environmentObject(CustomerViewModel())
+                .environmentObject(CustomerListViewModel())
         }
     }
 }

@@ -10,7 +10,7 @@ import Introspect
 import ToastUI
 
 struct OrderView: View {
-    @EnvironmentObject var customerVM: CustomerViewModel
+    @EnvironmentObject var customerListVM: CustomerListViewModel
     @EnvironmentObject var settingsManager: SettingsManager
     @Environment(\.presentationMode) var presentationMode
     
@@ -29,7 +29,7 @@ struct OrderView: View {
     var orderWithTagView: some View {
         ZStack {
             TextField("Läs av tag", text: $tagKey, onCommit: {
-                customerVM.customerBoughtWithKey(drink, key: tagKey)
+                customerListVM.customerBoughtWithKey(drink, key: tagKey)
                 showToast = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     presentationMode.wrappedValue.dismiss()
@@ -60,9 +60,9 @@ struct OrderView: View {
                 Spacer()
                 VStack{
                     Menu {
-                        ForEach(customerVM.customers) { customer in
-                            Button("\(customer.name)") {
-                                customerVM.customerBought(drink, id: customer.id ?? "")
+                        ForEach(customerListVM.customerVMs) { customerVM in
+                            Button("\(customerVM.customer.name)") {
+                                customerListVM.customerBought(drink, id: customerVM.customer.id ?? "")
                                 showToast = true
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                     presentationMode.wrappedValue.dismiss()
@@ -103,9 +103,9 @@ struct OrderView: View {
                 Spacer()
             }
             Menu {
-                ForEach(customerVM.customers) { customer in
-                    Button("\(customer.name)") {
-                        customerVM.customerBought(drink, id: customer.id ?? "")
+                ForEach(customerListVM.customerVMs) { customerVM in
+                    Button("\(customerVM.customer.name)") {
+                        customerListVM.customerBought(drink, id: customerVM.customer.id ?? "")
                         showToast = true
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                             presentationMode.wrappedValue.dismiss()
@@ -129,6 +129,6 @@ struct OrderView: View {
 struct OrderView_Previews: PreviewProvider {
     static var previews: some View {
         OrderView(drink: Drink(name: "Öl", price: 20))
-            .environmentObject(CustomerViewModel())
+            .environmentObject(CustomerListViewModel())
     }
 }

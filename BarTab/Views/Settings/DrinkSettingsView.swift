@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DrinkSettingsView: View {
-    @EnvironmentObject var drinkVM: DrinkViewModel
+    @EnvironmentObject var drinkVM: DrinkListViewModel
     
     @State var editMode: EditMode = .inactive
     @State private var showingAddDrinkView = false
@@ -66,19 +66,6 @@ struct DrinkRow: View {
             HStack {
                 Text(drink.name)
                 Spacer()
-//                if editMode == .active {
-//                    TextField("Nytt pris", text: $newPrice, onCommit: {
-//                        drinkVM.adjustPriceOf(drink: drink.id!, to: Int(newPrice) ?? 0)
-//                    })
-//                        .frame(maxWidth: UIScreen.main.bounds.width / 8)
-//                        .padding(4)
-//                        .overlay(
-//                                    RoundedRectangle(cornerRadius: 4)
-//                                        .stroke(Color.black, lineWidth: 1)
-//                                )
-//                    Image(systemName: "checkmark.circle.fill")
-//                        .onTapGesture(perform: { drinkVM.adjustPriceOf(drink: drink.id!, to: Int(newPrice) ?? 0) })
-//                }
                 Text("\(drink.price) kr")
                     .frame(minWidth: UIScreen.main.bounds.width / 8, alignment: .trailing)
             }
