@@ -27,16 +27,11 @@ class CustomerListViewModel: ObservableObject {
             .store(in: &subscriptions)
     }
     
-    func addCustomer(name: String, balance: Int, key: String, email: String) {
+    func addCustomer(name: String, balance: Int, key: String = "", email: String) {
         let newCustomer = Customer(name: name, balance: balance, key: key, email: email)
         customerRepository.addCustomer(newCustomer)
     }
-    
-    func addCustomerWithoutKey(name: String, balance: Int, email: String) {
-        let newCustomer = Customer(name: name, balance: balance, email: email)
-        customerRepository.addCustomer(newCustomer)
-    }
-    
+        
     func removeCustomer(_ id: String) {
         if let index = customerRepository.customers.firstIndex(where: { $0.id == id }) {
             let customer = customerRepository.customers[index]
@@ -44,15 +39,17 @@ class CustomerListViewModel: ObservableObject {
         }
     }
         
-    func addToBalance(of id: String, by adjustment: Int) {
-        guard let index = customerRepository.customers.firstIndex(where: { $0.id == id }) else { return }
+    func addToBalance(of customer: Customer, by adjustment: Int) {
+        guard let customerId = customer.id else { return }
+        guard let index = customerRepository.customers.firstIndex(where: { $0.id == customerId }) else { return }
             var customer = customerRepository.customers[index]
             customer.balance += adjustment
             customerRepository.updateCustomer(customer)
     }
     
-    func subtractFromBalance(of id: String, by adjustment: Int) {
-        guard let index = customerRepository.customers.firstIndex(where: { $0.id == id }) else { return }
+    func subtractFromBalance(of customer: Customer, by adjustment: Int) {
+        guard let customerId = customer.id else { return }
+        guard let index = customerRepository.customers.firstIndex(where: { $0.id == customerId }) else { return }
             var customer = customerRepository.customers[index]
             customer.balance -= adjustment
             customerRepository.updateCustomer(customer)

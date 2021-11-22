@@ -21,17 +21,17 @@ struct InputView: View {
             VStack {
                 HStack {
                     Spacer()
-                    ForEach(drinkListVM.drinks.prefix(3)) { drink in
+                    ForEach(drinkListVM.drinkVMs.prefix(3)) { drinkVM in
                         Button(action: {
-                            selectedDrink = drink
+                            selectedDrink = drinkVM.drink
                             isShowingOrderView = true
                         }) {
                             VStack {
-                                Text(drink.name)
+                                Text(drinkVM.drink.name)
                                     .font(.system(size: 40))
                                     .fontWeight(.bold)
                                     .padding()
-                                Text("\(drink.price) kr")
+                                Text("\(drinkVM.drink.price) kr")
                                     .font(.system(size: 30))
                             }
                             .frame(width: UIScreen.main.bounds.width / 3.15, height: UIScreen.main.bounds.height / 3, alignment: .center)
@@ -43,21 +43,21 @@ struct InputView: View {
                     .padding(.top)
                     Spacer()
                 }
-                if drinkListVM.drinks.count > 3 {
+                if drinkListVM.drinkVMs.count > 3 {
                     ScrollView(.horizontal) {
                         LazyHGrid(rows: rows, spacing: 5) {
-                            ForEach(gridViewDrinkList) { drink in
+                            ForEach(gridViewDrinkList) { drinkVM in
                                 
                                 Button(action: {
-                                    selectedDrink = drink
+                                    selectedDrink = drinkVM.drink
                                     isShowingOrderView = true
                                 }) {
                                     VStack {
-                                        Text(drink.name)
+                                        Text(drinkVM.drink.name)
                                             .font(.system(size: 40))
                                             .fontWeight(.bold)
                                             .padding(.vertical, -15)
-                                        Text("\(drink.price) kr")
+                                        Text("\(drinkVM.drink.price) kr")
                                             .font(.system(size: 30))
                                     }
                                 }
@@ -82,8 +82,8 @@ struct InputView: View {
         .blur(radius: isShowingOrderView ? 8 : 0)
     }
     
-    var gridViewDrinkList: [Drink] {
-        return drinkListVM.drinks.suffix(drinkListVM.drinks.count - 3)
+    var gridViewDrinkList: [DrinkViewModel] {
+        return drinkListVM.drinkVMs.suffix(drinkListVM.drinkVMs.count - 3)
     }
 }
 

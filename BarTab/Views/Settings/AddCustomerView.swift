@@ -12,11 +12,7 @@ struct AddCustomerView: View {
     @EnvironmentObject var customerListVM: CustomerListViewModel
     @EnvironmentObject var settingsManager: SettingsManager
     @Environment(\.presentationMode) var presentationMode
-    
-    enum Field {
-        case name, balance, tag
-    }
-    
+        
     @State private var name = ""
     @State private var email = ""
     @State private var balance = ""
@@ -30,9 +26,9 @@ struct AddCustomerView: View {
                 VStack {
                     HStack {
                         Spacer()
-                        Image(systemName: "xmark.circle")
+                        Image(systemName: "xmark")
                             .font(.system(size: 30))
-                            .foregroundColor(.black)
+                            .foregroundColor(.accentColor)
                             .padding()
                             .onTapGesture { presentationMode.wrappedValue.dismiss() }
                             .zIndex(2)
@@ -43,47 +39,39 @@ struct AddCustomerView: View {
             VStack {
                 HStack {
                     Image(systemName: "person.fill.badge.plus")
-                        .font(.largeTitle)
                     Text("Lägg till medlem")
-                        .font(.largeTitle)
                 }
+                .font(.largeTitle)
+                .foregroundColor(Color("AppBlue"))
 
-                TextField("Namn", text: $name)
-                    .disableAutocorrection(true)
-                    .frame(width: UIScreen.main.bounds.width / 3, alignment: .center)
-                    .padding()
-                    .overlay(RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.black))
-                    .padding()
-                TextField("Mailadress", text: $email)
-                    .autocapitalization(.none)
-                    .keyboardType(.emailAddress)
-                    .disableAutocorrection(true)
-                    .frame(width: UIScreen.main.bounds.width / 3, alignment: .center)
-                    .padding()
-                    .overlay(RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.black))
-                    .padding()
-                TextField("Saldo", text: $balance)
-                    .keyboardType(.numberPad)
-                    .frame(width: UIScreen.main.bounds.width / 3, alignment: .center)
-                    .padding()
-                    .overlay(RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.black))
-                    .keyboardType(.numberPad)
+                Group {
+                    TextField("Namn", text: $name)
+                    TextField("Mailadress", text: $email)
+                        .keyboardType(.emailAddress)
+                    TextField("Saldo", text: $balance)
+                        .keyboardType(.numberPad)
+                }
+                .autocapitalization(.none)
+                .disableAutocorrection(true)
+                .frame(width: UIScreen.main.bounds.width / 3, alignment: .center)
+                .padding()
+                .overlay(RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.black))
+                .padding(10)
+
 
                     Button(action: {
                         if settingsManager.settings.usingTag {
                             isShowingTagView = true
                         } else {
-                            customerListVM.addCustomerWithoutKey(name: self.name, balance: Int(self.balance) ?? 0, email: self.email)
+                            customerListVM.addCustomer(name: self.name, balance: Int(self.balance) ?? 0, email: self.email)
                             presentationMode.wrappedValue.dismiss()
                         }
                     }) {
                         Text("Lägg till")
                             .frame(width: UIScreen.main.bounds.width / 3, alignment: .center)
                             .padding()
-                            .background(Color.blue)
+                            .background(Color.accentColor)
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }

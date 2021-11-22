@@ -17,8 +17,8 @@ struct DrinkSettingsView: View {
     var body: some View {
         VStack {
             List {
-                ForEach($drinkVM.drinks) { $drink in
-                    DrinkRow(drink: $drink)
+                ForEach($drinkVM.drinkVMs) { $drinkVM in
+                    DrinkRow(drinkVM: $drinkVM)
                 }
                 .onDelete(perform: delete)
             }
@@ -29,19 +29,13 @@ struct DrinkSettingsView: View {
             .navigationTitle("Drycker")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    HStack {
-                        Button(action: {
-                            showingAddDrinkView = true
-                        }) {
-                            Image(systemName: "plus.circle.fill")
-                                .font(.largeTitle)
-                                .foregroundColor(.accentColor)
-                        }
-
-                        EditButton()
+                    Button(action: {
+                        showingAddDrinkView = true
+                    }) {
+                        Image(systemName: "plus.circle.fill")
                             .font(.largeTitle)
                             .foregroundColor(.accentColor)
-                            .padding()
+                            .padding(.horizontal)
                     }
                 }
             }
@@ -52,21 +46,21 @@ struct DrinkSettingsView: View {
     
     func delete(at offsets: IndexSet) {
         for index in offsets {
-            drinkVM.removeDrink(drinkVM.drinks[index].id!)
+            drinkVM.removeDrink(drinkVM.drinkVMs[index].id)
         }
-        drinkVM.drinks.remove(atOffsets: offsets)
+        drinkVM.drinkVMs.remove(atOffsets: offsets)
     }
 }
 
 struct DrinkRow: View {
-    @Binding var drink: Drink
+    @Binding var drinkVM: DrinkViewModel
     
     var body: some View {
-        NavigationLink(destination: DrinkSettingsDetailView(drink: $drink)) {
+        NavigationLink(destination: DrinkSettingsDetailView(drinkVM: $drinkVM)) {
             HStack {
-                Text(drink.name)
+                Text(drinkVM.drink.name)
                 Spacer()
-                Text("\(drink.price) kr")
+                Text("\(drinkVM.drink.price) kr")
                     .frame(minWidth: UIScreen.main.bounds.width / 8, alignment: .trailing)
             }
         }

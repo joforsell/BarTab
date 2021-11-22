@@ -15,46 +15,90 @@ struct CustomerSettingsDetailView: View {
     @State private var editingBalance = false
     
     var body: some View {
-        VStack {
-            HStack(spacing: 20) {
-                if editingName {
-                    TextField(customerVM.customer.name, text: $customerVM.customer.name, onCommit: { editingName.toggle() })
-                } else {
-                    Text(customerVM.customer.name)
+        VStack(alignment: .leading) {
+            
+            VStack {
+                Text("Namn:")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .offset(y: 10)
+                    .padding(.horizontal)
+                HStack(alignment: .center) {
+                    TextField(customerVM.customer.name,
+                              text: $customerVM.customer.name,
+                              onEditingChanged: { (editingChanged) in
+                        if editingChanged {
+                            editingName = true
+                        } else {
+                            editingName = false
+                        } },
+                              onCommit: { editingName.toggle() }
+                    )
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.largeTitle)
+                    Spacer()
                 }
-                EditCustomerButton(editing: $editingName)
-                if editingEmail {
-                    TextField(customerVM.customer.email, text: $customerVM.customer.email, onCommit: { editingEmail.toggle() })
-                } else {
-                    Text(customerVM.customer.email)
-                }
-                EditCustomerButton(editing: $editingEmail)
-                Text("\(customerVM.customer.balance)")
-                EditCustomerButton(editing: $editingBalance)
-                    .sheet(isPresented: $editingBalance) {
-                        NumberPad(customer: customerVM.customer)
-                            .clearModalBackground()
-                    }
-
+                .frame(maxWidth: .infinity)
+                .padding()
+                .foregroundColor(.primary)
+                .addBorder(editingName ? .accentColor : Color("AppBlue"), width: 2, cornerRadius: 20)
+                .padding(.horizontal)
             }
+            
+            VStack {
+                Text("Email:")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .offset(y: 10)
+                    .padding(.horizontal)
+                HStack(alignment: .center) {
+                    TextField(customerVM.customer.email,
+                              text: $customerVM.customer.email,
+                              onEditingChanged: { (editingChanged) in
+                        if editingChanged {
+                            editingEmail = true
+                        } else {
+                            editingEmail = false
+                        } },
+                              onCommit: { editingEmail.toggle() }
+                    )
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.largeTitle)
+                    Spacer()
+                }
+                .frame(maxWidth: .infinity)
+                .padding()
+                .foregroundColor(.primary)
+                .addBorder(editingEmail ? .accentColor : Color("AppBlue"), width: 2, cornerRadius: 20)
+                .padding(.horizontal)
+            }
+            
+            VStack {
+                Text("Pris:")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .offset(y: 10)
+                    .padding(.horizontal)
+                HStack(alignment: .center) {
+                    Text("\(customerVM.customer.balance) kr")
+                        .frame(idealWidth: 140, alignment: .leading)
+                        .font(.largeTitle)
+                        .sheet(isPresented: $editingBalance) {
+                            CustomerNumberPad(customer: customerVM.customer)
+                                .clearModalBackground()
+                        }
+                    Spacer()
+                }
+                .frame(idealWidth: 160)
+                .padding()
+                .foregroundColor(.primary)
+                .addBorder(editingBalance ? .accentColor : Color("AppBlue"), width: 2, cornerRadius: 20)
+                .onTapGesture {
+                    editingBalance = true
+                }
+                .padding(.horizontal)
+            }
+            
             Spacer()
-            ForEach(customerVM.customer.drinksBought) { drink in
-                Text(drink.name)
-                Text("\(drink.price)")
-            }
+            
         }
-    }
-}
-
-struct EditCustomerButton: View {
-    @Binding var editing: Bool
-    
-    var body: some View {
-        Button {
-            editing.toggle()
-        } label: {
-            Image(systemName: "pencil")
-        }
-        .foregroundColor(.accentColor)
+        .frame(maxWidth: .infinity)
     }
 }
