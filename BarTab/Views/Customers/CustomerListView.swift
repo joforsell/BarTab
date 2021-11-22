@@ -10,7 +10,6 @@ import SwiftUI
 struct CustomerListView: View {
     @EnvironmentObject var customerListVM: CustomerListViewModel
     
-    @State private var isShowingAddMemberSheet = false
     
     var body: some View {
         NavigationView {
@@ -35,18 +34,6 @@ struct CustomerListView: View {
                         }
                         .font(.largeTitle)
                     }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button { isShowingAddMemberSheet = true
-                        } label: {
-                            Image(systemName: "person.fill.badge.plus")
-                        }
-                        .padding()
-                        .foregroundColor(.black)
-                        .font(.largeTitle)
-                    }
-                }
-                .sheet(isPresented: $isShowingAddMemberSheet) {
-                    AddCustomerView()
                 }
             }
             .navigationViewStyle(StackNavigationViewStyle())

@@ -1,54 +1,22 @@
 //
-//  NumberPad.swift
+//  DrinkNumberPad.swift
 //  BarTab
 //
-//  Created by Johan Forsell on 2021-11-09.
+//  Created by Johan Forsell on 2021-11-18.
 //
 
 import SwiftUI
 
-struct NumberPad: View {
-    @EnvironmentObject var customerVM: CustomerListViewModel
+struct DrinkNumberPad: View {
+    @EnvironmentObject var drinkListVM: DrinkListViewModel
     @ObservedObject var numPadVM = NumberPadViewModel()
     
     @Environment(\.presentationMode) var presentationMode
     
-    let customer: Customer
-    
+    let drink: Drink
+        
     var body: some View {
         VStack {
-            HStack {
-                Spacer()
-                
-                Button {
-                    withAnimation {
-                        numPadVM.adding = true
-                    }
-                } label: {
-                    Text("+")
-                }
-                .padding(.horizontal, 30)
-                .background(Color.green.opacity(numPadVM.adding ? 0.8 : 0.1))
-                .cornerRadius(30)
-                .padding(.top)
-
-                Spacer()
-                
-                Button {
-                    withAnimation {
-                        numPadVM.adding = false
-                    }
-                } label: {
-                    Text("-")
-                }
-                .padding(.horizontal, 30)
-                .background(Color.red.opacity(numPadVM.adding ? 0.1 : 0.8))
-                .cornerRadius(30)
-                .padding(.top)
-
-                Spacer()
-
-            }
             amountView
             ForEach(numPadVM.buttons, id: \.self) { row in
                 HStack {
@@ -65,11 +33,7 @@ struct NumberPad: View {
                             
                         } else if button == "enter" {
                             Button {
-                                if numPadVM.adding {
-                                    customerVM.addToBalance(of: customer.id!, by: Int(numPadVM.amount)!)
-                                } else {
-                                    customerVM.subtractFromBalance(of: customer.id!, by: Int(numPadVM.amount)!)
-                                }
+                                drinkListVM.adjustPriceOf(drink: drink, to: Int(numPadVM.amount) ?? 0)
                                 numPadVM.amount = "0"
                                 presentationMode.wrappedValue.dismiss()
                             } label: {
@@ -129,7 +93,7 @@ struct NumberPad: View {
 
 struct NumberPad_Previews: PreviewProvider {
     static var previews: some View {
-        NumberPad(customer: Customer(name: "John", balance: 900, email: "john@john.com"))
+        CustomerNumberPad(customer: Customer(name: "John", balance: 900, email: "john@john.com"))
             .previewLayout(.sizeThatFits)
     }
 }

@@ -10,13 +10,18 @@ import Combine
 
 class DrinkListViewModel: ObservableObject {
     @Published var drinkRepository = DrinkRepository()
-    @Published var drinks = [Drink]()
+    @Published var drinkVMs = [DrinkViewModel]()
     
     var subscriptions = Set<AnyCancellable>()
     
     init() {
         drinkRepository.$drinks
-            .assign(to: \.drinks, on: self)
+            .map { drinks in
+                drinks.map { drink in
+                    DrinkViewModel(drink: drink)
+                }
+            }
+            .assign(to: \.drinkVMs, on: self)
             .store(in: &subscriptions)
     }
                     
@@ -26,19 +31,16 @@ class DrinkListViewModel: ObservableObject {
     }
     
     func removeDrink(_ id: String) {
-        if let index = drinks.firstIndex(where: { $0.id == id }) {
-            let drink = drinks[index]
+        guard let index = drinkRepository.drinks.firstIndex(where: { $0.id == id }) else { return }
+            let drink = drinkRepository.drinks[index]
             drinkRepository.removeDrink(drink)
-        }
     }
     
-    func adjustPriceOf(drink id: String, to newPrice: Int) {
-        if let index = drinks.firstIndex(where: { $0.id == id }) {
-            var drink = drinks[index]
+    func adjustPriceOf(drink: Drink, to newPrice: Int) {
+        guard let drinkId = drink.id else { return }
+        guard let index = drinkRepository.drinks.firstIndex(where: { $0.id == drinkId }) else { return }
+            var drink = drinkRepository.drinks[index]
             drink.price = newPrice
             drinkRepository.updateDrink(drink)
-        } else {
-            return
-        }
     }
 }

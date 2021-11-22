@@ -18,7 +18,10 @@ struct CustomerSettingsView: View {
     @State private var errorString = ""
     
     @Binding var isShowingEmailSuccessToast: Bool
+    
     @State private var isShowingEmailConfirmation = false
+    @State private var isShowingAddMemberSheet = false
+
     
     var body: some View {
         VStack {
@@ -30,9 +33,19 @@ struct CustomerSettingsView: View {
             .navigationTitle("Medlemmar")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    mailButton
+                    emailButton
                         .alert(isPresented: $isShowingEmailConfirmation) {
-                            Alert(title: Text("Vill du göra ett mailutskick?"), message: Text("Vill du skicka ett mail med nuvarande saldo till samtliga kunder?"), primaryButton: .default(Text("OK"), action: emailButtonAction), secondaryButton: .destructive(Text("Avbryt")) { isShowingEmailConfirmation = false } )
+                            Alert(title: Text("Vill du göra ett mailutskick?"),
+                                  message: Text("Vill du skicka ett mail med nuvarande saldo till samtliga kunder?"),
+                                  primaryButton: .destructive(Text("Avbryt"), action: { isShowingEmailConfirmation = false }),
+                                  secondaryButton: .default(Text("OK"), action: emailButtonAction)
+                            )
+                        }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    addCustomerButton
+                        .sheet(isPresented: $isShowingAddMemberSheet) {
+                            AddCustomerView()
                         }
                 }
             }
@@ -48,7 +61,17 @@ struct CustomerSettingsView: View {
         return timeSinceLatestEmail > 86400
     }
     
-    var mailButton: some View {
+    var addCustomerButton: some View {
+        Button { isShowingAddMemberSheet = true
+        } label: {
+            Image(systemName: "person.fill.badge.plus")
+                .foregroundColor(.accentColor)
+                .font(.largeTitle)
+        }
+        .padding(.trailing)
+    }
+    
+    var emailButton: some View {
         Button {
             if oneDayHasElapsedSince(latestEmail) {
                 isShowingEmailConfirmation.toggle()
