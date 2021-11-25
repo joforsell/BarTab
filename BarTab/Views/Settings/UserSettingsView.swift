@@ -59,10 +59,12 @@ struct UserSettingsView: View {
             Divider()
             Toggle("Använd RFID-taggar", isOn: $settingsManager.settings.usingTag)
                 .toggleStyle(SwitchToggleStyle(tint: Color("AppYellow")))
-            if !Auth.auth().currentUser!.isAnonymous {
-                Divider()
-                Toggle("Begär adminlösenord", isOn: $settingsManager.settings.requestingPassword)
-                    .toggleStyle(SwitchToggleStyle(tint: Color("AppYellow")))
+            if let currentUser = Auth.auth().currentUser {
+                if !currentUser.isAnonymous {
+                    Divider()
+                    Toggle("Begär adminlösenord", isOn: $settingsManager.settings.requestingPassword)
+                        .toggleStyle(SwitchToggleStyle(tint: Color("AppYellow")))
+                }
             }
         }
         .frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height * 0.4)
@@ -91,14 +93,18 @@ struct UserSettingsView: View {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    if Auth.auth().currentUser!.isAnonymous {
-                        isShowingLoginScreen.toggle()
+                    if let currentUser = Auth.auth().currentUser {
+                        if currentUser.isAnonymous {
+                            isShowingLoginScreen.toggle()
+                        }
                     }
                 } label: {
-                    if Auth.auth().currentUser!.isAnonymous {
-                        Text("Logga in")
-                            .background(Color("AppYellow"))
-                            .cornerRadius(20)
+                    if let currentUser = Auth.auth().currentUser {
+                        if currentUser.isAnonymous {
+                            Text("Logga in")
+                                .background(Color("AppYellow"))
+                                .cornerRadius(20)
+                        }
                     }
                 }
             }

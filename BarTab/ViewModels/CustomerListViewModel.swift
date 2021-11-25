@@ -12,9 +12,9 @@ import Firebase
 class CustomerListViewModel: ObservableObject {
     @Published var customerRepository = CustomerRepository()
     @Published var customerVMs = [CustomerViewModel]()
-    let emailSender = EmailSender()
+    private let emailSender = EmailSender()
     
-    var subscriptions = Set<AnyCancellable>()
+    private var subscriptions = Set<AnyCancellable>()
     
     init(){
         customerRepository.$customers
@@ -37,6 +37,13 @@ class CustomerListViewModel: ObservableObject {
             let customer = customerRepository.customers[index]
             customerRepository.removeCustomer(customer)
         }
+    }
+    
+    func updateKey(of customer: Customer, with key: String) {
+        guard let customerID = customer.id else { return }
+        guard let index = customerRepository.customers.firstIndex(where: { $0.id == customerID }) else { return }
+            let customer = customerRepository.customers[index]
+            customerRepository.updateKey(of: customer, with: key)
     }
         
     func addToBalance(of customer: Customer, by adjustment: Int) {
@@ -77,7 +84,6 @@ class CustomerListViewModel: ObservableObject {
         }
     }
 
-    
     func sendEmails(from association: String?, completion: @escaping (Result<Bool, Error>) -> Void) {
         emailSender.sendEmails(to: customerRepository.customers, from: association) { result in
             completion(result)
