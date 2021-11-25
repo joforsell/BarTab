@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct CustomerSettingsDetailView: View {
+    @EnvironmentObject var customerListVM: CustomerListViewModel
     @Binding var customerVM: CustomerViewModel
     
     @State private var editingName = false
     @State private var editingEmail = false
     @State private var editingBalance = false
+    @State private var isShowingKeyField = false
+    @State private var newKey = ""
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -95,6 +98,24 @@ struct CustomerSettingsDetailView: View {
                 }
                 .padding(.horizontal)
             }
+            
+            HStack {
+                Button {
+                    isShowingKeyField.toggle()
+                } label: {
+                    Image(systemName: "sensor.tag.radiowaves.forward.fill")
+                        .font(.largeTitle)
+                }
+                
+                if isShowingKeyField {
+                    TextField("New key", text: $newKey, onCommit: {
+                        customerListVM.updateKey(of: customerVM.customer, with: newKey)
+                        newKey = ""
+                        isShowingKeyField = false
+                    })
+                }
+            }
+            .padding()
             
             Spacer()
             

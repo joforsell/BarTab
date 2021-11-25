@@ -63,4 +63,10 @@ class CustomerRepository: ObservableObject {
             }
         }
     }
+    
+    func updateKey(of customer: Customer, with key: String) {
+        if let customerID = customer.id {
+            db.collection("customers").document(customerID).updateData(["key" : key])
+        }
+    }
 }
