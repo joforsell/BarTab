@@ -13,6 +13,5 @@ struct Drink: Codable, Identifiable {
     @DocumentID var id = UUID().uuidString
     var name: String
     var price: Int
-    @ServerTimestamp var timeBought: Timestamp?
     var userId: String?
 }
