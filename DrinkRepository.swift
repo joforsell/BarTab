@@ -63,4 +63,10 @@ class DrinkRepository: ObservableObject {
             }
         }
     }
+    
+    func updateDrinkPrice(of drink: Drink, to price: Int) {
+        if let drinkID = drink.id {
+            db.collection("drinks").document(drinkID).updateData(["price" : price])
+        }
+    }
 }

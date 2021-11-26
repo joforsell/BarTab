@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Introspect
 
 struct CustomerSettingsDetailView: View {
     @EnvironmentObject var customerListVM: CustomerListViewModel
@@ -108,11 +109,14 @@ struct CustomerSettingsDetailView: View {
                 }
                 
                 if isShowingKeyField {
-                    TextField("New key", text: $newKey, onCommit: {
+                    SecureField("New key", text: $newKey, onCommit: {
                         customerListVM.updateKey(of: customerVM.customer, with: newKey)
                         newKey = ""
                         isShowingKeyField = false
                     })
+                        .introspectTextField { textField in
+                            textField.becomeFirstResponder()
+                        }
                 }
             }
             .padding()
