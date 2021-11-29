@@ -33,6 +33,7 @@ class CustomerListViewModel: ObservableObject {
     }
         
     func removeCustomer(_ id: String) {
+        print(customerRepository.customers)
         if let index = customerRepository.customers.firstIndex(where: { $0.id == id }) {
             let customer = customerRepository.customers[index]
             customerRepository.removeCustomer(customer)
@@ -62,26 +63,30 @@ class CustomerListViewModel: ObservableObject {
             customerRepository.updateCustomer(customer)
     }
     
-    func customerBoughtWithKey(_ drink: Drink, key: String) {
-        if let index = customerRepository.customers.firstIndex(where: { $0.key == key }) {
-            var customer = customerRepository.customers[index]
-            customer.balance -= drink.price
-            customer.drinksBought.append(drink)
-            customerRepository.updateCustomer(customer)
-        } else {
-            return
-        }
-    }
+//    func customerBoughtWithKey(_ drink: Drink, key: String) {
+//        if let index = customerRepository.customers.firstIndex(where: { $0.key == key }) {
+//            var customer = customerRepository.customers[index]
+//            customer.balance -= drink.price
+//            let date = Date()
+//            let transaction = Transaction(description: drink.name, amount: drink.price, timestamp: date)
+//            customer.transactions.append(transaction)
+//            customerRepository.updateCustomer(customer)
+//        } else {
+//            return
+//        }
+//    }
     
     func customerBought(_ drink: Drink, id: String) {
-        if let index = customerRepository.customers.firstIndex(where: { $0.id == id }) {
+        guard let index = customerRepository.customers.firstIndex(where: { $0.id == id }) else { return }
             var customer = customerRepository.customers[index]
             customer.balance -= drink.price
-            customer.drinksBought.append(drink)
-            customerRepository.updateCustomer(customer)
-        } else {
-            return
-        }
+            let date = Date()
+//        let transaction = Transaction(description: drink.name, amount: drink.price)
+
+            let transaction = Transaction(description: drink.name, amount: drink.price, createdTime: date)
+//            customer.transactions.append(transaction)
+//            customerRepository.updateCustomer(customer)
+            customerRepository.addTransaction(transaction, to: customer)
     }
 
     func sendEmails(from association: String?, completion: @escaping (Result<Bool, Error>) -> Void) {

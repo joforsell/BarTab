@@ -26,6 +26,8 @@
 		3E60E3B127117A5200F1363B /* SignInWithEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E60E3B027117A5200F1363B /* SignInWithEmailView.swift */; };
 		3E60E3B427117A7F00F1363B /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E60E3B327117A7F00F1363B /* ForgotPasswordView.swift */; };
 		3E60E3B627118FD000F1363B /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E60E3B527118FD000F1363B /* SignUpView.swift */; };
+		3E6457EF275236B200F927A7 /* TransactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6457EE275236B200F927A7 /* TransactionModel.swift */; };
+		3E6457F127523ECA00F927A7 /* TransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6457F027523ECA00F927A7 /* TransactionViewModel.swift */; };
 		3E65093926FCB26900ACDF41 /* BarTabApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E65093826FCB26900ACDF41 /* BarTabApp.swift */; };
 		3E65093B26FCB26900ACDF41 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E65093A26FCB26900ACDF41 /* HomeView.swift */; };
 		3E65093D26FCB26900ACDF41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E65093C26FCB26900ACDF41 /* Assets.xcassets */; };
@@ -85,6 +87,8 @@
 		3E60E3B027117A5200F1363B /* SignInWithEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithEmailView.swift; sourceTree = "<group>"; };
 		3E60E3B327117A7F00F1363B /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		3E60E3B527118FD000F1363B /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		3E6457EE275236B200F927A7 /* TransactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionModel.swift; sourceTree = "<group>"; };
+		3E6457F027523ECA00F927A7 /* TransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewModel.swift; sourceTree = "<group>"; };
 		3E65093526FCB26900ACDF41 /* BarTab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BarTab.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E65093826FCB26900ACDF41 /* BarTabApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarTabApp.swift; sourceTree = "<group>"; };
 		3E65093A26FCB26900ACDF41 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -221,6 +225,7 @@
 				3E60E3A4271147A500F1363B /* UserModel.swift */,
 				3E7BEFE026FCDD6D00453C1B /* DrinkModel.swift */,
 				3E6739E027308F3900FC3B78 /* SettingsModel.swift */,
+				3E6457EE275236B200F927A7 /* TransactionModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -235,6 +240,7 @@
 				3E60E3AE2711751C00F1363B /* UserViewModel.swift */,
 				3E7BEFDD26FCDD2800453C1B /* DrinkListViewModel.swift */,
 				3E5DE2B22746E75600B5723D /* DrinkViewModel.swift */,
+				3E6457F027523ECA00F927A7 /* TransactionViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -415,10 +421,12 @@
 				3E60E3AF2711751C00F1363B /* UserViewModel.swift in Sources */,
 				3E6F9D31273AF8B400CF5677 /* CustomerNumberPad.swift in Sources */,
 				3EBC4986270A4D7F006B4857 /* CustomerRepository.swift in Sources */,
+				3E6457F127523ECA00F927A7 /* TransactionViewModel.swift in Sources */,
 				3E5F33622712AF8B005340B6 /* AuthError.swift in Sources */,
 				3E7BEFE926FCDDD200453C1B /* InputView.swift in Sources */,
 				3E5F335E2712ADA9005340B6 /* UserKeys.swift in Sources */,
 				3E6F02DE271CA5CF00DD7C6E /* CustomerDetailView.swift in Sources */,
+				3E6457EF275236B200F927A7 /* TransactionModel.swift in Sources */,
 				3E5F33682712B7C9005340B6 /* EmailAuthError.swift in Sources */,
 				3E5F333F274173B500AA54AA /* ToastView.swift in Sources */,
 				3E694A422700670400DF0A08 /* AddCustomerView.swift in Sources */,

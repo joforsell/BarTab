@@ -9,36 +9,27 @@ import SwiftUI
 
 struct CustomerDetailView: View {
     var customerVM: CustomerViewModel
-    var uniqueDrinks: [String] {
-        var drinks: [String] = []
-        for drink in customerVM.customer.drinksBought {
-            if !drinks.contains(drink.name) {
-                drinks.append(drink.name)
-            }
-        }
-        return drinks
-    }
     
     var body: some View {
-        List {
-            Section {
-                ForEach(uniqueDrinks, id: \.self) { drink in
-                    Text("\(drink): \(addDrinksWithSameName(drinkArray: customerVM.customer.drinksBought, selectedDrink: drink))")
-                }
-            } header: {
-                Text("Köpta drycker")
-            }
+        ForEach(customerVM.transactions) { transaction in
+            TransactionView(transactionVM: transaction)
         }
     }
+}
+
+struct TransactionView: View {
+    var transactionVM: TransactionViewModel
     
-    func addDrinksWithSameName(drinkArray: [Drink], selectedDrink: String) -> Int {
-        var sumOfDrinks = 0
-        for drink in drinkArray {
-            if drink.name == selectedDrink {
-                sumOfDrinks += 1
+    var body: some View {
+        HStack {
+            VStack {
+                Text(transactionVM.transaction.description)
+                    .padding()
+                Text("\(transactionVM.transaction.amount) kr")
             }
+            Spacer()
+            Text(transactionVM.formattedTimestamp)
         }
-        return sumOfDrinks
     }
 }
 

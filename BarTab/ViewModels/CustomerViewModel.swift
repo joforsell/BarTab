@@ -11,6 +11,7 @@ import Combine
 class CustomerViewModel: ObservableObject, Identifiable {
     @Published var customerRepository = CustomerRepository()
     @Published var customer: Customer
+    @Published var transactions = [TransactionViewModel]()
     
     var id = ""
         
@@ -27,10 +28,19 @@ class CustomerViewModel: ObservableObject, Identifiable {
             .store(in: &cancellables)
         
         $customer
-            .debounce(for: 1, scheduler: RunLoop.main)
-            .sink { customer in
-                self.customerRepository.updateCustomer(customer)
+            .map { customer in
+                customer.transactions.map { transaction in
+                    TransactionViewModel(transaction: transaction)
+                }
             }
+            .assign(to: \.transactions, on: self)
             .store(in: &cancellables)
+        
+//        $customer
+//            .debounce(for: 1, scheduler: RunLoop.main)
+//            .sink { customer in
+//                self.customerRepository.updateCustomer(customer)
+//            }
+//            .store(in: &cancellables)
     }
 }
