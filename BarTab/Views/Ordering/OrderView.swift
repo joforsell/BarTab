@@ -29,7 +29,7 @@ struct OrderView: View {
     var orderWithTagView: some View {
         ZStack {
             TextField("Läs av tag", text: $tagKey, onCommit: {
-                customerListVM.customerBoughtWithKey(drink, key: tagKey)
+//                customerListVM.customerBoughtWithKey(drink, key: tagKey)
                 showToast = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     presentationMode.wrappedValue.dismiss()
