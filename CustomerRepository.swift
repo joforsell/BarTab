@@ -69,4 +69,13 @@ class CustomerRepository: ObservableObject {
             db.collection("customers").document(customerID).updateData(["key" : key])
         }
     }
+    
+    func addTransaction(_ transaction: Transaction, to customer: Customer) {
+        if let customerID = customer.id {
+            let transactionDictionary = ["amount" : transaction.amount, "description" : transaction.description, "id" : transaction.id, "createdTime" : transaction.createdTime] as [String : Any]
+            db.collection("customers").document(customerID).updateData([
+                "transactions" : FieldValue.arrayUnion([transactionDictionary])
+            ])
+        }
+    }
 }

@@ -12,7 +12,7 @@ import FirebaseFirestoreSwift
 
 class DrinkRepository: ObservableObject {
     
-    let db = Firestore.firestore()
+    let db = Firestore.firestore().collection("drinks")
     
     @Published var drinks = [Drink]()
     
@@ -23,7 +23,7 @@ class DrinkRepository: ObservableObject {
     func loadData() {
         let userId = Auth.auth().currentUser?.uid
         
-        db.collection("drinks")
+        db
             .whereField("userId", isEqualTo: userId as Any)
             .addSnapshotListener { (querySnapshot, error) in
             if let querySnapshot = querySnapshot {
@@ -38,7 +38,7 @@ class DrinkRepository: ObservableObject {
         do {
             var addedDrink = drink
             addedDrink.userId = Auth.auth().currentUser?.uid
-            let _ = try db.collection("drinks").addDocument(from: addedDrink)
+            let _ = try db.addDocument(from: addedDrink)
         } catch {
             fatalError("Unable to encode drink: \(error.localizedDescription)")
         }
@@ -46,7 +46,7 @@ class DrinkRepository: ObservableObject {
     
     func removeDrink(_ drink: Drink) {
         if let drinkID = drink.id {
-            db.collection("drinks").document(drinkID).delete() { error in
+            db.document(drinkID).delete() { error in
                 if let error = error {
                     print(error)
                 }
@@ -55,9 +55,9 @@ class DrinkRepository: ObservableObject {
     }
     
     func updateDrink(_ drink: Drink) {
-        if let drinkID = drink.id{
+        if let drinkID = drink.id {
             do {
-                try db.collection("drinks").document(drinkID).setData(from: drink)
+                try db.document(drinkID).setData(from: drink)
             } catch {
                 fatalError("Unable to encode drink: \(error.localizedDescription)")
             }
@@ -66,7 +66,7 @@ class DrinkRepository: ObservableObject {
     
     func updateDrinkPrice(of drink: Drink, to price: Int) {
         if let drinkID = drink.id {
-            db.collection("drinks").document(drinkID).updateData(["price" : price])
+            db.document(drinkID).updateData(["price" : price])
         }
     }
 }
