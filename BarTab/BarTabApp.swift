@@ -12,6 +12,8 @@ import Firebase
 struct BarTabApp: App {
     @StateObject var userInfo = UserInfo()
     @StateObject var settings = SettingsManager()
+    @StateObject var customerListVM = CustomerListViewModel()
+    @StateObject var drinkListVM = DrinkListViewModel()
     
     init() {
         FirebaseApp.configure()
@@ -25,6 +27,8 @@ struct BarTabApp: App {
             HomeView()
                 .environmentObject(userInfo)
                 .environmentObject(settings)
+                .environmentObject(customerListVM)
+                .environmentObject(drinkListVM)
         }
     }
 }
