@@ -10,6 +10,7 @@ import Introspect
 
 struct CustomerSettingsDetailView: View {
     @EnvironmentObject var customerListVM: CustomerListViewModel
+    @ObservedObject var customerRepository = CustomerRepository()
     @Binding var customerVM: CustomerViewModel
     
     @State private var editingName = false
@@ -35,7 +36,10 @@ struct CustomerSettingsDetailView: View {
                         } else {
                             editingName = false
                         } },
-                              onCommit: { editingName.toggle() }
+                              onCommit: {
+                        editingName.toggle()
+                        customerRepository.updateCustomer(customerVM.customer)
+                    }
                     )
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .font(.largeTitle)
@@ -62,7 +66,10 @@ struct CustomerSettingsDetailView: View {
                         } else {
                             editingEmail = false
                         } },
-                              onCommit: { editingEmail.toggle() }
+                              onCommit: {
+                        editingEmail.toggle()
+                        customerRepository.updateCustomer(customerVM.customer)
+                    }
                     )
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .font(.largeTitle)
@@ -118,6 +125,8 @@ struct CustomerSettingsDetailView: View {
                             textField.becomeFirstResponder()
                         }
                 }
+                
+                Button("Delete") { customerListVM.removeCustomer(customerVM.customer.id!) }
             }
             .padding()
             
