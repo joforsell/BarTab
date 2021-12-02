@@ -16,14 +16,11 @@ struct HomeView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .scaleEffect(1.2)
+                .overlay(Color.black.opacity(0.5).blendMode(.overlay))
             VStack {
                 HeaderView()
-                    .frame(width: Constants.screenSizeWidth, height: Constants.screenSizeHeight*0.2)
-                HStack {
-                    MainView()
-                    Spacer()
-                    CustomerListView()
-                }
+                    .frame(width: Constants.screenSizeWidth, height: 134)
+                BodyView()
             }
         }
     }
@@ -32,7 +29,6 @@ struct HomeView: View {
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
-            .previewInterfaceOrientation(.landscapeLeft)
             .environmentObject(CustomerListViewModel())
     }
 }

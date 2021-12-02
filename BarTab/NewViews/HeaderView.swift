@@ -34,7 +34,7 @@ struct HeaderView: View {
                 Spacer()
             }
         }
-        .background(.black.opacity(0.6))
+        .background(Color.black.opacity(0.6))
     }
 }
 
