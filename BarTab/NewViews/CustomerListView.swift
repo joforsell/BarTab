@@ -11,25 +11,38 @@ struct CustomerListView: View {
     @EnvironmentObject var customerListVM: CustomerListViewModel
     
     var body: some View {
-        VStack(spacing: 10) {
-            ForEach(customerListVM.customerVMs) { customerVM in
-                HStack {
-                    Image(systemName: "person.circle")
-                    VStack {
-                        Text(customerVM.customer.name)
-                        Text("\(customerVM.customer.balance) kr")
-                            .foregroundColor(customerVM.balanceColor)
+        VStack {
+            ScrollView {
+                ForEach(customerListVM.customerVMs) { customerVM in
+                    HStack {
+                        Image(systemName: "person.circle")
+                        VStack {
+                            Text(customerVM.customer.name)
+                            Text("\(customerVM.customer.balance) kr")
+                                .foregroundColor(customerVM.balanceColor)
+                        }
+                        Spacer()
+                        Image(systemName: "wave.3.right.circle.fill")
                     }
-                    Spacer()
-                    Image(systemName: "wave.3.right.circle.fill")
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color("AppBlue"))
+                    .frame(height: 60, alignment: .leading)
                 }
-                .foregroundColor(.white)
-                .background(Color("AppBlue"))
-                .frame(height: 60, alignment: .leading)
+            }
+            Spacer()
+            HStack {
+                Spacer()
+                Image(systemName: "person.crop.circle.badge.plus")
+                    .foregroundColor(.accentColor)
+                    .font(.system(size: 60))
+                    .padding(.vertical)
             }
         }
-        .background(.black.opacity(0.6))
-        .frame(width: Constants.screenSizeWidth*0.6)
+        .padding(.trailing, 48)
+        .background(Color.black.opacity(0.6))
+        .frame(width: 400)
+        .padding(.leading, 10)
     }
 }
 

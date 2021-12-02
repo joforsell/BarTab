@@ -27,6 +27,7 @@
 		3E68107F27081D6D00C0F5B0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3E68107E27081D6D00C0F5B0 /* GoogleService-Info.plist */; };
 		3E6E508A2719B603009040FC /* Date+RawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6E50892719B603009040FC /* Date+RawRepresentable.swift */; };
 		3E6F9D33273B162D00CF5677 /* NumberPadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6F9D32273B162D00CF5677 /* NumberPadViewModel.swift */; };
+		3E6FA3B42756A7ED0023DAB7 /* BodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6FA3B32756A7ED0023DAB7 /* BodyView.swift */; };
 		3E7062DA27149AB500B02C4E /* ToastUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3E7062D927149AB500B02C4E /* ToastUI */; };
 		3E7BEFDC26FCDD1900453C1B /* CustomerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFDB26FCDD1900453C1B /* CustomerModel.swift */; };
 		3E7BEFDE26FCDD2800453C1B /* DrinkListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFDD26FCDD2800453C1B /* DrinkListViewModel.swift */; };
@@ -34,10 +35,12 @@
 		3E7BEFE426FCDD9900453C1B /* CustomerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFE326FCDD9900453C1B /* CustomerListViewModel.swift */; };
 		3E817154275574F600F4B0D3 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E817153275574F600F4B0D3 /* HomeView.swift */; };
 		3E817156275575E500F4B0D3 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E817155275575E500F4B0D3 /* HeaderView.swift */; };
-		3E817158275576AB00F4B0D3 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E817157275576AB00F4B0D3 /* MainView.swift */; };
+		3E817158275576AB00F4B0D3 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E817157275576AB00F4B0D3 /* OrderView.swift */; };
 		3E81715A275576B400F4B0D3 /* CustomerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E817159275576B400F4B0D3 /* CustomerListView.swift */; };
 		3E81715C275580A800F4B0D3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E81715B275580A800F4B0D3 /* Constants.swift */; };
 		3E8645D52718A3C0009BFFAA /* EmailSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8645D42718A3C0009BFFAA /* EmailSender.swift */; };
+		3E873022275961B500F8E610 /* DrinkCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E873021275961B500F8E610 /* DrinkCardView.swift */; };
+		3E8730242759755100F8E610 /* ConfirmOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8730232759755100F8E610 /* ConfirmOrderView.swift */; };
 		3EBC4986270A4D7F006B4857 /* CustomerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBC4985270A4D7F006B4857 /* CustomerRepository.swift */; };
 		3EBC4988270B8845006B4857 /* DrinkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBC4987270B8845006B4857 /* DrinkRepository.swift */; };
 		3EE4101A27137C4E00A808B6 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 3EE4101927137C4E00A808B6 /* FirebaseAnalytics */; };
@@ -67,16 +70,19 @@
 		3E68107E27081D6D00C0F5B0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3E6E50892719B603009040FC /* Date+RawRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+RawRepresentable.swift"; sourceTree = "<group>"; };
 		3E6F9D32273B162D00CF5677 /* NumberPadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberPadViewModel.swift; sourceTree = "<group>"; };
+		3E6FA3B32756A7ED0023DAB7 /* BodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyView.swift; sourceTree = "<group>"; };
 		3E7BEFDB26FCDD1900453C1B /* CustomerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerModel.swift; sourceTree = "<group>"; };
 		3E7BEFDD26FCDD2800453C1B /* DrinkListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkListViewModel.swift; sourceTree = "<group>"; };
 		3E7BEFE026FCDD6D00453C1B /* DrinkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkModel.swift; sourceTree = "<group>"; };
 		3E7BEFE326FCDD9900453C1B /* CustomerListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerListViewModel.swift; sourceTree = "<group>"; };
 		3E817153275574F600F4B0D3 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		3E817155275575E500F4B0D3 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
-		3E817157275576AB00F4B0D3 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		3E817157275576AB00F4B0D3 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
 		3E817159275576B400F4B0D3 /* CustomerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerListView.swift; sourceTree = "<group>"; };
 		3E81715B275580A800F4B0D3 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3E8645D42718A3C0009BFFAA /* EmailSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSender.swift; sourceTree = "<group>"; };
+		3E873021275961B500F8E610 /* DrinkCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkCardView.swift; sourceTree = "<group>"; };
+		3E8730232759755100F8E610 /* ConfirmOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOrderView.swift; sourceTree = "<group>"; };
 		3EBC4985270A4D7F006B4857 /* CustomerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerRepository.swift; sourceTree = "<group>"; };
 		3EBC4987270B8845006B4857 /* DrinkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -192,7 +198,10 @@
 			children = (
 				3E817153275574F600F4B0D3 /* HomeView.swift */,
 				3E817155275575E500F4B0D3 /* HeaderView.swift */,
-				3E817157275576AB00F4B0D3 /* MainView.swift */,
+				3E6FA3B32756A7ED0023DAB7 /* BodyView.swift */,
+				3E817157275576AB00F4B0D3 /* OrderView.swift */,
+				3E8730232759755100F8E610 /* ConfirmOrderView.swift */,
+				3E873021275961B500F8E610 /* DrinkCardView.swift */,
 				3E817159275576B400F4B0D3 /* CustomerListView.swift */,
 				3E81715B275580A800F4B0D3 /* Constants.swift */,
 			);
@@ -295,12 +304,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E8730242759755100F8E610 /* ConfirmOrderView.swift in Sources */,
 				3E8645D52718A3C0009BFFAA /* EmailSender.swift in Sources */,
 				3E7BEFE426FCDD9900453C1B /* CustomerListViewModel.swift in Sources */,
 				3E7BEFDC26FCDD1900453C1B /* CustomerModel.swift in Sources */,
 				3E6739DF27308DD700FC3B78 /* SettingsManager.swift in Sources */,
 				3E5DE2B32746E75600B5723D /* DrinkViewModel.swift in Sources */,
 				3E6739E127308F3900FC3B78 /* SettingsModel.swift in Sources */,
+				3E6FA3B42756A7ED0023DAB7 /* BodyView.swift in Sources */,
 				3E7BEFE126FCDD6D00453C1B /* DrinkModel.swift in Sources */,
 				3E817156275575E500F4B0D3 /* HeaderView.swift in Sources */,
 				3EBC4988270B8845006B4857 /* DrinkRepository.swift in Sources */,
@@ -315,13 +326,14 @@
 				3E7BEFDE26FCDD2800453C1B /* DrinkListViewModel.swift in Sources */,
 				3E6E508A2719B603009040FC /* Date+RawRepresentable.swift in Sources */,
 				3E5F33642712AF95005340B6 /* UserHandling.swift in Sources */,
-				3E817158275576AB00F4B0D3 /* MainView.swift in Sources */,
+				3E817158275576AB00F4B0D3 /* OrderView.swift in Sources */,
 				3E60E3A5271147A500F1363B /* UserModel.swift in Sources */,
 				3E817154275574F600F4B0D3 /* HomeView.swift in Sources */,
 				3E60E3A727114B0300F1363B /* UserInfo.swift in Sources */,
 				3E5F33662712B73C005340B6 /* Authentication.swift in Sources */,
 				3E65093926FCB26900ACDF41 /* BarTabApp.swift in Sources */,
 				3E81715C275580A800F4B0D3 /* Constants.swift in Sources */,
+				3E873022275961B500F8E610 /* DrinkCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,7 +466,7 @@
 				DEVELOPMENT_TEAM = 5PNV6G957X;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = BarTab/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -476,7 +488,7 @@
 				DEVELOPMENT_TEAM = 5PNV6G957X;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = BarTab/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
