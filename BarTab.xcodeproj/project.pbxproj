@@ -23,6 +23,8 @@
 		3E662B5E2700C76A00033A11 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 3E662B5D2700C76A00033A11 /* Introspect */; };
 		3E6739DF27308DD700FC3B78 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6739DE27308DD700FC3B78 /* SettingsManager.swift */; };
 		3E6739E127308F3900FC3B78 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6739E027308F3900FC3B78 /* SettingsModel.swift */; };
+		3E678775275D52FC0072259F /* ConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E678774275D52FC0072259F /* ConfirmationViewModel.swift */; };
+		3E678777275D62170072259F /* AddCustomerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E678776275D62170072259F /* AddCustomerView.swift */; };
 		3E67E60927444E1700999511 /* CustomerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E67E60827444E1700999511 /* CustomerViewModel.swift */; };
 		3E68107F27081D6D00C0F5B0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3E68107E27081D6D00C0F5B0 /* GoogleService-Info.plist */; };
 		3E6E508A2719B603009040FC /* Date+RawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6E50892719B603009040FC /* Date+RawRepresentable.swift */; };
@@ -37,7 +39,6 @@
 		3E817156275575E500F4B0D3 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E817155275575E500F4B0D3 /* HeaderView.swift */; };
 		3E817158275576AB00F4B0D3 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E817157275576AB00F4B0D3 /* OrderView.swift */; };
 		3E81715A275576B400F4B0D3 /* CustomerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E817159275576B400F4B0D3 /* CustomerListView.swift */; };
-		3E81715C275580A800F4B0D3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E81715B275580A800F4B0D3 /* Constants.swift */; };
 		3E8645D52718A3C0009BFFAA /* EmailSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8645D42718A3C0009BFFAA /* EmailSender.swift */; };
 		3E873022275961B500F8E610 /* DrinkCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E873021275961B500F8E610 /* DrinkCardView.swift */; };
 		3E8730242759755100F8E610 /* ConfirmOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8730232759755100F8E610 /* ConfirmOrderView.swift */; };
@@ -66,6 +67,8 @@
 		3E65094126FCB26900ACDF41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E6739DE27308DD700FC3B78 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		3E6739E027308F3900FC3B78 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
+		3E678774275D52FC0072259F /* ConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewModel.swift; sourceTree = "<group>"; };
+		3E678776275D62170072259F /* AddCustomerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomerView.swift; sourceTree = "<group>"; };
 		3E67E60827444E1700999511 /* CustomerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerViewModel.swift; sourceTree = "<group>"; };
 		3E68107E27081D6D00C0F5B0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3E6E50892719B603009040FC /* Date+RawRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+RawRepresentable.swift"; sourceTree = "<group>"; };
@@ -79,7 +82,6 @@
 		3E817155275575E500F4B0D3 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		3E817157275576AB00F4B0D3 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
 		3E817159275576B400F4B0D3 /* CustomerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerListView.swift; sourceTree = "<group>"; };
-		3E81715B275580A800F4B0D3 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3E8645D42718A3C0009BFFAA /* EmailSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSender.swift; sourceTree = "<group>"; };
 		3E873021275961B500F8E610 /* DrinkCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkCardView.swift; sourceTree = "<group>"; };
 		3E8730232759755100F8E610 /* ConfirmOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOrderView.swift; sourceTree = "<group>"; };
@@ -138,7 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				3E65093826FCB26900ACDF41 /* BarTabApp.swift */,
-				3E817152275574AF00F4B0D3 /* NewViews */,
+				3E817152275574AF00F4B0D3 /* Views */,
 				3E6E50882719B5C0009040FC /* Extensions */,
 				3E7BEFE226FCDD7400453C1B /* ViewModels */,
 				3E7BEFDF26FCDD2D00453C1B /* Models */,
@@ -189,11 +191,12 @@
 				3E60E3AE2711751C00F1363B /* UserViewModel.swift */,
 				3E7BEFDD26FCDD2800453C1B /* DrinkListViewModel.swift */,
 				3E5DE2B22746E75600B5723D /* DrinkViewModel.swift */,
+				3E678774275D52FC0072259F /* ConfirmationViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		3E817152275574AF00F4B0D3 /* NewViews */ = {
+		3E817152275574AF00F4B0D3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				3E817153275574F600F4B0D3 /* HomeView.swift */,
@@ -203,9 +206,9 @@
 				3E8730232759755100F8E610 /* ConfirmOrderView.swift */,
 				3E873021275961B500F8E610 /* DrinkCardView.swift */,
 				3E817159275576B400F4B0D3 /* CustomerListView.swift */,
-				3E81715B275580A800F4B0D3 /* Constants.swift */,
+				3E678776275D62170072259F /* AddCustomerView.swift */,
 			);
-			path = NewViews;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		3EBC4984270A4D64006B4857 /* Repositories */ = {
@@ -306,7 +309,9 @@
 			files = (
 				3E8730242759755100F8E610 /* ConfirmOrderView.swift in Sources */,
 				3E8645D52718A3C0009BFFAA /* EmailSender.swift in Sources */,
+				3E678777275D62170072259F /* AddCustomerView.swift in Sources */,
 				3E7BEFE426FCDD9900453C1B /* CustomerListViewModel.swift in Sources */,
+				3E678775275D52FC0072259F /* ConfirmationViewModel.swift in Sources */,
 				3E7BEFDC26FCDD1900453C1B /* CustomerModel.swift in Sources */,
 				3E6739DF27308DD700FC3B78 /* SettingsManager.swift in Sources */,
 				3E5DE2B32746E75600B5723D /* DrinkViewModel.swift in Sources */,
@@ -332,7 +337,6 @@
 				3E60E3A727114B0300F1363B /* UserInfo.swift in Sources */,
 				3E5F33662712B73C005340B6 /* Authentication.swift in Sources */,
 				3E65093926FCB26900ACDF41 /* BarTabApp.swift in Sources */,
-				3E81715C275580A800F4B0D3 /* Constants.swift in Sources */,
 				3E873022275961B500F8E610 /* DrinkCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
