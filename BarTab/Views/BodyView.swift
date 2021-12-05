@@ -8,16 +8,12 @@
 import SwiftUI
 
 struct BodyView: View {
+    var orderNamespace: Namespace.ID
+    
     var body: some View {
         HStack {
-            OrderView()
+            OrderView(orderNamespace: orderNamespace)
             CustomerListView()
         }
-    }
-}
-
-struct BodyView_Previews: PreviewProvider {
-    static var previews: some View {
-        BodyView()
     }
 }

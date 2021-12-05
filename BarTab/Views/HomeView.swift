@@ -2,63 +2,46 @@
 //  HomeView.swift
 //  BarTab
 //
-//  Created by Johan Forsell on 2021-09-23.
+//  Created by Johan Forsell on 2021-11-29.
 //
 
 import SwiftUI
-import Firebase
 
 struct HomeView: View {
-    @EnvironmentObject var userInfo: UserInfo
-    @StateObject var customerVM = CustomerListViewModel()
-    @StateObject var drinkVM = DrinkListViewModel()
+    @EnvironmentObject var customerListVM: CustomerListViewModel
+    @EnvironmentObject var confirmationVM: ConfirmationViewModel
+    
+    @Namespace var orderNamespace
     
     var body: some View {
-        TabView {
-            InputView()
-                .environmentObject(customerVM)
-                .environmentObject(drinkVM)
-                .tabItem { Label("Beställ", systemImage: "plus.circle.fill") }
-            CustomerListView()
-                .environmentObject(customerVM)
-                .environmentObject(drinkVM)
-                .tabItem { Label("Medlemmar", systemImage: "person.2.fill") }
-            SettingsView()
-                .environmentObject(customerVM)
-                .environmentObject(drinkVM)
-                .tabItem { Label("Inställningar", systemImage: "gearshape.fill") }
-        }
-        .accentColor(Color("AppYellow"))
-        .onAppear {
-            guard let uid = Auth.auth().currentUser?.uid else {
-                return
+        ZStack {
+            Image("backgroundbar")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .scaleEffect(1.2)
+                .overlay(Color.black.opacity(0.5).blendMode(.overlay))
+            VStack {
+                HeaderView()
+                    .frame(width: UIScreen.main.bounds.width, height: 134)
+                BodyView(orderNamespace: orderNamespace)
             }
-            if !userInfo.isAppAlreadyLaunchedOnce() {
-                userInfo.user = User(uid: uid)
-            } else {
-                UserHandling.retrieveUser(uid: uid) { result in
-                    switch result {
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                    case .success(let user):
-                        userInfo.user = user
+            if confirmationVM.isShowingConfirmationView {
+                ConfirmOrderView(drinkVM: confirmationVM.selectedDrink!, orderNamespace: orderNamespace, showConfirmationView: $confirmationVM.isShowingConfirmationView)
+                    .frame(maxWidth: UIScreen.main.bounds.width * 0.9, maxHeight: UIScreen.main.bounds.height * 0.9)
+                    .onTapGesture {
+                        withAnimation {
+                            confirmationVM.isShowingConfirmationView = false
+                            confirmationVM.selectedDrink = nil
+                        }
                     }
-                }
             }
         }
     }
 }
 
-
-struct HomeView_Previews: PreviewProvider {
+struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        if #available(iOS 15.0, *) {
-            HomeView()
-                .environmentObject(CustomerListViewModel())
-                .environmentObject(DrinkListViewModel())
-                .previewInterfaceOrientation(.landscapeRight)
-        } else {
-            HomeView()
-        }
+        HomeView()
+            .environmentObject(CustomerListViewModel())
     }
 }

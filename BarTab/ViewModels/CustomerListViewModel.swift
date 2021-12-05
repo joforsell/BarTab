@@ -27,7 +27,7 @@ class CustomerListViewModel: ObservableObject {
             .store(in: &subscriptions)
     }
     
-    func addCustomer(name: String, balance: Int, key: String = "", email: String) {
+    func addCustomer(name: String, balance: Int = 0, key: String = "", email: String) {
         let newCustomer = Customer(name: name, balance: balance, key: key, email: email)
         customerRepository.addCustomer(newCustomer)
     }
