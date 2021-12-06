@@ -13,6 +13,8 @@ struct HomeView: View {
     
     @Namespace var orderNamespace
     
+    @State var viewState: ViewState = .main
+    
     var body: some View {
         ZStack {
             Image("backgroundbar")
@@ -21,9 +23,9 @@ struct HomeView: View {
                 .scaleEffect(1.2)
                 .overlay(Color.black.opacity(0.5).blendMode(.overlay))
             VStack {
-                HeaderView()
+                HeaderView(viewState: $viewState)
                     .frame(width: UIScreen.main.bounds.width, height: 134)
-                BodyView(orderNamespace: orderNamespace)
+                BodyView(viewState: $viewState, orderNamespace: orderNamespace)
             }
             if confirmationVM.isShowingConfirmationView {
                 ConfirmOrderView(drinkVM: confirmationVM.selectedDrink!, orderNamespace: orderNamespace, showConfirmationView: $confirmationVM.isShowingConfirmationView)
@@ -39,9 +41,8 @@ struct HomeView: View {
     }
 }
 
-struct MainView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
-            .environmentObject(CustomerListViewModel())
-    }
+enum ViewState {
+    case main
+    case settings
 }
+

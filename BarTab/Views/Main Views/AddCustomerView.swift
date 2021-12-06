@@ -67,9 +67,3 @@ struct AddCustomerView: View {
         .padding(.horizontal, 160)
     }
 }
-
-struct AddCustomerView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddCustomerView()
-    }
-}
