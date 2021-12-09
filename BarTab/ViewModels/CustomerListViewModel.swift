@@ -73,6 +73,11 @@ class CustomerListViewModel: ObservableObject {
         }
     }
     
+    func customerWithKey(_ key: String) -> String {
+        guard let index = customerRepository.customers.firstIndex(where: { $0.key == key }) else { return "" }
+            return customerRepository.customers[index].name
+    }
+    
     func customerBought(_ drink: Drink, id: String) {
         if let index = customerRepository.customers.firstIndex(where: { $0.id == id }) {
             var customer = customerRepository.customers[index]

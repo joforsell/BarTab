@@ -28,15 +28,27 @@ struct HomeView: View {
                 BodyView(viewState: $viewState, orderNamespace: orderNamespace)
             }
             if confirmationVM.isShowingConfirmationView {
-                ConfirmOrderView(drinkVM: confirmationVM.selectedDrink!, orderNamespace: orderNamespace, showConfirmationView: $confirmationVM.isShowingConfirmationView)
+                ConfirmOrderView(drinkVM: confirmationVM.selectedDrink ?? confirmationVM.errorDrink, orderNamespace: orderNamespace)
                     .frame(maxWidth: UIScreen.main.bounds.width * 0.9, maxHeight: UIScreen.main.bounds.height * 0.9)
-                    .onTapGesture {
-                        withAnimation {
-                            confirmationVM.isShowingConfirmationView = false
-                            confirmationVM.selectedDrink = nil
-                        }
-                    }
             }
+//            if confirmationVM.isShowingPurchaseConfirmedToast {
+//                VStack {
+//                    HStack(alignment: .top) {
+//                        ToastView(systemImage: ("checkmark.circle.fill", .accentColor, 50), title: "Ditt köp slutfördes", subTitle: "\(customerListVM.customerWithKey(confirmationVM.tagKey)) köpte \(confirmationVM.selectedDrink?.drink.name ?? "Saknas") för \(confirmationVM.selectedDrink?.drink.price ?? 0) kr.")
+//                    }
+//                    Spacer()
+//                }
+//                .transition(.move(edge: .top))
+//                .onAppear {
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+//                        withAnimation {
+//                            confirmationVM.isShowingPurchaseConfirmedToast = false
+//                        }
+//                    }
+//                }
+//                .zIndex(10)
+//            }
+
         }
     }
 }
