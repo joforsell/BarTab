@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HeaderView: View {
     @EnvironmentObject var userInfo: UserInfo
+    @EnvironmentObject var confirmationVM: ConfirmationViewModel
     
     @Binding var viewState: ViewState
     
@@ -38,6 +39,7 @@ struct HeaderView: View {
                     .onTapGesture {
                         withAnimation {
                             if viewState == .main {
+                                confirmationVM.isShowingConfirmationView = false
                                 viewState = .settings
                             } else {
                                 viewState = .main
