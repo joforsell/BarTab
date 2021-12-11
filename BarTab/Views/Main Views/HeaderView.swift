@@ -19,8 +19,7 @@ struct HeaderView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .foregroundColor(.accentColor)
-                .frame(height: 180)
-                .padding(.leading)
+                .padding()
             VStack(alignment: .leading) {
                 Text("BarTab")
                     .foregroundColor(.accentColor)

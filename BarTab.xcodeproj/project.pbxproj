@@ -47,6 +47,7 @@
 		3E7BEFDE26FCDD2800453C1B /* DrinkListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFDD26FCDD2800453C1B /* DrinkListViewModel.swift */; };
 		3E7BEFE126FCDD6D00453C1B /* DrinkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFE026FCDD6D00453C1B /* DrinkModel.swift */; };
 		3E7BEFE426FCDD9900453C1B /* CustomerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFE326FCDD9900453C1B /* CustomerListViewModel.swift */; };
+		3E8134B02764DEBB00637E61 /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 3E8134AF2764DEBB00637E61 /* SwiftUIX */; };
 		3E817154275574F600F4B0D3 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E817153275574F600F4B0D3 /* HomeView.swift */; };
 		3E817156275575E500F4B0D3 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E817155275575E500F4B0D3 /* HeaderView.swift */; };
 		3E817158275576AB00F4B0D3 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E817157275576AB00F4B0D3 /* OrderView.swift */; };
@@ -121,6 +122,7 @@
 				3E7062DA27149AB500B02C4E /* ToastUI in Frameworks */,
 				3E5F333D2741703000AA54AA /* AlertToast in Frameworks */,
 				3EE4101A27137C4E00A808B6 /* FirebaseAnalytics in Frameworks */,
+				3E8134B02764DEBB00637E61 /* SwiftUIX in Frameworks */,
 				3EE4101E27137C4E00A808B6 /* FirebaseFirestore in Frameworks */,
 				3EE4102027137C4E00A808B6 /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				3EE4101C27137C4E00A808B6 /* FirebaseAuth in Frameworks */,
@@ -306,6 +308,7 @@
 				3EE4101F27137C4E00A808B6 /* FirebaseFirestoreSwift-Beta */,
 				3E7062D927149AB500B02C4E /* ToastUI */,
 				3E5F333C2741703000AA54AA /* AlertToast */,
+				3E8134AF2764DEBB00637E61 /* SwiftUIX */,
 			);
 			productName = BarTab;
 			productReference = 3E65093526FCB26900ACDF41 /* BarTab.app */;
@@ -339,6 +342,7 @@
 				3EE4101827137C4E00A808B6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				3E7062D827149AB500B02C4E /* XCRemoteSwiftPackageReference "ToastUI" */,
 				3E5F333B2741703000AA54AA /* XCRemoteSwiftPackageReference "AlertToast" */,
+				3E8134AE2764DEBB00637E61 /* XCRemoteSwiftPackageReference "SwiftUIX" */,
 			);
 			productRefGroup = 3E65093626FCB26900ACDF41 /* Products */;
 			projectDirPath = "";
@@ -624,6 +628,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		3E8134AE2764DEBB00637E61 /* XCRemoteSwiftPackageReference "SwiftUIX" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftUIX/SwiftUIX.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
 		3EE4101827137C4E00A808B6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -649,6 +661,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3E7062D827149AB500B02C4E /* XCRemoteSwiftPackageReference "ToastUI" */;
 			productName = ToastUI;
+		};
+		3E8134AF2764DEBB00637E61 /* SwiftUIX */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E8134AE2764DEBB00637E61 /* XCRemoteSwiftPackageReference "SwiftUIX" */;
+			productName = SwiftUIX;
 		};
 		3EE4101927137C4E00A808B6 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
