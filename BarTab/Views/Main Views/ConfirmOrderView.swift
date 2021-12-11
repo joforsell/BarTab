@@ -12,17 +12,29 @@ import ToastUI
 struct ConfirmOrderView: View {
     @EnvironmentObject var customerListVM: CustomerListViewModel
     @EnvironmentObject var confirmationVM: ConfirmationViewModel
+    @EnvironmentObject var settingsManager: SettingsManager
     
     var drinkVM: DrinkViewModel
     var orderNamespace: Namespace.ID
     
     @State private var tagKey = ""
     @State private var isShowingPurchaseConfirmedToast = false
+    @State private var transitionFinished = false
+    @State private var currentCustomerName = ""
     
     var body: some View {
+        if settingsManager.settings.usingTag {
+            orderWithTagView
+        } else {
+            orderWithoutTagView
+        }
+    }
+    
+    var orderWithTagView: some View {
         ZStack {
             TextField("Läs av bricka", text: $tagKey, onCommit: {
                 customerListVM.customerBoughtWithKey(drinkVM.drink, key: tagKey)
+                currentCustomerName = customerListVM.customerWithKey(tagKey)
                 withAnimation {
                     isShowingPurchaseConfirmedToast = true
                 }
@@ -30,22 +42,63 @@ struct ConfirmOrderView: View {
                 .opacity(0)
             VStack(alignment: .leading) {
                 Text(drinkVM.drink.name).font(.system(size: 80, weight: .black))
+                    .fixedSize()
                     .matchedGeometryEffect(id: "\(drinkVM.drink.id ?? drinkVM.drink.name) drinkName", in: orderNamespace)
-                Text("\(drinkVM.drink.price) kr").font(.system(size: 40))
+                Text("\(drinkVM.drink.price) kr").font(.system(size: 60))
+                    .fixedSize()
                     .matchedGeometryEffect(id: "\(drinkVM.drink.id ?? drinkVM.drink.name) drinkPrice", in: orderNamespace)
                 Spacer()
             }
             .foregroundColor(.white)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
             .padding(40)
-            VStack {
-                Image(systemName: "wave.3.right.circle.fill")
-                    .font(.system(size: 80))
-                    .foregroundColor(.accentColor)
-                    .padding()
-                Text("Läs av din bricka för att slutföra köpet.")
-                    .font(.title)
-                    .foregroundColor(.white)
+            if transitionFinished {
+                VStack {
+                    Image(systemName: "wave.3.right.circle.fill")
+                        .font(.system(size: 140))
+                        .foregroundColor(.accentColor)
+                        .padding()
+                    Text("Läs av din bricka för att slutföra köpet.")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                }
+                VStack {
+                    HStack {
+                        Spacer()
+                        Image(systemName: "xmark")
+                            .font(.system(size: 40))
+                            .foregroundColor(.white)
+                            .padding(40)
+                            .onTapGesture {
+                                withAnimation {
+                                    confirmationVM.isShowingConfirmationView = false
+                                }
+                            }
+                    }
+                    Spacer()
+                }
+                VStack {
+                    Spacer()
+                    HStack {
+                        Menu {
+                            ForEach(customerListVM.customerVMs) { customerVM in
+                                Button("\(customerVM.customer.name)") {
+                                    customerListVM.customerBought(drinkVM.drink, id: customerVM.customer.id ?? "")
+                                    currentCustomerName = customerVM.customer.name
+                                    withAnimation {
+                                        isShowingPurchaseConfirmedToast = true
+                                    }
+                                }
+                            }
+                        } label: {
+                            Image(systemName: "person.2.fill")
+                                .font(.system(size: 40))
+                                .foregroundColor(.white)
+                        }
+                        .padding(40)
+                        Spacer()
+                    }
+                }
             }
             VStack(alignment: .trailing) {
                 Spacer()
@@ -65,12 +118,106 @@ struct ConfirmOrderView: View {
             withAnimation {
                 confirmationVM.isShowingConfirmationView = false
             } }) {
-            ToastView(systemImage: ("checkmark.circle.fill", .accentColor, 50), title: "Ditt köp slutfördes", subTitle: "\(customerListVM.customerWithKey(tagKey)) köpte \(confirmationVM.selectedDrink?.drink.name ?? "Saknas") för \(confirmationVM.selectedDrink?.drink.price ?? 0) kr.")
+                ToastView(systemImage: ("checkmark.circle.fill", .accentColor, 50), title: "Ditt köp slutfördes", subTitle: "\(currentCustomerName) köpte \(confirmationVM.selectedDrink?.drink.name.lowercased() ?? "saknas") för \(confirmationVM.selectedDrink?.drink.price ?? 0) kr.")
         }
-        .background(Color("AppBlue").matchedGeometryEffect(id: "\(drinkVM.drink.id ?? drinkVM.drink.name) view", in: orderNamespace))
-        .cornerRadius(20)
+        .background(Color("AppBlue"))
+        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .matchedGeometryEffect(id: "\(drinkVM.drink.id ?? drinkVM.drink.name) view", in: orderNamespace)
         .introspectTextField { textField in
             textField.becomeFirstResponder()
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                withAnimation {
+                    transitionFinished = true
+                }
+            }
+        }
+    }
+    
+    var orderWithoutTagView: some View {
+        ZStack {
+            VStack(alignment: .leading) {
+                Text(drinkVM.drink.name).font(.system(size: 80, weight: .black))
+                    .fixedSize()
+                    .matchedGeometryEffect(id: "\(drinkVM.drink.id ?? drinkVM.drink.name) drinkName", in: orderNamespace)
+                Text("\(drinkVM.drink.price) kr").font(.system(size: 60))
+                    .fixedSize()
+                    .matchedGeometryEffect(id: "\(drinkVM.drink.id ?? drinkVM.drink.name) drinkPrice", in: orderNamespace)
+                Spacer()
+            }
+            .foregroundColor(.white)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+            .padding(40)
+            if transitionFinished {
+                VStack {
+                    Menu {
+                        ForEach(customerListVM.customerVMs) { customerVM in
+                            Button("\(customerVM.customer.name)") {
+                                customerListVM.customerBought(drinkVM.drink, id: customerVM.customer.id ?? "")
+                                currentCustomerName = customerVM.customer.name
+                                withAnimation {
+                                    isShowingPurchaseConfirmedToast = true
+                                }
+                            }
+                        }
+                    } label: {
+                        Image(systemName: "person.2.fill")
+                            .font(.system(size: 140))
+                            .foregroundColor(.accentColor)
+                    }
+                    Text("Välj vem som betalar för att slutföra köpet.")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                }
+                VStack {
+                    HStack {
+                        Spacer()
+                        Image(systemName: "xmark")
+                            .font(.system(size: 40))
+                            .foregroundColor(.white)
+                            .padding(40)
+                            .onTapGesture {
+                                withAnimation(.easeInOut(duration: 1)) {
+                                    confirmationVM.isShowingConfirmationView = false
+                                }
+                            }
+                    }
+                    Spacer()
+                }
+            }
+            VStack(alignment: .trailing) {
+                Spacer()
+                HStack {
+                    Spacer()
+                    Image("beer")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: UIScreen.main.bounds.width * 0.2)
+                        .foregroundColor(.accentColor.opacity(0.3))
+                        .padding(20)
+                        .matchedGeometryEffect(id: "\(drinkVM.drink.id ?? drinkVM.drink.name) image", in: orderNamespace)
+                }
+            }
+        }
+        .toast(isPresented: $isShowingPurchaseConfirmedToast, dismissAfter: 3, onDismiss: {
+            withAnimation {
+                confirmationVM.isShowingConfirmationView = false
+            } }) {
+                ToastView(systemImage: ("checkmark.circle.fill", .accentColor, 50), title: "Ditt köp slutfördes", subTitle: "\(currentCustomerName) köpte \(confirmationVM.selectedDrink?.drink.name.lowercased() ?? "saknas") för \(confirmationVM.selectedDrink?.drink.price ?? 0) kr.")
+        }
+        .background(Color("AppBlue"))
+        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .matchedGeometryEffect(id: "\(drinkVM.drink.id ?? drinkVM.drink.name) view", in: orderNamespace)
+        .introspectTextField { textField in
+            textField.becomeFirstResponder()
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                withAnimation {
+                    transitionFinished = true
+                }
+            }
         }
     }
 }

@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import simd
 
 struct DrinkSettingsView: View {
-    @EnvironmentObject var drinkVM: DrinkListViewModel
+    @EnvironmentObject var drinkListVM: DrinkListViewModel
+    
+    var geometry: GeometryProxy
     
     @State var editMode: EditMode = .inactive
     @State private var showingAddDrinkView = false
@@ -16,60 +19,36 @@ struct DrinkSettingsView: View {
     
     var body: some View {
         VStack {
-            List {
-                ForEach($drinkVM.drinkVMs) { $drinkVM in
-                    DrinkRow(drinkVM: $drinkVM)
-                }
-                .onDelete(perform: delete)
+            ForEach($drinkListVM.drinkVMs) { $drinkVM in
+                DrinkRow(drinkVM: $drinkVM, geometry: geometry)
             }
-            .sheet(isPresented: $showingAddDrinkView) {
-                AddDrinkView()
-                    .environmentObject(drinkVM)
-            }
-            .navigationTitle("Drycker")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        showingAddDrinkView = true
-                    } label: {
-                        Image(systemName: "plus.circle.fill")
-                            .font(.largeTitle)
-                            .foregroundColor(.accentColor)
-                    }
-                    .padding()
-                    .offset(y: 30)
-                }
-            }
-            .environment(\.editMode, $editMode)
+            Spacer()
         }
-    }
-    
-    
-    func delete(at offsets: IndexSet) {
-        for index in offsets {
-            drinkVM.removeDrink(drinkVM.drinkVMs[index].id)
-        }
-        drinkVM.drinkVMs.remove(atOffsets: offsets)
+        .frame(width: geometry.size.width * 0.2)
+        .padding()
+        .background(Color.black.opacity(0.3))
     }
 }
 
 struct DrinkRow: View {
     @Binding var drinkVM: DrinkViewModel
+    var geometry: GeometryProxy
     
     var body: some View {
-        NavigationLink(destination: DrinkSettingsDetailView(drinkVM: $drinkVM)) {
-            HStack {
+        HStack {
+            Image("beer")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .foregroundColor(.accentColor)
+            VStack {
                 Text(drinkVM.drink.name)
+                    .font(.headline)
                 Spacer()
                 Text("\(drinkVM.drink.price) kr")
-                    .frame(minWidth: UIScreen.main.bounds.width / 8, alignment: .trailing)
+                    .font(.caption)
             }
+            .foregroundColor(.white)
         }
-    }
-}
-
-struct DrinkSettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        DrinkSettingsView()
+        .frame(height: geometry.size.height * 0.1)
     }
 }

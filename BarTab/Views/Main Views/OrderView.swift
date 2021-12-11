@@ -22,7 +22,7 @@ struct OrderView: View {
                     ForEach(drinkListVM.drinkVMs) { drinkVM in
                         DrinkCardView(drinkVM: drinkVM, orderNamespace: orderNamespace)
                             .onTapGesture {
-                                withAnimation {
+                                withAnimation(.easeInOut(duration: 0.5)) {
                                     confirmationVM.selectedDrink = drinkVM
                                     confirmationVM.isShowingConfirmationView = true
                                 }
