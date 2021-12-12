@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DrinkSettingsDetailView: View {
     @Binding var drinkVM: DrinkViewModel
+    var geometry: GeometryProxy
     
     @State private var editingName = false
     @State private var editingPrice = false
@@ -31,6 +32,7 @@ struct DrinkSettingsDetailView: View {
                             } },
                                   onCommit: { editingName.toggle() }
                         )
+                            .disableAutocorrection(true)
                             .frame(width: 300, alignment: .leading)
                             .font(.largeTitle)
                         Spacer()
@@ -69,9 +71,3 @@ struct DrinkSettingsDetailView: View {
     }
 }
 
-struct DrinkSettingsDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        DrinkSettingsDetailView(drinkVM: .constant(DrinkViewModel(drink: Drink(name: "Öl", price: 40))))
-            .previewLayout(.sizeThatFits)
-    }
-}

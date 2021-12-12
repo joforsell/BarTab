@@ -11,6 +11,7 @@ import SwiftUIX
 struct SettingsView: View {
     @State private var isShowingEmailSuccessToast = false
     @State private var settingsShown: SettingsRouter = .none
+    @State private var detailViewShown: DetailViewRouter = .none
     
     private let routerButtonSize: CGFloat = 60
     
@@ -24,7 +25,7 @@ struct SettingsView: View {
                 .opacity(0.05)
             GeometryReader { geo in
                 ZStack {
-                    HStack {
+                    HStack(spacing: 0) {
                         VStack(alignment: .center) {
                             HStack {
                                 Button {
@@ -33,7 +34,7 @@ struct SettingsView: View {
                                     } else {
                                         settingsShown = .drinks
                                     }
-                                    print(settingsShown)
+                                    detailViewShown = .none
                                 } label: {
                                     Image("beer")
                                         .resizable()
@@ -43,17 +44,17 @@ struct SettingsView: View {
                             }
                             .frame(width: routerButtonSize, height: routerButtonSize)
                             .padding()
-                            .background(settingsShown == .drinks ? Color("AppSecBlue") : Color("AppBlue"))
+                            .background(settingsShown == .drinks ? Color("AppBlue") : Color.clear)
                             .cornerRadius(10)
 
                             
                             Button {
-                                if settingsShown == .users {
+                                if settingsShown == .customers {
                                     settingsShown = .none
                                 } else {
-                                    settingsShown = .users
+                                    settingsShown = .customers
                                 }
-                                print(settingsShown)
+                                detailViewShown = .none
                             } label: {
                                 Image(systemName: "person.2.fill")
                                     .resizable()
@@ -62,17 +63,17 @@ struct SettingsView: View {
                             }
                             .frame(width: routerButtonSize, height: routerButtonSize)
                             .padding()
-                            .background(settingsShown == .users ? Color("AppSecBlue") : Color("AppBlue"))
+                            .background(settingsShown == .customers ? Color("AppBlue") : Color.clear)
                             .cornerRadius(10)
 
                             
                             Button {
-                                if settingsShown == .bartender {
+                                if settingsShown == .user {
                                     settingsShown = .none
                                 } else {
-                                    settingsShown = .bartender
+                                    settingsShown = .user
                                 }
-                                print(settingsShown)
+                                detailViewShown = .none
                             } label: {
                                 Image(systemName: "person.circle")
                                     .resizable()
@@ -81,35 +82,48 @@ struct SettingsView: View {
                             }
                             .frame(width: routerButtonSize, height: routerButtonSize)
                             .padding()
-                            .background(settingsShown == .bartender ? Color("AppSecBlue") : Color("AppBlue"))
+                            .background(settingsShown == .user ? Color("AppBlue") : Color.clear)
                             .cornerRadius(10)
 
                             Spacer()
                         }
                         .padding()
                         .background(Color(.black).opacity(0.5))
+                        
                         switch settingsShown {
                         case .drinks:
-                            DrinkSettingsView(geometry: geo)
-                        case .users:
-                            CustomerSettingsView(isShowingEmailSuccessToast: $isShowingEmailSuccessToast)
-                                .frame(width: geo.size.width * 0.2)
-                        case .bartender:
+                            DrinkSettingsView(geometry: geo, detailViewShown: $detailViewShown)
+                        case .customers:
+                            CustomerSettingsView(isShowingEmailSuccessToast: $isShowingEmailSuccessToast, geometry: geo, detailViewShown: $detailViewShown)
+                        case .user:
                             UserSettingsView()
-                                .frame(width: geo.size.width * 0.2)
+                        case .none:
+                            EmptyView()
+                        }
+                        
+                        switch detailViewShown {
+                        case .drink(let drinkVM, let geometry):
+                            DrinkSettingsDetailView(drinkVM: drinkVM, geometry: geometry)
+                        case .customer(let customerVM, let geometry):
+                            CustomerSettingsDetailView(customerVM: customerVM, geometry: geometry)
                         case .none:
                             EmptyView()
                         }
                     }
                 }
-                .frame(width: geo.size.width * 0.15)
             }
         }
     }
 }
 
 enum SettingsRouter {
-    case drinks, users, bartender, none
+    case drinks, customers, user, none
+}
+
+enum DetailViewRouter {
+    case drink(drinkVM: Binding<DrinkViewModel>, geometry: GeometryProxy)
+    case customer(customerVM: Binding<CustomerViewModel>, geometry: GeometryProxy)
+    case none
 }
 
 struct SettingsView_Previews: PreviewProvider {
