@@ -17,38 +17,33 @@ struct CustomerSettingsView: View {
     @State private var errorString = ""
     
     @Binding var isShowingEmailSuccessToast: Bool
+    var geometry: GeometryProxy
+    @Binding var detailViewShown: DetailViewRouter
     
     @State private var isShowingEmailConfirmation = false
     @State private var isShowingAddMemberSheet = false
+    @State private var currentCustomerShown: CustomerViewModel?
 
     
     var body: some View {
         VStack {
-            List {
-                ForEach($customerListVM.customerVMs) { $customerVM in
-                    CustomerRow(customerVM: $customerVM)
-                }
-            }
-            .navigationTitle("Medlemmar")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    emailButton
-                        .alert(isPresented: $isShowingEmailConfirmation) {
-                            Alert(title: Text("Vill du göra ett mailutskick?"),
-                                  message: Text("Vill du skicka ett mail med nuvarande saldo till samtliga kunder?"),
-                                  primaryButton: .destructive(Text("Avbryt"), action: { isShowingEmailConfirmation = false }),
-                                  secondaryButton: .default(Text("OK"), action: emailButtonAction)
-                            )
+            ForEach($customerListVM.customerVMs) { $customerVM in
+                VStack {
+                    CustomerRow(customerVM: $customerVM, geometry: geometry)
+                        .onTapGesture {
+                            detailViewShown = .customer(customerVM: $customerVM, geometry: geometry)
+                            currentCustomerShown = customerVM
                         }
+                    Divider()
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    addCustomerButton
-                        .sheet(isPresented: $isShowingAddMemberSheet) {
-                            AddCustomerView()
-                        }
-                }
+                .background(currentCustomerShown?.customer.name == customerVM.customer.name ? Color("AppBlue") : Color.clear)
+
             }
+            Spacer()
         }
+        .frame(width: geometry.size.width * 0.25)
+        .padding()
+        .background(Color.black.opacity(0.3))
         .alert(isPresented: $showError) {
             Alert(title: Text("Kunde inte göra mailutskick"), message: Text(errorString), dismissButton: .default(Text("OK")))
         }
@@ -68,7 +63,6 @@ struct CustomerSettingsView: View {
                 .font(.largeTitle)
         }
         .padding(.trailing)
-        .offset(y: 30)
     }
     
     var emailButton: some View {
@@ -84,7 +78,6 @@ struct CustomerSettingsView: View {
                 .font(.largeTitle)
                 .foregroundColor(oneDayHasElapsedSince(latestEmail) ? .accentColor : .accentColor.opacity(0.3))
         }
-        .offset(y: 30)
     }
     
     func emailButtonAction() {
@@ -106,22 +99,37 @@ struct CustomerSettingsView: View {
 
 struct CustomerRow: View {
     @Binding var customerVM: CustomerViewModel
-    
-    @State private var showingNumpad = false
+    var geometry: GeometryProxy
     
     var body: some View {
-        NavigationLink(destination: CustomerSettingsDetailView(customerVM: $customerVM)) {
-            HStack {
+        HStack {
+            Image(systemName: "person")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .scaleEffect(0.7)
+                .foregroundColor(.white)
+                .frame(height: geometry.size.height * 0.05)
+                .clipShape(Circle())
+                .overlay {
+                    Circle()
+                        .stroke(Color.white, lineWidth: 1)
+                }
+                .padding(.leading)
+            VStack(alignment: .leading) {
                 Text(customerVM.customer.name)
-                Spacer()
+                    .font(.headline)
+                    .fontWeight(.bold)
                 Text("\(customerVM.customer.balance) kr")
+                    .font(.caption)
             }
+            .padding()
+            .foregroundColor(.white)
+            Spacer()
+            Image(systemName: "chevron.right")
+                .font(.body)
+                .foregroundColor(.white.opacity(0.2))
         }
+        .frame(height: geometry.size.height * 0.05)
     }
 }
 
-struct CustomerSettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        CustomerSettingsView(isShowingEmailSuccessToast: .constant(false))
-    }
-}
