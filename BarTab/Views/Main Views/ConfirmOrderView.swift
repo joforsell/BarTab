@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftUIX
 import Introspect
 import ToastUI
 
@@ -15,7 +16,7 @@ struct ConfirmOrderView: View {
     @EnvironmentObject var settingsManager: SettingsManager
     
     var drinkVM: DrinkViewModel
-    var orderNamespace: Namespace.ID
+    @Binding var tappedDrink: String?
     
     @State private var tagKey = ""
     @State private var isShowingPurchaseConfirmedToast = false
@@ -43,10 +44,8 @@ struct ConfirmOrderView: View {
             VStack(alignment: .leading) {
                 Text(drinkVM.drink.name).font(.system(size: 80, weight: .black))
                     .fixedSize()
-                    .matchedGeometryEffect(id: "\(drinkVM.drink.id ?? drinkVM.drink.name) drinkName", in: orderNamespace)
                 Text("\(drinkVM.drink.price) kr").font(.system(size: 60))
                     .fixedSize()
-                    .matchedGeometryEffect(id: "\(drinkVM.drink.id ?? drinkVM.drink.name) drinkPrice", in: orderNamespace)
                 Spacer()
             }
             .foregroundColor(.white)
@@ -71,7 +70,7 @@ struct ConfirmOrderView: View {
                             .padding(40)
                             .onTapGesture {
                                 withAnimation {
-                                    confirmationVM.isShowingConfirmationView = false
+                                    tappedDrink = nil
                                 }
                             }
                     }
@@ -110,19 +109,17 @@ struct ConfirmOrderView: View {
                         .frame(width: UIScreen.main.bounds.width * 0.2)
                         .foregroundColor(.accentColor.opacity(0.3))
                         .padding(20)
-                        .matchedGeometryEffect(id: "\(drinkVM.drink.id ?? drinkVM.drink.name) image", in: orderNamespace)
                 }
             }
         }
         .toast(isPresented: $isShowingPurchaseConfirmedToast, dismissAfter: 3, onDismiss: {
             withAnimation {
-                confirmationVM.isShowingConfirmationView = false
+                tappedDrink = nil
             } }) {
                 ToastView(systemImage: ("checkmark.circle.fill", .accentColor, 50), title: "Ditt köp slutfördes", subTitle: "\(currentCustomerName) köpte \(confirmationVM.selectedDrink?.drink.name.lowercased() ?? "saknas") för \(confirmationVM.selectedDrink?.drink.price ?? 0) kr.")
         }
-        .background(Color("AppBlue"))
+            .background(VisualEffectBlurView(blurStyle: .dark))
         .clipShape(RoundedRectangle(cornerRadius: 20))
-        .matchedGeometryEffect(id: "\(drinkVM.drink.id ?? drinkVM.drink.name) view", in: orderNamespace)
         .introspectTextField { textField in
             textField.becomeFirstResponder()
         }
@@ -140,10 +137,8 @@ struct ConfirmOrderView: View {
             VStack(alignment: .leading) {
                 Text(drinkVM.drink.name).font(.system(size: 80, weight: .black))
                     .fixedSize()
-                    .matchedGeometryEffect(id: "\(drinkVM.drink.id ?? drinkVM.drink.name) drinkName", in: orderNamespace)
                 Text("\(drinkVM.drink.price) kr").font(.system(size: 60))
                     .fixedSize()
-                    .matchedGeometryEffect(id: "\(drinkVM.drink.id ?? drinkVM.drink.name) drinkPrice", in: orderNamespace)
                 Spacer()
             }
             .foregroundColor(.white)
@@ -179,7 +174,7 @@ struct ConfirmOrderView: View {
                             .padding(40)
                             .onTapGesture {
                                 withAnimation(.easeInOut(duration: 1)) {
-                                    confirmationVM.isShowingConfirmationView = false
+                                    tappedDrink = nil
                                 }
                             }
                     }
@@ -196,19 +191,17 @@ struct ConfirmOrderView: View {
                         .frame(width: UIScreen.main.bounds.width * 0.2)
                         .foregroundColor(.accentColor.opacity(0.3))
                         .padding(20)
-                        .matchedGeometryEffect(id: "\(drinkVM.drink.id ?? drinkVM.drink.name) image", in: orderNamespace)
                 }
             }
         }
         .toast(isPresented: $isShowingPurchaseConfirmedToast, dismissAfter: 3, onDismiss: {
             withAnimation {
-                confirmationVM.isShowingConfirmationView = false
+                tappedDrink = nil
             } }) {
                 ToastView(systemImage: ("checkmark.circle.fill", .accentColor, 50), title: "Ditt köp slutfördes", subTitle: "\(currentCustomerName) köpte \(confirmationVM.selectedDrink?.drink.name.lowercased() ?? "saknas") för \(confirmationVM.selectedDrink?.drink.price ?? 0) kr.")
         }
-        .background(Color("AppBlue"))
+        .background(VisualEffectBlurView(blurStyle: .dark))
         .clipShape(RoundedRectangle(cornerRadius: 20))
-        .matchedGeometryEffect(id: "\(drinkVM.drink.id ?? drinkVM.drink.name) view", in: orderNamespace)
         .introspectTextField { textField in
             textField.becomeFirstResponder()
         }

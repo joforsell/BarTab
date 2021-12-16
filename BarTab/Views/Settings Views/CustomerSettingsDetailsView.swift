@@ -93,32 +93,32 @@ struct CustomerSettingsDetailView: View {
                         .padding(.horizontal)
                     }
                     
-                    VStack {
-                        Text("Saldo:")
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .offset(y: 10)
-                            .padding(.horizontal)
-                            .foregroundColor(.white)
-                        HStack(alignment: .center) {
-                            Text("\(customerVM.customer.balance) kr")
-                                .frame(idealWidth: 140, alignment: .leading)
-                                .font(.title2)
-                                .sheet(isPresented: $editingBalance) {
-                                    CustomerNumberPad(customer: customerVM.customer)
-                                        .clearModalBackground()
-                                }
-                            Spacer()
-                        }
-                        .frame(idealWidth: 160)
-                        .padding()
-                        .foregroundColor(.primary)
-//                        .background(textFieldBackground)
-                        .addBorder(editingBalance ? .accentColor : Color.white.opacity(0.3), width: 2, cornerRadius: 10)
-                        .onTapGesture {
-                            editingBalance = true
-                        }
-                        .padding(.horizontal)
-                    }
+//                    VStack {
+//                        Text("Saldo:")
+//                            .frame(maxWidth: .infinity, alignment: .leading)
+//                            .offset(y: 10)
+//                            .padding(.horizontal)
+//                            .foregroundColor(.white)
+//                        HStack(alignment: .center) {
+//                            Text("\(customerVM.customer.balance) kr")
+//                                .frame(idealWidth: 140, alignment: .leading)
+//                                .font(.title2)
+//                                .sheet(isPresented: $editingBalance) {
+//                                    CustomerNumberPad(customer: customerVM.customer)
+//                                        .clearModalBackground()
+//                                }
+//                            Spacer()
+//                        }
+//                        .frame(idealWidth: 160)
+//                        .padding()
+//                        .foregroundColor(.primary)
+////                        .background(textFieldBackground)
+//                        .addBorder(editingBalance ? .accentColor : Color.white.opacity(0.3), width: 2, cornerRadius: 10)
+//                        .onTapGesture {
+//                            editingBalance = true
+//                        }
+//                        .padding(.horizontal)
+//                    }
                 }
                 
                 VStack {

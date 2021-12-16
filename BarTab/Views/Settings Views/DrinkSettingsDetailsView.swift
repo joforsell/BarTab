@@ -42,28 +42,28 @@ struct DrinkSettingsDetailView: View {
                     .foregroundColor(.primary)
                     .addBorder(editingName ? .accentColor : Color("AppBlue"), width: 2, cornerRadius: 20)
                 }
-                VStack {
-                    Text("Pris:")
-                        .frame(width: 100, alignment: .leading)
-                        .offset(y: 10)
-                    HStack(alignment: .center) {
-                        Text("\(drinkVM.drink.price) kr")
-                            .frame(width: 80, alignment: .leading)
-                            .font(.largeTitle)
-                            .sheet(isPresented: $editingPrice) {
-                                DrinkNumberPad(drink: drinkVM.drink)
-                                    .clearModalBackground()
-                            }
-                        Spacer()
-                    }
-                    .frame(width: 100)
-                    .padding()
-                    .foregroundColor(.primary)
-                    .addBorder(editingPrice ? .accentColor : Color("AppBlue"), width: 2, cornerRadius: 20)
-                    .onTapGesture {
-                        editingPrice = true
-                    }
-                }
+//                VStack {
+//                    Text("Pris:")
+//                        .frame(width: 100, alignment: .leading)
+//                        .offset(y: 10)
+//                    HStack(alignment: .center) {
+//                        Text("\(drinkVM.drink.price) kr")
+//                            .frame(width: 80, alignment: .leading)
+//                            .font(.largeTitle)
+//                            .sheet(isPresented: $editingPrice) {
+//                                DrinkNumberPad(drink: drinkVM.drink)
+//                                    .clearModalBackground()
+//                            }
+//                        Spacer()
+//                    }
+//                    .frame(width: 100)
+//                    .padding()
+//                    .foregroundColor(.primary)
+//                    .addBorder(editingPrice ? .accentColor : Color("AppBlue"), width: 2, cornerRadius: 20)
+//                    .onTapGesture {
+//                        editingPrice = true
+//                    }
+//                }
             }
             .frame(maxWidth: .infinity)
         }

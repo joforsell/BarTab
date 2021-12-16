@@ -21,33 +21,43 @@ struct CustomerSettingsView: View {
     @Binding var detailViewShown: DetailViewRouter
     
     @State private var isShowingEmailConfirmation = false
-    @State private var isShowingAddMemberSheet = false
+    @State private var isShowingAddCustomerView = false
     @State private var currentCustomerShown: CustomerViewModel?
 
     
     var body: some View {
         VStack {
-            ForEach($customerListVM.customerVMs) { $customerVM in
-                VStack {
-                    CustomerRow(customerVM: $customerVM, geometry: geometry)
-                        .onTapGesture {
-                            detailViewShown = .customer(customerVM: $customerVM, geometry: geometry)
-                            currentCustomerShown = customerVM
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 0) {
+                    ForEach($customerListVM.customerVMs) { $customerVM in
+                        VStack(spacing: 0) {
+                            CustomerRow(customerVM: $customerVM, geometry: geometry)
+                                .padding(.horizontal)
+                                .padding(.vertical, 8)
+                                .background(currentCustomerShown?.customer.name == customerVM.customer.name ? Color("AppBlue") : Color.clear)
+                                .onTapGesture {
+                                    detailViewShown = .customer(customerVM: $customerVM, geometry: geometry)
+                                    currentCustomerShown = customerVM
+                                }
+                            Divider()
                         }
-                    Divider()
-                }
-                .background(currentCustomerShown?.customer.name == customerVM.customer.name ? Color("AppBlue") : Color.clear)
 
+                    }
+                }
             }
-            Spacer()
+            .padding(.top)
+            .frame(width: geometry.size.width * 0.25)
+            .overlay(alignment: .bottomTrailing) {
+                addCustomerButton
+                    .sheet(isPresented: $isShowingAddCustomerView) {
+                        AddCustomerView()
+                    }
+            }
+            .alert(isPresented: $showError) {
+                Alert(title: Text("Kunde inte göra mailutskick"), message: Text(errorString), dismissButton: .default(Text("OK")))
+            }
         }
-        .frame(width: geometry.size.width * 0.25)
-        .padding()
         .background(Color.black.opacity(0.3))
-        .alert(isPresented: $showError) {
-            Alert(title: Text("Kunde inte göra mailutskick"), message: Text(errorString), dismissButton: .default(Text("OK")))
-        }
-        
     }
     
     func oneDayHasElapsedSince(_ date: Date) -> Bool {
@@ -56,14 +66,18 @@ struct CustomerSettingsView: View {
     }
     
     var addCustomerButton: some View {
-        Button { isShowingAddMemberSheet = true
+        Button {
+            isShowingAddCustomerView.toggle()
         } label: {
-            Image(systemName: "person.fill.badge.plus")
+            Image(systemName: "person.crop.circle.badge.plus")
+                .resizable()
+                .scaledToFit()
                 .foregroundColor(.accentColor)
-                .font(.largeTitle)
+                .padding()
+                .frame(width: 90)
         }
-        .padding(.trailing)
     }
+
     
     var emailButton: some View {
         Button {
@@ -106,29 +120,25 @@ struct CustomerRow: View {
             Image(systemName: "person")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .scaleEffect(0.7)
-                .foregroundColor(.white)
-                .frame(height: geometry.size.height * 0.05)
+                .scaleEffect(0.6)
                 .clipShape(Circle())
                 .overlay {
                     Circle()
-                        .stroke(Color.white, lineWidth: 1)
+                        .stroke(Color.white.opacity(0.3), lineWidth: 1)
                 }
-                .padding(.leading)
             VStack(alignment: .leading) {
                 Text(customerVM.customer.name)
-                    .font(.headline)
+                    .font(.callout)
                     .fontWeight(.bold)
                 Text("\(customerVM.customer.balance) kr")
-                    .font(.caption)
+                    .font(.footnote)
             }
-            .padding()
-            .foregroundColor(.white)
             Spacer()
             Image(systemName: "chevron.right")
                 .font(.body)
                 .foregroundColor(.white.opacity(0.2))
         }
+        .foregroundColor(.white)
         .frame(height: geometry.size.height * 0.05)
     }
 }

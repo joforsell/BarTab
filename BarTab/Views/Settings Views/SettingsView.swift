@@ -17,8 +17,6 @@ struct SettingsView: View {
     
     var body: some View {
         ZStack {
-            VisualEffectBlurView(blurStyle: .dark)
-                .clipShape(RoundedRectangle(cornerRadius: 20))
             Image(systemName: "gear")
                 .font(.system(size: 300))
                 .foregroundColor(.accentColor)
@@ -113,6 +111,7 @@ struct SettingsView: View {
                 }
             }
         }
+        .background(VisualEffectBlurView(blurStyle: .dark))
     }
 }
 
