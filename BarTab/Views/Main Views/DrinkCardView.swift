@@ -6,10 +6,10 @@
 //
 
 import SwiftUI
+import SwiftUIX
 
 struct DrinkCardView: View {
     var drinkVM: DrinkViewModel
-    var orderNamespace: Namespace.ID
     
     var body: some View {
         GeometryReader { geo in
@@ -18,23 +18,20 @@ struct DrinkCardView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .foregroundColor(.accentColor.opacity(0.3))
-                    .frame(maxWidth: geo.size.width * 0.5)
-                    .matchedGeometryEffect(id: "\(drinkVM.drink.id ?? drinkVM.drink.name) image", in: orderNamespace, isSource: true)
+                    .frame(maxWidth: geo.size.width * 0.4)
+                    .padding()
                 VStack(alignment: .leading) {
-                    Text(drinkVM.drink.name).font(.title).bold()
-                        .matchedGeometryEffect(id: "\(drinkVM.drink.id ?? drinkVM.drink.name) drinkName", in: orderNamespace, isSource: true)
+                    Text(drinkVM.drink.name).font(.title3).bold()
                     Text("\(drinkVM.drink.price) kr")
-                        .matchedGeometryEffect(id: "\(drinkVM.drink.id ?? drinkVM.drink.name) drinkPrice", in: orderNamespace, isSource: true)
                     Spacer()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                 .foregroundColor(.white)
                 .padding()
             }
-            .background(Color("AppBlue"))
-            .frame(width: geo.size.width, height: 250)
+            .background(VisualEffectBlurView(blurStyle: .dark))
             .clipShape(RoundedRectangle(cornerRadius: 10))
-            .matchedGeometryEffect(id: "\(drinkVM.drink.id ?? drinkVM.drink.name) view", in: orderNamespace, isSource: true)
+            .addBorder(Color.white.opacity(0.1), width: 1, cornerRadius: 10)
         }
     }
 }

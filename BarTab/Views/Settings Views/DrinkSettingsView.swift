@@ -19,22 +19,42 @@ struct DrinkSettingsView: View {
     @State private var currentDrinkShown: DrinkViewModel?
     
     var body: some View {
-        VStack {
-            ForEach($drinkListVM.drinkVMs) { $drinkVM in
-                VStack {
-                    DrinkRow(drinkVM: $drinkVM, geometry: geometry)
-                        .onTapGesture {
-                            detailViewShown = .drink(drinkVM: $drinkVM, geometry: geometry)
-                            currentDrinkShown = drinkVM
+        VStack(spacing: 0) {
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 0) {
+                    ForEach($drinkListVM.drinkVMs) { $drinkVM in
+                        VStack(spacing: 0) {
+                            DrinkRow(drinkVM: $drinkVM, geometry: geometry)
+                                .padding(.horizontal)
+                                .padding(.vertical, 8)
+                                .background(currentDrinkShown?.drink.name == drinkVM.drink.name ? Color("AppBlue") : Color.clear)
+                                .onTapGesture {
+                                    detailViewShown = .drink(drinkVM: $drinkVM, geometry: geometry)
+                                    currentDrinkShown = drinkVM
+                                }
+                            Divider()
                         }
-                    Divider()
+                    }
                 }
-                .background(currentDrinkShown?.drink.name == drinkVM.drink.name ? Color("AppBlue") : Color.clear)
             }
-            Spacer()
+            .padding(.top)
+            .frame(width: geometry.size.width * 0.25)
+            .overlay(alignment: .bottomTrailing) {
+                Button {
+                    showingAddDrinkView = true
+                } label: {
+                    Image(systemName: "plus.circle.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .foregroundColor(.accentColor)
+                        .padding()
+                        .frame(width: 80)
+                }
+                .sheet(isPresented: $showingAddDrinkView) {
+                    AddDrinkView()
+                }
+            }
         }
-        .frame(width: geometry.size.width * 0.15)
-        .padding()
         .background(Color.black.opacity(0.3))
     }
 }
@@ -49,21 +69,19 @@ struct DrinkRow: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .foregroundColor(.accentColor)
-                .padding(.leading)
             VStack(alignment: .leading) {
                 Text(drinkVM.drink.name)
-                    .font(.headline)
+                    .font(.callout)
                     .fontWeight(.bold)
                 Text("\(drinkVM.drink.price) kr")
-                    .font(.caption)
+                    .font(.footnote)
             }
-            .padding()
-            .foregroundColor(.white)
             Spacer()
             Image(systemName: "chevron.right")
                 .font(.body)
                 .foregroundColor(.white.opacity(0.2))
         }
+        .foregroundColor(.white)
         .frame(height: geometry.size.height * 0.05)
     }
 }

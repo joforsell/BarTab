@@ -10,14 +10,12 @@ import SwiftUI
 struct BodyView: View {
     @Binding var viewState: ViewState
     
-    var orderNamespace: Namespace.ID
-    
     var body: some View {
         Group {
             switch viewState {
             case .main:
                 HStack {
-                    OrderView(orderNamespace: orderNamespace)
+                    OrderView()
                     CustomerListView()
                 }
             case .settings:

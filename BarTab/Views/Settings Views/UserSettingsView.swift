@@ -19,80 +19,65 @@ struct UserSettingsView: View {
     @State private var errorString = ""
         
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            Text("Mailadress: \(userInfo.user.email ?? "Ej angiven")")
-            Divider()
-            HStack {
-                if editingAssociation {
-                    Text("Organisation:")
-                    TextField("\(userInfo.user.association ?? "Ej angiven")", text: $association, onCommit: {
-                        if association != "" {
-                            updateAssociation(to: association)
-                        }
-                        editingAssociation.toggle()
-                    })
-                    Button {
-                        if association != "" {
-                            updateAssociation(to: association)
-                        }
-                        editingAssociation.toggle()
-                    } label: {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(Color("AppYellow"))
-                            .font(.headline)
-                    }
-                } else {
-                    Text("Organisation: \(userInfo.user.association ?? "Ej angett")")
-                    Button {
-                        editingAssociation.toggle()
-                        association = ""
-                    } label: {
-                        Image(systemName: "pencil")
-                            .foregroundColor(Color("AppYellow"))
-                            .font(.headline)
-                    }
+        GeometryReader { geometry in
+            VStack(alignment: .center, spacing: 20) {
+                Image("bartender")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .foregroundColor(.accentColor)
+                    .frame(width: geometry.size.width * 0.2)
+                    .padding(.top, 48)
+                HStack {
+                    Text("Mailadress: \(userInfo.user.email ?? "Ej angiven")")
                     Spacer()
                 }
-            }
-            Divider()
-            Toggle("Använd RFID-taggar", isOn: $settingsManager.settings.usingTag)
-                .toggleStyle(SwitchToggleStyle(tint: Color("AppYellow")))
-            if let currentUser = Auth.auth().currentUser {
-                if !currentUser.isAnonymous {
-                    Divider()
-                    Toggle("Begär adminlösenord", isOn: $settingsManager.settings.requestingPassword)
-                        .toggleStyle(SwitchToggleStyle(tint: Color("AppYellow")))
-                }
-            }
-        }
-        .frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height * 0.4)
-        .foregroundColor(.white)
-        .padding(.horizontal)
-        .background(Color("AppBlue"))
-        .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    Authentication.logout() { result in
-                        switch result {
-                        case .failure(let error):
-                            errorString = error.localizedDescription
-                            showError = true
-                        case .success( _):
-                            print("Loggades ut!")
+                .frame(maxWidth: geometry.size.width * 0.4)
+                Divider()
+                    .frame(maxWidth: geometry.size.width * 0.4)
+                HStack {
+                    if editingAssociation {
+                        Text("Organisation:")
+                        TextField("\(userInfo.user.association ?? "Ej angiven")", text: $association, onCommit: {
+                            if association != "" {
+                                updateAssociation(to: association)
+                            }
+                            editingAssociation.toggle()
+                        })
+                        Button {
+                            if association != "" {
+                                updateAssociation(to: association)
+                            }
+                            editingAssociation.toggle()
+                        } label: {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(Color("AppYellow"))
+                                .font(.headline)
                         }
+                    } else {
+                        Text("Organisation: \(userInfo.user.association ?? "Ej angett")")
+                        Button {
+                            editingAssociation.toggle()
+                            association = ""
+                        } label: {
+                            Image(systemName: "pencil")
+                                .foregroundColor(Color("AppYellow"))
+                                .font(.headline)
+                        }
+                        Spacer()
                     }
-                } label: {
-                    Label("Logga ut", systemImage: "rectangle.portrait.and.arrow.right")
-                        .font(.largeTitle)
-                        .foregroundColor(.black)
                 }
-                .padding()
-                .offset(y: 30)
+                .frame(maxWidth: geometry.size.width * 0.4)
+                Divider()
+                    .frame(maxWidth: geometry.size.width * 0.4)
+                Toggle("Använd RFID-taggar", isOn: $settingsManager.settings.usingTag)
+                    .toggleStyle(SwitchToggleStyle(tint: .accentColor))
+                    .frame(maxWidth: geometry.size.width * 0.4)
             }
-        }
-        .alert(isPresented: $showError) {
-            Alert(title: Text("Kunde inte logga ut"), message: Text(errorString), dismissButton: .default(Text("OK")))
+            .foregroundColor(.white)
+            .frame(maxWidth: .infinity)
+            .alert(isPresented: $showError) {
+                Alert(title: Text("Kunde inte logga ut"), message: Text(errorString), dismissButton: .default(Text("OK")))
+            }
         }
     }
     
@@ -117,9 +102,3 @@ struct UserSettingsView: View {
     }
 }
 
-struct UserSettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        UserSettingsView()
-            .environmentObject(UserInfo())
-    }
-}
