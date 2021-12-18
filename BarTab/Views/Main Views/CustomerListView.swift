@@ -20,10 +20,9 @@ struct CustomerListView: View {
             }
             Spacer()
         }
-        .padding(.trailing, 48)
-        .padding(.leading, 10)
-        .background(Color.black.opacity(0.6))
+        .padding(.horizontal, 10)
         .frame(width: UIScreen.main.bounds.width * 0.3)
+        .background(Color.black.opacity(0.6))
         .padding(.leading, 10)
     }
     
