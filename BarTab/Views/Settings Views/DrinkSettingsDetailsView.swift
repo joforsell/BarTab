@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import Combine
+import Introspect
 
 struct DrinkSettingsDetailView: View {
+    @EnvironmentObject var drinkListVM: DrinkListViewModel
     @Binding var drinkVM: DrinkViewModel
     var geometry: GeometryProxy
     
@@ -15,59 +18,112 @@ struct DrinkSettingsDetailView: View {
     @State private var editingPrice = false
     
     var body: some View {
-        VStack {
-            HStack {
-                VStack {
-                    Text("Namn:")
-                        .frame(width: 400, alignment: .leading)
-                        .offset(y: 10)
-                    HStack(alignment: .center) {
-                        TextField(drinkVM.drink.name,
-                                  text: $drinkVM.drink.name,
-                                  onEditingChanged: { (editingChanged) in
-                            if editingChanged {
-                                editingName = true
-                            } else {
-                                editingName = false
-                            } },
-                                  onCommit: { editingName.toggle() }
-                        )
-                            .disableAutocorrection(true)
-                            .frame(width: 300, alignment: .leading)
-                            .font(.largeTitle)
-                        Spacer()
+        HStack {
+            Spacer()
+            VStack(alignment: .center, spacing: 20) {
+            Image("gintonic")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 100)
+                .foregroundColor(.accentColor)
+                .padding(.top, 48)
+                .overlay(alignment: .bottomTrailing) {
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "pencil.circle.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .foregroundColor(.white)
+                            .frame(width: 22)
                     }
-                    .frame(width: 400)
-                    .padding()
-                    .foregroundColor(.primary)
-                    .addBorder(editingName ? .accentColor : Color("AppBlue"), width: 2, cornerRadius: 20)
+                    .offset(x: 40)
                 }
-//                VStack {
-//                    Text("Pris:")
-//                        .frame(width: 100, alignment: .leading)
-//                        .offset(y: 10)
-//                    HStack(alignment: .center) {
-//                        Text("\(drinkVM.drink.price) kr")
-//                            .frame(width: 80, alignment: .leading)
-//                            .font(.largeTitle)
-//                            .sheet(isPresented: $editingPrice) {
-//                                DrinkNumberPad(drink: drinkVM.drink)
-//                                    .clearModalBackground()
-//                            }
-//                        Spacer()
-//                    }
-//                    .frame(width: 100)
-//                    .padding()
-//                    .foregroundColor(.primary)
-//                    .addBorder(editingPrice ? .accentColor : Color("AppBlue"), width: 2, cornerRadius: 20)
-//                    .onTapGesture {
-//                        editingPrice = true
-//                    }
-//                }
+            VStack(alignment: .leading, spacing: 2) {
+                HStack(alignment: .bottom) {
+                    TextField(drinkVM.drink.name,
+                              text: $drinkVM.drink.name,
+                              onEditingChanged: { editingChanged in
+                        if editingChanged {
+                            editingName = true
+                        } else {
+                            editingName = false
+                        } },
+                              onCommit: { editingName.toggle() }
+                    )
+                        .disableAutocorrection(true)
+                        .font(.title3)
+                    Spacer()
+                }
+                .offset(y: 4)
+                .overlay(alignment: .trailing) {
+                    Image(systemName: "square.text.square.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .opacity(0.5)
+                }
+                .overlay(alignment: .topLeading) {
+                    Text("Namn".uppercased())
+                        .font(.caption2)
+                        .foregroundColor(.white)
+                        .opacity(0.5)
+                        .offset(y: -10)
+                }
             }
-            .frame(maxWidth: .infinity)
+            .frame(width: 300, height: 24)
+            .padding()
+            .foregroundColor(.white)
+            .background(Color.gray.opacity(0.2))
+            .cornerRadius(6)
+            .addBorder(editingName ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
+            .padding(.top, 48)
+
+            VStack(alignment: .leading, spacing: 2) {
+                HStack(alignment: .bottom) {
+                    TextField("\(drinkVM.drink.price) kr",
+                              text: $drinkVM.priceAsString,
+                              onEditingChanged: { editingChanged in
+                        if editingChanged {
+                            editingPrice = true
+                        } else {
+                            editingPrice = false
+                        } }, onCommit: { editingPrice.toggle() }
+                    )
+                        .onReceive(Just(drinkVM.priceAsString)) { newValue in
+                            let filtered = newValue.filter { "01233456789".contains($0) }
+                            if filtered != newValue {
+                                self.drinkVM.priceAsString = filtered
+                            }
+                        }
+                        .font(.title3)
+                    Spacer()
+                }
+                .offset(y: 4)
+                .overlay(alignment: .trailing) {
+                    Image(systemName: "dollarsign.square.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .opacity(0.5)
+                }
+                .overlay(alignment: .topLeading) {
+                    Text("Pris".uppercased())
+                        .font(.caption2)
+                        .foregroundColor(.white)
+                        .opacity(0.5)
+                        .offset(y: -10)
+                }
+
+            }
+            .frame(width: 300, height: 24)
+            .padding()
+            .foregroundColor(.white)
+            .background(Color.gray.opacity(0.2))
+            .cornerRadius(6)
+            .addBorder(editingPrice ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
+            Spacer()
         }
-        Spacer()
+            Spacer()
+        }
     }
 }
 

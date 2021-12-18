@@ -20,7 +20,7 @@ class CustomerViewModel: ObservableObject, Identifiable {
             return Color("Deficit")
         }
     }
-        
+    
     private var cancellables = Set<AnyCancellable>()
     
     init(customer: Customer) {

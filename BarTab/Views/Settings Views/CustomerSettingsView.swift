@@ -35,6 +35,7 @@ struct CustomerSettingsView: View {
                                 .padding(.horizontal)
                                 .padding(.vertical, 8)
                                 .background(currentCustomerShown?.customer.name == customerVM.customer.name ? Color("AppBlue") : Color.clear)
+                                .contentShape(Rectangle())
                                 .onTapGesture {
                                     detailViewShown = .customer(customerVM: $customerVM, geometry: geometry)
                                     currentCustomerShown = customerVM
@@ -132,6 +133,7 @@ struct CustomerRow: View {
                     .fontWeight(.bold)
                 Text("\(customerVM.customer.balance) kr")
                     .font(.footnote)
+                    .foregroundColor(customerVM.balanceColor)
             }
             Spacer()
             Image(systemName: "chevron.right")

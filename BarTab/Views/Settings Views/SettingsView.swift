@@ -73,7 +73,7 @@ struct SettingsView: View {
                                 }
                                 detailViewShown = .none
                             } label: {
-                                Image(systemName: "person.circle")
+                                Image("bartender")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .foregroundColor(.accentColor)

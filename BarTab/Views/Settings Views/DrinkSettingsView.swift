@@ -28,6 +28,7 @@ struct DrinkSettingsView: View {
                                 .padding(.horizontal)
                                 .padding(.vertical, 8)
                                 .background(currentDrinkShown?.drink.name == drinkVM.drink.name ? Color("AppBlue") : Color.clear)
+                                .contentShape(Rectangle())
                                 .onTapGesture {
                                     detailViewShown = .drink(drinkVM: $drinkVM, geometry: geometry)
                                     currentDrinkShown = drinkVM
