@@ -74,7 +74,7 @@ struct CustomerSettingsDetailView: View {
                     }
                     .offset(y: 4)
                     .overlay(alignment: .trailing) {
-                        Image(systemName: "square.text.square.fill")
+                        Image(systemName: "person.text.rectangle.fill")
                             .resizable()
                             .scaledToFit()
                             .opacity(0.5)
@@ -120,7 +120,7 @@ struct CustomerSettingsDetailView: View {
                             .opacity(0.5)
                     }
                     .overlay(alignment: .topLeading) {
-                        Text("Email".uppercased())
+                        Text("Mailadress".uppercased())
                             .font(.caption2)
                             .foregroundColor(.white)
                             .opacity(0.5)
@@ -135,15 +135,17 @@ struct CustomerSettingsDetailView: View {
                 .cornerRadius(6)
                 .addBorder(editingEmail ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
                 
-                
+                #warning("TODO: Find out why view will only update on first change.")
                 VStack(alignment: .leading, spacing: 2) {
                     HStack(alignment: .bottom) {
                         if editingBalance {
                             TextField("", text: $balanceAdjustment, onCommit: {
                                 if addingToBalance {
                                     customerListVM.addToBalance(of: customerVM.customer, by: Int(balanceAdjustment) ?? 0)
+                                    customerVM.customer.balance += Int(balanceAdjustment) ?? 0
                                 } else {
                                     customerListVM.subtractFromBalance(of: customerVM.customer, by: Int(balanceAdjustment) ?? 0)
+                                    customerVM.customer.balance -= Int(balanceAdjustment) ?? 0
                                 }
                                 withAnimation {
                                     editingBalance = false
@@ -162,11 +164,6 @@ struct CustomerSettingsDetailView: View {
                                 .foregroundColor(customerVM.balanceColor)
                         }
                         Spacer()
-                    }
-                    .introspectTextField { textField in
-                        if editingBalance {
-                            textField.becomeFirstResponder()
-                        }
                     }
                     .offset(y: 4)
                     .overlay(alignment: .trailing) {
@@ -261,6 +258,7 @@ struct CustomerSettingsDetailView: View {
                         .foregroundColor(.white)
                         .sheet(isPresented: $isShowingKeyField) {
                             UpdateTagView(customer: customerVM.customer)
+                                .clearModalBackground()
                         }
 
                     }

@@ -10,7 +10,6 @@ import FirebaseAuth
 
 struct UserSettingsView: View {
     @EnvironmentObject var userHandler: UserHandling
-    @EnvironmentObject var settingsManager: SettingsManager
     
     @State private var editingAssociation = false
     @State private var editingEmail = false

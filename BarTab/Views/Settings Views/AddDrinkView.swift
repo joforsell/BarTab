@@ -6,8 +6,7 @@
 //
 
 import SwiftUI
-
-import SwiftUI
+import SwiftUIX
 
 struct AddDrinkView: View {
     @EnvironmentObject var drinkListVM: DrinkListViewModel
@@ -16,48 +15,52 @@ struct AddDrinkView: View {
     @State private var name = ""
     @State private var price = ""
     
+    @State private var editingName = false
+    @State private var editingPrice = false
+    
     @State private var isShowingAlert = false
     
     var body: some View {
-        VStack(alignment: .center, spacing: 20) {
-            Spacer()
-            Image(systemName: "person.crop.circle.badge.plus")
-                .foregroundColor(.accentColor)
-                .font(.system(size: 240, weight: .thin))
-            Spacer()
-            Group {
-                TextField("Namn", text: $name)
-                    .disableAutocorrection(true)
-                Rectangle()
-                    .background(Color("AppBlue"))
-                    .frame(height: 1)
-                    .padding(.bottom)
-                TextField("Pris", text: $price)
-                    .disableAutocorrection(true)
-                    .keyboardType(.numberPad)
-                Rectangle()
-                    .background(Color("AppBlue"))
-                    .frame(height: 1)
-                    .padding(.bottom)
-            }
-            Button {
-                if name.trimmingCharacters(in: .whitespaces).isEmpty {
-                    isShowingAlert = true
-                } else {
-                    drinkListVM.addDrink(name: name, price: Int(price) ?? 0)
-                    presentationMode.wrappedValue.dismiss()
+        GeometryReader { geometry in
+            VStack(alignment: .center, spacing: 20) {
+                Spacer()
+                
+                Image(systemName: "plus.circle.fill")
+                    .foregroundColor(.accentColor)
+                    .font(.system(size: 240, weight: .thin))
+                    .padding(.bottom, 48)
+                
+                CustomInputView(title: "Namn", image: "square.text.square.fill", editing: $editingName, text: $name)
+                
+                CustomInputView(title: "Pris", image: "dollarsign.square.fill", editing: $editingPrice, text: $price)
+                                
+                Color.clear
+                    .frame(width: 300, height: 16)
+                    .padding()
+                    .overlay {
+                        Button {
+                            if name.trimmingCharacters(in: .whitespaces).isEmpty {
+                                isShowingAlert = true
+                            } else {
+                                drinkListVM.addDrink(name: name, price: Int(price) ?? 0)
+                                presentationMode.wrappedValue.dismiss()
+                            }
+                        } label: {
+                            RoundedRectangle(cornerRadius: 6)
+                                .overlay {
+                                    Text("Skapa dryck".uppercased())
+                                        .foregroundColor(.white)
+                                }
+                        }
+                    }
+                .alert(isPresented: $isShowingAlert) {
+                    Alert(title: Text("Drycken måste ha ett namn"), dismissButton: .default(Text("OK").foregroundColor(.accentColor)))
                 }
-            } label: {
-                RoundedRectangle(cornerRadius: 10)
-                    .frame(height: 40)
-                    .overlay(Text("OK").foregroundColor(.white))
+                Spacer()
             }
-            .alert(isPresented: $isShowingAlert) {
-                Alert(title: Text("Drycken måste ha ett namn"), dismissButton: .default(Text("OK").foregroundColor(.accentColor)))
-            }
-            Spacer()
+            .center(.horizontal)
         }
-        .padding(.horizontal, 160)
+        .background(VisualEffectBlurView(blurStyle: .dark))
     }
 }
 

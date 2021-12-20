@@ -7,11 +7,20 @@
 
 import SwiftUI
 import SwiftUIX
+import ToastUI
 
 struct SettingsView: View {
-    @State private var isShowingEmailSuccessToast = false
+    @EnvironmentObject var customerListVM: CustomerListViewModel
+    @EnvironmentObject var userHandler: UserHandling
+    
     @State private var settingsShown: SettingsRouter = .none
     @State private var detailViewShown: DetailViewRouter = .none
+    
+    @AppStorage("latestEmail") var latestEmail: Date = Date(timeIntervalSinceReferenceDate: 60000)
+        
+    @State private var showError = false
+    @State private var errorString = ""
+    @State private var isShowingEmailConfirmation = false
     
     private let routerButtonSize: CGFloat = 60
     
@@ -84,6 +93,8 @@ struct SettingsView: View {
                             .cornerRadius(10)
 
                             Spacer()
+                            
+                            emailButton
                         }
                         .padding()
                         .background(Color(.black).opacity(0.5))
@@ -92,7 +103,7 @@ struct SettingsView: View {
                         case .drinks:
                             DrinkSettingsView(geometry: geo, detailViewShown: $detailViewShown)
                         case .customers:
-                            CustomerSettingsView(isShowingEmailSuccessToast: $isShowingEmailSuccessToast, geometry: geo, detailViewShown: $detailViewShown)
+                            CustomerSettingsView(geometry: geo, detailViewShown: $detailViewShown)
                         case .user:
                             UserSettingsView()
                         case .none:
@@ -111,7 +122,49 @@ struct SettingsView: View {
                 }
             }
         }
+        .alert(isPresented: $showError) {
+            Alert(title: Text("Kunde inte göra mailutskick"), message: Text(errorString), dismissButton: .default(Text("OK")))
+        }
+        .toast(isPresented: $isShowingEmailConfirmation, dismissAfter: 6) {
+            ToastView(systemImage: ("envelope.fill", .accentColor, 50), title: "Mailutskick sändes", subTitle: "Ett mail med aktuellt saldo skickades till användare med kopplad mailadress.")
+        }
         .background(VisualEffectBlurView(blurStyle: .dark))
+    }
+    
+    func oneDayHasElapsedSince(_ date: Date) -> Bool {
+        let timeSinceLatestEmail = -latestEmail.timeIntervalSinceNow
+        return timeSinceLatestEmail > 86400
+    }
+    
+    var emailButton: some View {
+        Button {
+            if oneDayHasElapsedSince(latestEmail) {
+                isShowingEmailConfirmation.toggle()
+            } else {
+                errorString = "Du kan inte göra mailutskick oftare än var 24:e timma."
+                showError.toggle()
+            }
+        } label: {
+            Image(systemName: "envelope.fill")
+                .font(.largeTitle)
+                .foregroundColor(oneDayHasElapsedSince(latestEmail) ? .accentColor : .accentColor.opacity(0.3))
+        }
+    }
+    
+    func emailButtonAction() {
+        customerListVM.sendEmails(from: userHandler.user.association) { result in
+            switch result {
+            case .failure(let error):
+                errorString = error.localizedDescription
+                showError = true
+            case .success( _):
+                latestEmail = Date()
+            }
+        }
+        latestEmail = Date()
+        withAnimation {
+            isShowingEmailConfirmation.toggle()
+        }
     }
 }
 
@@ -123,10 +176,4 @@ indirect enum DetailViewRouter {
     case drink(drinkVM: Binding<DrinkViewModel>, detailsViewShown: Binding<DetailViewRouter>)
     case customer(customerVM: Binding<CustomerViewModel>, detailsViewShown: Binding<DetailViewRouter>)
     case none
-}
-
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView()
-    }
 }

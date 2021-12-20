@@ -22,6 +22,7 @@ struct ImagePickerView: View {
                         .resizable()
                         .scaledToFit()
                         .foregroundColor(.accentColor)
+                        .opacity(drinkVM.drink.image == image ? 1 : 0.5)
                         .frame(height: 60)
                 }
             }

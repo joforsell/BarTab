@@ -12,8 +12,6 @@ struct OrderView: View {
     @EnvironmentObject var confirmationVM: ConfirmationViewModel
     
     var fourColumnGrid = Array(repeating: GridItem(.adaptive(minimum: 120), spacing: 20), count: 4)
-    var threeColumnGrid = Array(repeating: GridItem(.adaptive(minimum: 120), spacing: 20), count: 3)
-
     
     // MARK: Logic for MatchedGeometryEffect
     @Namespace var orderNamespace

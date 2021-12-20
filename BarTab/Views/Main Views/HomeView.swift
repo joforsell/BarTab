@@ -9,7 +9,6 @@ import SwiftUI
 import Firebase
 
 struct HomeView: View {
-    @EnvironmentObject var userInfo: UserInfo
     @EnvironmentObject var customerListVM: CustomerListViewModel
     @EnvironmentObject var drinkListVM: DrinkListViewModel
     @EnvironmentObject var confirmationVM: ConfirmationViewModel
@@ -22,8 +21,7 @@ struct HomeView: View {
     @State var flyToModal: Bool = false
     var isGeometryMatched: Bool { !flyToModal && tappedDrink != nil }
     
-    var fourColumnGrid = [GridItem(.flexible(), spacing: 20), GridItem(.flexible(), spacing: 20), GridItem(.flexible(), spacing: 20), GridItem(.flexible(), spacing: 20)]
-    var threeColumnGrid = [GridItem(.adaptive(minimum: 120), spacing: 20), GridItem(.adaptive(minimum: 120), spacing: 20), GridItem(.adaptive(minimum: 120), spacing: 20)]
+    var fourColumnGrid = Array(repeating: GridItem(.flexible(), spacing: 20), count: 4)
     
     var body: some View {
         ZStack {
@@ -75,7 +73,7 @@ struct HomeView: View {
             }
         }
         .onAppear {
-            print(Auth.auth().currentUser?.uid)
+            print(Auth.auth().currentUser?.uid ?? "No user logged in")
         }
     }
 }

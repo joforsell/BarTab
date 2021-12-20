@@ -53,6 +53,7 @@ struct DrinkSettingsView: View {
                 }
                 .sheet(isPresented: $showingAddDrinkView) {
                     AddDrinkView()
+                        .clearModalBackground()
                 }
             }
         }

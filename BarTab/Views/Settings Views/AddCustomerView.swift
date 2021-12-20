@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftUIX
 
 struct AddCustomerView: View {
     @EnvironmentObject var customerListVM: CustomerListViewModel
@@ -15,55 +16,54 @@ struct AddCustomerView: View {
     @State private var email = ""
     @State private var balance = ""
     
+    @State private var editingName = false
+    @State private var editingEmail = false
+    @State private var editingBalance = false
+    
     @State private var isShowingAlert = false
     
     var body: some View {
-        VStack(alignment: .center, spacing: 20) {
-            Spacer()
-            Image(systemName: "person.crop.circle.badge.plus")
-                .foregroundColor(.accentColor)
-                .font(.system(size: 240, weight: .thin))
-            Spacer()
-            Group {
-                TextField("Namn", text: $name)
-                    .disableAutocorrection(true)
-                Rectangle()
-                    .background(Color("AppBlue"))
-                    .frame(height: 1)
-                    .padding(.bottom)
-                TextField("E-postadress", text: $email)
-                    .disableAutocorrection(true)
-                    .autocapitalization(.none)
-                    .keyboardType(.emailAddress)
-                Rectangle()
-                    .background(Color("AppBlue"))
-                    .frame(height: 1)
-                    .padding(.bottom)
-                TextField("Ingående saldo", text: $balance)
-                    .disableAutocorrection(true)
-                    .keyboardType(.numberPad)
-                Rectangle()
-                    .background(Color("AppBlue"))
-                    .frame(height: 1)
-                    .padding(.bottom)
-            }
-            Button {
-                if name.trimmingCharacters(in: .whitespaces).isEmpty {
-                    isShowingAlert = true
-                } else {
-                    customerListVM.addCustomer(name: name, balance: Int(balance) ?? 0, email: email)
-                    presentationMode.wrappedValue.dismiss()
+        GeometryReader { geometry in
+            VStack(alignment: .center, spacing: 20) {
+                Spacer()
+                
+                Image(systemName: "person.crop.circle.badge.plus")
+                    .foregroundColor(.accentColor)
+                    .font(.system(size: 240, weight: .thin))
+                    .padding(.bottom, 48)
+                
+                CustomInputView(title: "Namn", image: "person.text.rectangle.fill", editing: $editingName, text: $name)
+                
+                CustomInputView(title: "Mailadress", image: "envelope.fill", editing: $editingEmail, text: $email)
+                
+                CustomInputView(title: "Ingående saldo", image: "dollarsign.square.fill", editing: $editingBalance, text: $balance)
+                
+                Color.clear
+                    .frame(width: 300, height: 16)
+                    .padding()
+                    .overlay {
+                        Button {
+                            if name.trimmingCharacters(in: .whitespaces).isEmpty {
+                                isShowingAlert = true
+                            } else {
+                                customerListVM.addCustomer(name: name, balance: Int(balance) ?? 0, email: email)
+                                presentationMode.wrappedValue.dismiss()
+                            }
+                        } label: {
+                            RoundedRectangle(cornerRadius: 6)
+                                .overlay {
+                                    Text("Skapa användare".uppercased())
+                                        .foregroundColor(.white)
+                                }
+                        }
+                    }
+                .alert(isPresented: $isShowingAlert) {
+                    Alert(title: Text("Användaren måste ha ett namn"), dismissButton: .default(Text("OK").foregroundColor(.accentColor)))
                 }
-            } label: {
-                RoundedRectangle(cornerRadius: 10)
-                    .frame(height: 40)
-                    .overlay(Text("OK").foregroundColor(.white))
+                Spacer()
             }
-            .alert(isPresented: $isShowingAlert) {
-                Alert(title: Text("Användaren måste ha ett namn"), dismissButton: .default(Text("OK").foregroundColor(.accentColor)))
-            }
-            Spacer()
+            .center(.horizontal)
         }
-        .padding(.horizontal, 160)
+        .background(VisualEffectBlurView(blurStyle: .dark))
     }
 }

@@ -9,21 +9,12 @@ import SwiftUI
 
 struct CustomerSettingsView: View {
     @EnvironmentObject var customerListVM: CustomerListViewModel
-    @EnvironmentObject var userHandler: UserHandling
     
-    @AppStorage("latestEmail") var latestEmail: Date = Date(timeIntervalSinceReferenceDate: 60000)
-        
-    @State private var showError = false
-    @State private var errorString = ""
-    
-    @Binding var isShowingEmailSuccessToast: Bool
     var geometry: GeometryProxy
     @Binding var detailViewShown: DetailViewRouter
     
-    @State private var isShowingEmailConfirmation = false
     @State private var isShowingAddCustomerView = false
     @State private var currentCustomerShown: CustomerViewModel?
-
     
     var body: some View {
         VStack {
@@ -52,20 +43,13 @@ struct CustomerSettingsView: View {
                 addCustomerButton
                     .sheet(isPresented: $isShowingAddCustomerView) {
                         AddCustomerView()
+                            .clearModalBackground()
                     }
-            }
-            .alert(isPresented: $showError) {
-                Alert(title: Text("Kunde inte göra mailutskick"), message: Text(errorString), dismissButton: .default(Text("OK")))
             }
         }
         .background(Color.black.opacity(0.3))
     }
-    
-    func oneDayHasElapsedSince(_ date: Date) -> Bool {
-        let timeSinceLatestEmail = -latestEmail.timeIntervalSinceNow
-        return timeSinceLatestEmail > 86400
-    }
-    
+        
     var addCustomerButton: some View {
         Button {
             isShowingAddCustomerView.toggle()
@@ -76,38 +60,6 @@ struct CustomerSettingsView: View {
                 .foregroundColor(.accentColor)
                 .padding()
                 .frame(width: 90)
-        }
-    }
-
-    
-    var emailButton: some View {
-        Button {
-            if oneDayHasElapsedSince(latestEmail) {
-                isShowingEmailConfirmation.toggle()
-            } else {
-                errorString = "Du kan inte göra mailutskick oftare än var 24:e timma."
-                showError.toggle()
-            }
-        } label: {
-            Image(systemName: "envelope.fill")
-                .font(.largeTitle)
-                .foregroundColor(oneDayHasElapsedSince(latestEmail) ? .accentColor : .accentColor.opacity(0.3))
-        }
-    }
-    
-    func emailButtonAction() {
-        customerListVM.sendEmails(from: userHandler.user.association) { result in
-            switch result {
-            case .failure(let error):
-                errorString = error.localizedDescription
-                showError = true
-            case .success( _):
-                latestEmail = Date()
-            }
-        }
-        latestEmail = Date()
-        withAnimation {
-            isShowingEmailSuccessToast.toggle()
         }
     }
 }

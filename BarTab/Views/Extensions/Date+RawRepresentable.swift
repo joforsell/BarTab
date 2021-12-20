@@ -7,6 +7,8 @@
 
 import Foundation
 
+// Helper extension for calculating time since last email sendout.
+
 extension Date: RawRepresentable {
     private static let formatter = ISO8601DateFormatter()
     
