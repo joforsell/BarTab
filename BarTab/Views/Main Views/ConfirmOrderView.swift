@@ -13,18 +13,17 @@ import ToastUI
 struct ConfirmOrderView: View {
     @EnvironmentObject var customerListVM: CustomerListViewModel
     @EnvironmentObject var confirmationVM: ConfirmationViewModel
-    @EnvironmentObject var settingsManager: SettingsManager
+    @EnvironmentObject var userHandler: UserHandling
     
     var drinkVM: DrinkViewModel
     @Binding var tappedDrink: String?
     
     @State private var tagKey = ""
     @State private var isShowingPurchaseConfirmedToast = false
-    @State private var transitionFinished = false
     @State private var currentCustomerName = ""
     
     var body: some View {
-        if settingsManager.settings.usingTag {
+        if userHandler.user.usingTags {
             orderWithTagView
         } else {
             orderWithoutTagView
@@ -51,52 +50,50 @@ struct ConfirmOrderView: View {
             .foregroundColor(.white)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
             .padding(40)
-            if transitionFinished {
-                VStack {
-                    Image(systemName: "wave.3.right.circle.fill")
-                        .font(.system(size: 140))
-                        .foregroundColor(.accentColor)
-                        .padding()
-                    Text("Läs av din bricka för att slutföra köpet.")
-                        .font(.headline)
+            VStack {
+                Image(systemName: "wave.3.right.circle.fill")
+                    .font(.system(size: 140))
+                    .foregroundColor(.accentColor)
+                    .padding()
+                Text("Läs av din bricka för att slutföra köpet.")
+                    .font(.headline)
+                    .foregroundColor(.white)
+            }
+            VStack {
+                HStack {
+                    Spacer()
+                    Image(systemName: "xmark")
+                        .font(.system(size: 40))
                         .foregroundColor(.white)
+                        .padding(40)
+                        .onTapGesture {
+                            withAnimation {
+                                tappedDrink = nil
+                            }
+                        }
                 }
-                VStack {
-                    HStack {
-                        Spacer()
-                        Image(systemName: "xmark")
+                Spacer()
+            }
+            VStack {
+                Spacer()
+                HStack {
+                    Menu {
+                        ForEach(customerListVM.customerVMs) { customerVM in
+                            Button("\(customerVM.customer.name)") {
+                                customerListVM.customerBought(drinkVM.drink, id: customerVM.customer.id ?? "")
+                                currentCustomerName = customerVM.customer.name
+                                withAnimation {
+                                    isShowingPurchaseConfirmedToast = true
+                                }
+                            }
+                        }
+                    } label: {
+                        Image(systemName: "person.2.fill")
                             .font(.system(size: 40))
                             .foregroundColor(.white)
-                            .padding(40)
-                            .onTapGesture {
-                                withAnimation {
-                                    tappedDrink = nil
-                                }
-                            }
                     }
+                    .padding(40)
                     Spacer()
-                }
-                VStack {
-                    Spacer()
-                    HStack {
-                        Menu {
-                            ForEach(customerListVM.customerVMs) { customerVM in
-                                Button("\(customerVM.customer.name)") {
-                                    customerListVM.customerBought(drinkVM.drink, id: customerVM.customer.id ?? "")
-                                    currentCustomerName = customerVM.customer.name
-                                    withAnimation {
-                                        isShowingPurchaseConfirmedToast = true
-                                    }
-                                }
-                            }
-                        } label: {
-                            Image(systemName: "person.2.fill")
-                                .font(.system(size: 40))
-                                .foregroundColor(.white)
-                        }
-                        .padding(40)
-                        Spacer()
-                    }
                 }
             }
             VStack(alignment: .trailing) {
@@ -117,19 +114,12 @@ struct ConfirmOrderView: View {
                 tappedDrink = nil
             } }) {
                 ToastView(systemImage: ("checkmark.circle.fill", .accentColor, 50), title: "Ditt köp slutfördes", subTitle: "\(currentCustomerName) köpte \(confirmationVM.selectedDrink?.drink.name.lowercased() ?? "saknas") för \(confirmationVM.selectedDrink?.drink.price ?? 0) kr.")
-        }
-            .background(VisualEffectBlurView(blurStyle: .dark))
-        .clipShape(RoundedRectangle(cornerRadius: 20))
-        .introspectTextField { textField in
-            textField.becomeFirstResponder()
-        }
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                withAnimation {
-                    transitionFinished = true
-                }
             }
-        }
+            .background(VisualEffectBlurView(blurStyle: .dark))
+            .clipShape(RoundedRectangle(cornerRadius: 20))
+            .introspectTextField { textField in
+                textField.becomeFirstResponder()
+            }
     }
     
     var orderWithoutTagView: some View {
@@ -144,42 +134,40 @@ struct ConfirmOrderView: View {
             .foregroundColor(.white)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
             .padding(40)
-            if transitionFinished {
-                VStack {
-                    Menu {
-                        ForEach(customerListVM.customerVMs) { customerVM in
-                            Button("\(customerVM.customer.name)") {
-                                customerListVM.customerBought(drinkVM.drink, id: customerVM.customer.id ?? "")
-                                currentCustomerName = customerVM.customer.name
-                                withAnimation {
-                                    isShowingPurchaseConfirmedToast = true
-                                }
+            VStack {
+                Menu {
+                    ForEach(customerListVM.customerVMs) { customerVM in
+                        Button("\(customerVM.customer.name)") {
+                            customerListVM.customerBought(drinkVM.drink, id: customerVM.customer.id ?? "")
+                            currentCustomerName = customerVM.customer.name
+                            withAnimation {
+                                isShowingPurchaseConfirmedToast = true
                             }
                         }
-                    } label: {
-                        Image(systemName: "person.2.fill")
-                            .font(.system(size: 140))
-                            .foregroundColor(.accentColor)
                     }
-                    Text("Välj vem som betalar för att slutföra köpet.")
-                        .font(.headline)
-                        .foregroundColor(.white)
+                } label: {
+                    Image(systemName: "person.2.fill")
+                        .font(.system(size: 140))
+                        .foregroundColor(.accentColor)
                 }
-                VStack {
-                    HStack {
-                        Spacer()
-                        Image(systemName: "xmark")
-                            .font(.system(size: 40))
-                            .foregroundColor(.white)
-                            .padding(40)
-                            .onTapGesture {
-                                withAnimation(.easeInOut(duration: 1)) {
-                                    tappedDrink = nil
-                                }
-                            }
-                    }
+                Text("Välj vem som betalar för att slutföra köpet.")
+                    .font(.headline)
+                    .foregroundColor(.white)
+            }
+            VStack {
+                HStack {
                     Spacer()
+                    Image(systemName: "xmark")
+                        .font(.system(size: 40))
+                        .foregroundColor(.white)
+                        .padding(40)
+                        .onTapGesture {
+                            withAnimation(.easeInOut(duration: 1)) {
+                                tappedDrink = nil
+                            }
+                        }
                 }
+                Spacer()
             }
             VStack(alignment: .trailing) {
                 Spacer()
@@ -199,18 +187,11 @@ struct ConfirmOrderView: View {
                 tappedDrink = nil
             } }) {
                 ToastView(systemImage: ("checkmark.circle.fill", .accentColor, 50), title: "Ditt köp slutfördes", subTitle: "\(currentCustomerName) köpte \(confirmationVM.selectedDrink?.drink.name.lowercased() ?? "saknas") för \(confirmationVM.selectedDrink?.drink.price ?? 0) kr.")
-        }
-        .background(VisualEffectBlurView(blurStyle: .dark))
-        .clipShape(RoundedRectangle(cornerRadius: 20))
-        .introspectTextField { textField in
-            textField.becomeFirstResponder()
-        }
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                withAnimation {
-                    transitionFinished = true
-                }
             }
-        }
+            .background(VisualEffectBlurView(blurStyle: .dark))
+            .clipShape(RoundedRectangle(cornerRadius: 20))
+            .introspectTextField { textField in
+                textField.becomeFirstResponder()
+            }
     }
 }

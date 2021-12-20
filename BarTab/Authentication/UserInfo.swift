@@ -10,11 +10,8 @@ import Firebase
 import Combine
 
 class UserInfo: ObservableObject {
-    @Published var userHandling = UserHandling()
     @Published var isUserAuthenticated: AuthState = .undefined
     
-    var cancellables = Set<AnyCancellable>()
-
     enum AuthState {
         case undefined, signedOut, signedIn
     }
@@ -30,16 +27,4 @@ class UserInfo: ObservableObject {
             self.isUserAuthenticated = .signedIn
         }
     }
-    
-    func isAppAlreadyLaunchedOnce() -> Bool {
-        let defaults = UserDefaults.standard
-
-        if defaults.string(forKey: "isAppAlreadyLaunchedOnce") != nil {
-                return true
-            } else {
-                defaults.set(true, forKey: "isAppAlreadyLaunchedOnce")
-                return false
-            }
-        }
-
 }
