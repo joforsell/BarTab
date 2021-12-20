@@ -30,7 +30,7 @@ struct DrinkSettingsView: View {
                                 .background(currentDrinkShown?.drink.name == drinkVM.drink.name ? Color("AppBlue") : Color.clear)
                                 .contentShape(Rectangle())
                                 .onTapGesture {
-                                    detailViewShown = .drink(drinkVM: $drinkVM, geometry: geometry)
+                                    detailViewShown = .drink(drinkVM: $drinkVM, detailsViewShown: $detailViewShown)
                                     currentDrinkShown = drinkVM
                                 }
                             Divider()
@@ -66,10 +66,11 @@ struct DrinkRow: View {
     
     var body: some View {
         HStack {
-            Image("beer")
+            Image(drinkVM.drink.image.rawValue)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .foregroundColor(.accentColor)
+                .frame(maxWidth: geometry.size.width * 0.05)
             VStack(alignment: .leading) {
                 Text(drinkVM.drink.name)
                     .font(.callout)

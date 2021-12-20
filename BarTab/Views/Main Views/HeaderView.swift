@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HeaderView: View {
-    @EnvironmentObject var userInfo: UserInfo
+    @EnvironmentObject var userHandler: UserHandling
     @EnvironmentObject var confirmationVM: ConfirmationViewModel
     
     @Binding var viewState: ViewState
@@ -24,7 +24,7 @@ struct HeaderView: View {
                 Text("BarTab")
                     .foregroundColor(.accentColor)
                     .font(.system(size: 80, weight: .bold))
-                Text(userInfo.user.association ?? "")
+                Text(userHandler.user.association ?? "")
                     .foregroundColor(.gray)
                     .font(.largeTitle)
                     .offset(y: -10)

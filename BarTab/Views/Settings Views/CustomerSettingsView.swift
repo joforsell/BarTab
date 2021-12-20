@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CustomerSettingsView: View {
     @EnvironmentObject var customerListVM: CustomerListViewModel
-    @EnvironmentObject var userInfo: UserInfo
+    @EnvironmentObject var userHandler: UserHandling
     
     @AppStorage("latestEmail") var latestEmail: Date = Date(timeIntervalSinceReferenceDate: 60000)
         
@@ -37,7 +37,7 @@ struct CustomerSettingsView: View {
                                 .background(currentCustomerShown?.customer.name == customerVM.customer.name ? Color("AppBlue") : Color.clear)
                                 .contentShape(Rectangle())
                                 .onTapGesture {
-                                    detailViewShown = .customer(customerVM: $customerVM, geometry: geometry)
+                                    detailViewShown = .customer(customerVM: $customerVM, detailsViewShown: $detailViewShown)
                                     currentCustomerShown = customerVM
                                 }
                             Divider()
@@ -96,7 +96,7 @@ struct CustomerSettingsView: View {
     }
     
     func emailButtonAction() {
-        customerListVM.sendEmails(from: userInfo.user.association) { result in
+        customerListVM.sendEmails(from: userHandler.user.association) { result in
             switch result {
             case .failure(let error):
                 errorString = error.localizedDescription

@@ -54,7 +54,7 @@ struct SettingsView: View {
                                 }
                                 detailViewShown = .none
                             } label: {
-                                Image(systemName: "person.2.fill")
+                                Image(systemName: "person.2")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .foregroundColor(.accentColor)
@@ -100,10 +100,10 @@ struct SettingsView: View {
                         }
                         
                         switch detailViewShown {
-                        case .drink(let drinkVM, let geometry):
-                            DrinkSettingsDetailView(drinkVM: drinkVM, geometry: geometry)
-                        case .customer(let customerVM, let geometry):
-                            CustomerSettingsDetailView(customerVM: customerVM, geometry: geometry)
+                        case .drink(let drinkVM, let detailsViewShown):
+                            DrinkSettingsDetailView(drinkVM: drinkVM, detailsViewShown: detailsViewShown)
+                        case .customer(let customerVM, let detailsViewShown):
+                            CustomerSettingsDetailView(customerVM: customerVM, detailsViewShown: detailsViewShown)
                         case .none:
                             EmptyView()
                         }
@@ -119,9 +119,9 @@ enum SettingsRouter {
     case drinks, customers, user, none
 }
 
-enum DetailViewRouter {
-    case drink(drinkVM: Binding<DrinkViewModel>, geometry: GeometryProxy)
-    case customer(customerVM: Binding<CustomerViewModel>, geometry: GeometryProxy)
+indirect enum DetailViewRouter {
+    case drink(drinkVM: Binding<DrinkViewModel>, detailsViewShown: Binding<DetailViewRouter>)
+    case customer(customerVM: Binding<CustomerViewModel>, detailsViewShown: Binding<DetailViewRouter>)
     case none
 }
 

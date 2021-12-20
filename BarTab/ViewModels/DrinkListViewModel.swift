@@ -35,11 +35,4 @@ class DrinkListViewModel: ObservableObject {
             let drink = drinkRepository.drinks[index]
             drinkRepository.removeDrink(drink)
     }
-    
-    func adjustPriceOf(drink: Drink, to newPrice: Int) {
-        guard let drinkId = drink.id else { return }
-        guard let index = drinkRepository.drinks.firstIndex(where: { $0.id == drinkId }) else { return }
-            let drink = drinkRepository.drinks[index]
-            drinkRepository.updateDrinkPrice(of: drink, to: newPrice)
-    }
 }

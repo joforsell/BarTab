@@ -14,7 +14,7 @@ struct CustomerSettingsDetailView: View {
     @ObservedObject var customerRepository = CustomerRepository()
     
     @Binding var customerVM: CustomerViewModel
-    var geometry: GeometryProxy
+    @Binding var detailsViewShown: DetailViewRouter
     
     @State private var editingName = false
     @State private var editingEmail = false
@@ -28,19 +28,20 @@ struct CustomerSettingsDetailView: View {
         HStack {
             Spacer()
             VStack(alignment: .center, spacing: 16) {
+                Spacer()
+                
                 Image(systemName: "person")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .scaleEffect(0.7)
                     .foregroundColor(.white)
-                    .frame(height: geometry.size.height * 0.3)
+                    .frame(height: 200)
                     .background(Color("AppBlue"))
                     .clipShape(Circle())
                     .overlay {
                         Circle()
                             .stroke(Color.white, lineWidth: 1)
                     }
-                    .padding(.top, 48)
 
                 #warning("TODO: Add functionality to change profile picture")
 //                    .overlay(alignment: .bottomTrailing) {
@@ -231,6 +232,51 @@ struct CustomerSettingsDetailView: View {
                     }
                     .offset(x: 30)
                 }
+                
+                VStack(alignment: .leading) {
+                    HStack {
+                        Spacer()
+                    }
+                    .frame(width: 300, height: 24)
+                    .padding()
+                    .overlay(alignment: .leading) {
+                        Button {
+                            isShowingKeyField.toggle()
+                        } label: {
+                            Text("Uppdatera \nRFID-bricka")
+                                .multilineTextAlignment(.leading)
+                                .fixedSize()
+                                .frame(width: 160, height: 24, alignment: .leading)
+                                .padding()
+                                .background(Color.accentColor)
+                                .cornerRadius(6)
+                                .contentShape(Rectangle())
+                        }
+                        .overlay(alignment: .trailing) {
+                            Image(systemName: "wave.3.right.circle.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .padding()
+                        }
+                        .foregroundColor(.white)
+                        .sheet(isPresented: $isShowingKeyField) {
+                            UpdateTagView(customer: customerVM.customer)
+                        }
+
+                    }
+                    .overlay(alignment: .trailing) {
+                        Button {
+                            customerListVM.removeCustomer(customerVM.id)
+                            detailsViewShown = .none
+                        } label: {
+                            Image(systemName: "trash.square.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .foregroundColor(.red)
+                        }
+                    }
+                }
+                .padding(.top, 48)
                 
                 Spacer()
             }

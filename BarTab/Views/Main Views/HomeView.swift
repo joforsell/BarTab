@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct HomeView: View {
+    @EnvironmentObject var userInfo: UserInfo
     @EnvironmentObject var customerListVM: CustomerListViewModel
     @EnvironmentObject var drinkListVM: DrinkListViewModel
     @EnvironmentObject var confirmationVM: ConfirmationViewModel
+    let userHandler = UserHandling()
     
     @Namespace var orderNamespace
     
@@ -70,6 +73,9 @@ struct HomeView: View {
                     .onDisappear { flyToModal = false }
                     .transition(AnyTransition.asymmetric(insertion: .identity, removal: .opacity))
             }
+        }
+        .onAppear {
+            print(Auth.auth().currentUser?.uid)
         }
     }
 }

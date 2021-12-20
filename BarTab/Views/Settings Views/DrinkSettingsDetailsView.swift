@@ -12,116 +12,141 @@ import Introspect
 struct DrinkSettingsDetailView: View {
     @EnvironmentObject var drinkListVM: DrinkListViewModel
     @Binding var drinkVM: DrinkViewModel
-    var geometry: GeometryProxy
+    @Binding var detailsViewShown: DetailViewRouter
     
     @State private var editingName = false
     @State private var editingPrice = false
+    @State private var editingImage = false
     
     var body: some View {
         HStack {
             Spacer()
             VStack(alignment: .center, spacing: 20) {
-            Image("gintonic")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 100)
-                .foregroundColor(.accentColor)
-                .padding(.top, 48)
-                .overlay(alignment: .bottomTrailing) {
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "pencil.circle.fill")
+                Spacer()
+                Image(drinkVM.drink.image.rawValue)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 200)
+                    .foregroundColor(.accentColor)
+                    .overlay(alignment: .bottomTrailing) {
+                        Button {
+                            editingImage.toggle()
+                        } label: {
+                            Image(systemName: "pencil.circle.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .foregroundColor(.white)
+                                .frame(width: 22)
+                        }
+                        .popover(isPresented: $editingImage) {
+                            ImagePickerView(drinkVM: $drinkVM)
+                        }
+                        .offset(x: 40)
+                    }
+                
+                VStack(alignment: .leading, spacing: 2) {
+                    HStack(alignment: .bottom) {
+                        TextField(drinkVM.drink.name,
+                                  text: $drinkVM.drink.name,
+                                  onEditingChanged: { editingChanged in
+                            if editingChanged {
+                                editingName = true
+                            } else {
+                                editingName = false
+                            } },
+                                  onCommit: { editingName.toggle() }
+                        )
+                            .disableAutocorrection(true)
+                            .font(.title3)
+                        Spacer()
+                    }
+                    .offset(y: 4)
+                    .overlay(alignment: .trailing) {
+                        Image(systemName: "square.text.square.fill")
                             .resizable()
                             .scaledToFit()
-                            .foregroundColor(.white)
-                            .frame(width: 22)
+                            .opacity(0.5)
                     }
-                    .offset(x: 40)
+                    .overlay(alignment: .topLeading) {
+                        Text("Namn".uppercased())
+                            .font(.caption2)
+                            .foregroundColor(.white)
+                            .opacity(0.5)
+                            .offset(y: -10)
+                    }
                 }
-            VStack(alignment: .leading, spacing: 2) {
-                HStack(alignment: .bottom) {
-                    TextField(drinkVM.drink.name,
-                              text: $drinkVM.drink.name,
-                              onEditingChanged: { editingChanged in
-                        if editingChanged {
-                            editingName = true
-                        } else {
-                            editingName = false
-                        } },
-                              onCommit: { editingName.toggle() }
-                    )
-                        .disableAutocorrection(true)
-                        .font(.title3)
-                    Spacer()
-                }
-                .offset(y: 4)
-                .overlay(alignment: .trailing) {
-                    Image(systemName: "square.text.square.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .opacity(0.5)
-                }
-                .overlay(alignment: .topLeading) {
-                    Text("Namn".uppercased())
-                        .font(.caption2)
-                        .foregroundColor(.white)
-                        .opacity(0.5)
-                        .offset(y: -10)
-                }
-            }
-            .frame(width: 300, height: 24)
-            .padding()
-            .foregroundColor(.white)
-            .background(Color.gray.opacity(0.2))
-            .cornerRadius(6)
-            .addBorder(editingName ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
-            .padding(.top, 48)
-
-            VStack(alignment: .leading, spacing: 2) {
-                HStack(alignment: .bottom) {
-                    TextField("\(drinkVM.drink.price) kr",
-                              text: $drinkVM.priceAsString,
-                              onEditingChanged: { editingChanged in
-                        if editingChanged {
-                            editingPrice = true
-                        } else {
-                            editingPrice = false
-                        } }, onCommit: { editingPrice.toggle() }
-                    )
-                        .onReceive(Just(drinkVM.priceAsString)) { newValue in
-                            let filtered = newValue.filter { "01233456789".contains($0) }
-                            if filtered != newValue {
-                                self.drinkVM.priceAsString = filtered
+                .frame(width: 300, height: 24)
+                .padding()
+                .foregroundColor(.white)
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(6)
+                .addBorder(editingName ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
+                .padding(.top, 48)
+                
+                VStack(alignment: .leading, spacing: 2) {
+                    HStack(alignment: .bottom) {
+                        TextField("\(drinkVM.drink.price) kr",
+                                  text: $drinkVM.priceAsString,
+                                  onEditingChanged: { editingChanged in
+                            if editingChanged {
+                                editingPrice = true
+                            } else {
+                                editingPrice = false
+                            } }, onCommit: { editingPrice.toggle() }
+                        )
+                            .onReceive(Just(drinkVM.priceAsString)) { newValue in
+                                let filtered = newValue.filter { "01233456789".contains($0) }
+                                if filtered != newValue {
+                                    self.drinkVM.priceAsString = filtered
+                                }
                             }
+                            .font(.title3)
+                        Spacer()
+                    }
+                    .offset(y: 4)
+                    .overlay(alignment: .trailing) {
+                        Image(systemName: "dollarsign.square.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .opacity(0.5)
+                    }
+                    .overlay(alignment: .topLeading) {
+                        Text("Pris".uppercased())
+                            .font(.caption2)
+                            .foregroundColor(.white)
+                            .opacity(0.5)
+                            .offset(y: -10)
+                    }
+                    
+                }
+                .frame(width: 300, height: 24)
+                .padding()
+                .foregroundColor(.white)
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(6)
+                .addBorder(editingPrice ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
+                
+                VStack(alignment: .leading) {
+                    HStack {
+                        Spacer()
+                    }
+                    .frame(width: 300, height: 24)
+                    .padding()
+                    .overlay(alignment: .trailing) {
+                        Button {
+                            drinkListVM.removeDrink(drinkVM.id)
+                            detailsViewShown = .none
+                        } label: {
+                            Image(systemName: "trash.square.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .foregroundColor(.red)
                         }
-                        .font(.title3)
-                    Spacer()
+                    }
                 }
-                .offset(y: 4)
-                .overlay(alignment: .trailing) {
-                    Image(systemName: "dollarsign.square.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .opacity(0.5)
-                }
-                .overlay(alignment: .topLeading) {
-                    Text("Pris".uppercased())
-                        .font(.caption2)
-                        .foregroundColor(.white)
-                        .opacity(0.5)
-                        .offset(y: -10)
-                }
-
+                .padding(.top, 48)
+                Spacer()
             }
-            .frame(width: 300, height: 24)
-            .padding()
-            .foregroundColor(.white)
-            .background(Color.gray.opacity(0.2))
-            .cornerRadius(6)
-            .addBorder(editingPrice ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
-            Spacer()
-        }
             Spacer()
         }
     }

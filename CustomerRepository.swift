@@ -12,7 +12,7 @@ import FirebaseFirestoreSwift
 
 class CustomerRepository: ObservableObject {
     
-    let db = Firestore.firestore()
+    let db = Firestore.firestore().collection("customers")
     
     @Published var customers = [Customer]()
     
@@ -23,7 +23,7 @@ class CustomerRepository: ObservableObject {
     func loadData() {
         let userId = Auth.auth().currentUser?.uid
         
-        db.collection("customers")
+        db
             .whereField("userId", isEqualTo: userId as Any)
             .addSnapshotListener { querySnapshot, error in
             if let querySnapshot = querySnapshot {
@@ -38,7 +38,7 @@ class CustomerRepository: ObservableObject {
         do {
             var addedCustomer = customer
             addedCustomer.userId = Auth.auth().currentUser?.uid
-            let _ = try db.collection("customers").addDocument(from: addedCustomer)
+            let _ = try db.addDocument(from: addedCustomer)
         } catch {
             fatalError("Unable to encode user: \(error.localizedDescription)")
         }
@@ -46,7 +46,7 @@ class CustomerRepository: ObservableObject {
     
     func removeCustomer(_ customer: Customer) {
         if let customerID = customer.id {
-            db.collection("customers").document(customerID).delete() { error in
+            db.document(customerID).delete() { error in
                 if let error = error {
                     print(error)
                 }
@@ -57,7 +57,7 @@ class CustomerRepository: ObservableObject {
     func updateCustomer(_ customer: Customer) {
         if let customerID = customer.id {
             do {
-                try db.collection("customers").document(customerID).setData(from: customer)
+                try db.document(customerID).setData(from: customer)
             } catch {
                 fatalError("Unable to encode user: \(error.localizedDescription)")
             }
@@ -66,7 +66,7 @@ class CustomerRepository: ObservableObject {
     
     func updateKey(of customer: Customer, with key: String) {
         if let customerID = customer.id {
-            db.collection("customers").document(customerID).updateData(["key" : key])
+            db.document(customerID).updateData(["key" : key])
         }
     }
 }

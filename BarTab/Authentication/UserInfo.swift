@@ -10,13 +10,15 @@ import Firebase
 import Combine
 
 class UserInfo: ObservableObject {
+    @Published var userHandling = UserHandling()
+    @Published var isUserAuthenticated: AuthState = .undefined
+    
+    var cancellables = Set<AnyCancellable>()
+
     enum AuthState {
         case undefined, signedOut, signedIn
     }
-    
-    @Published var isUserAuthenticated: AuthState = .undefined
-    @Published var user: User = .init(uid: "", email: "", association: "")
-    
+        
     var authStateDidChangeListenerHandle: AuthStateDidChangeListenerHandle?
     
     func configureFirebaseStateDidChange() {
@@ -30,14 +32,12 @@ class UserInfo: ObservableObject {
     }
     
     func isAppAlreadyLaunchedOnce() -> Bool {
-            let defaults = UserDefaults.standard
+        let defaults = UserDefaults.standard
 
-            if let isAppAlreadyLaunchedOnce = defaults.string(forKey: "isAppAlreadyLaunchedOnce") {
-                print("App already launched: \(isAppAlreadyLaunchedOnce)")
+        if defaults.string(forKey: "isAppAlreadyLaunchedOnce") != nil {
                 return true
             } else {
                 defaults.set(true, forKey: "isAppAlreadyLaunchedOnce")
-                print("App launched first time")
                 return false
             }
         }
