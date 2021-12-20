@@ -14,11 +14,11 @@ struct DrinkCardView: View {
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .bottomTrailing) {
-                Image("beer")
+                Image(drinkVM.drink.image.rawValue)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .foregroundColor(.accentColor.opacity(0.3))
-                    .frame(maxWidth: geo.size.width * 0.4)
+                    .frame(maxHeight: geo.size.height * 0.4)
                     .padding()
                 VStack(alignment: .leading) {
                     Text(drinkVM.drink.name).font(.title3).bold()

@@ -9,96 +9,149 @@ import SwiftUI
 import FirebaseAuth
 
 struct UserSettingsView: View {
-    @EnvironmentObject var userInfo: UserInfo
+    @EnvironmentObject var userHandler: UserHandling
     @EnvironmentObject var settingsManager: SettingsManager
     
-    @State private var association = ""
     @State private var editingAssociation = false
+    @State private var editingEmail = false
     
     @State private var showError = false
     @State private var errorString = ""
-        
+    
+    
     var body: some View {
-        GeometryReader { geometry in
+        HStack {
+            Spacer()
             VStack(alignment: .center, spacing: 20) {
+                Spacer()
+                
                 Image("bartender")
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
+                    .scaledToFit()
+                    .frame(height: 200)
                     .foregroundColor(.accentColor)
-                    .frame(width: geometry.size.width * 0.2)
-                    .padding(.top, 48)
-                HStack {
-                    Text("Mailadress: \(userInfo.user.email ?? "Ej angiven")")
-                    Spacer()
-                }
-                .frame(maxWidth: geometry.size.width * 0.4)
-                Divider()
-                    .frame(maxWidth: geometry.size.width * 0.4)
-                HStack {
-                    if editingAssociation {
-                        Text("Organisation:")
-                        TextField("\(userInfo.user.association ?? "Ej angiven")", text: $association, onCommit: {
-                            if association != "" {
-                                updateAssociation(to: association)
+                    .offset(x: -20)
+                
+                VStack(alignment: .leading, spacing: 2) {
+                    HStack(alignment: .bottom) {
+                        TextField("",
+                                  text: $userHandler.user.email,
+                                  onEditingChanged: { editingChanged in
+                            if editingChanged {
+                                withAnimation {
+                                    editingEmail = true
+                                }
+                            } else {
+                                withAnimation {
+                                    editingEmail = false
+                                }
+                            } },
+                                  onCommit: {
+                            withAnimation {
+                                editingEmail.toggle()
                             }
-                            editingAssociation.toggle()
-                        })
-                        Button {
-                            if association != "" {
-                                updateAssociation(to: association)
-                            }
-                            editingAssociation.toggle()
-                        } label: {
-                            Image(systemName: "checkmark.circle.fill")
-                                .foregroundColor(Color("AppYellow"))
-                                .font(.headline)
+                            userHandler.updateUserEmail(userHandler.user.email ?? "")
                         }
-                    } else {
-                        Text("Organisation: \(userInfo.user.association ?? "Ej angett")")
-                        Button {
-                            editingAssociation.toggle()
-                            association = ""
-                        } label: {
-                            Image(systemName: "pencil")
-                                .foregroundColor(Color("AppYellow"))
-                                .font(.headline)
-                        }
+                        )
+                            .autocapitalization(.none)
+                            .disableAutocorrection(true)
+                            .font(.title3)
                         Spacer()
                     }
+                    .offset(y: 4)
+                    .overlay(alignment: .trailing) {
+                        Image(systemName: editingEmail ? "checkmark.rectangle.fill" : "envelope.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .opacity(editingEmail ? 1 : 0.5)
+                            .foregroundColor(editingEmail ? .accentColor : .white)
+                            .onTapGesture {
+                                editingEmail ? userHandler.updateUserEmail(userHandler.user.email ?? "") : nil
+                                UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
+                            }
+                    }
+                    .overlay(alignment: .topLeading) {
+                        Text("Email".uppercased())
+                            .font(.caption2)
+                            .foregroundColor(.white)
+                            .opacity(0.5)
+                            .offset(y: -10)
+                    }
                 }
-                .frame(maxWidth: geometry.size.width * 0.4)
-                Divider()
-                    .frame(maxWidth: geometry.size.width * 0.4)
-                Toggle("Använd RFID-taggar", isOn: $settingsManager.settings.usingTag)
+                .frame(width: 300, height: 24)
+                .padding()
+                .foregroundColor(.white)
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(6)
+                .addBorder(editingEmail ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
+                .padding(.top, 48)
+                
+                VStack(alignment: .leading, spacing: 2) {
+                    HStack(alignment: .bottom) {
+                        TextField("",
+                                  text: $userHandler.user.association,
+                                  onEditingChanged: { editingChanged in
+                            if editingChanged {
+                                withAnimation {
+                                    editingAssociation = true
+                                }
+                            } else {
+                                withAnimation {
+                                    editingAssociation = false
+                                }
+                            } },
+                                  onCommit: {
+                            withAnimation {
+                                editingAssociation.toggle()
+                            }
+                            userHandler.updateUserAssociation(userHandler.user.association ?? "")
+                        }
+                        )
+                            .autocapitalization(.none)
+                            .disableAutocorrection(true)
+                            .font(.title3)
+                        Spacer()
+                    }
+                    .offset(y: 4)
+                    .overlay(alignment: .trailing) {
+                        Image(systemName: editingAssociation ? "checkmark.rectangle.fill" : "suitcase.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .opacity(editingAssociation ? 1 : 0.5)
+                            .foregroundColor(editingAssociation ? .accentColor : .white)
+                            .onTapGesture {
+                                editingAssociation ? userHandler.updateUserAssociation(userHandler.user.association ?? "") : nil
+                                UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
+                            }
+
+                    }
+                    .overlay(alignment: .topLeading) {
+                        Text("Association".uppercased())
+                            .font(.caption2)
+                            .foregroundColor(.white)
+                            .opacity(0.5)
+                            .offset(y: -10)
+                    }
+                }
+                .frame(width: 300, height: 24)
+                .padding()
+                .foregroundColor(.white)
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(6)
+                .addBorder(editingAssociation ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
+                
+                Toggle("Använd RFID-brickor", isOn: $userHandler.user.usingTags)
                     .toggleStyle(SwitchToggleStyle(tint: .accentColor))
-                    .frame(maxWidth: geometry.size.width * 0.4)
+                    .frame(width: 300, height: 24)
+                    .foregroundColor(.white)
+                    .onChange(of: userHandler.user.usingTags) { usingTags in
+                        userHandler.updateUserTagUsage(usingTags)
+                    }
+                
+                Spacer()
             }
-            .foregroundColor(.white)
-            .frame(maxWidth: .infinity)
-            .alert(isPresented: $showError) {
-                Alert(title: Text("Kunde inte logga ut"), message: Text(errorString), dismissButton: .default(Text("OK")))
-            }
+            Spacer()
         }
-    }
-    
-    func updateAssociation(to: String) {
-        let data = User.dataDict(
-            uid: userInfo.user.uid,
-            email: userInfo.user.email ?? "",
-            association: association
-        )
-        
-        UserHandling.mergeUser(data, uid: userInfo.user.uid) { result in
-            switch result {
-            case .failure(let error):
-                errorString = error.localizedDescription
-                showError = true
-            case .success( _):
-                print("Uppdaterade förening eller företag.")
-            }
-        }
-        
-        userInfo.user.association = association
     }
 }
 

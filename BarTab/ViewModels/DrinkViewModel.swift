@@ -36,7 +36,6 @@ class DrinkViewModel: ObservableObject, Identifiable {
             .store(in: &cancellables)
         
         $drink
-            .debounce(for: 1, scheduler: RunLoop.main)
             .sink { drink in
                 self.drinkRepository.updateDrink(drink)
             }

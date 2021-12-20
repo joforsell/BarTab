@@ -11,13 +11,23 @@ struct OrderView: View {
     @EnvironmentObject var drinkListVM: DrinkListViewModel
     @EnvironmentObject var confirmationVM: ConfirmationViewModel
     
+    var fourColumnGrid = Array(repeating: GridItem(.adaptive(minimum: 120), spacing: 20), count: 4)
+    var threeColumnGrid = Array(repeating: GridItem(.adaptive(minimum: 120), spacing: 20), count: 3)
+
+    
+    // MARK: Logic for MatchedGeometryEffect
     @Namespace var orderNamespace
+    
+    // Set ID for MatchedGeometryEffect to that of the tapped drink.
     @State var tappedDrink: String?
+    
+    // Used to connect and (onAppear) disconnect IDs of drink card and modal view.
     @State var flyToModal: Bool = false
+    
+    // To check if geometry should be matched.
     var isGeometryMatched: Bool { !flyToModal && tappedDrink != nil }
+    
         
-    var fourColumnGrid = [GridItem(.adaptive(minimum: 120), spacing: 20), GridItem(.adaptive(minimum: 120), spacing: 20), GridItem(.adaptive(minimum: 120), spacing: 20), GridItem(.adaptive(minimum: 120), spacing: 20)]
-    var threeColumnGrid = [GridItem(.adaptive(minimum: 120), spacing: 20), GridItem(.adaptive(minimum: 120), spacing: 20), GridItem(.adaptive(minimum: 120), spacing: 20)]
         
     var body: some View {
         ZStack {
@@ -32,8 +42,8 @@ struct OrderView: View {
                             .matchedGeometryEffect(id: drinkVM.id, in: orderNamespace, isSource: true)
                     }
                 }
+                .padding()
             }
-            .padding(EdgeInsets(top: 0, leading: 48, bottom: 0, trailing: 10))
             .overlay {
                 if tappedDrink != nil {
                     ConfirmOrderView(drinkVM: confirmationVM.selectedDrink ?? ConfirmationViewModel.errorDrink, tappedDrink: $tappedDrink)

@@ -6,59 +6,50 @@
 //
 
 import FirebaseFirestore
+import FirebaseAuth
+import Combine
 
-enum UserHandling {
-
-    static func retrieveUser(uid: String, completion: @escaping (Result<User, Error>) -> ()) {
-        let reference = Firestore
-            .firestore()
-            .collection(UserKeys.CollectionPath.users)
-            .document(uid)
-        getDocument(for: reference) { (result) in
-            switch result {
-            case .success(let data):
-                guard let user = User(documentData: data) else {
-                    completion(.failure(AuthError.noUser))
-                    return
-                }
-                completion(.success(user))
-            case .failure(let err):
-                completion(.failure(err))
-            }
-        }
+class UserHandling: ObservableObject {
+    
+    
+    let db = Firestore.firestore().collection("users")
+    
+    @Published var user = User()
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    init() {
+        loadUser()
+    }
+    
+    func loadUser() {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
         
+        db.document(userID)
+            .addSnapshotListener { documentSnapshot, error in
+                guard let document = documentSnapshot else { return }
+                guard let data = try? document.data(as: User.self) else { return }
+                
+                self.user = data
+            }
     }
     
-    static func mergeUser(_ data: [String : Any], uid: String, completion: @escaping (Result<Bool, Error>) -> ()) {
-        let reference = Firestore
-            .firestore()
-            .collection(UserKeys.CollectionPath.users)
-            .document(uid)
-        reference.setData(data, merge: true) { (err) in
-            if let err = err {
-                completion(.failure(err))
-                return
-            }
-            completion(.success(true))
-        }
+    func updateUserEmail(_ email: String) {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        
+        db.document(userID).setData([ "email": email ] , merge: true)
     }
     
-    
-    fileprivate static func getDocument(for reference: DocumentReference, completion: @escaping (Result<[String : Any], Error>) -> ()) {
-        reference.getDocument { (documentSnapshot, err) in
-            if let err = err {
-                completion(.failure(err))
-                return
-            }
-            guard let documentSnapshot = documentSnapshot else {
-                completion(.failure(AuthError.noDocumentSnapshot))
-                return
-            }
-            guard let data = documentSnapshot.data() else {
-                completion(.failure(AuthError.noSnapshotData))
-                return
-            }
-            completion(.success(data))
-        }
+    func updateUserAssociation(_ association: String) {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        
+        db.document(userID).setData([ "association": association ] , merge: true)
     }
+    
+    func updateUserTagUsage(_ isUsingTags: Bool) {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        
+        db.document(userID).setData([ "usingTags": isUsingTags ] , merge: true)
+    }
+
 }
