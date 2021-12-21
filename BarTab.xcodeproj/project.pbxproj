@@ -14,7 +14,6 @@
 		3E5F33662712B73C005340B6 /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F33652712B73C005340B6 /* Authentication.swift */; };
 		3E5F33682712B7C9005340B6 /* EmailAuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F33672712B7C9005340B6 /* EmailAuthError.swift */; };
 		3E60E3A5271147A500F1363B /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E60E3A4271147A500F1363B /* UserModel.swift */; };
-		3E60E3A727114B0300F1363B /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E60E3A627114B0300F1363B /* UserInfo.swift */; };
 		3E60E3AF2711751C00F1363B /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E60E3AE2711751C00F1363B /* UserViewModel.swift */; };
 		3E65093926FCB26900ACDF41 /* BarTabApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E65093826FCB26900ACDF41 /* BarTabApp.swift */; };
 		3E65093D26FCB26900ACDF41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E65093C26FCB26900ACDF41 /* Assets.xcassets */; };
@@ -45,7 +44,9 @@
 		3E7BEFDE26FCDD2800453C1B /* DrinkListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFDD26FCDD2800453C1B /* DrinkListViewModel.swift */; };
 		3E7BEFE126FCDD6D00453C1B /* DrinkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFE026FCDD6D00453C1B /* DrinkModel.swift */; };
 		3E7BEFE426FCDD9900453C1B /* CustomerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFE326FCDD9900453C1B /* CustomerListViewModel.swift */; };
-		3E7C9AFE2771D49800B8A431 /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7C9AFD2771D49800B8A431 /* OnBoardingView.swift */; };
+		3E7C9AFE2771D49800B8A431 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7C9AFD2771D49800B8A431 /* ContentView.swift */; };
+		3E7C9B002772065500B8A431 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7C9AFF2772065500B8A431 /* LoginView.swift */; };
+		3E7C9B022772069700B8A431 /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7C9B012772069700B8A431 /* PaywallView.swift */; };
 		3E8134B02764DEBB00637E61 /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 3E8134AF2764DEBB00637E61 /* SwiftUIX */; };
 		3E817154275574F600F4B0D3 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E817153275574F600F4B0D3 /* HomeView.swift */; };
 		3E817156275575E500F4B0D3 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E817155275575E500F4B0D3 /* HeaderView.swift */; };
@@ -70,7 +71,6 @@
 		3E5F33652712B73C005340B6 /* Authentication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		3E5F33672712B7C9005340B6 /* EmailAuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailAuthError.swift; sourceTree = "<group>"; };
 		3E60E3A4271147A500F1363B /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
-		3E60E3A627114B0300F1363B /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		3E60E3AE2711751C00F1363B /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		3E65093526FCB26900ACDF41 /* BarTab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BarTab.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E65093826FCB26900ACDF41 /* BarTabApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarTabApp.swift; sourceTree = "<group>"; };
@@ -101,7 +101,9 @@
 		3E7BEFDD26FCDD2800453C1B /* DrinkListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkListViewModel.swift; sourceTree = "<group>"; };
 		3E7BEFE026FCDD6D00453C1B /* DrinkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkModel.swift; sourceTree = "<group>"; };
 		3E7BEFE326FCDD9900453C1B /* CustomerListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerListViewModel.swift; sourceTree = "<group>"; };
-		3E7C9AFD2771D49800B8A431 /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingView.swift; sourceTree = "<group>"; };
+		3E7C9AFD2771D49800B8A431 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		3E7C9AFF2772065500B8A431 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		3E7C9B012772069700B8A431 /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
 		3E817153275574F600F4B0D3 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		3E817155275575E500F4B0D3 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		3E817157275576AB00F4B0D3 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
@@ -144,7 +146,6 @@
 			isa = PBXGroup;
 			children = (
 				3E5F33652712B73C005340B6 /* Authentication.swift */,
-				3E60E3A627114B0300F1363B /* UserInfo.swift */,
 				3E5F33632712AF94005340B6 /* UserHandling.swift */,
 				3E5F33612712AF8B005340B6 /* AuthError.swift */,
 				3E5F33672712B7C9005340B6 /* EmailAuthError.swift */,
@@ -197,6 +198,9 @@
 		3E70E0EF275EB0270020B429 /* Main Views */ = {
 			isa = PBXGroup;
 			children = (
+				3E7C9AFD2771D49800B8A431 /* ContentView.swift */,
+				3E7C9B012772069700B8A431 /* PaywallView.swift */,
+				3E7C9AFF2772065500B8A431 /* LoginView.swift */,
 				3E817153275574F600F4B0D3 /* HomeView.swift */,
 				3E817155275575E500F4B0D3 /* HeaderView.swift */,
 				3E6FA3B32756A7ED0023DAB7 /* BodyView.swift */,
@@ -204,7 +208,6 @@
 				3E8730232759755100F8E610 /* ConfirmOrderView.swift */,
 				3E873021275961B500F8E610 /* DrinkCardView.swift */,
 				3E817159275576B400F4B0D3 /* CustomerListView.swift */,
-				3E7C9AFD2771D49800B8A431 /* OnBoardingView.swift */,
 			);
 			path = "Main Views";
 			sourceTree = "<group>";
@@ -261,13 +264,21 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		3E817152275574AF00F4B0D3 /* Views */ = {
+		3E7C9B032772073200B8A431 /* Helper Views */ = {
 			isa = PBXGroup;
 			children = (
 				3E6F1A2827712B5300661021 /* CustomInputView.swift */,
 				3E70E0E9275EAF100020B429 /* ToastView.swift */,
+			);
+			path = "Helper Views";
+			sourceTree = "<group>";
+		};
+		3E817152275574AF00F4B0D3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
 				3E70E0EF275EB0270020B429 /* Main Views */,
 				3E70E0F0275EB05B0020B429 /* Settings Views */,
+				3E7C9B032772073200B8A431 /* Helper Views */,
 				3E70E0F1275EB07F0020B429 /* Extensions */,
 			);
 			path = Views;
@@ -379,18 +390,20 @@
 				3E6916D2276E584B009E80D7 /* ImagePickerView.swift in Sources */,
 				3E658368276B568400555030 /* View+RoundedCorners.swift in Sources */,
 				3E678775275D52FC0072259F /* ConfirmationViewModel.swift in Sources */,
+				3E7C9B002772065500B8A431 /* LoginView.swift in Sources */,
 				3E70E0E8275EABE40020B429 /* UserSettingsView.swift in Sources */,
 				3E70E0F7275EB2790020B429 /* ClearModalBackground.swift in Sources */,
 				3E7BEFDC26FCDD1900453C1B /* CustomerModel.swift in Sources */,
 				3E6F1A272771282900661021 /* Date+RawRepresentable.swift in Sources */,
 				3E70E0E6275EABDC0020B429 /* CustomerSettingsView.swift in Sources */,
-				3E7C9AFE2771D49800B8A431 /* OnBoardingView.swift in Sources */,
+				3E7C9AFE2771D49800B8A431 /* ContentView.swift in Sources */,
 				3E5DE2B32746E75600B5723D /* DrinkViewModel.swift in Sources */,
 				3E70E0EE275EB0160020B429 /* View+RoundedBorder.swift in Sources */,
 				3E6FA3B42756A7ED0023DAB7 /* BodyView.swift in Sources */,
 				3E7BEFE126FCDD6D00453C1B /* DrinkModel.swift in Sources */,
 				3E817156275575E500F4B0D3 /* HeaderView.swift in Sources */,
 				3E70E0E4275EABD10020B429 /* DrinkSettingsView.swift in Sources */,
+				3E7C9B022772069700B8A431 /* PaywallView.swift in Sources */,
 				3EBC4988270B8845006B4857 /* DrinkRepository.swift in Sources */,
 				3E6F1A2927712B5300661021 /* CustomInputView.swift in Sources */,
 				3E70E0EA275EAF100020B429 /* ToastView.swift in Sources */,
@@ -409,7 +422,6 @@
 				3E60E3A5271147A500F1363B /* UserModel.swift in Sources */,
 				3E88B0F5276A7814003561E1 /* AddDrinkView.swift in Sources */,
 				3E817154275574F600F4B0D3 /* HomeView.swift in Sources */,
-				3E60E3A727114B0300F1363B /* UserInfo.swift in Sources */,
 				3E5F33662712B73C005340B6 /* Authentication.swift in Sources */,
 				3E65093926FCB26900ACDF41 /* BarTabApp.swift in Sources */,
 				3E873022275961B500F8E610 /* DrinkCardView.swift in Sources */,

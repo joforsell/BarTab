@@ -24,7 +24,7 @@ class EmailSender {
                     "to" : customer.email,
                     "message" : [
                         "subject" : "Nuvarande saldo hos \(user.association ?? "BarTab")",
-                        "html" : "Hej \(firstName ?? "")! Ditt nuvarande saldo är \(customer.balance). </br></br> Frågor? Maila: \(user.email ?? "Mailadress saknas")"
+                        "html" : "Hej \(firstName ?? "")! Ditt nuvarande saldo är \(customer.balance).</br></br>Frågor? Maila: \(user.email ?? "Mailadress saknas")"
                     ]
                 ]) { error in
                     if let error = error {

@@ -12,7 +12,7 @@ struct HomeView: View {
     @EnvironmentObject var customerListVM: CustomerListViewModel
     @EnvironmentObject var drinkListVM: DrinkListViewModel
     @EnvironmentObject var confirmationVM: ConfirmationViewModel
-    let userHandler = UserHandling()
+    @EnvironmentObject var userHandler: UserHandling
     
     @Namespace var orderNamespace
     
