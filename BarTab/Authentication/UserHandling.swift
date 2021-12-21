@@ -11,6 +11,7 @@ import Combine
 
 class UserHandling: ObservableObject {
     
+    // MARK: - User profile
     
     let db = Firestore.firestore().collection("users")
     
@@ -51,5 +52,25 @@ class UserHandling: ObservableObject {
         
         db.document(userID).setData([ "usingTags": isUsingTags ] , merge: true)
     }
-
+    
+    
+    // MARK: - User authentication state
+    
+    @Published var userAuthState: AuthState = .undefined
+    
+    enum AuthState {
+        case undefined, signedOut, signedIn
+    }
+        
+    var authStateDidChangeListenerHandle: AuthStateDidChangeListenerHandle?
+    
+    func configureFirebaseStateDidChange() {
+        authStateDidChangeListenerHandle = Auth.auth().addStateDidChangeListener { _, user in
+            guard let _ = user else {
+                self.userAuthState = .signedOut
+                return
+            }
+            self.userAuthState = .signedIn
+        }
+    }
 }
