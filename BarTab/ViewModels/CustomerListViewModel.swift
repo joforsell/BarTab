@@ -89,8 +89,8 @@ class CustomerListViewModel: ObservableObject {
         }
     }
     
-    func sendEmails(from association: String?, completion: @escaping (Result<Bool, Error>) -> Void) {
-        emailSender.sendEmails(to: customerRepository.customers, from: association) { result in
+    func sendEmails(from user: User, completion: @escaping (Result<Bool, Error>) -> Void) {
+        emailSender.sendEmails(to: customerRepository.customers, from: user) { result in
             completion(result)
         }
     }

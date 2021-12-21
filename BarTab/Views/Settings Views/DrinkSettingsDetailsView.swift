@@ -18,6 +18,8 @@ struct DrinkSettingsDetailView: View {
     @State private var editingPrice = false
     @State private var editingImage = false
     
+    @State private var showError = false
+    
     var body: some View {
         HStack {
             Spacer()
@@ -134,13 +136,21 @@ struct DrinkSettingsDetailView: View {
                     .padding()
                     .overlay(alignment: .trailing) {
                         Button {
-                            drinkListVM.removeDrink(drinkVM.id)
-                            detailsViewShown = .none
+                            showError.toggle()
                         } label: {
                             Image(systemName: "trash.square.fill")
                                 .resizable()
                                 .scaledToFit()
                                 .foregroundColor(.red)
+                        }
+                        .alert(isPresented: $showError) {
+                            Alert(title: Text("Radera dryck"),
+                                  message: Text("Är du säker på att du vill radera den här drycken?"),
+                                  primaryButton: .default(Text("Avbryt")),
+                                  secondaryButton: .destructive(Text("Radera")) {
+                                    drinkListVM.removeDrink(drinkVM.id)
+                                    detailsViewShown = .none
+                            })
                         }
                     }
                 }

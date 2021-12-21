@@ -48,6 +48,7 @@ struct HomeView: View {
                                                 
                         CustomerListView()
                     }
+                    .padding(.horizontal)
                 case .settings:
                     SettingsView()
                         .frame(width: UIScreen.main.bounds.width)

@@ -19,10 +19,13 @@ struct CustomerSettingsDetailView: View {
     @State private var editingName = false
     @State private var editingEmail = false
     @State private var editingBalance = false
+    
     @State private var isShowingKeyField = false
     @State private var newKey = ""
     @State private var balanceAdjustment = ""
     @State private var addingToBalance = true
+    
+    @State private var showError = false
     
     var body: some View {
         HStack {
@@ -264,13 +267,21 @@ struct CustomerSettingsDetailView: View {
                     }
                     .overlay(alignment: .trailing) {
                         Button {
-                            customerListVM.removeCustomer(customerVM.id)
-                            detailsViewShown = .none
+                            showError.toggle()
                         } label: {
                             Image(systemName: "trash.square.fill")
                                 .resizable()
                                 .scaledToFit()
                                 .foregroundColor(.red)
+                        }
+                        .alert(isPresented: $showError) {
+                            Alert(title: Text("Radera användare"),
+                                  message: Text("Är du säker på att du vill radera den här användaren?"),
+                                  primaryButton: .default(Text("Avbryt")),
+                                  secondaryButton: .destructive(Text("Radera")) {
+                                    customerListVM.removeCustomer(customerVM.id)
+                                    detailsViewShown = .none
+                            })
                         }
                     }
                 }
