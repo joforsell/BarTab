@@ -19,6 +19,8 @@ struct SettingsView: View {
     @AppStorage("latestEmail") var latestEmail: Date = Date(timeIntervalSinceReferenceDate: 60000)
         
     @State private var showError = false
+    @State private var confirmEmails = false
+    @State private var errorTitle = ""
     @State private var errorString = ""
     @State private var isShowingEmailConfirmation = false
     
@@ -95,6 +97,16 @@ struct SettingsView: View {
                             Spacer()
                             
                             emailButton
+                                .alert(isPresented: $showError) {
+                                    if oneDayHasElapsedSince(latestEmail) {
+                                        return Alert(title: Text(errorTitle),
+                                              message: Text(errorString),
+                                              primaryButton: .default(Text("Avbryt")),
+                                              secondaryButton: .default(Text("OK"), action: emailButtonAction))
+                                    } else {
+                                        return Alert(title: errorTitle, message: errorString, dismissButtonTitle: "OK")
+                                    }
+                                }
                         }
                         .padding()
                         .background(Color(.black).opacity(0.5))
@@ -122,10 +134,7 @@ struct SettingsView: View {
                 }
             }
         }
-        .alert(isPresented: $showError) {
-            Alert(title: Text("Kunde inte göra mailutskick"), message: Text(errorString), dismissButton: .default(Text("OK")))
-        }
-        .toast(isPresented: $isShowingEmailConfirmation, dismissAfter: 6) {
+        .toast(isPresented: $isShowingEmailConfirmation, dismissAfter: 6, onDismiss: { isShowingEmailConfirmation = false }) {
             ToastView(systemImage: ("envelope.fill", .accentColor, 50), title: "Mailutskick sändes", subTitle: "Ett mail med aktuellt saldo skickades till användare med kopplad mailadress.")
         }
         .background(VisualEffectBlurView(blurStyle: .dark))
@@ -133,17 +142,21 @@ struct SettingsView: View {
     
     func oneDayHasElapsedSince(_ date: Date) -> Bool {
         let timeSinceLatestEmail = -latestEmail.timeIntervalSinceNow
-        return timeSinceLatestEmail > 86400
+        return timeSinceLatestEmail > 10
     }
     
     var emailButton: some View {
         Button {
             if oneDayHasElapsedSince(latestEmail) {
-                isShowingEmailConfirmation.toggle()
+                errorTitle = "Är du säker på att du vill göra ett mailutskick?"
+                errorString = "Detta skickar ett mail med aktuellt saldo till alla användare som angett en mailadress."
+                print("Kan skicka")
             } else {
+                errorTitle = "Kunde inte skicka"
                 errorString = "Du kan inte göra mailutskick oftare än var 24:e timma."
-                showError.toggle()
+                print("Kan inte skicka")
             }
+            showError.toggle()
         } label: {
             Image(systemName: "envelope.fill")
                 .font(.largeTitle)
@@ -152,9 +165,10 @@ struct SettingsView: View {
     }
     
     func emailButtonAction() {
-        customerListVM.sendEmails(from: userHandler.user.association) { result in
+        customerListVM.sendEmails(from: userHandler.user) { result in
             switch result {
             case .failure(let error):
+                errorTitle = "Error sending emails"
                 errorString = error.localizedDescription
                 showError = true
             case .success( _):
