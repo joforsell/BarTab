@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PaywallView: View {
     @EnvironmentObject var userHandler: UserHandling
+    @ObservedObject var paywallVM = PaywallViewModel()
     
     let columnWidth: CGFloat = 500
     
@@ -22,46 +23,56 @@ struct PaywallView: View {
                 .fill(.black)
                 .blur(radius: 80)
                 .ignoresSafeArea()
-            VStack {
-                Spacer()
-                Image("beer")
-                    .resizable()
-                    .scaledToFit()
-                    .foregroundColor(.accentColor)
-                    .frame(width: columnWidth * 0.3)
-                    .padding(.bottom, -40)
-                Text("BarTab")
-                    .foregroundColor(.accentColor)
-                    .font(.system(size: columnWidth * 0.14, weight: .bold))
-                Spacer()
-                sellingPoints
-                Spacer()
-                subButton
-                Text("Därefter 49 kr i månaden.*")
-                    .font(.caption)
-                Spacer()
-                HStack(spacing: 2) {
-                    Text("*Prenumerationsdetaljer")
-                    Image(systemName: "chevron.up")
-                        .font(.footnote)
+            ScrollView {
+                VStack {
                     Spacer()
-                    Text("Återställ köp")
+                    Image("beer")
+                        .resizable()
+                        .scaledToFit()
+                        .foregroundColor(.accentColor)
+                        .frame(width: columnWidth * 0.3)
+                        .padding()
+                    Image("logotext")
+                        .frame(width: columnWidth * 0.1)
+                        .padding(.bottom, 48)
+                    Spacer()
+                    sellingPoints
+                    Spacer()
+                    HStack(spacing: 16) {
+                        monthlySubButton
+                        yearlySubButton
+                        lifetimeSubButton
+                    }
+                    freeTrialSubButton
+                        .padding(.bottom, 48)
+                    Spacer()
+                    HStack(spacing: 2) {
+                        Text("Prenumerationsdetaljer")
+                        Image(systemName: "chevron.up")
+                            .font(.footnote)
+                        Spacer()
+                        Text("Återställ köp")
+                    }
+                    .frame(width: columnWidth * 0.8)
+                    .font(.callout)
                 }
-                .frame(width: columnWidth * 0.5)
-                .font(.caption2)
+                .font(.headline)
+                .foregroundColor(.white)
+                .frame(width: columnWidth)
+                .center(.horizontal)
             }
-            .font(.headline)
-            .foregroundColor(.white)
-            .frame(width: columnWidth)
-            .center(.horizontal)
         }
     }
 }
 
-// MARK: - Views as properties for grouping
+// MARK: - Selling points view
 private extension PaywallView {
     @ViewBuilder
     private var sellingPoints: some View {
+        ContentRow(width: columnWidth,
+                   headerText: "Håll enkelt koll",
+                   bodyText: "Glöm bort manuella bånglistor och att räkna samman saldon efter varje träff. Med BarTab håller du och dina bargäster enkelt koll på saldoställningar.",
+                   image: Image(systemName: "dollarsign.circle.fill"))
         ContentRow(width: columnWidth,
                    headerText: "Obegränsad bargästlista",
                    bodyText: "Lägg till obegränsat antal bargäster med automatiskt uppdaterande saldo och låt dem beställa från en dryckeslista som bara begränsas av ditt barskåp.",
@@ -70,22 +81,102 @@ private extension PaywallView {
                    headerText: "Maila aktuellt saldo",
                    bodyText: "Det ska vara enkelt att låta dina bargäster hålla koll på sitt saldo. Med ett knapptryck kan du skicka mail till varje gäst med deras aktuella saldo.",
                    image: Image(systemName: "envelope.fill"))
-        ContentRow(width: columnWidth,
-                   headerText: "Koppla till RFID-brickor",
-                   bodyText: "Har ditt sällskap personliga RFID-brickor och en RFID-läsare? Använd dem för att smidigt scanna vem som gör köpet.",
-                   image: Image(systemName: "wave.3.right.circle.fill"))
+            .padding(.bottom, 48)
     }
     
-    private var subButton: some View {
+// MARK: - Sub button views
+    private var freeTrialSubButton: some View {
         Button {
             userHandler.userAuthState = .signedIn
         } label: {
             RoundedRectangle(cornerRadius: 6)
-                .frame(width: columnWidth * 0.75, height: 60)
+                .frame(height: 80)
                 .foregroundColor(.accentColor)
                 .overlay {
-                    Text("Starta en veckas provperiod gratis")
-                        .foregroundColor(.white)
+                    VStack {
+                        Text("Starta en veckas provperiod gratis")
+                            .foregroundColor(.white)
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .padding(2)
+                        Text(paywallVM.continueButtonText)
+                    }
+                }
+        }
+        .padding(.vertical)
+        .padding(.top)
+    }
+    
+    private var monthlySubButton: some View {
+        Button {
+            withAnimation {
+                paywallVM.selectedSub = .monthly
+            }
+        } label: {
+            RoundedRectangle(cornerRadius: 6)
+                .frame(height: 160)
+                .foregroundColor(paywallVM.selectedSub == .monthly ? .accentColor : .clear)
+                .border(Color.accentColor, width: 1, cornerRadius: 6)
+                .overlay {
+                    VStack {
+                        Text("Månadsvis")
+                            .font(.callout)
+                        Text("49kr")
+                            .font(.title)
+                            .fontWeight(.bold)
+                    }
+                    .foregroundColor(.white)
+                }
+        }
+    }
+    
+    private var yearlySubButton: some View {
+        Button {
+            withAnimation {
+                paywallVM.selectedSub = .yearly
+            }
+        } label: {
+            RoundedRectangle(cornerRadius: 6)
+                .frame(height: 160)
+                .foregroundColor(paywallVM.selectedSub == .yearly ? .accentColor : .clear)
+                .border(Color.accentColor, width: 1, cornerRadius: 6)
+                .overlay {
+                    VStack {
+                        Text("Årligen")
+                            .font(.callout)
+                        Text("499kr")
+                            .foregroundColor(.white)
+                            .font(.title)
+                            .fontWeight(.bold)
+                    }
+                }
+                .overlay(alignment: .bottom) {
+                    Text("Spara 15%!")
+                        .font(.callout)
+                        .padding(.bottom)
+                }
+        }
+    }
+    
+    private var lifetimeSubButton: some View {
+        Button {
+            withAnimation {
+                paywallVM.selectedSub = .lifetime
+            }
+        } label: {
+            RoundedRectangle(cornerRadius: 6)
+                .frame(height: 160)
+                .foregroundColor(paywallVM.selectedSub == .lifetime ? .accentColor : .clear)
+                .border(Color.accentColor, width: 1, cornerRadius: 6)
+                .overlay {
+                    VStack {
+                        Text("Livstid")
+                            .font(.callout)
+                        Text("1699kr")
+                            .foregroundColor(.white)
+                            .font(.title)
+                            .fontWeight(.bold)
+                    }
                 }
         }
     }

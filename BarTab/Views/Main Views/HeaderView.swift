@@ -21,9 +21,10 @@ struct HeaderView: View {
                 .foregroundColor(.accentColor)
                 .padding()
             VStack(alignment: .leading) {
-                Text("BarTab")
-                    .foregroundColor(.accentColor)
-                    .font(.system(size: 80, weight: .bold))
+                Image("logotext")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .padding(.top)
                 Text(userHandler.user.association ?? "")
                     .foregroundColor(.gray)
                     .font(.largeTitle)

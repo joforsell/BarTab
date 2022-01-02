@@ -113,6 +113,7 @@ struct CustomerSettingsDetailView: View {
                             .autocapitalization(.none)
                             .disableAutocorrection(true)
                             .font(.title3)
+                            .padding(.trailing)
                         Spacer()
                     }
                     .offset(y: 4)

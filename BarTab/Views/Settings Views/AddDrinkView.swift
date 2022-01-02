@@ -50,6 +50,7 @@ struct AddDrinkView: View {
                                 .overlay {
                                     Text("Skapa dryck".uppercased())
                                         .foregroundColor(.white)
+                                        .fontWeight(.bold)
                                 }
                         }
                     }
