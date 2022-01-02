@@ -54,6 +54,7 @@ struct AddCustomerView: View {
                                 .overlay {
                                     Text("Skapa användare".uppercased())
                                         .foregroundColor(.white)
+                                        .fontWeight(.bold)
                                 }
                         }
                     }
