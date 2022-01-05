@@ -8,6 +8,8 @@
 import FirebaseFirestore
 import FirebaseAuth
 import Combine
+import Purchases
+import UIKit
 
 class UserHandling: ObservableObject {
     
@@ -64,13 +66,25 @@ class UserHandling: ObservableObject {
         
     var authStateDidChangeListenerHandle: AuthStateDidChangeListenerHandle?
     
-    func configureFirebaseStateDidChange() {
+    func userAuthStateDidChange() {
         authStateDidChangeListenerHandle = Auth.auth().addStateDidChangeListener { _, user in
-            guard let _ = user else {
-                self.userAuthState = .signedOut
-                return
+            if let uid = user?.uid {
+                Purchases.shared.logIn(uid) { info, _, error in
+                    if let err = error {
+                        print("Sign in error: \(err.localizedDescription)")
+                    } else {
+                        Purchases.shared.purchaserInfo { info, error in
+                            if info?.entitlements["Full access"]?.isActive == true {
+                                self.userAuthState = .signedIn
+                            }
+                        }
+                    }
+                }
+            } else {
+                Purchases.shared.logOut { info, error in
+                    self.userAuthState = .signedOut
+                }
             }
-            self.userAuthState = .signedIn
         }
     }
 }
