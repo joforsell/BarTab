@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Firebase
+import Purchases
 
 @main
 struct BarTabApp: App {
@@ -14,12 +15,15 @@ struct BarTabApp: App {
     @StateObject var customerListVM = CustomerListViewModel()
     @StateObject var drinkListVM = DrinkListViewModel()
     @StateObject var confirmationVM = ConfirmationViewModel()
-    
+        
     init() {
         FirebaseApp.configure()
         if Auth.auth().currentUser == nil {
             Auth.auth().signInAnonymously()
         }
+        
+        Purchases.configure(withAPIKey: "app1558875198", appUserID: Auth.auth().currentUser?.uid)
+        Purchases.logLevel = .debug
     }
     
     var body: some Scene {

@@ -49,6 +49,7 @@
 		3E7C9B002772065500B8A431 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7C9AFF2772065500B8A431 /* LoginView.swift */; };
 		3E7C9B022772069700B8A431 /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7C9B012772069700B8A431 /* PaywallView.swift */; };
 		3E8134B02764DEBB00637E61 /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 3E8134AF2764DEBB00637E61 /* SwiftUIX */; };
+		3E813C3B2785D24700CC2EAA /* Purchases in Frameworks */ = {isa = PBXBuildFile; productRef = 3E813C3A2785D24700CC2EAA /* Purchases */; };
 		3E817154275574F600F4B0D3 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E817153275574F600F4B0D3 /* HomeView.swift */; };
 		3E817156275575E500F4B0D3 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E817155275575E500F4B0D3 /* HeaderView.swift */; };
 		3E817158275576AB00F4B0D3 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E817157275576AB00F4B0D3 /* OrderView.swift */; };
@@ -57,6 +58,7 @@
 		3E873022275961B500F8E610 /* DrinkCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E873021275961B500F8E610 /* DrinkCardView.swift */; };
 		3E8730242759755100F8E610 /* ConfirmOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8730232759755100F8E610 /* ConfirmOrderView.swift */; };
 		3E88B0F5276A7814003561E1 /* AddDrinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E88B0F4276A7814003561E1 /* AddDrinkView.swift */; };
+		3E96528F27824BBD00815A74 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E96528E27824BBD00815A74 /* StoreKit.framework */; };
 		3EBC4986270A4D7F006B4857 /* CustomerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBC4985270A4D7F006B4857 /* CustomerRepository.swift */; };
 		3EBC4988270B8845006B4857 /* DrinkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBC4987270B8845006B4857 /* DrinkRepository.swift */; };
 		3EE4101A27137C4E00A808B6 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 3EE4101927137C4E00A808B6 /* FirebaseAnalytics */; };
@@ -114,6 +116,7 @@
 		3E873021275961B500F8E610 /* DrinkCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkCardView.swift; sourceTree = "<group>"; };
 		3E8730232759755100F8E610 /* ConfirmOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOrderView.swift; sourceTree = "<group>"; };
 		3E88B0F4276A7814003561E1 /* AddDrinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDrinkView.swift; sourceTree = "<group>"; };
+		3E96528E27824BBD00815A74 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		3EBC4985270A4D7F006B4857 /* CustomerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerRepository.swift; sourceTree = "<group>"; };
 		3EBC4987270B8845006B4857 /* DrinkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -123,6 +126,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E96528F27824BBD00815A74 /* StoreKit.framework in Frameworks */,
 				3E7062DA27149AB500B02C4E /* ToastUI in Frameworks */,
 				3E5F333D2741703000AA54AA /* AlertToast in Frameworks */,
 				3EE4101A27137C4E00A808B6 /* FirebaseAnalytics in Frameworks */,
@@ -131,6 +135,7 @@
 				3EE4102027137C4E00A808B6 /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				3EE4101C27137C4E00A808B6 /* FirebaseAuth in Frameworks */,
 				3E662B5E2700C76A00033A11 /* Introspect in Frameworks */,
+				3E813C3B2785D24700CC2EAA /* Purchases in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +145,7 @@
 		3E1B21D82767F8F000F68C56 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3E96528E27824BBD00815A74 /* StoreKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -323,6 +329,7 @@
 				3E7062D927149AB500B02C4E /* ToastUI */,
 				3E5F333C2741703000AA54AA /* AlertToast */,
 				3E8134AF2764DEBB00637E61 /* SwiftUIX */,
+				3E813C3A2785D24700CC2EAA /* Purchases */,
 			);
 			productName = BarTab;
 			productReference = 3E65093526FCB26900ACDF41 /* BarTab.app */;
@@ -357,6 +364,7 @@
 				3E7062D827149AB500B02C4E /* XCRemoteSwiftPackageReference "ToastUI" */,
 				3E5F333B2741703000AA54AA /* XCRemoteSwiftPackageReference "AlertToast" */,
 				3E8134AE2764DEBB00637E61 /* XCRemoteSwiftPackageReference "SwiftUIX" */,
+				3E813C392785D24700CC2EAA /* XCRemoteSwiftPackageReference "purchases-ios" */,
 			);
 			productRefGroup = 3E65093626FCB26900ACDF41 /* Products */;
 			projectDirPath = "";
@@ -570,7 +578,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.joforsell.BarTab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -592,7 +600,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.joforsell.BarTab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -652,6 +660,14 @@
 				minimumVersion = 0.1.0;
 			};
 		};
+		3E813C392785D24700CC2EAA /* XCRemoteSwiftPackageReference "purchases-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		3EE4101827137C4E00A808B6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -682,6 +698,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3E8134AE2764DEBB00637E61 /* XCRemoteSwiftPackageReference "SwiftUIX" */;
 			productName = SwiftUIX;
+		};
+		3E813C3A2785D24700CC2EAA /* Purchases */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E813C392785D24700CC2EAA /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			productName = Purchases;
 		};
 		3EE4101927137C4E00A808B6 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
