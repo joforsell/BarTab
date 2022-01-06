@@ -22,8 +22,9 @@ struct BarTabApp: App {
             Auth.auth().signInAnonymously()
         }
         
-        Purchases.configure(withAPIKey: "app1558875198", appUserID: Auth.auth().currentUser?.uid)
+        Purchases.configure(withAPIKey: "appl_mtWeWLbXBczlrxImSUOLQowDdlK", appUserID: Auth.auth().currentUser?.uid)
         Purchases.logLevel = .debug
+        Purchases.shared.delegate = PurchasesDelegateHandler.shared
     }
     
     var body: some Scene {

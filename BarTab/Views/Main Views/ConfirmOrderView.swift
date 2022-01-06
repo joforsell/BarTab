@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftUIX
 import Introspect
 import ToastUI
+import GameController
 
 struct ConfirmOrderView: View {
     @EnvironmentObject var customerListVM: CustomerListViewModel
@@ -118,7 +119,9 @@ struct ConfirmOrderView: View {
             .background(VisualEffectBlurView(blurStyle: .dark))
             .clipShape(RoundedRectangle(cornerRadius: 20))
             .introspectTextField { textField in
-                textField.becomeFirstResponder()
+                if GCKeyboard.coalesced != nil {
+                    textField.becomeFirstResponder()
+                }
             }
     }
     

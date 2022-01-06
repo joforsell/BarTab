@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Purchases
 
 struct PaywallView: View {
     @EnvironmentObject var userHandler: UserHandling
@@ -39,13 +40,24 @@ struct PaywallView: View {
                     sellingPoints
                     Spacer()
                     HStack(spacing: 16) {
-                        monthlySubButton
-                        yearlySubButton
-                        lifetimeSubButton
+                        SubButton(package: paywallVM.offerings?.monthly,
+                                  selection: .monthly,
+                                  selectedSub: $paywallVM.selectedSub)
+                        SubButton(package: paywallVM.offerings?.annual,
+                                  selection: .annual,
+                                  selectedSub: $paywallVM.selectedSub)
+                        SubButton(package: paywallVM.offerings?.lifetime,
+                                  selection: .lifetime,
+                                  selectedSub: $paywallVM.selectedSub)
                     }
-                    freeTrialSubButton
-                        .padding(.bottom, 48)
-                    Spacer()
+                    Group {
+                        subContinueButton
+                        #warning("Remove before deploying")
+                        Button("Bypass paywall (for beta)") { userHandler.userAuthState = .signedIn }
+                        .foregroundColor(.red)
+                            .padding(.bottom, 48)
+                        Spacer()
+                    }
                     HStack(spacing: 2) {
                         Text("Prenumerationsdetaljer")
                         Image(systemName: "chevron.up")
@@ -66,6 +78,7 @@ struct PaywallView: View {
 }
 
 // MARK: - Selling points view
+
 private extension PaywallView {
     @ViewBuilder
     private var sellingPoints: some View {
@@ -85,9 +98,20 @@ private extension PaywallView {
     }
     
 // MARK: - Sub button views
-    private var freeTrialSubButton: some View {
+    
+    private var subContinueButton: some View {
         Button {
-            userHandler.userAuthState = .signedIn
+            switch paywallVM.selectedSub {
+            case .monthly:
+                guard let monthlyPackage = paywallVM.offerings?.monthly else { return }
+                return paywallVM.purchase(package: monthlyPackage)
+            case .annual:
+                guard let annualPackage = paywallVM.offerings?.annual else { return }
+                return paywallVM.purchase(package: annualPackage)
+            case .lifetime:
+                guard let lifetimePackage = paywallVM.offerings?.monthly else { return }
+                return paywallVM.purchase(package: lifetimePackage)
+            }
         } label: {
             RoundedRectangle(cornerRadius: 6)
                 .frame(height: 80)
@@ -99,7 +123,7 @@ private extension PaywallView {
                             .font(.title2)
                             .fontWeight(.bold)
                             .padding(2)
-                        Text(paywallVM.continueButtonText)
+                        ContinueButtonText(selectedSub: $paywallVM.selectedSub, offerings: paywallVM.offerings)
                     }
                 }
         }
@@ -107,77 +131,48 @@ private extension PaywallView {
         .padding(.top)
     }
     
-    private var monthlySubButton: some View {
-        Button {
-            withAnimation {
-                paywallVM.selectedSub = .monthly
+    struct ContinueButtonText: View {
+        @Binding var selectedSub: PaywallViewModel.Subscription
+        let offerings: Purchases.Offering?
+        
+        var body: some View {
+            switch selectedSub {
+            case .monthly:
+                return Text("Sedan \(offerings?.monthly?.localizedPriceString ?? "") / månad")
+            case .annual:
+                return Text("Sedan \(offerings?.annual?.localizedPriceString ?? "") / år")
+            case .lifetime:
+                return Text("Sedan en engångsavgift på \(offerings?.lifetime?.localizedPriceString ?? "")")
             }
-        } label: {
-            RoundedRectangle(cornerRadius: 6)
-                .frame(height: 160)
-                .foregroundColor(paywallVM.selectedSub == .monthly ? .accentColor : .clear)
-                .border(Color.accentColor, width: 1, cornerRadius: 6)
-                .overlay {
-                    VStack {
-                        Text("Månadsvis")
-                            .font(.callout)
-                        Text("49kr")
-                            .font(.title)
-                            .fontWeight(.bold)
-                    }
-                    .foregroundColor(.white)
-                }
         }
     }
     
-    private var yearlySubButton: some View {
-        Button {
-            withAnimation {
-                paywallVM.selectedSub = .yearly
-            }
-        } label: {
-            RoundedRectangle(cornerRadius: 6)
-                .frame(height: 160)
-                .foregroundColor(paywallVM.selectedSub == .yearly ? .accentColor : .clear)
-                .border(Color.accentColor, width: 1, cornerRadius: 6)
-                .overlay {
-                    VStack {
-                        Text("Årligen")
-                            .font(.callout)
-                        Text("499kr")
-                            .foregroundColor(.white)
-                            .font(.title)
-                            .fontWeight(.bold)
+    struct SubButton: View {
+        let package: Purchases.Package?
+        let selection: PaywallViewModel.Subscription
+        @Binding var selectedSub: PaywallViewModel.Subscription
+        
+        var body: some View {
+            Button {
+                withAnimation {
+                    selectedSub = selection
+                }
+            } label: {
+                RoundedRectangle(cornerRadius: 6)
+                    .frame(height: 160)
+                    .foregroundColor(selectedSub == selection ? .accentColor : .clear)
+                    .border(Color.accentColor, width: 1, cornerRadius: 6)
+                    .overlay {
+                        VStack {
+                            Text(package?.product.localizedTitle ?? "")
+                                .font(.callout)
+                            Text(package?.localizedPriceString ?? "")
+                                .foregroundColor(.white)
+                                .font(.title)
+                                .fontWeight(.bold)
+                        }
                     }
-                }
-                .overlay(alignment: .bottom) {
-                    Text("Spara 15%!")
-                        .font(.callout)
-                        .padding(.bottom)
-                }
-        }
-    }
-    
-    private var lifetimeSubButton: some View {
-        Button {
-            withAnimation {
-                paywallVM.selectedSub = .lifetime
             }
-        } label: {
-            RoundedRectangle(cornerRadius: 6)
-                .frame(height: 160)
-                .foregroundColor(paywallVM.selectedSub == .lifetime ? .accentColor : .clear)
-                .border(Color.accentColor, width: 1, cornerRadius: 6)
-                .overlay {
-                    VStack {
-                        Text("Livstid")
-                            .font(.callout)
-                        Text("1699kr")
-                            .foregroundColor(.white)
-                            .font(.title)
-                            .fontWeight(.bold)
-                    }
-                }
         }
     }
 }
@@ -185,6 +180,7 @@ private extension PaywallView {
 
 
 // MARK: - Content rows for selling points
+
 private extension PaywallView {
     struct ContentRow: View {
         let width: CGFloat

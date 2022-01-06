@@ -15,14 +15,23 @@ class UserHandling: ObservableObject {
     
     // MARK: - User profile
     
+    static let shared = UserHandling()
+    
     let db = Firestore.firestore().collection("users")
     
     @Published var user = User()
+    @Published var userInfo: Purchases.PurchaserInfo? {
+        didSet {
+            subscriptionActive = userInfo?.entitlements["Full access"]?.isActive == true
+        }
+    }
+    @Published var subscriptionActive: Bool = false
     
     private var cancellables = Set<AnyCancellable>()
     
     init() {
         loadUser()
+        userAuthStateDidChange()
     }
     
     func loadUser() {
@@ -33,7 +42,7 @@ class UserHandling: ObservableObject {
                 guard let document = documentSnapshot else { return }
                 guard let data = try? document.data(as: User.self) else { return }
                 
-                self.user = data
+                UserHandling.shared.user = data
             }
     }
     

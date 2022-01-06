@@ -13,8 +13,6 @@ struct ContentView: View {
     var body: some View {
         if userHandler.userAuthState == .signedIn {
             HomeView()
-        } else if userHandler.userAuthState == .signedOut {
-            LoginView()
         } else {
             PaywallView()
         }
