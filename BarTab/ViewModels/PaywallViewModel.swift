@@ -6,14 +6,22 @@
 //
 
 import Foundation
+import Purchases
+import SwiftUI
 
 class PaywallViewModel: ObservableObject {
     @Published var selectedSub: Subscription = .monthly
+    @Published var offerings: Purchases.Offering?
+    
+    init() {
+        fetchOfferings()
+    }
+    
     var continueButtonText: String {
         switch selectedSub {
         case .monthly:
             return "Sedan 49kr / månad"
-        case .yearly:
+        case .annual:
             return "Sedan 499kr / år"
         case .lifetime:
             return "Sedan en engångsavgift på 1699kr"
@@ -22,7 +30,23 @@ class PaywallViewModel: ObservableObject {
     
     enum Subscription: Int {
         case monthly
-        case yearly
+        case annual
         case lifetime
+    }
+    
+    func fetchOfferings() {
+        Purchases.shared.offerings { offerings, error in
+            if let offering = offerings?.current {
+                self.offerings = offering
+            }
+        }
+    }
+    
+    func purchase(package: Purchases.Package) {
+        Purchases.shared.purchasePackage(package) { _, _, error, userCancelled in
+            if error == nil, !userCancelled {
+                UserHandling.shared.userAuthState = .signedIn
+            }
+        }
     }
 }

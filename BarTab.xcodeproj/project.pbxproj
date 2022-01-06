@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3E5DE2B32746E75600B5723D /* DrinkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DE2B22746E75600B5723D /* DrinkViewModel.swift */; };
+		3E5DFDC12786F7A80056F0CC /* PurchasesDelegateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DFDC02786F7A80056F0CC /* PurchasesDelegateHandler.swift */; };
 		3E5EE16427823A060044B178 /* PaywallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5EE16327823A060044B178 /* PaywallViewModel.swift */; };
 		3E5F333D2741703000AA54AA /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 3E5F333C2741703000AA54AA /* AlertToast */; };
 		3E5F33622712AF8B005340B6 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F33612712AF8B005340B6 /* AuthError.swift */; };
@@ -69,6 +70,7 @@
 
 /* Begin PBXFileReference section */
 		3E5DE2B22746E75600B5723D /* DrinkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkViewModel.swift; sourceTree = "<group>"; };
+		3E5DFDC02786F7A80056F0CC /* PurchasesDelegateHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasesDelegateHandler.swift; sourceTree = "<group>"; };
 		3E5EE16327823A060044B178 /* PaywallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallViewModel.swift; sourceTree = "<group>"; };
 		3E5F33612712AF8B005340B6 /* AuthError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
 		3E5F33632712AF94005340B6 /* UserHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserHandling.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				3E5F33632712AF94005340B6 /* UserHandling.swift */,
 				3E5F33612712AF8B005340B6 /* AuthError.swift */,
 				3E5F33672712B7C9005340B6 /* EmailAuthError.swift */,
+				3E5DFDC02786F7A80056F0CC /* PurchasesDelegateHandler.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 				3E817158275576AB00F4B0D3 /* OrderView.swift in Sources */,
 				3E6916D8276E88BB009E80D7 /* View+Centered.swift in Sources */,
 				3E70E0E2275EAB340020B429 /* SettingsView.swift in Sources */,
+				3E5DFDC12786F7A80056F0CC /* PurchasesDelegateHandler.swift in Sources */,
 				3E60E3A5271147A500F1363B /* UserModel.swift in Sources */,
 				3E88B0F5276A7814003561E1 /* AddDrinkView.swift in Sources */,
 				3E817154275574F600F4B0D3 /* HomeView.swift in Sources */,
