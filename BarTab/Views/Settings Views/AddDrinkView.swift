@@ -13,6 +13,8 @@ struct AddDrinkView: View {
     @EnvironmentObject var avoider: KeyboardAvoider
     @Environment(\.presentationMode) var presentationMode
     
+    @Binding var detailViewShown: DetailViewRouter
+    
     @State private var name = ""
     @State private var price = ""
     
@@ -32,9 +34,17 @@ struct AddDrinkView: View {
                         .font(.system(size: 240, weight: .thin))
                         .padding(.bottom, 48)
                 
-                    CustomInputView(title: "Namn", image: "square.text.square.fill", editing: $editingName, text: $name, keybTag: 6)
+                    CustomInputView(title: "Namn",
+                                    image: "square.text.square.fill",
+                                    editing: $editingName,
+                                    text: $name,
+                                    keybTag: 6)
                     
-                    CustomInputView(title: "Pris", image: "dollarsign.square.fill", editing: $editingPrice, text: $price, keybTag: 7)
+                    CustomInputView(title: "Pris",
+                                    image: "dollarsign.square.fill",
+                                    editing: $editingPrice,
+                                    text: $price,
+                                    keybTag: 7)
                 }
                 
                 Color.clear
@@ -46,6 +56,7 @@ struct AddDrinkView: View {
                                 isShowingAlert = true
                             } else {
                                 drinkListVM.addDrink(name: name, price: Int(price) ?? 0)
+                                detailViewShown = .none
                                 presentationMode.wrappedValue.dismiss()
                             }
                         } label: {

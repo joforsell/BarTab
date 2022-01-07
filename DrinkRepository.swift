@@ -55,7 +55,7 @@ class DrinkRepository: ObservableObject {
     }
     
     func updateDrink(_ drink: Drink) {
-        if let drinkID = drink.id{
+        if let drinkID = drink.id {
             do {
                 try db.document(drinkID).setData(from: drink)
             } catch {

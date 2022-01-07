@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var userHandler: UserHandling
+    @EnvironmentObject var authentication: Authentication
     @StateObject var avoider = KeyboardAvoider()
     
     var body: some View {
-        if userHandler.userAuthState == .signedIn {
+        if authentication.userAuthState == .signedIn {
             HomeView()
                 .environmentObject(avoider)
         } else {

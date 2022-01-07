@@ -9,7 +9,7 @@ import SwiftUI
 import Purchases
 
 struct PaywallView: View {
-    @EnvironmentObject var userHandler: UserHandling
+    @EnvironmentObject var authentication: Authentication
     @ObservedObject var paywallVM = PaywallViewModel()
     
     let columnWidth: CGFloat = 500
@@ -53,7 +53,7 @@ struct PaywallView: View {
                     Group {
                         subContinueButton
                         #warning("Remove before deploying")
-                        Button("Bypass paywall (for beta)") { userHandler.userAuthState = .signedIn }
+                        Button("Bypass paywall (for beta)") { authentication.userAuthState = .signedIn }
                         .foregroundColor(.red)
                             .padding(.bottom, 48)
                         Spacer()
@@ -104,13 +104,25 @@ private extension PaywallView {
             switch paywallVM.selectedSub {
             case .monthly:
                 guard let monthlyPackage = paywallVM.offerings?.monthly else { return }
-                return paywallVM.purchase(package: monthlyPackage)
+                return paywallVM.purchase(package: monthlyPackage) { completed in
+                    if completed {
+                        authentication.userAuthState = .signedIn
+                    }
+                }
             case .annual:
                 guard let annualPackage = paywallVM.offerings?.annual else { return }
-                return paywallVM.purchase(package: annualPackage)
+                return paywallVM.purchase(package: annualPackage) { completed in
+                    if completed {
+                        authentication.userAuthState = .signedIn
+                    }
+                }
             case .lifetime:
                 guard let lifetimePackage = paywallVM.offerings?.monthly else { return }
-                return paywallVM.purchase(package: lifetimePackage)
+                return paywallVM.purchase(package: lifetimePackage) { completed in
+                    if completed {
+                        authentication.userAuthState = .signedIn
+                    }
+                }
             }
         } label: {
             RoundedRectangle(cornerRadius: 6)

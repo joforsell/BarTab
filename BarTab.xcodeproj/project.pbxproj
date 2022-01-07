@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3E5DE2B32746E75600B5723D /* DrinkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DE2B22746E75600B5723D /* DrinkViewModel.swift */; };
-		3E5DFDC12786F7A80056F0CC /* PurchasesDelegateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DFDC02786F7A80056F0CC /* PurchasesDelegateHandler.swift */; };
 		3E5DFDC527879EC20056F0CC /* KeyboardAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DFDC427879EC20056F0CC /* KeyboardAdaptive.swift */; };
 		3E5DFDC82787A8AA0056F0CC /* KeyboardAvoider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DFDC72787A8AA0056F0CC /* KeyboardAvoider.swift */; };
 		3E5DFDCA2787A91E0056F0CC /* KeyboardAvoiderPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DFDC92787A91E0056F0CC /* KeyboardAvoiderPreferences.swift */; };
@@ -74,7 +73,6 @@
 
 /* Begin PBXFileReference section */
 		3E5DE2B22746E75600B5723D /* DrinkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkViewModel.swift; sourceTree = "<group>"; };
-		3E5DFDC02786F7A80056F0CC /* PurchasesDelegateHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasesDelegateHandler.swift; sourceTree = "<group>"; };
 		3E5DFDC427879EC20056F0CC /* KeyboardAdaptive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAdaptive.swift; sourceTree = "<group>"; };
 		3E5DFDC72787A8AA0056F0CC /* KeyboardAvoider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAvoider.swift; sourceTree = "<group>"; };
 		3E5DFDC92787A91E0056F0CC /* KeyboardAvoiderPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAvoiderPreferences.swift; sourceTree = "<group>"; };
@@ -177,7 +175,6 @@
 				3E5F33632712AF94005340B6 /* UserHandling.swift */,
 				3E5F33612712AF8B005340B6 /* AuthError.swift */,
 				3E5F33672712B7C9005340B6 /* EmailAuthError.swift */,
-				3E5DFDC02786F7A80056F0CC /* PurchasesDelegateHandler.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -247,8 +244,8 @@
 				3E70E0E1275EAB340020B429 /* SettingsView.swift */,
 				3E70E0E3275EABD10020B429 /* DrinkSettingsView.swift */,
 				3E70E0F8275EB2EC0020B429 /* DrinkSettingsDetailsView.swift */,
-				3E6916D1276E584B009E80D7 /* ImagePickerView.swift */,
 				3E88B0F4276A7814003561E1 /* AddDrinkView.swift */,
+				3E6916D1276E584B009E80D7 /* ImagePickerView.swift */,
 				3E70E0E5275EABDC0020B429 /* CustomerSettingsView.swift */,
 				3E70E0EB275EAFE00020B429 /* CustomerSettingsDetailsView.swift */,
 				3E6916D3276E78EE009E80D7 /* UpdateTagView.swift */,
@@ -458,7 +455,6 @@
 				3E817158275576AB00F4B0D3 /* OrderView.swift in Sources */,
 				3E6916D8276E88BB009E80D7 /* View+Centered.swift in Sources */,
 				3E70E0E2275EAB340020B429 /* SettingsView.swift in Sources */,
-				3E5DFDC12786F7A80056F0CC /* PurchasesDelegateHandler.swift in Sources */,
 				3E60E3A5271147A500F1363B /* UserModel.swift in Sources */,
 				3E88B0F5276A7814003561E1 /* AddDrinkView.swift in Sources */,
 				3E5DFDC527879EC20056F0CC /* KeyboardAdaptive.swift in Sources */,

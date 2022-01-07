@@ -35,4 +35,9 @@ class DrinkListViewModel: ObservableObject {
             let drink = drinkRepository.drinks[index]
             drinkRepository.removeDrink(drink)
     }
+    
+    func findDrinkVMByDrinkName(_ name: String) -> DrinkViewModel {
+        let index = drinkVMs.firstIndex(where: { $0.drink.name == name })
+        return drinkVMs[index!]
+    }
 }
