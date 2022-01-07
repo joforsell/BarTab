@@ -10,6 +10,7 @@ import SwiftUIX
 
 struct AddCustomerView: View {
     @EnvironmentObject var customerListVM: CustomerListViewModel
+    @EnvironmentObject var avoider: KeyboardAvoider
     @Environment(\.presentationMode) var presentationMode
     
     @State private var name = ""
@@ -27,16 +28,18 @@ struct AddCustomerView: View {
             VStack(alignment: .center, spacing: 20) {
                 Spacer()
                 
-                Image(systemName: "person.crop.circle.badge.plus")
-                    .foregroundColor(.accentColor)
-                    .font(.system(size: 240, weight: .thin))
-                    .padding(.bottom, 48)
+                KeyboardAvoiding(with: avoider) {
+                    Image(systemName: "person.crop.circle.badge.plus")
+                        .foregroundColor(.accentColor)
+                        .font(.system(size: 240, weight: .thin))
+                        .padding(.bottom, 48)
                 
-                CustomInputView(title: "Namn", image: "person.text.rectangle.fill", editing: $editingName, text: $name)
-                
-                CustomInputView(title: "Mailadress", image: "envelope.fill", editing: $editingEmail, text: $email)
-                
-                CustomInputView(title: "Ingående saldo", image: "dollarsign.square.fill", editing: $editingBalance, text: $balance)
+                    CustomInputView(title: "Namn", image: "person.text.rectangle.fill", editing: $editingName, text: $name, keybTag: 7)
+                    
+                    CustomInputView(title: "Mailadress", image: "envelope.fill", editing: $editingEmail, text: $email, keybTag: 8)
+                    
+                    CustomInputView(title: "Ingående saldo", image: "dollarsign.square.fill", editing: $editingBalance, text: $balance, keybTag: 9)
+                }
                 
                 Color.clear
                     .frame(width: 300, height: 16)

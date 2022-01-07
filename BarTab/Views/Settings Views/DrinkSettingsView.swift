@@ -58,6 +58,7 @@ struct DrinkSettingsView: View {
             }
         }
         .background(Color.black.opacity(0.3))
+        .ignoresSafeArea(.keyboard)
     }
 }
 
