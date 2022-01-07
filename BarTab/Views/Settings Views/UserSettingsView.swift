@@ -17,7 +17,6 @@ struct UserSettingsView: View {
     @State private var showError = false
     @State private var errorString = ""
     
-    
     var body: some View {
         HStack {
             Spacer()
@@ -147,10 +146,29 @@ struct UserSettingsView: View {
                         userHandler.updateUserTagUsage(usingTags)
                     }
                 
+                Picker("Drycker per rad", selection: $userHandler.user.drinkCardColumns) {
+                    Text("2").tag(2)
+                    Text("3").tag(3)
+                    Text("4").tag(4)
+                    Text("5").tag(5)
+                    Text("6").tag(6)
+                }
+                .frame(width: 320)
+                .pickerStyle(SegmentedPickerStyle())
+                .foregroundColor(.accentColor)
+                .overlay(alignment: .topLeading) {
+                    Text("Drycker per rad".uppercased())
+                        .font(.caption2)
+                        .foregroundColor(.white)
+                        .opacity(0.5)
+                        .offset(x: 10, y: -14)
+                }
+
                 Spacer()
             }
             Spacer()
         }
     }
 }
+
 

@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct HeaderView: View {
-    @EnvironmentObject var userHandler: UserHandling
     @EnvironmentObject var confirmationVM: ConfirmationViewModel
+    @EnvironmentObject var userHandler: UserHandling
     
     @Binding var viewState: ViewState
     
@@ -34,7 +34,8 @@ struct HeaderView: View {
             VStack {
                 Image(systemName: "gear")
                     .font(.system(size: 60))
-                    .foregroundColor(.accentColor)
+                    .foregroundColor(viewState == .settings ? .black : .accentColor)
+                    .background(viewState == .settings ? Color.accentColor.cornerRadius(6) : Color.clear.cornerRadius(6))
                     .padding()
                     .onTapGesture {
                         withAnimation {

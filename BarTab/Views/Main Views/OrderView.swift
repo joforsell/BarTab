@@ -10,8 +10,7 @@ import SwiftUI
 struct OrderView: View {
     @EnvironmentObject var drinkListVM: DrinkListViewModel
     @EnvironmentObject var confirmationVM: ConfirmationViewModel
-    
-    var fourColumnGrid = Array(repeating: GridItem(.adaptive(minimum: 120), spacing: 20), count: 4)
+    @EnvironmentObject var userHandler: UserHandling
     
     // MARK: Logic for MatchedGeometryEffect
     @Namespace var orderNamespace
@@ -30,7 +29,7 @@ struct OrderView: View {
     var body: some View {
         ZStack {
             ScrollView {
-                LazyVGrid(columns: fourColumnGrid, spacing: 270) {
+                LazyVGrid(columns: Array(repeating: GridItem(.adaptive(minimum: 120), spacing: 20), count: userHandler.user.drinkCardColumns), spacing: 270) {
                     ForEach(drinkListVM.drinkVMs) { drinkVM in
                         DrinkCardView(drinkVM: drinkVM)
                             .onTapGesture {

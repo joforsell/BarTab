@@ -14,11 +14,6 @@ import UIKit
 class UserHandling: ObservableObject {
     
     // MARK: - User profile
-    
-    static let shared = UserHandling()
-    
-    let db = Firestore.firestore().collection("users")
-    
     @Published var user = User()
     @Published var userInfo: Purchases.PurchaserInfo? {
         didSet {
@@ -31,8 +26,9 @@ class UserHandling: ObservableObject {
     
     init() {
         loadUser()
-        userAuthStateDidChange()
     }
+    
+    let db = Firestore.firestore().collection("users")
     
     func loadUser() {
         guard let userID = Auth.auth().currentUser?.uid else { return }
@@ -42,7 +38,7 @@ class UserHandling: ObservableObject {
                 guard let document = documentSnapshot else { return }
                 guard let data = try? document.data(as: User.self) else { return }
                 
-                UserHandling.shared.user = data
+                self.user = data
             }
     }
     
@@ -62,38 +58,5 @@ class UserHandling: ObservableObject {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         
         db.document(userID).setData([ "usingTags": isUsingTags ] , merge: true)
-    }
-    
-    
-    // MARK: - User authentication state
-    
-    @Published var userAuthState: AuthState = .undefined
-    
-    enum AuthState {
-        case undefined, signedOut, signedIn
-    }
-        
-    var authStateDidChangeListenerHandle: AuthStateDidChangeListenerHandle?
-    
-    func userAuthStateDidChange() {
-        authStateDidChangeListenerHandle = Auth.auth().addStateDidChangeListener { _, user in
-            if let uid = user?.uid {
-                Purchases.shared.logIn(uid) { info, _, error in
-                    if let err = error {
-                        print("Sign in error: \(err.localizedDescription)")
-                    } else {
-                        Purchases.shared.purchaserInfo { info, error in
-                            if info?.entitlements["Full access"]?.isActive == true {
-                                self.userAuthState = .signedIn
-                            }
-                        }
-                    }
-                }
-            } else {
-                Purchases.shared.logOut { info, error in
-                    self.userAuthState = .signedOut
-                }
-            }
-        }
     }
 }

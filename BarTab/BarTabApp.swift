@@ -11,6 +11,7 @@ import Purchases
 
 @main
 struct BarTabApp: App {
+    @StateObject var authentication = Authentication()
     @StateObject var userHandler = UserHandling()
     @StateObject var customerListVM = CustomerListViewModel()
     @StateObject var drinkListVM = DrinkListViewModel()
@@ -24,12 +25,12 @@ struct BarTabApp: App {
         
         Purchases.configure(withAPIKey: "appl_mtWeWLbXBczlrxImSUOLQowDdlK", appUserID: Auth.auth().currentUser?.uid)
         Purchases.logLevel = .debug
-        Purchases.shared.delegate = PurchasesDelegateHandler.shared
     }
     
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(authentication)
                 .environmentObject(userHandler)
                 .environmentObject(customerListVM)
                 .environmentObject(drinkListVM)

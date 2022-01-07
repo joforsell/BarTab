@@ -42,10 +42,12 @@ class PaywallViewModel: ObservableObject {
         }
     }
     
-    func purchase(package: Purchases.Package) {
+    func purchase(package: Purchases.Package, completion: @escaping (Bool) -> ()) {
         Purchases.shared.purchasePackage(package) { _, _, error, userCancelled in
             if error == nil, !userCancelled {
-                UserHandling.shared.userAuthState = .signedIn
+                completion(true)
+            } else {
+                completion(false)
             }
         }
     }

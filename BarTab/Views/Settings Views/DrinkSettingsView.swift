@@ -27,7 +27,7 @@ struct DrinkSettingsView: View {
                             DrinkRow(drinkVM: $drinkVM, geometry: geometry)
                                 .padding(.horizontal)
                                 .padding(.vertical, 8)
-                                .background(currentDrinkShown?.drink.name == drinkVM.drink.name ? Color("AppBlue") : Color.clear)
+                                .background(currentDrinkShown?.drink.name == drinkVM.drink.name && currentDrinkShown?.drink.price == drinkVM.drink.price ? Color("AppBlue") : Color.clear)
                                 .contentShape(Rectangle())
                                 .onTapGesture {
                                     detailViewShown = .drink(drinkVM: $drinkVM, detailsViewShown: $detailViewShown)
@@ -52,7 +52,7 @@ struct DrinkSettingsView: View {
                         .frame(width: 80)
                 }
                 .sheet(isPresented: $showingAddDrinkView) {
-                    AddDrinkView()
+                    AddDrinkView(detailViewShown: $detailViewShown)
                         .clearModalBackground()
                 }
             }

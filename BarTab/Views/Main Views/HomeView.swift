@@ -21,9 +21,7 @@ struct HomeView: View {
     @State var tappedDrink: String?
     @State var flyToModal: Bool = false
     var isGeometryMatched: Bool { !flyToModal && tappedDrink != nil }
-    
-    var fourColumnGrid = Array(repeating: GridItem(.flexible(), spacing: 20), count: 4)
-    
+        
     var body: some View {
         ZStack {
             VStack {
@@ -33,7 +31,7 @@ struct HomeView: View {
                 case .main:
                     HStack {
                         ScrollView() {
-                            LazyVGrid(columns: fourColumnGrid, spacing: 20) {
+                            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 20), count: userHandler.user.drinkCardColumns), spacing: 20) {
                                 ForEach(drinkListVM.drinkVMs) { drinkVM in
                                     DrinkCardView(drinkVM: drinkVM)
                                         .onTapGesture {
@@ -51,14 +49,12 @@ struct HomeView: View {
                     }
                     .padding(.horizontal)
                 case .settings:
-//                    KeyboardAvoiding(with: avoider) {
-                        SettingsView()
-                            .frame(width: UIScreen.main.bounds.width)
-                            .transition(.move(edge: .bottom))
-                            .cornerRadius(radius: 20, corners: .topLeft)
-                            .cornerRadius(radius: 20, corners: .topRight)
-                    }
-//                }
+                    SettingsView()
+                        .frame(width: UIScreen.main.bounds.width)
+                        .transition(.move(edge: .bottom))
+                        .cornerRadius(radius: 20, corners: .topLeft)
+                        .cornerRadius(radius: 20, corners: .topRight)
+                }
             }
             .background(
                 Image("backgroundbar")

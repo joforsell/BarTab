@@ -11,4 +11,5 @@ struct User: Codable {
     var email: String?
     var association: String?
     var usingTags: Bool = false
+    var drinkCardColumns: Int = 4
 }
