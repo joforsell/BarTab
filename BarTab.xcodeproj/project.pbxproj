@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		3E5DE2B32746E75600B5723D /* DrinkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DE2B22746E75600B5723D /* DrinkViewModel.swift */; };
 		3E5DFDC12786F7A80056F0CC /* PurchasesDelegateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DFDC02786F7A80056F0CC /* PurchasesDelegateHandler.swift */; };
+		3E5DFDC527879EC20056F0CC /* KeyboardAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DFDC427879EC20056F0CC /* KeyboardAdaptive.swift */; };
+		3E5DFDC82787A8AA0056F0CC /* KeyboardAvoider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DFDC72787A8AA0056F0CC /* KeyboardAvoider.swift */; };
+		3E5DFDCA2787A91E0056F0CC /* KeyboardAvoiderPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DFDC92787A91E0056F0CC /* KeyboardAvoiderPreferences.swift */; };
+		3E5DFDCC2787A9460056F0CC /* KeyboardAvoiding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DFDCB2787A9460056F0CC /* KeyboardAvoiding.swift */; };
 		3E5EE16427823A060044B178 /* PaywallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5EE16327823A060044B178 /* PaywallViewModel.swift */; };
 		3E5F333D2741703000AA54AA /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 3E5F333C2741703000AA54AA /* AlertToast */; };
 		3E5F33622712AF8B005340B6 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F33612712AF8B005340B6 /* AuthError.swift */; };
@@ -71,6 +75,10 @@
 /* Begin PBXFileReference section */
 		3E5DE2B22746E75600B5723D /* DrinkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkViewModel.swift; sourceTree = "<group>"; };
 		3E5DFDC02786F7A80056F0CC /* PurchasesDelegateHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasesDelegateHandler.swift; sourceTree = "<group>"; };
+		3E5DFDC427879EC20056F0CC /* KeyboardAdaptive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAdaptive.swift; sourceTree = "<group>"; };
+		3E5DFDC72787A8AA0056F0CC /* KeyboardAvoider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAvoider.swift; sourceTree = "<group>"; };
+		3E5DFDC92787A91E0056F0CC /* KeyboardAvoiderPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAvoiderPreferences.swift; sourceTree = "<group>"; };
+		3E5DFDCB2787A9460056F0CC /* KeyboardAvoiding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAvoiding.swift; sourceTree = "<group>"; };
 		3E5EE16327823A060044B178 /* PaywallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallViewModel.swift; sourceTree = "<group>"; };
 		3E5F33612712AF8B005340B6 /* AuthError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
 		3E5F33632712AF94005340B6 /* UserHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserHandling.swift; sourceTree = "<group>"; };
@@ -150,6 +158,16 @@
 				3E96528E27824BBD00815A74 /* StoreKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3E5DFDC62787A4770056F0CC /* KeyboardAvoider */ = {
+			isa = PBXGroup;
+			children = (
+				3E5DFDC72787A8AA0056F0CC /* KeyboardAvoider.swift */,
+				3E5DFDC92787A91E0056F0CC /* KeyboardAvoiderPreferences.swift */,
+				3E5DFDCB2787A9460056F0CC /* KeyboardAvoiding.swift */,
+			);
+			path = KeyboardAvoider;
 			sourceTree = "<group>";
 		};
 		3E5F335C2712AD87005340B6 /* Authentication */ = {
@@ -279,8 +297,10 @@
 		3E7C9B032772073200B8A431 /* Helper Views */ = {
 			isa = PBXGroup;
 			children = (
+				3E5DFDC62787A4770056F0CC /* KeyboardAvoider */,
 				3E6F1A2827712B5300661021 /* CustomInputView.swift */,
 				3E70E0E9275EAF100020B429 /* ToastView.swift */,
+				3E5DFDC427879EC20056F0CC /* KeyboardAdaptive.swift */,
 			);
 			path = "Helper Views";
 			sourceTree = "<group>";
@@ -359,6 +379,7 @@
 			knownRegions = (
 				en,
 				Base,
+				sv,
 			);
 			mainGroup = 3E65092C26FCB26900ACDF41;
 			packageReferences = (
@@ -401,6 +422,8 @@
 				3E678777275D62170072259F /* AddCustomerView.swift in Sources */,
 				3E7BEFE426FCDD9900453C1B /* CustomerListViewModel.swift in Sources */,
 				3E6916D4276E78EE009E80D7 /* UpdateTagView.swift in Sources */,
+				3E5DFDC82787A8AA0056F0CC /* KeyboardAvoider.swift in Sources */,
+				3E5DFDCA2787A91E0056F0CC /* KeyboardAvoiderPreferences.swift in Sources */,
 				3E5EE16427823A060044B178 /* PaywallViewModel.swift in Sources */,
 				3E6916D2276E584B009E80D7 /* ImagePickerView.swift in Sources */,
 				3E658368276B568400555030 /* View+RoundedCorners.swift in Sources */,
@@ -411,6 +434,7 @@
 				3E7BEFDC26FCDD1900453C1B /* CustomerModel.swift in Sources */,
 				3E6F1A272771282900661021 /* Date+RawRepresentable.swift in Sources */,
 				3E70E0E6275EABDC0020B429 /* CustomerSettingsView.swift in Sources */,
+				3E5DFDCC2787A9460056F0CC /* KeyboardAvoiding.swift in Sources */,
 				3E7C9AFE2771D49800B8A431 /* ContentView.swift in Sources */,
 				3E5DE2B32746E75600B5723D /* DrinkViewModel.swift in Sources */,
 				3E70E0EE275EB0160020B429 /* View+RoundedBorder.swift in Sources */,
@@ -437,6 +461,7 @@
 				3E5DFDC12786F7A80056F0CC /* PurchasesDelegateHandler.swift in Sources */,
 				3E60E3A5271147A500F1363B /* UserModel.swift in Sources */,
 				3E88B0F5276A7814003561E1 /* AddDrinkView.swift in Sources */,
+				3E5DFDC527879EC20056F0CC /* KeyboardAdaptive.swift in Sources */,
 				3E817154275574F600F4B0D3 /* HomeView.swift in Sources */,
 				3E5F33662712B73C005340B6 /* Authentication.swift in Sources */,
 				3E65093926FCB26900ACDF41 /* BarTabApp.swift in Sources */,
@@ -582,7 +607,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.joforsell.BarTab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -604,7 +629,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.joforsell.BarTab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

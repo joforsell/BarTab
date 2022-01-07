@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct CustomInputView: View {
+    @EnvironmentObject var avoider: KeyboardAvoider
+    
     var title: String
     var image: String
     @Binding var editing: Bool
     @Binding var text: String
+    var keybTag: Int
     
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
@@ -19,6 +22,7 @@ struct CustomInputView: View {
                 TextField(title,
                           text: $text,
                           onEditingChanged: { editingChanged in
+                    self.avoider.editingField = keybTag
                     if editingChanged {
                         withAnimation {
                             editing = true
@@ -61,5 +65,6 @@ struct CustomInputView: View {
         .background(Color.gray.opacity(0.2))
         .cornerRadius(6)
         .addBorder(editing ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
+        .avoidKeyboard(tag: keybTag)
     }
 }

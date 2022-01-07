@@ -9,6 +9,7 @@ import SwiftUI
 import Firebase
 
 struct HomeView: View {
+    @EnvironmentObject var avoider: KeyboardAvoider
     @EnvironmentObject var customerListVM: CustomerListViewModel
     @EnvironmentObject var drinkListVM: DrinkListViewModel
     @EnvironmentObject var confirmationVM: ConfirmationViewModel
@@ -50,12 +51,14 @@ struct HomeView: View {
                     }
                     .padding(.horizontal)
                 case .settings:
-                    SettingsView()
-                        .frame(width: UIScreen.main.bounds.width)
-                        .transition(.move(edge: .bottom))
-                        .cornerRadius(radius: 20, corners: .topLeft)
-                        .cornerRadius(radius: 20, corners: .topRight)
-                }
+//                    KeyboardAvoiding(with: avoider) {
+                        SettingsView()
+                            .frame(width: UIScreen.main.bounds.width)
+                            .transition(.move(edge: .bottom))
+                            .cornerRadius(radius: 20, corners: .topLeft)
+                            .cornerRadius(radius: 20, corners: .topRight)
+                    }
+//                }
             }
             .background(
                 Image("backgroundbar")

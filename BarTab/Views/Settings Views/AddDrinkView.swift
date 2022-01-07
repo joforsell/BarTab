@@ -10,6 +10,7 @@ import SwiftUIX
 
 struct AddDrinkView: View {
     @EnvironmentObject var drinkListVM: DrinkListViewModel
+    @EnvironmentObject var avoider: KeyboardAvoider
     @Environment(\.presentationMode) var presentationMode
     
     @State private var name = ""
@@ -25,15 +26,17 @@ struct AddDrinkView: View {
             VStack(alignment: .center, spacing: 20) {
                 Spacer()
                 
-                Image(systemName: "plus.circle.fill")
-                    .foregroundColor(.accentColor)
-                    .font(.system(size: 240, weight: .thin))
-                    .padding(.bottom, 48)
+                KeyboardAvoiding(with: avoider) {
+                    Image(systemName: "plus.circle.fill")
+                        .foregroundColor(.accentColor)
+                        .font(.system(size: 240, weight: .thin))
+                        .padding(.bottom, 48)
                 
-                CustomInputView(title: "Namn", image: "square.text.square.fill", editing: $editingName, text: $name)
+                    CustomInputView(title: "Namn", image: "square.text.square.fill", editing: $editingName, text: $name, keybTag: 6)
+                    
+                    CustomInputView(title: "Pris", image: "dollarsign.square.fill", editing: $editingPrice, text: $price, keybTag: 7)
+                }
                 
-                CustomInputView(title: "Pris", image: "dollarsign.square.fill", editing: $editingPrice, text: $price)
-                                
                 Color.clear
                     .frame(width: 300, height: 16)
                     .padding()
@@ -54,9 +57,9 @@ struct AddDrinkView: View {
                                 }
                         }
                     }
-                .alert(isPresented: $isShowingAlert) {
-                    Alert(title: Text("Drycken måste ha ett namn"), dismissButton: .default(Text("OK").foregroundColor(.accentColor)))
-                }
+                    .alert(isPresented: $isShowingAlert) {
+                        Alert(title: Text("Drycken måste ha ett namn"), dismissButton: .default(Text("OK").foregroundColor(.accentColor)))
+                    }
                 Spacer()
             }
             .center(.horizontal)
