@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DrinkSettingsView: View {
     @EnvironmentObject var drinkListVM: DrinkListViewModel
+    @EnvironmentObject var userHandler: UserHandling
     
     var geometry: GeometryProxy
     @Binding var detailViewShown: DetailViewRouter
@@ -54,6 +55,17 @@ struct DrinkSettingsView: View {
                 .sheet(isPresented: $showingAddDrinkView) {
                     AddDrinkView(detailViewShown: $detailViewShown)
                         .clearModalBackground()
+                }
+            }
+            .overlay(alignment: .bottomLeading) {
+                Picker("Sortera drycker", selection: $userHandler.user.drinkSorting) {
+                    ForEach(DrinkListViewModel.DrinkSorting.allCases, id: \.self) { sorting in
+                        Text(sorting.description)
+                    }
+                }
+                .pickerStyle(MenuPickerStyle())
+                .onChange(of: userHandler.user.drinkSorting) { drinkSorting in
+                    userHandler.updateDrinkSorting(drinkSorting)
                 }
             }
         }

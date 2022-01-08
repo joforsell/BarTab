@@ -59,4 +59,16 @@ class UserHandling: ObservableObject {
         
         db.document(userID).setData([ "usingTags": isUsingTags ] , merge: true)
     }
+    
+    func updateColumnCount(_ columnCount: Int) {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        
+        db.document(userID).setData([ "drinkCardColumns": columnCount ] , merge: true)
+    }
+    
+    func updateDrinkSorting(_ drinkSorting: DrinkListViewModel.DrinkSorting) {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        
+        db.document(userID).setData([ "drinkSorting": drinkSorting.rawValue ] , merge: true)
+    }
 }
