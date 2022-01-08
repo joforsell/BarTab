@@ -156,6 +156,9 @@ struct UserSettingsView: View {
                 .frame(width: 320)
                 .pickerStyle(SegmentedPickerStyle())
                 .foregroundColor(.accentColor)
+                .onChange(of: userHandler.user.drinkCardColumns, perform: { columnCount in
+                    userHandler.updateColumnCount(columnCount)
+                })
                 .overlay(alignment: .topLeading) {
                     Text("Drycker per rad".uppercased())
                         .font(.caption2)

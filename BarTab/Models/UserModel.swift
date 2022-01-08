@@ -12,4 +12,5 @@ struct User: Codable {
     var association: String?
     var usingTags: Bool = false
     var drinkCardColumns: Int = 4
+    var drinkSorting: DrinkListViewModel.DrinkSorting = .none
 }

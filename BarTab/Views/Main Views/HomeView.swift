@@ -32,7 +32,8 @@ struct HomeView: View {
                     HStack {
                         ScrollView() {
                             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 20), count: userHandler.user.drinkCardColumns), spacing: 20) {
-                                ForEach(drinkListVM.drinkVMs) { drinkVM in
+                                let sortedList = drinkListVM.sortDrinks(drinkListVM.drinkVMs, by: userHandler.user.drinkSorting)
+                                ForEach(sortedList) { drinkVM in
                                     DrinkCardView(drinkVM: drinkVM)
                                         .onTapGesture {
                                             tappedDrink = drinkVM.id
