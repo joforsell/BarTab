@@ -58,14 +58,23 @@ struct DrinkSettingsView: View {
                 }
             }
             .overlay(alignment: .bottomLeading) {
-                Picker("Sortera drycker", selection: $userHandler.user.drinkSorting) {
-                    ForEach(DrinkListViewModel.DrinkSorting.allCases, id: \.self) { sorting in
-                        Text(sorting.description)
+                Menu {
+                    Picker(selection: $userHandler.user.drinkSorting, label: Text("Sortera")) {
+                        ForEach(DrinkListViewModel.DrinkSorting.allCases, id: \.self) { sorting in
+                            Text(sorting.description)
+                                .foregroundColor(userHandler.user.drinkSorting == sorting ? .accentColor : .black)
+                        }
                     }
+                } label: {
+                    Image(systemName: "list.bullet.circle.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .foregroundColor(.accentColor)
+                        .padding()
+                        .frame(width: 80)
                 }
-                .pickerStyle(MenuPickerStyle())
-                .onChange(of: userHandler.user.drinkSorting) { drinkSorting in
-                    userHandler.updateDrinkSorting(drinkSorting)
+                .onChange(of: userHandler.user.drinkSorting) { sorting in
+                    userHandler.updateDrinkSorting(sorting)
                 }
             }
         }

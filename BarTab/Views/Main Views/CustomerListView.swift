@@ -46,7 +46,8 @@ struct CustomerListView: View {
                     .foregroundColor(customerVM.balanceColor)
             }
             Spacer()
-            Image(systemName: "wave.3.right.circle.fill")
+            Image(systemName: customerVM.customer.key.isEmpty ? "wave.3.right.circle" : "wave.3.right.circle.fill")
+                .foregroundColor(customerVM.customer.key.isEmpty ? .white.opacity(0.2) : .white)
         }
         .foregroundColor(.white)
         .padding()

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ImagePickerView: View {
-    @Binding var drinkVM: DrinkViewModel
+    var drinkVM: DrinkViewModel
     
     var fourColumnGrid = Array(repeating: GridItem(.adaptive(minimum: 120), spacing: 20), count: 4)
     

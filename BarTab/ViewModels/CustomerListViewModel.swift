@@ -18,6 +18,7 @@ class CustomerListViewModel: ObservableObject {
     
     init(){
         customerRepository.$customers
+            .debounce(for: 1, scheduler: RunLoop.main)
             .map { customers in
                 customers.map { customer in
                     CustomerViewModel(customer: customer)
@@ -32,65 +33,60 @@ class CustomerListViewModel: ObservableObject {
         customerRepository.addCustomer(newCustomer)
     }
         
-    func removeCustomer(_ id: String) {
-        if let index = customerRepository.customers.firstIndex(where: { $0.id == id }) {
-            let customer = customerRepository.customers[index]
-            customerRepository.removeCustomer(customer)
-        }
+    func removeCustomer(_ customer: Customer) {
+        customerRepository.removeCustomer(customer)
+    }
+    
+    func updateName(of customer: Customer, to name: String) {
+        guard customer.id != nil else { return }
+        
+        customerRepository.updateName(of: customer, to: name)
+    }
+    
+    func updateEmail(of customer: Customer, to email: String) {
+        guard customer.id != nil else { return }
+        
+        customerRepository.updateEmail(of: customer, to: email)
     }
     
     func updateKey(of customer: Customer, with key: String) {
-        guard let customerID = customer.id else { return }
-        guard let index = customerRepository.customers.firstIndex(where: { $0.id == customerID }) else { return }
-            let customer = customerRepository.customers[index]
-            customerRepository.updateKey(of: customer, with: key)
+        guard customer.id != nil else { return }
+            
+        customerRepository.updateKey(of: customer, with: key)
     }
         
     func addToBalance(of customer: Customer, by adjustment: Int) {
-        guard let customerId = customer.id else { return }
-        guard let index = customerRepository.customers.firstIndex(where: { $0.id == customerId }) else { return }
-            var customer = customerRepository.customers[index]
-            customer.balance += adjustment
-            customerRepository.updateCustomer(customer)
+        guard customer.id != nil else { return }
+        
+        customerRepository.addToBalanceOf(customer, by: adjustment)
     }
     
     func subtractFromBalance(of customer: Customer, by adjustment: Int) {
-        guard let customerId = customer.id else { return }
-        guard let index = customerRepository.customers.firstIndex(where: { $0.id == customerId }) else { return }
-            var customer = customerRepository.customers[index]
-            customer.balance -= adjustment
-            customerRepository.updateCustomer(customer)
+        guard customer.id != nil else { return }
+            
+        customerRepository.subtractFromBalanceOf(customer, by: adjustment)
     }
     
     func customerBoughtWithKey(_ drink: Drink, key: String) {
-        if let index = customerRepository.customers.firstIndex(where: { $0.key == key }) {
-            var customer = customerRepository.customers[index]
-            customer.balance -= drink.price
-            customer.drinksBought.append(drink)
-            customerRepository.updateCustomer(customer)
-        } else {
-            return
+        customerRepository.subtractFromBalanceOfKeyHolder(with: key, by: drink.price)
+        customerRepository.addBoughtDrinkWithKey(drink, key: key)
+    }
+    
+    func customerWithKey(_ key: String, completion: @escaping (Result<Customer, Error>) -> ()) {
+        customerRepository.getCustomerWithKey(key) { result in
+            completion(result)
         }
     }
     
-    func customerWithKey(_ key: String) -> String {
-        guard let index = customerRepository.customers.firstIndex(where: { $0.key == key }) else { return "" }
-            return customerRepository.customers[index].name
+    func customerBought(_ drink: Drink, customer: Customer) {
+        guard customer.id != nil else { return }
+        
+        customerRepository.subtractFromBalanceOf(customer, by: drink.price)
+        customerRepository.addBoughtDrink(drink, to: customer)
     }
     
-    func customerBought(_ drink: Drink, id: String) {
-        if let index = customerRepository.customers.firstIndex(where: { $0.id == id }) {
-            var customer = customerRepository.customers[index]
-            customer.balance -= drink.price
-            customer.drinksBought.append(drink)
-            customerRepository.updateCustomer(customer)
-        } else {
-            return
-        }
-    }
-    
-    func sendEmails(from user: User, completion: @escaping (Result<Bool, Error>) -> Void) {
-        emailSender.sendEmails(to: customerRepository.customers, from: user) { result in
+    func sendEmails(from user: User, to customers: [Customer], completion: @escaping (Result<Bool, Error>) -> Void) {
+        EmailSender.sendEmails(to: customers, from: user) { result in
             completion(result)
         }
     }

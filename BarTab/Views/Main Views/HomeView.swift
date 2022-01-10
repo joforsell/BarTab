@@ -11,7 +11,7 @@ import Firebase
 struct HomeView: View {
     @EnvironmentObject var avoider: KeyboardAvoider
     @EnvironmentObject var customerListVM: CustomerListViewModel
-    @EnvironmentObject var drinkListVM: DrinkListViewModel
+    @StateObject var drinkListVM = DrinkListViewModel()
     @EnvironmentObject var confirmationVM: ConfirmationViewModel
     @EnvironmentObject var userHandler: UserHandling
     
@@ -55,6 +55,7 @@ struct HomeView: View {
                         .transition(.move(edge: .bottom))
                         .cornerRadius(radius: 20, corners: .topLeft)
                         .cornerRadius(radius: 20, corners: .topRight)
+                        .environmentObject(drinkListVM)
                 }
             }
             .background(
@@ -72,9 +73,6 @@ struct HomeView: View {
                     .onDisappear { flyToModal = false }
                     .transition(AnyTransition.asymmetric(insertion: .identity, removal: .opacity))
             }
-        }
-        .onAppear {
-            print(Auth.auth().currentUser?.uid ?? "No user logged in")
         }
     }
 }

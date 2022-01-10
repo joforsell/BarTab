@@ -38,7 +38,6 @@ extension View {
         self.onPreferenceChange(KeyboardAvoiderPreferenceKey.self) { prefs in
             
             prefs.forEach { pref in
-                print("Avoider Rect: \(pref.rect)")
                 avoider.rects[pref.tag] = pref.rect
             }
         }

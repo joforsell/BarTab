@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3E5DE2B32746E75600B5723D /* DrinkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DE2B22746E75600B5723D /* DrinkViewModel.swift */; };
-		3E5DFDC527879EC20056F0CC /* KeyboardAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DFDC427879EC20056F0CC /* KeyboardAdaptive.swift */; };
 		3E5DFDC82787A8AA0056F0CC /* KeyboardAvoider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DFDC72787A8AA0056F0CC /* KeyboardAvoider.swift */; };
 		3E5DFDCA2787A91E0056F0CC /* KeyboardAvoiderPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DFDC92787A91E0056F0CC /* KeyboardAvoiderPreferences.swift */; };
 		3E5DFDCC2787A9460056F0CC /* KeyboardAvoiding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DFDCB2787A9460056F0CC /* KeyboardAvoiding.swift */; };
@@ -32,6 +31,7 @@
 		3E6916D2276E584B009E80D7 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6916D1276E584B009E80D7 /* ImagePickerView.swift */; };
 		3E6916D4276E78EE009E80D7 /* UpdateTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6916D3276E78EE009E80D7 /* UpdateTagView.swift */; };
 		3E6916D8276E88BB009E80D7 /* View+Centered.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6916D7276E88BB009E80D7 /* View+Centered.swift */; };
+		3E6C68B0278C697C00EFE42C /* OrientationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C68AF278C697C00EFE42C /* OrientationInfo.swift */; };
 		3E6F1A272771282900661021 /* Date+RawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6F1A262771282900661021 /* Date+RawRepresentable.swift */; };
 		3E6F1A2927712B5300661021 /* CustomInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6F1A2827712B5300661021 /* CustomInputView.swift */; };
 		3E6FA3B42756A7ED0023DAB7 /* BodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6FA3B32756A7ED0023DAB7 /* BodyView.swift */; };
@@ -73,7 +73,6 @@
 
 /* Begin PBXFileReference section */
 		3E5DE2B22746E75600B5723D /* DrinkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkViewModel.swift; sourceTree = "<group>"; };
-		3E5DFDC427879EC20056F0CC /* KeyboardAdaptive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAdaptive.swift; sourceTree = "<group>"; };
 		3E5DFDC72787A8AA0056F0CC /* KeyboardAvoider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAvoider.swift; sourceTree = "<group>"; };
 		3E5DFDC92787A91E0056F0CC /* KeyboardAvoiderPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAvoiderPreferences.swift; sourceTree = "<group>"; };
 		3E5DFDCB2787A9460056F0CC /* KeyboardAvoiding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAvoiding.swift; sourceTree = "<group>"; };
@@ -97,6 +96,7 @@
 		3E6916D1276E584B009E80D7 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		3E6916D3276E78EE009E80D7 /* UpdateTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTagView.swift; sourceTree = "<group>"; };
 		3E6916D7276E88BB009E80D7 /* View+Centered.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Centered.swift"; sourceTree = "<group>"; };
+		3E6C68AF278C697C00EFE42C /* OrientationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrientationInfo.swift; sourceTree = "<group>"; };
 		3E6F1A262771282900661021 /* Date+RawRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+RawRepresentable.swift"; sourceTree = "<group>"; };
 		3E6F1A2827712B5300661021 /* CustomInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInputView.swift; sourceTree = "<group>"; };
 		3E6FA3B32756A7ED0023DAB7 /* BodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyView.swift; sourceTree = "<group>"; };
@@ -287,6 +287,7 @@
 				3E5DE2B22746E75600B5723D /* DrinkViewModel.swift */,
 				3E678774275D52FC0072259F /* ConfirmationViewModel.swift */,
 				3E5EE16327823A060044B178 /* PaywallViewModel.swift */,
+				3E6C68AF278C697C00EFE42C /* OrientationInfo.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -297,7 +298,6 @@
 				3E5DFDC62787A4770056F0CC /* KeyboardAvoider */,
 				3E6F1A2827712B5300661021 /* CustomInputView.swift */,
 				3E70E0E9275EAF100020B429 /* ToastView.swift */,
-				3E5DFDC427879EC20056F0CC /* KeyboardAdaptive.swift */,
 			);
 			path = "Helper Views";
 			sourceTree = "<group>";
@@ -440,6 +440,7 @@
 				3E817156275575E500F4B0D3 /* HeaderView.swift in Sources */,
 				3E70E0E4275EABD10020B429 /* DrinkSettingsView.swift in Sources */,
 				3E7C9B022772069700B8A431 /* PaywallView.swift in Sources */,
+				3E6C68B0278C697C00EFE42C /* OrientationInfo.swift in Sources */,
 				3EBC4988270B8845006B4857 /* DrinkRepository.swift in Sources */,
 				3E6F1A2927712B5300661021 /* CustomInputView.swift in Sources */,
 				3E70E0EA275EAF100020B429 /* ToastView.swift in Sources */,
@@ -457,7 +458,6 @@
 				3E70E0E2275EAB340020B429 /* SettingsView.swift in Sources */,
 				3E60E3A5271147A500F1363B /* UserModel.swift in Sources */,
 				3E88B0F5276A7814003561E1 /* AddDrinkView.swift in Sources */,
-				3E5DFDC527879EC20056F0CC /* KeyboardAdaptive.swift in Sources */,
 				3E817154275574F600F4B0D3 /* HomeView.swift in Sources */,
 				3E5F33662712B73C005340B6 /* Authentication.swift in Sources */,
 				3E65093926FCB26900ACDF41 /* BarTabApp.swift in Sources */,

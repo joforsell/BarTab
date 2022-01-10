@@ -14,7 +14,6 @@ struct BarTabApp: App {
     @StateObject var authentication = Authentication()
     @StateObject var userHandler = UserHandling()
     @StateObject var customerListVM = CustomerListViewModel()
-    @StateObject var drinkListVM = DrinkListViewModel()
     @StateObject var confirmationVM = ConfirmationViewModel()
         
     init() {
@@ -24,7 +23,6 @@ struct BarTabApp: App {
         }
         
         Purchases.configure(withAPIKey: "appl_mtWeWLbXBczlrxImSUOLQowDdlK", appUserID: Auth.auth().currentUser?.uid)
-        Purchases.logLevel = .debug
     }
     
     var body: some Scene {
@@ -33,7 +31,6 @@ struct BarTabApp: App {
                 .environmentObject(authentication)
                 .environmentObject(userHandler)
                 .environmentObject(customerListVM)
-                .environmentObject(drinkListVM)
                 .environmentObject(confirmationVM)
         }
     }

@@ -10,17 +10,15 @@ import Firebase
 import FirebaseFirestoreSwift
 
 class EmailSender {
-    
-    let db = Firestore.firestore()
-    
-    func sendEmails(to customers: [Customer], from user: User, completion: @escaping (Result<Bool, Error>) -> ()) {
+        
+    static func sendEmails(to customers: [Customer], from user: User, completion: @escaping (Result<Bool, Error>) -> ()) {
         for customer in customers {
             let customerName = customer.name
             let firstName = customerName.components(separatedBy: " ").first
             
             if  !customer.email.isEmpty {
                 
-                db.collection("mail").addDocument(data: [
+                Firestore.firestore().collection("mail").addDocument(data: [
                     "to" : customer.email,
                     "message" : [
                         "subject" : "Nuvarande saldo hos \(user.association ?? "BarTab")",

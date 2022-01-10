@@ -10,9 +10,9 @@ import Combine
 import Introspect
 
 struct CustomerSettingsDetailView: View {
-    @EnvironmentObject var avoider: KeyboardAvoider
     @EnvironmentObject var customerListVM: CustomerListViewModel
-    @ObservedObject var customerRepository = CustomerRepository()
+    @EnvironmentObject var avoider: KeyboardAvoider
+    @EnvironmentObject var userHandler: UserHandling
     
     @Binding var customerVM: CustomerViewModel
     @Binding var detailsViewShown: DetailViewRouter
@@ -62,8 +62,8 @@ struct CustomerSettingsDetailView: View {
                     //                    }
                     VStack(alignment: .leading, spacing: 2) {
                         HStack(alignment: .bottom) {
-                            TextField(customerVM.customer.name,
-                                      text: $customerVM.customer.name,
+                            TextField("",
+                                      text: $customerVM.name,
                                       onEditingChanged: { editingChanged in
                                 self.avoider.editingField = 3
                                 if editingChanged {
@@ -103,8 +103,8 @@ struct CustomerSettingsDetailView: View {
                     
                     VStack(alignment: .leading, spacing: 2) {
                         HStack(alignment: .bottom) {
-                            TextField(customerVM.customer.email,
-                                      text: $customerVM.customer.email,
+                            TextField("",
+                                      text: $customerVM.email,
                                       onEditingChanged: { editingChanged in
                                 self.avoider.editingField = 4
                                 if editingChanged {
@@ -153,10 +153,8 @@ struct CustomerSettingsDetailView: View {
                                 }, onCommit: {
                                     if addingToBalance {
                                         customerListVM.addToBalance(of: customerVM.customer, by: Int(balanceAdjustment) ?? 0)
-                                        customerVM.customer.balance += Int(balanceAdjustment) ?? 0
                                     } else {
                                         customerListVM.subtractFromBalance(of: customerVM.customer, by: Int(balanceAdjustment) ?? 0)
-                                        customerVM.customer.balance -= Int(balanceAdjustment) ?? 0
                                     }
                                     withAnimation {
                                         editingBalance = false
@@ -170,7 +168,7 @@ struct CustomerSettingsDetailView: View {
                                         }
                                     }
                             } else {
-                                Text("\(customerVM.customer.balance) kr")
+                                Text("\(customerVM.balanceAsString) kr")
                                     .font(.title3)
                                     .foregroundColor(customerVM.balanceColor)
                             }
@@ -249,30 +247,31 @@ struct CustomerSettingsDetailView: View {
                         .frame(width: 300, height: 24)
                         .padding()
                         .overlay(alignment: .leading) {
-                            Button {
-                                isShowingKeyField.toggle()
-                            } label: {
-                                Text("Uppdatera \nRFID-bricka")
-                                    .multilineTextAlignment(.leading)
-                                    .fixedSize()
-                                    .frame(width: 160, height: 24, alignment: .leading)
-                                    .padding()
-                                    .background(Color.accentColor)
-                                    .cornerRadius(6)
-                                    .contentShape(Rectangle())
+                            if userHandler.user.usingTags {
+                                Button {
+                                    isShowingKeyField.toggle()
+                                } label: {
+                                    Text("Uppdatera \nRFID-bricka")
+                                        .multilineTextAlignment(.leading)
+                                        .fixedSize()
+                                        .frame(width: 160, height: 24, alignment: .leading)
+                                        .padding()
+                                        .background(Color.accentColor)
+                                        .cornerRadius(6)
+                                        .contentShape(Rectangle())
+                                }
+                                .overlay(alignment: .trailing) {
+                                    Image(systemName: "wave.3.right.circle.fill")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .padding()
+                                }
+                                .foregroundColor(.white)
+                                .sheet(isPresented: $isShowingKeyField) {
+                                    UpdateTagView(customer: customerVM.customer)
+                                        .clearModalBackground()
+                                }
                             }
-                            .overlay(alignment: .trailing) {
-                                Image(systemName: "wave.3.right.circle.fill")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .padding()
-                            }
-                            .foregroundColor(.white)
-                            .sheet(isPresented: $isShowingKeyField) {
-                                UpdateTagView(customer: customerVM.customer)
-                                    .clearModalBackground()
-                            }
-                            
                         }
                         .overlay(alignment: .trailing) {
                             Button {
@@ -288,7 +287,7 @@ struct CustomerSettingsDetailView: View {
                                       message: Text("Är du säker på att du vill radera den här användaren?"),
                                       primaryButton: .default(Text("Avbryt")),
                                       secondaryButton: .destructive(Text("Radera")) {
-                                    customerListVM.removeCustomer(customerVM.id)
+                                    customerListVM.removeCustomer(customerVM.customer)
                                     detailsViewShown = .none
                                 })
                             }
