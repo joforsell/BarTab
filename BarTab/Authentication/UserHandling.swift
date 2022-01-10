@@ -45,30 +45,30 @@ class UserHandling: ObservableObject {
     func updateUserEmail(_ email: String) {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         
-        db.document(userID).setData([ "email": email ] , merge: true)
+        db.document(userID).setData([ "email" : email ] , merge: true)
     }
     
     func updateUserAssociation(_ association: String) {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         
-        db.document(userID).setData([ "association": association ] , merge: true)
+        db.document(userID).setData([ "association" : association ] , merge: true)
     }
     
     func updateUserTagUsage(_ isUsingTags: Bool) {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         
-        db.document(userID).setData([ "usingTags": isUsingTags ] , merge: true)
+        db.document(userID).setData([ "usingTags" : isUsingTags ] , merge: true)
     }
     
     func updateColumnCount(_ columnCount: Int) {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         
-        db.document(userID).setData([ "drinkCardColumns": columnCount ] , merge: true)
+        db.document(userID).setData([ "drinkCardColumns" : columnCount ] , merge: true)
     }
     
     func updateDrinkSorting(_ drinkSorting: DrinkListViewModel.DrinkSorting) {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         
-        db.document(userID).setData([ "drinkSorting": drinkSorting.rawValue ] , merge: true)
+        db.document(userID).setData([ "drinkSorting" : drinkSorting.rawValue ] , merge: true)
     }
 }

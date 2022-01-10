@@ -169,13 +169,17 @@ struct SettingsView: View {
         }
         
         func emailButtonAction() {
-            customerListVM.sendEmails(from: userHandler.user) { result in
+            var customers = [Customer]()
+            customerListVM.customerVMs.forEach { customerVM in
+                customers.append(customerVM.customer)
+            }
+            customerListVM.sendEmails(from: userHandler.user, to: customers) { result in
                 switch result {
                 case .failure(let error):
                     errorTitle = "Error sending emails"
                     errorString = error.localizedDescription
                     showError = true
-                case .success( _):
+                case .success(_):
                     latestEmail = Date()
                 }
             }

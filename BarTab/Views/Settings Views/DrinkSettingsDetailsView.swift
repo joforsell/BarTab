@@ -10,8 +10,8 @@ import Combine
 import Introspect
 
 struct DrinkSettingsDetailView: View {
-    @EnvironmentObject var avoider: KeyboardAvoider
     @EnvironmentObject var drinkListVM: DrinkListViewModel
+    @EnvironmentObject var avoider: KeyboardAvoider
     @Binding var drinkVM: DrinkViewModel
     @Binding var detailsViewShown: DetailViewRouter
     
@@ -35,22 +35,22 @@ struct DrinkSettingsDetailView: View {
                             Button {
                                 editingImage.toggle()
                             } label: {
-                                Image(systemName: "pencil.circle.fill")
+                                Image(systemName: "photo.fill.on.rectangle.fill")
                                     .resizable()
                                     .scaledToFit()
                                     .foregroundColor(.white)
                                     .frame(width: 22)
                             }
                             .popover(isPresented: $editingImage) {
-                                ImagePickerView(drinkVM: $drinkVM)
+                                ImagePickerView(drinkVM: drinkVM)
                             }
                             .offset(x: 40)
                         }
                     
                     VStack(alignment: .leading, spacing: 2) {
                         HStack(alignment: .bottom) {
-                            TextField(drinkVM.drink.name,
-                                      text: $drinkVM.drink.name,
+                            TextField("",
+                                      text: $drinkVM.name,
                                       onEditingChanged: { editingChanged in
                                 self.avoider.editingField = 1
                                 if editingChanged {
@@ -58,7 +58,10 @@ struct DrinkSettingsDetailView: View {
                                 } else {
                                     editingName = false
                                 } },
-                                      onCommit: { editingName.toggle() }
+                                      onCommit: {
+                                editingName.toggle()
+//                                DrinkListViewModel.updateDrinkName(of: drinkVM.drink, to: drinkVM.drink.name)
+                            }
                             )
                                 .disableAutocorrection(true)
                                 .font(.title3)
@@ -90,7 +93,7 @@ struct DrinkSettingsDetailView: View {
                     
                     VStack(alignment: .leading, spacing: 2) {
                         HStack(alignment: .bottom) {
-                            TextField("\(drinkVM.drink.price) kr",
+                            TextField("",
                                       text: $drinkVM.priceAsString,
                                       onEditingChanged: { editingChanged in
                                 self.avoider.editingField = 2
@@ -98,12 +101,15 @@ struct DrinkSettingsDetailView: View {
                                     editingPrice = true
                                 } else {
                                     editingPrice = false
-                                } }, onCommit: { editingPrice.toggle() }
+                                } }, onCommit: {
+                                    editingPrice.toggle()
+//                                    DrinkListViewModel.updateDrinkPrice(of: drinkVM.drink, to: Int(drinkVM.priceAsString) ?? 0)
+                                }
                             )
                                 .onReceive(Just(drinkVM.priceAsString)) { newValue in
                                     let filtered = newValue.filter { "01233456789".contains($0) }
                                     if filtered != newValue {
-                                        self.drinkVM.priceAsString = filtered
+                                        drinkVM.priceAsString = filtered
                                     }
                                 }
                                 .font(.title3)
@@ -123,7 +129,6 @@ struct DrinkSettingsDetailView: View {
                                 .opacity(0.5)
                                 .offset(y: -10)
                         }
-                        
                     }
                     .frame(width: 300, height: 24)
                     .padding()
@@ -153,7 +158,7 @@ struct DrinkSettingsDetailView: View {
                                       message: Text("Är du säker på att du vill radera den här drycken?"),
                                       primaryButton: .default(Text("Avbryt")),
                                       secondaryButton: .destructive(Text("Radera")) {
-                                    drinkListVM.removeDrink(drinkVM.id)
+                                    drinkListVM.removeDrink(drinkVM.drink)
                                     detailsViewShown = .none
                                 })
                             }

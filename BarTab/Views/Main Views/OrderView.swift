@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OrderView: View {
-    @EnvironmentObject var drinkListVM: DrinkListViewModel
+    @ObservedObject var drinkListVM = DrinkListViewModel()
     @EnvironmentObject var confirmationVM: ConfirmationViewModel
     @EnvironmentObject var userHandler: UserHandling
     

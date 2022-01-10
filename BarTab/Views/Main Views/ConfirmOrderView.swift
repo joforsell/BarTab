@@ -35,7 +35,14 @@ struct ConfirmOrderView: View {
         ZStack {
             TextField("Läs av bricka", text: $tagKey, onCommit: {
                 customerListVM.customerBoughtWithKey(drinkVM.drink, key: tagKey)
-                currentCustomerName = customerListVM.customerWithKey(tagKey)
+                customerListVM.customerWithKey(tagKey) { result in
+                    switch result {
+                    case .failure(_):
+                        currentCustomerName = "Okänd"
+                    case .success(let customer):
+                        currentCustomerName = customer.name
+                    }
+                }
                 withAnimation {
                     isShowingPurchaseConfirmedToast = true
                 }
@@ -81,7 +88,7 @@ struct ConfirmOrderView: View {
                     Menu {
                         ForEach(customerListVM.customerVMs) { customerVM in
                             Button("\(customerVM.customer.name)") {
-                                customerListVM.customerBought(drinkVM.drink, id: customerVM.customer.id ?? "")
+                                customerListVM.customerBought(drinkVM.drink, customer: customerVM.customer)
                                 currentCustomerName = customerVM.customer.name
                                 withAnimation {
                                     isShowingPurchaseConfirmedToast = true
@@ -141,7 +148,7 @@ struct ConfirmOrderView: View {
                 Menu {
                     ForEach(customerListVM.customerVMs) { customerVM in
                         Button("\(customerVM.customer.name)") {
-                            customerListVM.customerBought(drinkVM.drink, id: customerVM.customer.id ?? "")
+                            customerListVM.customerBought(drinkVM.drink, customer: customerVM.customer)
                             currentCustomerName = customerVM.customer.name
                             withAnimation {
                                 isShowingPurchaseConfirmedToast = true

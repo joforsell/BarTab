@@ -11,15 +11,11 @@ import Combine
 
 final class KeyboardAvoider : ObservableObject {
     
-    private var _rects = [Int: CGRect]() {
-        didSet {
-            print("Keyboard Avoider rects changed: \(_rects.count)")
-        }
-    }
+    private var _rects = [Int: CGRect]()
+    
     var rects: [Int: CGRect] {
         set {
             guard keyboardRect == .zero else {
-                print("Warning: Keyboard Avoider changing rects while keyboard is visible.")
                 return
             }
             _rects = newValue
@@ -53,8 +49,6 @@ final class KeyboardAvoider : ObservableObject {
     private var keyboardWillHide : Cancellable? = nil
     
     init() {
-        print("Keyboard Avoider init")
-        
         self.keyboardWillShow = NotificationCenter.default
         .publisher(for: UIResponder.keyboardWillShowNotification)
         .map { (notification) -> CGRect in
@@ -77,8 +71,6 @@ final class KeyboardAvoider : ObservableObject {
     }
     
     deinit {
-        print("Keyboard Avoider deinit")
-        
         self.keyboardWillShow?.cancel()
         self.keyboardWillHide?.cancel()
     }
@@ -160,7 +152,6 @@ struct AttachedKeyboardAvoider : ViewModifier {
         .onReceive(avoider.slideSizePublisher) { size in
             
             let (total, adjusted) = self.avoider.keyboardOffsets(offset: self.offset)
-            print("Total: \(total), adjusted: \(adjusted) keyboard bottom padding.")
             DispatchQueue.main.async {
                 self.total = total
                 self.adjusted = adjusted

@@ -11,6 +11,9 @@ import Combine
 class CustomerViewModel: ObservableObject, Identifiable {
     @Published var customerRepository = CustomerRepository()
     @Published var customer: Customer
+    @Published var name = ""
+    @Published var email = ""
+    @Published var balanceAsString = ""
     
     var id = ""
     var balanceColor: Color {
@@ -34,9 +37,30 @@ class CustomerViewModel: ObservableObject, Identifiable {
             .store(in: &cancellables)
         
         $customer
+            .compactMap { customer in
+                customer.name
+            }
+            .assign(to: \.name, on: self)
+            .store(in: &cancellables)
+        
+        $customer
+            .compactMap { customer in
+                String(customer.balance)
+            }
+            .assign(to: \.balanceAsString, on: self)
+            .store(in: &cancellables)
+        
+        $name
             .debounce(for: 1, scheduler: RunLoop.main)
-            .sink { customer in
-                self.customerRepository.updateCustomer(customer)
+            .sink { name in
+                self.customerRepository.updateName(of: self.customer, to: name)
+            }
+            .store(in: &cancellables)
+        
+        $email
+            .debounce(for: 1, scheduler: RunLoop.main)
+            .sink { email in
+                self.customerRepository.updateEmail(of: self.customer, to: email)
             }
             .store(in: &cancellables)
     }
