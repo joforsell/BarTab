@@ -126,3 +126,4 @@ enum ViewState {
     case settings
 }
 
+

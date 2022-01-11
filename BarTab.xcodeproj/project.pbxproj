@@ -97,6 +97,7 @@
 		3E6916D3276E78EE009E80D7 /* UpdateTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTagView.swift; sourceTree = "<group>"; };
 		3E6916D7276E88BB009E80D7 /* View+Centered.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Centered.swift"; sourceTree = "<group>"; };
 		3E6C68AF278C697C00EFE42C /* OrientationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrientationInfo.swift; sourceTree = "<group>"; };
+		3E6C68B1278D979200EFE42C /* BarTab.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BarTab.entitlements; sourceTree = "<group>"; };
 		3E6F1A262771282900661021 /* Date+RawRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+RawRepresentable.swift"; sourceTree = "<group>"; };
 		3E6F1A2827712B5300661021 /* CustomInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInputView.swift; sourceTree = "<group>"; };
 		3E6FA3B32756A7ED0023DAB7 /* BodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyView.swift; sourceTree = "<group>"; };
@@ -199,6 +200,7 @@
 		3E65093726FCB26900ACDF41 /* BarTab */ = {
 			isa = PBXGroup;
 			children = (
+				3E6C68B1278D979200EFE42C /* BarTab.entitlements */,
 				3E65093826FCB26900ACDF41 /* BarTabApp.swift */,
 				3E817152275574AF00F4B0D3 /* Views */,
 				3E7BEFE226FCDD7400453C1B /* ViewModels */,
@@ -590,7 +592,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BarTab/BarTab.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"BarTab/Preview Content\"";
 				DEVELOPMENT_TEAM = 5PNV6G957X;
 				ENABLE_PREVIEWS = YES;
@@ -600,6 +604,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.joforsell.BarTab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -612,7 +617,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BarTab/BarTab.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"BarTab/Preview Content\"";
 				DEVELOPMENT_TEAM = 5PNV6G957X;
 				ENABLE_PREVIEWS = YES;
@@ -622,6 +629,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.joforsell.BarTab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
