@@ -25,11 +25,16 @@ struct CustomerSettingsView: View {
                             CustomerRow(customerVM: $customerVM, geometry: geometry)
                                 .padding(.horizontal)
                                 .padding(.vertical, 8)
-                                .background(currentCustomerShown?.customer.name == customerVM.customer.name ? Color("AppBlue") : Color.clear)
+                                .background(currentCustomerShown?.id == customerVM.id ? Color("AppBlue") : Color.clear)
                                 .contentShape(Rectangle())
                                 .onTapGesture {
-                                    detailViewShown = .customer(customerVM: $customerVM, detailsViewShown: $detailViewShown)
-                                    currentCustomerShown = customerVM
+                                    if currentCustomerShown?.id == customerVM.id {
+                                        detailViewShown = .none
+                                        currentCustomerShown = nil
+                                    } else {
+                                        detailViewShown = .customer(customerVM: $customerVM, detailsViewShown: $detailViewShown)
+                                        currentCustomerShown = customerVM
+                                    }
                                 }
                             Divider()
                         }

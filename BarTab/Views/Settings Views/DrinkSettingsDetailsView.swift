@@ -22,153 +22,167 @@ struct DrinkSettingsDetailView: View {
     @State private var showError = false
     
     var body: some View {
-            HStack {
+        HStack {
+            Spacer()
+            VStack(alignment: .center, spacing: 20) {
                 Spacer()
-                VStack(alignment: .center, spacing: 20) {
-                    Spacer()
-                    Image(drinkVM.drink.image.rawValue)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 200)
-                        .foregroundColor(.accentColor)
-                        .overlay(alignment: .bottomTrailing) {
-                            Button {
-                                editingImage.toggle()
-                            } label: {
-                                Image(systemName: "photo.fill.on.rectangle.fill")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .foregroundColor(.white)
-                                    .frame(width: 22)
-                            }
-                            .popover(isPresented: $editingImage) {
-                                ImagePickerView(drinkVM: drinkVM)
-                            }
-                            .offset(x: 40)
-                        }
-                    
-                    VStack(alignment: .leading, spacing: 2) {
-                        HStack(alignment: .bottom) {
-                            TextField("",
-                                      text: $drinkVM.name,
-                                      onEditingChanged: { editingChanged in
-                                self.avoider.editingField = 1
-                                if editingChanged {
-                                    editingName = true
-                                } else {
-                                    editingName = false
-                                } },
-                                      onCommit: {
-                                editingName.toggle()
-//                                DrinkListViewModel.updateDrinkName(of: drinkVM.drink, to: drinkVM.drink.name)
-                            }
-                            )
-                                .disableAutocorrection(true)
-                                .font(.title3)
-                            Spacer()
-                        }
-                        .offset(y: 4)
-                        .overlay(alignment: .trailing) {
-                            Image(systemName: "square.text.square.fill")
+                Image(drinkVM.drink.image.rawValue)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 200)
+                    .foregroundColor(.accentColor)
+                    .overlay(alignment: .bottomTrailing) {
+                        Button {
+                            editingImage.toggle()
+                        } label: {
+                            Image(systemName: "photo.fill.on.rectangle.fill")
                                 .resizable()
                                 .scaledToFit()
-                                .opacity(0.5)
-                        }
-                        .overlay(alignment: .topLeading) {
-                            Text("Namn".uppercased())
-                                .font(.caption2)
                                 .foregroundColor(.white)
-                                .opacity(0.5)
-                                .offset(y: -10)
+                                .frame(width: 44)
+                                .contentShape(Rectangle())
+                            
                         }
+                        .popover(isPresented: $editingImage) {
+                            ImagePickerView(drinkVM: drinkVM)
+                        }
+                        .offset(x: 40)
                     }
-                    .frame(width: 300, height: 24)
-                    .padding()
-                    .foregroundColor(.white)
-                    .background(Color.gray.opacity(0.2))
-                    .cornerRadius(6)
-                    .addBorder(editingName ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
-                    .padding(.top, 48)
-                    .avoidKeyboard(tag: 1)
-                    
-                    VStack(alignment: .leading, spacing: 2) {
-                        HStack(alignment: .bottom) {
-                            TextField("",
-                                      text: $drinkVM.priceAsString,
-                                      onEditingChanged: { editingChanged in
-                                self.avoider.editingField = 2
-                                if editingChanged {
-                                    editingPrice = true
-                                } else {
-                                    editingPrice = false
-                                } }, onCommit: {
-                                    editingPrice.toggle()
-//                                    DrinkListViewModel.updateDrinkPrice(of: drinkVM.drink, to: Int(drinkVM.priceAsString) ?? 0)
-                                }
-                            )
-                                .onReceive(Just(drinkVM.priceAsString)) { newValue in
-                                    let filtered = newValue.filter { "01233456789".contains($0) }
-                                    if filtered != newValue {
-                                        drinkVM.priceAsString = filtered
-                                    }
-                                }
-                                .font(.title3)
-                            Spacer()
+                
+                VStack(alignment: .leading, spacing: 2) {
+                    HStack(alignment: .bottom) {
+                        TextField("",
+                                  text: $drinkVM.name,
+                                  onEditingChanged: { editingChanged in
+                            self.avoider.editingField = 1
+                            if editingChanged {
+                                editingName = true
+                            } else {
+                                editingName = false
+                            } },
+                                  onCommit: {
+                            editingName.toggle()
+                            //                                DrinkListViewModel.updateDrinkName(of: drinkVM.drink, to: drinkVM.drink.name)
                         }
-                        .offset(y: 4)
-                        .overlay(alignment: .trailing) {
-                            Image(systemName: "dollarsign.square.fill")
+                        )
+                            .disableAutocorrection(true)
+                            .font(.title3)
+                        Spacer()
+                    }
+                    .offset(y: 4)
+                    .overlay(alignment: .trailing) {
+                        Button {
+                            UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
+                        } label: {
+                            Image(systemName: editingName ? "checkmark.rectangle.fill" : "square.text.square.fill")
                                 .resizable()
                                 .scaledToFit()
-                                .opacity(0.5)
+                                .opacity(editingName ? 1 : 0.5)
+                                .foregroundColor(editingName ? .accentColor : .white)
                         }
-                        .overlay(alignment: .topLeading) {
-                            Text("Pris".uppercased())
-                                .font(.caption2)
-                                .foregroundColor(.white)
-                                .opacity(0.5)
-                                .offset(y: -10)
-                        }
+                        .disabled(!editingName)
                     }
-                    .frame(width: 300, height: 24)
-                    .padding()
-                    .foregroundColor(.white)
-                    .background(Color.gray.opacity(0.2))
-                    .cornerRadius(6)
-                    .addBorder(editingPrice ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
-                    .avoidKeyboard(tag: 2)
-                    
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Spacer()
-                        }
-                        .frame(width: 300, height: 24)
-                        .padding()
-                        .overlay(alignment: .trailing) {
-                            Button {
-                                showError.toggle()
-                            } label: {
-                                Image(systemName: "trash.square.fill")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .foregroundColor(.red)
-                            }
-                            .alert(isPresented: $showError) {
-                                Alert(title: Text("Radera dryck"),
-                                      message: Text("Är du säker på att du vill radera den här drycken?"),
-                                      primaryButton: .default(Text("Avbryt")),
-                                      secondaryButton: .destructive(Text("Radera")) {
-                                    drinkListVM.removeDrink(drinkVM.drink)
-                                    detailsViewShown = .none
-                                })
-                            }
-                        }
+                    .overlay(alignment: .topLeading) {
+                        Text("Namn".uppercased())
+                            .font(.caption2)
+                            .foregroundColor(.white)
+                            .opacity(0.5)
+                            .offset(y: -10)
                     }
-                    .padding(.top, 48)
-                    Spacer()
                 }
+                .frame(width: 300, height: 24)
+                .padding()
+                .foregroundColor(.white)
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(6)
+                .addBorder(editingName ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
+                .padding(.top, 48)
+                .avoidKeyboard(tag: 1)
+                
+                VStack(alignment: .leading, spacing: 2) {
+                    HStack(alignment: .bottom) {
+                        TextField("",
+                                  text: $drinkVM.priceAsString,
+                                  onEditingChanged: { editingChanged in
+                            self.avoider.editingField = 2
+                            if editingChanged {
+                                editingPrice = true
+                            } else {
+                                editingPrice = false
+                            } }, onCommit: {
+                                editingPrice.toggle()
+                                //                                    DrinkListViewModel.updateDrinkPrice(of: drinkVM.drink, to: Int(drinkVM.priceAsString) ?? 0)
+                            }
+                        )
+                            .onReceive(Just(drinkVM.priceAsString)) { newValue in
+                                let filtered = newValue.filter { "01233456789".contains($0) }
+                                if filtered != newValue {
+                                    drinkVM.priceAsString = filtered
+                                }
+                            }
+                            .font(.title3)
+                        Spacer()
+                    }
+                    .offset(y: 4)
+                    .overlay(alignment: .trailing) {
+                        Button {
+                            UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
+                        } label: {
+                            Image(systemName: editingPrice ? "checkmark.rectangle.fill" : "dollarsign.square.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .opacity(editingPrice ? 1 : 0.5)
+                                .foregroundColor(editingPrice ? .accentColor : .white)
+                        }
+                        .disabled(!editingPrice)
+                    }
+                    .overlay(alignment: .topLeading) {
+                        Text("Pris".uppercased())
+                            .font(.caption2)
+                            .foregroundColor(.white)
+                            .opacity(0.5)
+                            .offset(y: -10)
+                    }
+                }
+                .frame(width: 300, height: 24)
+                .padding()
+                .foregroundColor(.white)
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(6)
+                .addBorder(editingPrice ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
+                .avoidKeyboard(tag: 2)
+                
+                VStack(alignment: .leading) {
+                    HStack {
+                        Spacer()
+                    }
+                    .frame(width: 300, height: 24)
+                    .padding()
+                    .overlay(alignment: .trailing) {
+                        Button {
+                            showError.toggle()
+                        } label: {
+                            Image(systemName: "trash.square.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .foregroundColor(.red)
+                        }
+                        .alert(isPresented: $showError) {
+                            Alert(title: Text("Radera dryck"),
+                                  message: Text("Är du säker på att du vill radera den här drycken?"),
+                                  primaryButton: .default(Text("Avbryt")),
+                                  secondaryButton: .destructive(Text("Radera")) {
+                                drinkListVM.removeDrink(drinkVM.drink)
+                                detailsViewShown = .none
+                            })
+                        }
+                    }
+                }
+                .padding(.top, 48)
                 Spacer()
             }
+            Spacer()
         }
+    }
 }
 

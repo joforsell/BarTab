@@ -39,8 +39,7 @@ struct CustomerSettingsDetailView: View {
                         .aspectRatio(contentMode: .fit)
                         .scaleEffect(0.7)
                         .foregroundColor(.white)
-                        .frame(height: 200)
-                        .background(Color("AppBlue"))
+                        .frame(maxHeight: 200)
                         .clipShape(Circle())
                         .overlay {
                             Circle()
@@ -79,10 +78,16 @@ struct CustomerSettingsDetailView: View {
                         }
                         .offset(y: 4)
                         .overlay(alignment: .trailing) {
-                            Image(systemName: "person.text.rectangle.fill")
+                            Button {
+                                UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
+                            } label: {
+                            Image(systemName: editingName ? "checkmark.rectangle.fill" : "person.text.rectangle.fill")
                                 .resizable()
                                 .scaledToFit()
-                                .opacity(0.5)
+                                .opacity(editingName ? 1 : 0.5)
+                                .foregroundColor(editingName ? .accentColor : .white)
+                            }
+                            .disabled(!editingName)
                         }
                         .overlay(alignment: .topLeading) {
                             Text("Namn".uppercased())
@@ -98,7 +103,7 @@ struct CustomerSettingsDetailView: View {
                     .background(Color.gray.opacity(0.2))
                     .cornerRadius(6)
                     .addBorder(editingName ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
-                    .padding(.top, 48)
+                    .padding(.top, 24)
                     .avoidKeyboard(tag: 3)
                     
                     VStack(alignment: .leading, spacing: 2) {
@@ -122,10 +127,16 @@ struct CustomerSettingsDetailView: View {
                         }
                         .offset(y: 4)
                         .overlay(alignment: .trailing) {
-                            Image(systemName: "envelope.fill")
-                                .resizable()
-                                .scaledToFit()
-                                .opacity(0.5)
+                            Button {
+                                UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
+                            } label: {
+                                Image(systemName: editingEmail ? "checkmark.rectangle.fill" : "envelope.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .opacity(editingEmail ? 1 : 0.5)
+                                    .foregroundColor(editingEmail ? .accentColor : .white)
+                            }
+                            .disabled(!editingEmail)
                         }
                         .overlay(alignment: .topLeading) {
                             Text("Mailadress".uppercased())
@@ -153,14 +164,19 @@ struct CustomerSettingsDetailView: View {
                                 }, onCommit: {
                                     if addingToBalance {
                                         customerListVM.addToBalance(of: customerVM.customer, by: Int(balanceAdjustment) ?? 0)
+                                        customerVM.customer.balance += Int(balanceAdjustment) ?? 0
                                     } else {
                                         customerListVM.subtractFromBalance(of: customerVM.customer, by: Int(balanceAdjustment) ?? 0)
+                                        customerVM.customer.balance -= Int(balanceAdjustment) ?? 0
                                     }
                                     withAnimation {
                                         editingBalance = false
                                     }
                                     balanceAdjustment = ""
                                 })
+                                    .onChange(of: customerVM.customer.balance) { balance in
+                                        customerVM.customer.balance = balance
+                                    }
                                     .onReceive(Just(balanceAdjustment)) { newValue in
                                         let filtered = newValue.filter { "01233456789".contains($0) }
                                         if filtered != newValue {
@@ -176,10 +192,28 @@ struct CustomerSettingsDetailView: View {
                         }
                         .offset(y: 4)
                         .overlay(alignment: .trailing) {
-                            Image(systemName: "dollarsign.square.fill")
-                                .resizable()
-                                .scaledToFit()
-                                .opacity(0.5)
+                            Button {
+                                UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
+                                if addingToBalance {
+                                    customerListVM.addToBalance(of: customerVM.customer, by: Int(balanceAdjustment) ?? 0)
+                                    customerVM.customer.balance += Int(balanceAdjustment) ?? 0
+                                } else {
+                                    customerListVM.subtractFromBalance(of: customerVM.customer, by: Int(balanceAdjustment) ?? 0)
+                                    customerVM.customer.balance -= Int(balanceAdjustment) ?? 0
+                                }
+                                withAnimation {
+                                    editingBalance = false
+                                }
+                                balanceAdjustment = ""
+
+                            } label: {
+                                Image(systemName: editingBalance ? "checkmark.rectangle.fill" : "dollarsign.square.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .opacity(editingBalance ? 1 : 0.5)
+                                    .foregroundColor(editingBalance ? .accentColor : .white)
+                            }
+                            .disabled(!editingBalance)
                         }
                         .overlay(alignment: .topLeading) {
                             if !editingBalance {
@@ -211,33 +245,33 @@ struct CustomerSettingsDetailView: View {
                     .addBorder(editingBalance ? addingToBalance ? Color("Lead") : Color("Deficit") : Color.clear, width: 1, cornerRadius: 6)
                     .avoidKeyboard(tag: 5)
                     .overlay(alignment: .trailing) {
-                        VStack(spacing: 2) {
+                        HStack(spacing: 4) {
                             Button {
                                 withAnimation {
                                     addingToBalance = true
-                                    editingBalance = true
+                                    editingBalance.toggle()
                                 }
                             } label: {
                                 Image(systemName: "plus.square.fill")
                                     .resizable()
                                     .scaledToFit()
                                     .foregroundColor(Color("Lead"))
-                                    .frame(width: 20)
+                                    .frame(width: 40)
                             }
                             Button {
                                 withAnimation {
                                     addingToBalance = false
-                                    editingBalance = true
+                                    editingBalance.toggle()
                                 }
                             } label: {
                                 Image(systemName: "minus.square.fill")
                                     .resizable()
                                     .scaledToFit()
                                     .foregroundColor(Color("Deficit"))
-                                    .frame(width: 20)
+                                    .frame(width: 40)
                             }
                         }
-                        .offset(x: 30)
+                        .offset(x: 90)
                     }
                     
                     VStack(alignment: .leading) {

@@ -10,6 +10,7 @@ import FirebaseAuth
 
 struct UserSettingsView: View {
     @EnvironmentObject var userHandler: UserHandling
+    @EnvironmentObject var avoider: KeyboardAvoider
     
     @State private var editingAssociation = false
     @State private var editingEmail = false
@@ -35,6 +36,7 @@ struct UserSettingsView: View {
                         TextField("",
                                   text: $userHandler.user.email,
                                   onEditingChanged: { editingChanged in
+                            self.avoider.editingField = 10
                             if editingChanged {
                                 withAnimation {
                                     editingEmail = true
@@ -83,12 +85,14 @@ struct UserSettingsView: View {
                 .cornerRadius(6)
                 .addBorder(editingEmail ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
                 .padding(.top, 48)
+                .avoidKeyboard(tag: 10)
                 
                 VStack(alignment: .leading, spacing: 2) {
                     HStack(alignment: .bottom) {
                         TextField("",
                                   text: $userHandler.user.association,
                                   onEditingChanged: { editingChanged in
+                            self.avoider.editingField = 11
                             if editingChanged {
                                 withAnimation {
                                     editingAssociation = true
@@ -137,6 +141,7 @@ struct UserSettingsView: View {
                 .background(Color.gray.opacity(0.2))
                 .cornerRadius(6)
                 .addBorder(editingAssociation ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
+                .avoidKeyboard(tag: 11)
                 
                 Toggle("Använd RFID-brickor", isOn: $userHandler.user.usingTags)
                     .toggleStyle(SwitchToggleStyle(tint: .accentColor))
@@ -145,28 +150,6 @@ struct UserSettingsView: View {
                     .onChange(of: userHandler.user.usingTags) { usingTags in
                         userHandler.updateUserTagUsage(usingTags)
                     }
-                
-                Picker("Drycker per rad", selection: $userHandler.user.drinkCardColumns) {
-                    Text("2").tag(2)
-                    Text("3").tag(3)
-                    Text("4").tag(4)
-                    Text("5").tag(5)
-                    Text("6").tag(6)
-                }
-                .frame(width: 320)
-                .pickerStyle(SegmentedPickerStyle())
-                .foregroundColor(.accentColor)
-                .onChange(of: userHandler.user.drinkCardColumns, perform: { columnCount in
-                    userHandler.updateColumnCount(columnCount)
-                })
-                .overlay(alignment: .topLeading) {
-                    Text("Drycker per rad".uppercased())
-                        .font(.caption2)
-                        .foregroundColor(.white)
-                        .opacity(0.5)
-                        .offset(x: 10, y: -14)
-                }
-
                 Spacer()
             }
             Spacer()
