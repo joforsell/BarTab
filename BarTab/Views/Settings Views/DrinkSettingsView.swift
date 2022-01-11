@@ -28,11 +28,16 @@ struct DrinkSettingsView: View {
                             DrinkRow(drinkVM: $drinkVM, geometry: geometry)
                                 .padding(.horizontal)
                                 .padding(.vertical, 8)
-                                .background(currentDrinkShown?.drink.name == drinkVM.drink.name && currentDrinkShown?.drink.price == drinkVM.drink.price ? Color("AppBlue") : Color.clear)
+                                .background(currentDrinkShown?.id == drinkVM.id ? Color("AppBlue") : Color.clear)
                                 .contentShape(Rectangle())
                                 .onTapGesture {
-                                    detailViewShown = .drink(drinkVM: $drinkVM, detailsViewShown: $detailViewShown)
-                                    currentDrinkShown = drinkVM
+                                    if currentDrinkShown?.id == drinkVM.id {
+                                        detailViewShown = .none
+                                        currentDrinkShown = nil
+                                    } else {
+                                        detailViewShown = .drink(drinkVM: $drinkVM, detailsViewShown: $detailViewShown)
+                                        currentDrinkShown = drinkVM
+                                    }
                                 }
                             Divider()
                         }
@@ -58,24 +63,6 @@ struct DrinkSettingsView: View {
                 }
             }
             .overlay(alignment: .bottomLeading) {
-                Menu {
-                    Picker(selection: $userHandler.user.drinkSorting, label: Text("Sortera")) {
-                        ForEach(DrinkListViewModel.DrinkSorting.allCases, id: \.self) { sorting in
-                            Text(sorting.description)
-                                .foregroundColor(userHandler.user.drinkSorting == sorting ? .accentColor : .black)
-                        }
-                    }
-                } label: {
-                    Image(systemName: "list.bullet.circle.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .foregroundColor(.accentColor)
-                        .padding()
-                        .frame(width: 80)
-                }
-                .onChange(of: userHandler.user.drinkSorting) { sorting in
-                    userHandler.updateDrinkSorting(sorting)
-                }
             }
         }
         .background(Color.black.opacity(0.3))

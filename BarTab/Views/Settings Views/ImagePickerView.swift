@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ImagePickerView: View {
+    @Environment(\.presentationMode) var presentationMode
     var drinkVM: DrinkViewModel
     
     var fourColumnGrid = Array(repeating: GridItem(.adaptive(minimum: 120), spacing: 20), count: 4)
@@ -17,6 +18,7 @@ struct ImagePickerView: View {
             ForEach(DrinkImage.allCases, id: \.self) { image in
                 Button {
                     drinkVM.drink.image = image
+                    presentationMode.wrappedValue.dismiss()
                 } label: {
                     Image(image.rawValue)
                         .resizable()

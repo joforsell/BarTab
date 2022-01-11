@@ -14,6 +14,7 @@ struct HomeView: View {
     @StateObject var drinkListVM = DrinkListViewModel()
     @EnvironmentObject var confirmationVM: ConfirmationViewModel
     @EnvironmentObject var userHandler: UserHandling
+    @StateObject var orientationInfo = OrientationInfo()
     
     @Namespace var orderNamespace
     
@@ -44,11 +45,13 @@ struct HomeView: View {
                                 }
                             }
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .animation(.easeInOut)
                         }
                                                 
                         CustomerListView()
+
                     }
-                    .padding(.horizontal)
+                    .padding(.leading)
                 case .settings:
                     SettingsView()
                         .frame(width: UIScreen.main.bounds.width)
@@ -56,6 +59,47 @@ struct HomeView: View {
                         .cornerRadius(radius: 20, corners: .topLeft)
                         .cornerRadius(radius: 20, corners: .topRight)
                         .environmentObject(drinkListVM)
+                }
+            }
+            .overlay(alignment: .bottomLeading) {
+                if viewState == .main {
+                    Menu {
+                        Menu {
+                            Picker(selection: $userHandler.user.drinkSorting, label: Text("Sortera")) {
+                                ForEach(DrinkListViewModel.DrinkSorting.allCases, id: \.self) { sorting in
+                                    Text(sorting.description)
+                                        .foregroundColor(userHandler.user.drinkSorting == sorting ? .accentColor : .black)
+                                }
+                            }
+                            .onChange(of: userHandler.user.drinkSorting) { sorting in
+                                userHandler.updateDrinkSorting(sorting)
+                            }
+                        } label: {
+                            Label("Sortera", systemImage: "arrow.left.arrow.right.circle")
+                        }
+                        Menu {
+                            Picker("Drycker per rad", selection: $userHandler.user.drinkCardColumns) {
+                                Text("2").tag(2)
+                                Text("3").tag(3)
+                                Text("4").tag(4)
+                                Text("5").tag(5)
+                                Text("6").tag(6)
+                            }
+                            .onChange(of: userHandler.user.drinkCardColumns) { columnCount in
+                                userHandler.updateColumnCount(columnCount)
+                            }
+                        } label: {
+                            Label("Drycker per rad", systemImage: orientationInfo.orientation == .landscape ? "apps.ipad.landscape" : "apps.ipad")
+                        }
+                    } label: {
+                        Image(systemName: "slider.horizontal.3")
+                            .resizable()
+                            .scaledToFit()
+                            .foregroundColor(.accentColor)
+                            .padding()
+                            .frame(width: 80)
+                    }
+                    .transition(.move(edge: .leading))
                 }
             }
             .background(

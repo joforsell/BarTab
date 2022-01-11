@@ -20,22 +20,17 @@ struct HeaderView: View {
                 .aspectRatio(contentMode: .fit)
                 .foregroundColor(.accentColor)
                 .padding()
-            VStack(alignment: .leading) {
-                Image("logotext")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .padding(.top)
-                Text(userHandler.user.association ?? "")
-                    .foregroundColor(.gray)
-                    .font(.largeTitle)
-                    .offset(y: -10)
-            }
+            Image("logotext")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .padding()
             Spacer()
             VStack {
                 Image(systemName: "gear")
                     .font(.system(size: 60))
                     .foregroundColor(viewState == .settings ? .black : .accentColor)
                     .background(viewState == .settings ? Color.accentColor.cornerRadius(6) : Color.clear.cornerRadius(6))
+                    .rotationEffect(.degrees(viewState == .main ? 0 : 180))
                     .padding()
                     .onTapGesture {
                         withAnimation {
@@ -51,6 +46,11 @@ struct HeaderView: View {
             }
         }
         .background(Color.black.opacity(0.6))
+        .overlay(alignment: .center) {
+            Text(userHandler.user.association ?? "")
+                .foregroundColor(.gray)
+                .font(.system(size: 40))
+        }
     }
 }
 

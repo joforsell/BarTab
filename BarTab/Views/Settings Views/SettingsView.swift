@@ -109,6 +109,7 @@ struct SettingsView: View {
                                                 return Alert(title: errorTitle, message: errorString, dismissButtonTitle: "OK")
                                             }
                                         }
+                                    
                                 }
                                 .padding()
                                 .background(Color(.black).opacity(0.5))

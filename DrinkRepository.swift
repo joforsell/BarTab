@@ -60,4 +60,8 @@ class DrinkRepository: ObservableObject {
     func updateDrinkName(of drink: Drink, to name: String) {
         Firestore.firestore().collection("drinks").document(drink.id!).updateData(["name" : name])
     }
+    
+    func updateImage(of drink: Drink, to image: String) {
+        Firestore.firestore().collection("drinks").document(drink.id!).updateData(["image" : image])
+    }
 }
