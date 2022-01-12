@@ -27,7 +27,7 @@ struct ToastView: View {
                     .font(.title)
                 if let subTitle = subTitle {
                     Text(subTitle)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(.black)
                         .padding(.bottom, 2)
                         .padding(.trailing)
                 }

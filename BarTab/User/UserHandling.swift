@@ -72,6 +72,18 @@ class UserHandling: ObservableObject {
         db.document(userID).setData([ "drinkSorting" : drinkSorting.rawValue ] , merge: true)
     }
     
+    func signIn(withEmail email: String, password: String, completion: @escaping (Result<Bool, Error>) -> ()) {
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
+            guard self != nil else { return }
+            
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+    }
+    
     func signOut(completion: @escaping (Bool) -> ()) {
         do {
             try Auth.auth().signOut()
@@ -82,7 +94,7 @@ class UserHandling: ObservableObject {
         }
     }
     
-    func linkEmailCredential(email: String, password: String, completion: @escaping (Result<Bool, Error>) -> ()) {
+    func linkEmailCredential(withEmail email: String, password: String, completion: @escaping (Result<Bool, Error>) -> ()) {
         let credential = EmailAuthProvider.credential(withEmail: email, password: password)
         Auth.auth().currentUser?.link(with: credential) { authResult, error in
             if let error = error {

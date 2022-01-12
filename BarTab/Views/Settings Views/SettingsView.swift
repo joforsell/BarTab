@@ -14,7 +14,7 @@ struct SettingsView: View {
     @EnvironmentObject var customerListVM: CustomerListViewModel
     @EnvironmentObject var userHandler: UserHandling
     
-    @State private var settingsShown: SettingsRouter = .none
+    @State private var settingsShown: SettingsRouter = .drinks
     @State private var detailViewShown: DetailViewRouter = .none
     
     @AppStorage("latestEmail") var latestEmail: Date = Date(timeIntervalSinceReferenceDate: 60000)

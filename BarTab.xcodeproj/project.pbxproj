@@ -169,7 +169,7 @@
 			path = KeyboardAvoider;
 			sourceTree = "<group>";
 		};
-		3E5F335C2712AD87005340B6 /* Authentication */ = {
+		3E5F335C2712AD87005340B6 /* User */ = {
 			isa = PBXGroup;
 			children = (
 				3E5F33652712B73C005340B6 /* Authentication.swift */,
@@ -177,7 +177,7 @@
 				3E5F33612712AF8B005340B6 /* AuthError.swift */,
 				3E5F33672712B7C9005340B6 /* EmailAuthError.swift */,
 			);
-			path = Authentication;
+			path = User;
 			sourceTree = "<group>";
 		};
 		3E65092C26FCB26900ACDF41 = {
@@ -206,7 +206,7 @@
 				3E7BEFE226FCDD7400453C1B /* ViewModels */,
 				3E7BEFDF26FCDD2D00453C1B /* Models */,
 				3EBC4984270A4D64006B4857 /* Repositories */,
-				3E5F335C2712AD87005340B6 /* Authentication */,
+				3E5F335C2712AD87005340B6 /* User */,
 				3E65093C26FCB26900ACDF41 /* Assets.xcassets */,
 				3E68107E27081D6D00C0F5B0 /* GoogleService-Info.plist */,
 				3E65094126FCB26900ACDF41 /* Info.plist */,
