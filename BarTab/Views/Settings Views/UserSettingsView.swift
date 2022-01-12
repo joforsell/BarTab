@@ -151,16 +151,20 @@ struct UserSettingsView: View {
                     userHandler.updateUserTagUsage(usingTags)
                 }
             Spacer()
-            Button {
-                isShowingAccountLinkModal = true
-            } label: {
-                Text("Koppla bartenderkontot till en mailadress")
-                    .foregroundColor(.accentColor)
-                    .padding()
-            }
-            .sheet(isPresented: $isShowingAccountLinkModal) {
-                LoginView(title: "Koppla nuvarande bartenderkonto till en mailadress", buttonText: "Koppla konto")
-                    .clearModalBackground()
+            if let user = Auth.auth().currentUser {
+                if user.isAnonymous {
+                    Button {
+                        isShowingAccountLinkModal = true
+                    } label: {
+                        Text("Koppla bartenderkontot till en mailadress")
+                            .foregroundColor(.accentColor)
+                            .padding()
+                    }
+                    .sheet(isPresented: $isShowingAccountLinkModal) {
+                        LoginView(title: "Om du kopplar nuvarande bartenderkonto till en mailadress kan du enkelt komma åt samma konto på en annan iPad.", buttonText: "Koppla konto", isFromPaywallView: false)
+                            .clearModalBackground()
+                    }
+                }
             }
         }
         .center(.horizontal)
@@ -177,8 +181,9 @@ struct UserSettingsView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 44)
-                    Text("Logga ut")
-                        .font(.callout)
+                    Text("Logga ut".uppercased())
+                        .font(.caption)
+                        .fontWeight(.semibold)
                         .offset(x: -4)
                 }
                 .padding()

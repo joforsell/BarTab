@@ -45,6 +45,7 @@ struct DrinkSettingsDetailView: View {
                         }
                         .popover(isPresented: $editingImage) {
                             ImagePickerView(drinkVM: drinkVM)
+//                                .clearModalBackground()
                         }
                         .offset(x: 40)
                     }
@@ -62,7 +63,6 @@ struct DrinkSettingsDetailView: View {
                             } },
                                   onCommit: {
                             editingName.toggle()
-                            //                                DrinkListViewModel.updateDrinkName(of: drinkVM.drink, to: drinkVM.drink.name)
                         }
                         )
                             .disableAutocorrection(true)
@@ -111,7 +111,6 @@ struct DrinkSettingsDetailView: View {
                                 editingPrice = false
                             } }, onCommit: {
                                 editingPrice.toggle()
-                                //                                    DrinkListViewModel.updateDrinkPrice(of: drinkVM.drink, to: Int(drinkVM.priceAsString) ?? 0)
                             }
                         )
                             .onReceive(Just(drinkVM.priceAsString)) { newValue in

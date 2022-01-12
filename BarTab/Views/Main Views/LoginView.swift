@@ -14,8 +14,9 @@ struct LoginView: View {
     @EnvironmentObject var avoider: KeyboardAvoider
     @Environment(\.presentationMode) var presentationMode
     
-    var title: String
+    var title: String = ""
     var buttonText: String
+    var isFromPaywallView: Bool = true
     
     @State private var email = ""
     @State private var password = ""
@@ -32,19 +33,22 @@ struct LoginView: View {
         VStack(alignment: .center, spacing: 20) {
             KeyboardAvoiding(with: avoider) {
                 Spacer()
-                Image("beer")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 180)
-                    .foregroundColor(.accentColor)
-                Image("logotext")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 100)
+                if isFromPaywallView {
+                    Image("beer")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 150)
+                        .foregroundColor(.accentColor)
+                    Image("logotext")
+                        .frame(width: 50)
+                } else {
+                    Image(systemName: "link")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 180)
+                        .foregroundColor(.accentColor)
+                }
                 Spacer()
-                Text(title)
-                    .font(.largeTitle)
-                    .foregroundColor(.white)
                 emailInput
                 passwordInput
                     .overlay(alignment: .trailing) {
@@ -61,6 +65,11 @@ struct LoginView: View {
                         .offset(x: editingPassword ? 56 : 0)
                     }
                 finishButton
+                Text(title)
+                    .font(.caption2)
+                    .foregroundColor(.white)
+                    .multilineTextAlignment(.center)
+                    .frame(width: 300)
                 Spacer()
             }
         }
@@ -207,13 +216,28 @@ struct LoginView: View {
                         alertTitle = "Du måste ange ett lösenord."
                         isShowingAlert = true
                     } else {
-                        userHandler.linkEmailCredential(email: email, password: password) { result in
-                            switch result {
-                            case .success(_):
-                                isShowingToast = true
-                            case .failure(_):
-                                alertTitle = "Något gick fel när kontot skulle kopplas till din mailadress."
-                                isShowingAlert = true
+                        if isFromPaywallView {
+                            userHandler.signIn(withEmail: email, password: password) { result in
+                                switch result {
+                                case .success(_):
+                                    isShowingToast = true
+                                    userHandler.user.email = email
+                                case .failure(_):
+                                    alertTitle = "Något gick fel när kontot skulle kopplas till din mailadress."
+                                    isShowingAlert = true
+                                }
+                            }
+
+                        } else {
+                            userHandler.linkEmailCredential(withEmail: email, password: password) { result in
+                                switch result {
+                                case .success(_):
+                                    isShowingToast = true
+                                    userHandler.user.email = email
+                                case .failure(_):
+                                    alertTitle = "Något gick fel när kontot skulle kopplas till din mailadress."
+                                    isShowingAlert = true
+                                }
                             }
                         }
                     }

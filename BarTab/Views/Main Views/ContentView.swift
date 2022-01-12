@@ -17,6 +17,7 @@ struct ContentView: View {
                 .environmentObject(avoider)
         } else {
             PaywallView()
+                .environmentObject(avoider)
         }
     }
 }

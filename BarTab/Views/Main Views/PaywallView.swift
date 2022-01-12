@@ -14,6 +14,8 @@ struct PaywallView: View {
     
     let columnWidth: CGFloat = 500
     
+    @State private var isShowingLoginView = false
+    
     var body: some View {
         ZStack {
             Image("backgroundbar")
@@ -52,6 +54,11 @@ struct PaywallView: View {
                     }
                     Group {
                         subContinueButton
+                        loginButton
+                            .sheet(isPresented: $isShowingLoginView) {
+                                LoginView(buttonText: "Logga in")
+                                    .clearModalBackground()
+                            }
                         #warning("Remove before deploying")
                         Button("Bypass paywall (for beta)") { authentication.userAuthState = .signedIn }
                         .foregroundColor(.red)
@@ -97,7 +104,7 @@ private extension PaywallView {
             .padding(.bottom, 48)
     }
     
-// MARK: - Sub button views
+// MARK: - Button views
     
     private var subContinueButton: some View {
         Button {
@@ -117,7 +124,7 @@ private extension PaywallView {
                     }
                 }
             case .lifetime:
-                guard let lifetimePackage = paywallVM.offerings?.monthly else { return }
+                guard let lifetimePackage = paywallVM.offerings?.lifetime else { return }
                 return paywallVM.purchase(package: lifetimePackage) { completed in
                     if completed {
                         authentication.userAuthState = .signedIn
@@ -130,12 +137,10 @@ private extension PaywallView {
                 .foregroundColor(.accentColor)
                 .overlay {
                     VStack {
-                        Text("Starta en veckas provperiod gratis")
+                        ContinueButtonText(selectedSub: $paywallVM.selectedSub, offerings: paywallVM.offerings)
                             .foregroundColor(.white)
                             .font(.title2)
-                            .fontWeight(.bold)
                             .padding(2)
-                        ContinueButtonText(selectedSub: $paywallVM.selectedSub, offerings: paywallVM.offerings)
                     }
                 }
         }
@@ -143,18 +148,32 @@ private extension PaywallView {
         .padding(.top)
     }
     
-    struct ContinueButtonText: View {
+    private var loginButton: some View {
+        Button {
+            isShowingLoginView = true
+        } label: {
+            Text("Logga in på befintligt konto")
+                .foregroundColor(.white)
+                .font(.callout)
+                .fontWeight(.semibold)
+        }
+    }
+    
+    private struct ContinueButtonText: View {
         @Binding var selectedSub: PaywallViewModel.Subscription
         let offerings: Purchases.Offering?
         
         var body: some View {
             switch selectedSub {
             case .monthly:
-                return Text("Sedan \(offerings?.monthly?.localizedPriceString ?? "") / månad")
+                return Text("\(offerings?.monthly?.localizedPriceString ?? "") / månad")
+                    .fontWeight(.bold)
             case .annual:
-                return Text("Sedan \(offerings?.annual?.localizedPriceString ?? "") / år")
+                return Text("\(offerings?.annual?.localizedPriceString ?? "") / år")
+                    .fontWeight(.bold)
             case .lifetime:
-                return Text("Sedan en engångsavgift på \(offerings?.lifetime?.localizedPriceString ?? "")")
+                return Text("\(offerings?.lifetime?.localizedPriceString ?? "")")
+                    .fontWeight(.bold)
             }
         }
     }

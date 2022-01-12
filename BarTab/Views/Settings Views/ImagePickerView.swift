@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftUIX
 
 struct ImagePickerView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -31,6 +32,7 @@ struct ImagePickerView: View {
         }
         .padding()
         .frame(width: 300)
+//        .background(Color("AppBlue").scaleEffect(1.5))
     }
 }
 
