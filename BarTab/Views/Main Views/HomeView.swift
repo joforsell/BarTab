@@ -10,8 +10,8 @@ import Firebase
 
 struct HomeView: View {
     @EnvironmentObject var avoider: KeyboardAvoider
-    @EnvironmentObject var customerListVM: CustomerListViewModel
     @StateObject var drinkListVM = DrinkListViewModel()
+    @StateObject var customerListVM = CustomerListViewModel()
     @EnvironmentObject var confirmationVM: ConfirmationViewModel
     @EnvironmentObject var userHandler: UserHandling
     @StateObject var orientationInfo = OrientationInfo()
@@ -49,6 +49,7 @@ struct HomeView: View {
                         }
                                                 
                         CustomerListView()
+                            .environmentObject(customerListVM)
 
                     }
                     .padding(.leading)
@@ -59,6 +60,7 @@ struct HomeView: View {
                         .cornerRadius(radius: 20, corners: .topLeft)
                         .cornerRadius(radius: 20, corners: .topRight)
                         .environmentObject(drinkListVM)
+                        .environmentObject(customerListVM)
                 }
             }
             .overlay(alignment: .bottomLeading) {

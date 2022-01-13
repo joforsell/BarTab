@@ -45,6 +45,14 @@ class CustomerViewModel: ObservableObject, Identifiable {
         
         $customer
             .compactMap { customer in
+                customer.email
+            }
+            .assign(to: \.email, on: self)
+            .store(in: &cancellables)
+
+        
+        $customer
+            .compactMap { customer in
                 String(customer.balance)
             }
             .assign(to: \.balanceAsString, on: self)

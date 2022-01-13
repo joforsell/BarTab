@@ -80,7 +80,7 @@ struct LoginView: View {
             withAnimation {
                 presentationMode.wrappedValue.dismiss()
             } }) {
-                ToastView(systemImage: ("checkmark.circle.fill", .accentColor, 50), title: "Ditt köp slutfördes", subTitle: "Nuvarande bartenderkonto kopplades till \(email).")
+                ToastView(systemImage: ("checkmark.circle.fill", .accentColor, 50), title: "Kontot kopplades", subTitle: "Nuvarande bartenderkonto kopplades till \(email).")
             }
     }
     
@@ -220,7 +220,10 @@ struct LoginView: View {
                             userHandler.signIn(withEmail: email, password: password) { result in
                                 switch result {
                                 case .success(_):
-                                    isShowingToast = true
+                                    if !isFromPaywallView {
+                                        isShowingToast = true
+                                        presentationMode.wrappedValue.dismiss()
+                                    }
                                     userHandler.user.email = email
                                 case .failure(_):
                                     alertTitle = "Något gick fel när kontot skulle kopplas till din mailadress."
