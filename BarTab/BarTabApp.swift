@@ -13,7 +13,6 @@ import Purchases
 struct BarTabApp: App {
     @StateObject var authentication = Authentication()
     @StateObject var userHandler = UserHandling()
-    @StateObject var customerListVM = CustomerListViewModel()
     @StateObject var confirmationVM = ConfirmationViewModel()
         
     init() {
@@ -30,7 +29,6 @@ struct BarTabApp: App {
             ContentView()
                 .environmentObject(authentication)
                 .environmentObject(userHandler)
-                .environmentObject(customerListVM)
                 .environmentObject(confirmationVM)
         }
     }

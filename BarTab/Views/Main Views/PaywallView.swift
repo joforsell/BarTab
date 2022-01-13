@@ -62,7 +62,7 @@ struct PaywallView: View {
                         #warning("Remove before deploying")
                         Button("Bypass paywall (for beta)") { authentication.userAuthState = .signedIn }
                         .foregroundColor(.red)
-                            .padding(.bottom, 48)
+                            .padding(48)
                         Spacer()
                     }
                     HStack(spacing: 2) {
