@@ -220,13 +220,9 @@ struct LoginView: View {
                             userHandler.signIn(withEmail: email, password: password) { result in
                                 switch result {
                                 case .success(_):
-                                    if !isFromPaywallView {
-                                        isShowingToast = true
-                                        presentationMode.wrappedValue.dismiss()
-                                    }
-                                    userHandler.user.email = email
+                                    presentationMode.wrappedValue.dismiss()
                                 case .failure(_):
-                                    alertTitle = "Något gick fel när kontot skulle kopplas till din mailadress."
+                                    alertTitle = "Kunde inte logga in."
                                     isShowingAlert = true
                                 }
                             }
@@ -236,7 +232,7 @@ struct LoginView: View {
                                 switch result {
                                 case .success(_):
                                     isShowingToast = true
-                                    userHandler.user.email = email
+                                    userHandler.updateUserEmail(email)
                                 case .failure(_):
                                     alertTitle = "Något gick fel när kontot skulle kopplas till din mailadress."
                                     isShowingAlert = true

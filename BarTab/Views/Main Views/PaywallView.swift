@@ -5,8 +5,10 @@
 //  Created by Johan Forsell on 2021-12-21.
 //
 
+import Foundation
 import SwiftUI
 import Purchases
+import FirebaseAuth
 
 struct PaywallView: View {
     @EnvironmentObject var authentication: Authentication
@@ -15,6 +17,11 @@ struct PaywallView: View {
     let columnWidth: CGFloat = 500
     
     @State private var isShowingLoginView = false
+    @State private var isShowingSubscriptionDetails = false
+    @State private var isShowingAlert = false
+    
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
     
     var body: some View {
         ZStack {
@@ -66,11 +73,37 @@ struct PaywallView: View {
                         Spacer()
                     }
                     HStack(spacing: 2) {
-                        Text("Prenumerationsdetaljer")
-                        Image(systemName: "chevron.up")
-                            .font(.footnote)
+                        Button {
+                            isShowingSubscriptionDetails.toggle()
+                        } label: {
+                            Text("Prenumerationsdetaljer")
+                            Image(systemName: "chevron.up")
+                                .rotationEffect(.degrees(isShowingSubscriptionDetails ? 0 : 180))
+                                .font(.footnote)
+                                .animation(.easeInOut, value: isShowingSubscriptionDetails)
+                        }
+                        .sheet(isPresented: $isShowingSubscriptionDetails) {
+                            SubscriptionDetailsView()
+                                .clearModalBackground()
+                        }
                         Spacer()
-                        Text("Återställ köp")
+                        Button {
+                            if let newUserID = Auth.auth().currentUser?.uid {
+                                Purchases.shared.restoreTransactions { purchaserInfo, error in
+                                    if error != nil {
+                                        alertTitle = "Återställningen misslyckades"
+                                        alertMessage = "Ditt köp kunde inte återställas, inget giltigt recept kunde hittas."
+                                        isShowingAlert = true
+                                    } else {
+                                        if let oldUserID = purchaserInfo?.originalAppUserId {
+                                            paywallVM.transferData(from: oldUserID, to: newUserID)
+                                        }
+                                    }
+                                }
+                            }
+                        } label: {
+                            Text("Återställ köp")
+                        }
                     }
                     .frame(width: columnWidth * 0.8)
                     .font(.callout)
@@ -91,7 +124,7 @@ private extension PaywallView {
     private var sellingPoints: some View {
         ContentRow(width: columnWidth,
                    headerText: "Håll enkelt koll",
-                   bodyText: "Glöm bort manuella bånglistor och att räkna samman saldon efter varje träff. Med BarTab håller du och dina bargäster enkelt koll på saldoställningar.",
+                   bodyText: "Glöm bort manuella bonglistor och att räkna samman saldon efter varje träff. Med BarTab håller du och dina bargäster enkelt koll på saldoställningar.",
                    image: Image(systemName: "dollarsign.circle.fill"))
         ContentRow(width: columnWidth,
                    headerText: "Obegränsad bargästlista",

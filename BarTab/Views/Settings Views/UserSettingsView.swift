@@ -2,195 +2,64 @@
 //  UserSettingsView.swift
 //  BarTab
 //
-//  Created by Johan Forsell on 2021-12-06.
+//  Created by Johan Forsell on 2022-01-18.
 //
 
 import SwiftUI
-import FirebaseAuth
+import Purchases
+import Firebase
 
 struct UserSettingsView: View {
-    @EnvironmentObject var userHandler: UserHandling
-    @EnvironmentObject var avoider: KeyboardAvoider
-    @EnvironmentObject var authentication: Authentication
-    
-    @State private var editingAssociation = false
-    @State private var editingEmail = false
-    
-    @State private var showError = false
-    @State private var errorString = ""
-    @State private var isShowingAccountLinkModal = false
-    
+    @ObservedObject var userSettingsVM = UserSettingsViewModel()
+    @Binding var settingsShown: SettingsRouter
+        
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
-            Spacer()
-            
-            Image("bartender")
+            Image(systemName: "person.circle")
                 .resizable()
                 .scaledToFit()
-                .frame(height: 200)
+                .frame(height: 120)
                 .foregroundColor(.accentColor)
-                .offset(x: -20)
+                .padding(.bottom, 48)
             
-            VStack(alignment: .leading, spacing: 2) {
-                HStack(alignment: .bottom) {
-                    TextField("",
-                              text: $userHandler.user.email,
-                              onEditingChanged: { editingChanged in
-                        self.avoider.editingField = 10
-                        if editingChanged {
-                            withAnimation {
-                                editingEmail = true
-                            }
-                        } else {
-                            withAnimation {
-                                editingEmail = false
-                            }
-                        } },
-                              onCommit: {
-                        withAnimation {
-                            editingEmail.toggle()
-                        }
-                        userHandler.updateUserEmail(userHandler.user.email ?? "")
-                    }
-                    )
-                        .autocapitalization(.none)
-                        .disableAutocorrection(true)
-                        .font(.title3)
+            VStack(alignment: .leading, spacing: 8) {
+                HStack {
+                    Text("Användaren skapades:")
                     Spacer()
+                    Text(userSettingsVM.firstSeenAsString)
                 }
-                .offset(y: 4)
-                .overlay(alignment: .trailing) {
-                    Image(systemName: editingEmail ? "checkmark.rectangle.fill" : "envelope.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .opacity(editingEmail ? 1 : 0.5)
-                        .foregroundColor(editingEmail ? .accentColor : .white)
-                        .onTapGesture {
-                            editingEmail ? userHandler.updateUserEmail(userHandler.user.email ?? "") : nil
-                            UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
-                        }
-                }
-                .overlay(alignment: .topLeading) {
-                    Text("Email".uppercased())
-                        .font(.caption2)
-                        .foregroundColor(.white)
-                        .opacity(0.5)
-                        .offset(y: -10)
-                }
-            }
-            .frame(width: 300, height: 24)
-            .padding()
-            .foregroundColor(.white)
-            .background(Color.gray.opacity(0.2))
-            .cornerRadius(6)
-            .addBorder(editingEmail ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
-            .padding(.top, 48)
-            .avoidKeyboard(tag: 10)
-            
-            VStack(alignment: .leading, spacing: 2) {
-                HStack(alignment: .bottom) {
-                    TextField("",
-                              text: $userHandler.user.association,
-                              onEditingChanged: { editingChanged in
-                        self.avoider.editingField = 11
-                        if editingChanged {
-                            withAnimation {
-                                editingAssociation = true
-                            }
-                        } else {
-                            withAnimation {
-                                editingAssociation = false
-                            }
-                        } },
-                              onCommit: {
-                        withAnimation {
-                            editingAssociation.toggle()
-                        }
-                        userHandler.updateUserAssociation(userHandler.user.association ?? "")
-                    }
-                    )
-                        .autocapitalization(.none)
-                        .disableAutocorrection(true)
-                        .font(.title3)
+                Divider()
+                    .frame(width: 300)
+                HStack {
+                    Text("Automatisk förnyelse av prenumeration:")
                     Spacer()
+                    Text(userSettingsVM.expireDateAsString)
                 }
-                .offset(y: 4)
-                .overlay(alignment: .trailing) {
-                    Image(systemName: editingAssociation ? "checkmark.rectangle.fill" : "suitcase.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .opacity(editingAssociation ? 1 : 0.5)
-                        .foregroundColor(editingAssociation ? .accentColor : .white)
-                        .onTapGesture {
-                            editingAssociation ? userHandler.updateUserAssociation(userHandler.user.association ?? "") : nil
-                            UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
-                        }
-                    
-                }
-                .overlay(alignment: .topLeading) {
-                    Text("Association".uppercased())
-                        .font(.caption2)
-                        .foregroundColor(.white)
-                        .opacity(0.5)
-                        .offset(y: -10)
+                Divider()
+                    .frame(width: 300)
+                HStack {
+                    Text("Typ av prenumeration:")
+                    Spacer()
+                    Text(userSettingsVM.purchaser?.activeSubscriptions.first ?? "Livstid")
                 }
             }
-            .frame(width: 300, height: 24)
-            .padding()
             .foregroundColor(.white)
-            .background(Color.gray.opacity(0.2))
-            .cornerRadius(6)
-            .addBorder(editingAssociation ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
-            .avoidKeyboard(tag: 11)
-            
-            Toggle("Använd RFID-brickor", isOn: $userHandler.user.usingTags)
-                .toggleStyle(SwitchToggleStyle(tint: .accentColor))
-                .frame(width: 300, height: 24)
-                .foregroundColor(.white)
-                .onChange(of: userHandler.user.usingTags) { usingTags in
-                    userHandler.updateUserTagUsage(usingTags)
-                }
-            Spacer()
-            if let user = Auth.auth().currentUser {
-                if user.isAnonymous {
-                    Button {
-                        isShowingAccountLinkModal = true
-                    } label: {
-                        Text("Koppla bartenderkontot till en mailadress")
-                            .foregroundColor(.accentColor)
-                            .padding()
-                    }
-                    .sheet(isPresented: $isShowingAccountLinkModal) {
-                        LoginView(title: "Om du kopplar nuvarande bartenderkonto till en mailadress kan du enkelt komma åt samma konto på en annan iPad.", buttonText: "Koppla konto", isFromPaywallView: false)
-                            .clearModalBackground()
-                    }
-                }
-            }
+            .frame(width: 500)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .center(.horizontal)
         .overlay(alignment: .topTrailing) {
             Button {
-                userHandler.signOut { successful in
-                    if successful {
-                        authentication.userAuthState = .signedOut
-                    }
+                withAnimation {
+                    settingsShown = .bartender
                 }
             } label: {
-                VStack(alignment: .center) {
-                    Image(systemName: "rectangle.portrait.and.arrow.right")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 44)
-                    Text("Logga ut".uppercased())
-                        .font(.caption)
-                        .fontWeight(.semibold)
-                        .offset(x: -4)
-                }
-                .padding()
-                .foregroundColor(.accentColor)
+                Image(systemName: "xmark.circle.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 44)
             }
+            .padding()
         }
     }
 }
-
-

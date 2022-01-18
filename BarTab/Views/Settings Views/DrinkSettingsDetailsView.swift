@@ -45,7 +45,6 @@ struct DrinkSettingsDetailView: View {
                         }
                         .popover(isPresented: $editingImage) {
                             ImagePickerView(drinkVM: drinkVM)
-//                                .clearModalBackground()
                         }
                         .offset(x: 40)
                     }
@@ -182,6 +181,7 @@ struct DrinkSettingsDetailView: View {
             }
             Spacer()
         }
+        .preferredColorScheme(.dark)
     }
 }
 

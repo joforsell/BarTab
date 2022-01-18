@@ -15,7 +15,7 @@ class DrinkListViewModel: ObservableObject {
     
     @Published var sorting: DrinkListViewModel.DrinkSorting = .az
         
-    var subscriptions = Set<AnyCancellable>()
+    var cancellables = Set<AnyCancellable>()
     
     init() {
         userHandler.$user
@@ -23,7 +23,7 @@ class DrinkListViewModel: ObservableObject {
                 $0.drinkSorting
             }
             .assign(to: \.sorting, on: self)
-            .store(in: &subscriptions)
+            .store(in: &cancellables)
         
         drinkRepository.$drinks
             .map { drinks in
@@ -33,7 +33,7 @@ class DrinkListViewModel: ObservableObject {
                 }
             }
             .assign(to: \.drinkVMs, on: self)
-            .store(in: &subscriptions)
+            .store(in: &cancellables)
     }
                     
     func addDrink(name: String, price: Int) {

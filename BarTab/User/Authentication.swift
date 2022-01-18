@@ -30,7 +30,7 @@ class Authentication: ObservableObject {
                         print("Sign in error: \(err.localizedDescription)")
                     } else {
                         Purchases.shared.purchaserInfo { info, error in
-                            if info?.entitlements["Full access"]?.isActive == true {
+                            if info?.entitlements["all_access"]?.isActive == true {
                                 self.userAuthState = .signedIn
                             }
                         }

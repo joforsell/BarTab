@@ -8,11 +8,12 @@
 import Foundation
 import Purchases
 import SwiftUI
+import FirebaseFunctions
 
 class PaywallViewModel: ObservableObject {
     @Published var selectedSub: Subscription = .monthly
     @Published var offerings: Purchases.Offering?
-    
+        
     init() {
         fetchOfferings()
     }
@@ -48,6 +49,23 @@ class PaywallViewModel: ObservableObject {
                 completion(true)
             } else {
                 completion(false)
+            }
+        }
+    }
+    
+    func transferData(from oldUser: String, to newUser: String) {
+        let functions = Functions.functions()
+        
+        functions.httpsCallable("transferData").call(["oldUser": oldUser, "newUser": newUser]) { _, error in
+            if let error = error as NSError? {
+                if error.domain == FunctionsErrorDomain {
+                    let code = FunctionsErrorCode(rawValue: error.code)
+                    let message = error.localizedDescription
+                    let details = error.userInfo[FunctionsErrorDetailsKey]
+                    print(code)
+                    print(message)
+                    print(details)
+                }
             }
         }
     }
