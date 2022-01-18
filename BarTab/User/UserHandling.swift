@@ -17,7 +17,7 @@ class UserHandling: ObservableObject {
     @Published var user = User()
     @Published var userInfo: Purchases.PurchaserInfo? {
         didSet {
-            subscriptionActive = userInfo?.entitlements["Full access"]?.isActive == true
+            subscriptionActive = userInfo?.entitlements["all_access"]?.isActive == true
         }
     }
     @Published var subscriptionActive: Bool = false

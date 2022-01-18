@@ -53,10 +53,3 @@ struct HeaderView: View {
         }
     }
 }
-
-struct HeaderView_Previews: PreviewProvider {
-    static var previews: some View {
-        HeaderView(viewState: .constant(.main))
-            .previewLayout(.sizeThatFits)
-    }
-}

@@ -79,10 +79,10 @@ struct SettingsView: View {
                                     
                                     
                                     Button {
-                                        if settingsShown == .user {
+                                        if settingsShown == .bartender {
                                             settingsShown = .none
                                         } else {
-                                            settingsShown = .user
+                                            settingsShown = .bartender
                                         }
                                         detailViewShown = .none
                                     } label: {
@@ -93,7 +93,7 @@ struct SettingsView: View {
                                     }
                                     .frame(width: routerButtonSize, height: routerButtonSize)
                                     .padding()
-                                    .background(settingsShown == .user ? Color("AppBlue") : Color.clear)
+                                    .background(settingsShown == .bartender ? Color("AppBlue") : Color.clear)
                                     .cornerRadius(10)
                                     
                                     Spacer()
@@ -119,8 +119,13 @@ struct SettingsView: View {
                                     DrinkSettingsView(geometry: geo, detailViewShown: $detailViewShown)
                                 case .customers:
                                     CustomerSettingsView(geometry: geo, detailViewShown: $detailViewShown)
+                                case .bartender:
+                                    BartenderSettingsView(settingsShown: $settingsShown)
                                 case .user:
-                                    UserSettingsView()
+                                    withAnimation {
+                                        UserSettingsView(settingsShown: $settingsShown)
+                                            .transition(.move(edge: .bottom))
+                                    }
                                 case .none:
                                     EmptyView()
                                 }
@@ -155,13 +160,11 @@ struct SettingsView: View {
                 if oneDayHasElapsedSince(latestEmail) {
                     errorTitle = "Är du säker på att du vill göra ett mailutskick?"
                     errorString = "Detta skickar ett mail med aktuellt saldo till alla användare som angett en mailadress."
-                    print("Kan skicka")
                 } else {
                     errorTitle = "Kunde inte skicka"
                     errorString = "Du kan inte göra mailutskick oftare än var 24:e timma."
-                    print("Kan inte skicka")
                 }
-                showError.toggle()
+                showError = true
             } label: {
                 Image(systemName: "envelope.fill")
                     .font(.largeTitle)
@@ -192,7 +195,7 @@ struct SettingsView: View {
 }
 
 enum SettingsRouter {
-    case drinks, customers, user, none
+    case drinks, customers, bartender, user, none
 }
 
 indirect enum DetailViewRouter {
