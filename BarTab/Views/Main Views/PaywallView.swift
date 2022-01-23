@@ -12,6 +12,7 @@ import FirebaseAuth
 
 struct PaywallView: View {
     @EnvironmentObject var authentication: Authentication
+    @EnvironmentObject var userHandler: UserHandling
     @ObservedObject var paywallVM = PaywallViewModel()
     
     let columnWidth: CGFloat = 500
@@ -61,13 +62,9 @@ struct PaywallView: View {
                     }
                     Group {
                         subContinueButton
-                        loginButton
-                            .sheet(isPresented: $isShowingLoginView) {
-                                LoginView(buttonText: "Logga in")
-                                    .clearModalBackground()
-                            }
+                        logoutButton
                         #warning("Remove before deploying")
-                        Button("Bypass paywall (for beta)") { authentication.userAuthState = .signedIn }
+                        Button("Bypass paywall (for beta)") { authentication.userAuthState = .subscribed }
                         .foregroundColor(.red)
                             .padding(48)
                         Spacer()
@@ -92,7 +89,7 @@ struct PaywallView: View {
                                 Purchases.shared.restoreTransactions { purchaserInfo, error in
                                     if error != nil {
                                         alertTitle = "Återställningen misslyckades"
-                                        alertMessage = "Ditt köp kunde inte återställas, inget giltigt recept kunde hittas."
+                                        alertMessage = "Ditt köp kunde inte återställas, inget giltigt kvitto kunde hittas."
                                         isShowingAlert = true
                                     } else {
                                         if let oldUserID = purchaserInfo?.originalAppUserId {
@@ -104,6 +101,9 @@ struct PaywallView: View {
                         } label: {
                             Text("Återställ köp")
                         }
+                        .alert(isPresented: $isShowingAlert) {
+                            Alert(title: alertTitle, message: alertMessage, dismissButtonTitle: "OK")
+                        }
                     }
                     .frame(width: columnWidth * 0.8)
                     .font(.callout)
@@ -113,6 +113,9 @@ struct PaywallView: View {
                 .frame(width: columnWidth)
                 .center(.horizontal)
             }
+        }
+        .onAppear {
+            print(Auth.auth().currentUser?.uid ?? "Ingen inloggad")
         }
     }
 }
@@ -146,21 +149,21 @@ private extension PaywallView {
                 guard let monthlyPackage = paywallVM.offerings?.monthly else { return }
                 return paywallVM.purchase(package: monthlyPackage) { completed in
                     if completed {
-                        authentication.userAuthState = .signedIn
+                        authentication.userAuthState = .subscribed
                     }
                 }
             case .annual:
                 guard let annualPackage = paywallVM.offerings?.annual else { return }
                 return paywallVM.purchase(package: annualPackage) { completed in
                     if completed {
-                        authentication.userAuthState = .signedIn
+                        authentication.userAuthState = .subscribed
                     }
                 }
             case .lifetime:
                 guard let lifetimePackage = paywallVM.offerings?.lifetime else { return }
                 return paywallVM.purchase(package: lifetimePackage) { completed in
                     if completed {
-                        authentication.userAuthState = .signedIn
+                        authentication.userAuthState = .subscribed
                     }
                 }
             }
@@ -181,11 +184,11 @@ private extension PaywallView {
         .padding(.top)
     }
     
-    private var loginButton: some View {
+    private var logoutButton: some View {
         Button {
-            isShowingLoginView = true
+            userHandler.signOut { _ in }
         } label: {
-            Text("Logga in på befintligt konto")
+            Text("Logga ut")
                 .foregroundColor(.white)
                 .font(.callout)
                 .fontWeight(.semibold)
@@ -269,27 +272,6 @@ private extension PaywallView {
                     .padding(.horizontal, 20)
                     .offset(x: -(width * 0.1), y: width * 0.04)
             }
-        }
-    }
-}
-
-
-// MARK: - Background shape for darkening part of background
-private extension PaywallView {
-    struct BackgroundBlob: Shape {
-        func path(in rect: CGRect) -> Path {
-            var path = Path()
-            let width = rect.size.width
-            let height = rect.size.height
-            path.move(to: CGPoint(x: -0.00096*width, y: 0))
-            path.addLine(to: CGPoint(x: -0.00096*width, y: 0.99819*height))
-            path.addLine(to: CGPoint(x: 1.00266*width, y: 1.00096*height))
-            path.addCurve(to: CGPoint(x: 0.72457*width, y: 0.60832*height), control1: CGPoint(x: 1.00266*width, y: 1.00096*height), control2: CGPoint(x: 0.95695*width, y: 0.70292*height))
-            path.addCurve(to: CGPoint(x: 0.58216*width, y: 0.37605*height), control1: CGPoint(x: 0.66684*width, y: 0.58481*height), control2: CGPoint(x: 0.58531*width, y: 0.46194*height))
-            path.addCurve(to: CGPoint(x: 0.3339*width, y: 0.00138*height), control1: CGPoint(x: 0.576*width, y: 0.20834*height), control2: CGPoint(x: 0.48146*width, y: 0.00138*height))
-            path.addCurve(to: CGPoint(x: -0.00096*width, y: 0), control1: CGPoint(x: 0.1991*width, y: 0.00138*height), control2: CGPoint(x: -0.00096*width, y: 0))
-            path.closeSubpath()
-            return path
         }
     }
 }

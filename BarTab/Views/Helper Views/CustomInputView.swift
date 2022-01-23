@@ -19,7 +19,7 @@ struct CustomInputView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
             HStack(alignment: .bottom) {
-                TextField(title,
+                TextField("",
                           text: $text,
                           onEditingChanged: { editingChanged in
                     self.avoider.editingField = keybTag

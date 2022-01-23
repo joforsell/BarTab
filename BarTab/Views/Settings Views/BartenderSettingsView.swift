@@ -20,7 +20,6 @@ struct BartenderSettingsView: View {
     
     @State private var showError = false
     @State private var errorString = ""
-    @State private var isShowingAccountLinkModal = false
     
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
@@ -153,21 +152,6 @@ struct BartenderSettingsView: View {
                     userHandler.updateUserTagUsage(usingTags)
                 }
             Spacer()
-            if let user = Auth.auth().currentUser {
-                if user.isAnonymous {
-                    Button {
-                        isShowingAccountLinkModal = true
-                    } label: {
-                        Text("Koppla bartenderkontot till en mailadress")
-                            .foregroundColor(.accentColor)
-                            .padding()
-                    }
-                    .sheet(isPresented: $isShowingAccountLinkModal) {
-                        LoginView(title: "Om du kopplar nuvarande bartenderkonto till en mailadress kan du enkelt komma åt samma konto på en annan iPad.", buttonText: "Koppla konto", isFromPaywallView: false)
-                            .clearModalBackground()
-                    }
-                }
-            }
         }
         .center(.horizontal)
         .overlay(alignment: .topTrailing) {
