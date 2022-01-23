@@ -12,14 +12,17 @@ struct ContentView: View {
     @StateObject var avoider = KeyboardAvoider()
     
     var body: some View {
-        if authentication.userAuthState == .signedIn {
-            HomeView()
+        switch authentication.userAuthState {
+        case .signedOut:
+            SignInView()
                 .environmentObject(avoider)
-        } else {
+        case .signedIn:
             PaywallView()
+                .environmentObject(avoider)
+        case .subscribed:
+            HomeView()
                 .environmentObject(avoider)
         }
     }
 }
-
 

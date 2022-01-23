@@ -21,6 +21,7 @@ class UserHandling: ObservableObject {
         }
     }
     @Published var subscriptionActive: Bool = false
+    @Published var userError: UserError? = nil
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -72,14 +73,46 @@ class UserHandling: ObservableObject {
         db.document(userID).setData([ "drinkSorting" : drinkSorting.rawValue ] , merge: true)
     }
     
-    func signIn(withEmail email: String, password: String, completion: @escaping (Result<Bool, Error>) -> ()) {
-        Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
-            guard self != nil else { return }
-            
+    func deleteUser(completion: @escaping (Result<Bool, Error>) -> ()) {
+        Auth.auth().currentUser?.delete { error in
             if let error = error {
                 completion(.failure(error))
             } else {
                 completion(.success(true))
+            }
+        }
+    }
+    
+    func resetPassword(for email: String, completion: @escaping (UserError?) -> ()) {
+        Auth.auth().sendPasswordReset(withEmail: email) { error in
+            if let error = error {
+                if let errorCode = AuthErrorCode(rawValue: error._code) {
+                    return completion(UserError.convertedError(errorCode))
+                }
+            }
+        }
+    }
+    
+    func createUser(withEmail email: String, password: String, completion: @escaping (UserError?) -> ()) {
+        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                if let errorCode = AuthErrorCode(rawValue: error._code) {
+                    return completion(UserError.convertedError(errorCode))
+                }
+            } else {
+                self.updateUserEmail(email)
+            }
+        }
+    }
+    
+    func signIn(withEmail email: String, password: String, completion: @escaping (UserError?) -> ()) {
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
+            guard self != nil else { return }
+            
+            if let error = error {
+                if let errorCode = AuthErrorCode(rawValue: error._code) {
+                    return completion(UserError.convertedError(errorCode))
+                }
             }
         }
     }

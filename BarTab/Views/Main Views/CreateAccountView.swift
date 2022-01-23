@@ -1,5 +1,5 @@
 //
-//  LoginView.swift
+//  CreateAccountView.swift
 //  BarTab
 //
 //  Created by Johan Forsell on 2021-12-21.
@@ -9,14 +9,10 @@ import SwiftUI
 import SwiftUIX
 import ToastUI
 
-struct LoginView: View {
+struct CreateAccountView: View {
     @EnvironmentObject var userHandler: UserHandling
     @EnvironmentObject var avoider: KeyboardAvoider
     @Environment(\.presentationMode) var presentationMode
-    
-    var title: String = ""
-    var buttonText: String
-    var isFromPaywallView: Bool = true
     
     @State private var email = ""
     @State private var password = ""
@@ -27,27 +23,20 @@ struct LoginView: View {
     @State private var showingPassword = false
     @State private var isShowingAlert = false
     @State private var alertTitle = ""
+    @State private var alertMessage = ""
     @State private var isShowingToast = false
     
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
             KeyboardAvoiding(with: avoider) {
                 Spacer()
-                if isFromPaywallView {
-                    Image("beer")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 150)
-                        .foregroundColor(.accentColor)
-                    Image("logotext")
-                        .frame(width: 50)
-                } else {
-                    Image(systemName: "link")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 180)
-                        .foregroundColor(.accentColor)
-                }
+                Image("beer")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 150)
+                    .foregroundColor(.accentColor)
+                Image("logotext")
+                    .frame(width: 50)
                 Spacer()
                 emailInput
                 passwordInput
@@ -65,23 +54,27 @@ struct LoginView: View {
                         .offset(x: editingPassword ? 56 : 0)
                     }
                 finishButton
-                Text(title)
-                    .font(.caption2)
-                    .foregroundColor(.white)
-                    .multilineTextAlignment(.center)
-                    .frame(width: 300)
                 Spacer()
+                HStack {
+                    Button {
+                        
+                    } label: {
+                        Text("Integritetspolicy")
+                    }
+                    Spacer()
+                    Button {
+                        
+                    } label: {
+                        Text("Användarvillkor")
+                    }
+                }
+                .frame(width: 300)
+                .padding(.vertical)
             }
         }
         .frame(maxWidth: .infinity)
         .foregroundColor(.white)
         .background(VisualEffectBlurView(blurStyle: .dark))
-        .toast(isPresented: $isShowingToast, dismissAfter: 3, onDismiss: {
-            withAnimation {
-                presentationMode.wrappedValue.dismiss()
-            } }) {
-                ToastView(systemImage: ("checkmark.circle.fill", .accentColor, 50), title: "Kontot kopplades", subTitle: "Nuvarande bartenderkonto kopplades till \(email).")
-            }
     }
     
     private var emailInput: some View {
@@ -216,27 +209,11 @@ struct LoginView: View {
                         alertTitle = "Du måste ange ett lösenord."
                         isShowingAlert = true
                     } else {
-                        if isFromPaywallView {
-                            userHandler.signIn(withEmail: email, password: password) { result in
-                                switch result {
-                                case .success(_):
-                                    presentationMode.wrappedValue.dismiss()
-                                case .failure(_):
-                                    alertTitle = "Kunde inte logga in."
-                                    isShowingAlert = true
-                                }
-                            }
-
-                        } else {
-                            userHandler.linkEmailCredential(withEmail: email, password: password) { result in
-                                switch result {
-                                case .success(_):
-                                    isShowingToast = true
-                                    userHandler.updateUserEmail(email)
-                                case .failure(_):
-                                    alertTitle = "Något gick fel när kontot skulle kopplas till din mailadress."
-                                    isShowingAlert = true
-                                }
+                        userHandler.createUser(withEmail: email, password: password) { error in
+                            if let error = error {
+                                alertTitle = "Kunde inte skapa konto."
+                                alertMessage = error.errorDescription ?? "Okänt fel."
+                                isShowingAlert = true
                             }
                         }
                     }
@@ -244,14 +221,14 @@ struct LoginView: View {
                     RoundedRectangle(cornerRadius: 6)
                         .foregroundColor(.accentColor)
                         .overlay {
-                            Text(buttonText.uppercased())
+                            Text("Skapa konto".uppercased())
                                 .foregroundColor(.white)
                                 .fontWeight(.bold)
                         }
                 }
             }
             .alert(isPresented: $isShowingAlert) {
-                Alert(title: Text(alertTitle), dismissButton: .default(Text("OK").foregroundColor(.accentColor)))
+                Alert(title: Text(alertTitle), message: Text(alertMessage), dismissButton: .default(Text("OK").foregroundColor(.accentColor)))
             }
 
     }

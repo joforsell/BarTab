@@ -10,14 +10,14 @@ import FirebaseAuth
 import Purchases
 
 class Authentication: ObservableObject {
-    @Published var userAuthState: AuthState = .undefined
+    @Published var userAuthState: AuthState = .signedOut
     
     init() {
         userAuthStateDidChange()
     }
     
     enum AuthState {
-        case undefined, signedOut, signedIn
+        case signedIn, signedOut, subscribed
     }
         
     var authStateDidChangeListenerHandle: AuthStateDidChangeListenerHandle?
@@ -31,6 +31,8 @@ class Authentication: ObservableObject {
                     } else {
                         Purchases.shared.purchaserInfo { info, error in
                             if info?.entitlements["all_access"]?.isActive == true {
+                                self.userAuthState = .subscribed
+                            } else {
                                 self.userAuthState = .signedIn
                             }
                         }

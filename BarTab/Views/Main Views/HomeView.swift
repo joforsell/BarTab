@@ -42,6 +42,8 @@ struct HomeView: View {
                                         }
                                         .aspectRatio(0.9, contentMode: .fit)
                                         .matchedGeometryEffect(id: drinkVM.id, in: orderNamespace, isSource: true)
+                                        .environmentObject(customerListVM)
+                                        .environmentObject(drinkListVM)
                                 }
                             }
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -118,6 +120,8 @@ struct HomeView: View {
                     .onAppear { withAnimation { flyToModal = true } }
                     .onDisappear { flyToModal = false }
                     .transition(AnyTransition.asymmetric(insertion: .identity, removal: .opacity))
+                    .environmentObject(customerListVM)
+                    .environmentObject(drinkListVM)
             }
         }
     }

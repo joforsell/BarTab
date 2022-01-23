@@ -17,11 +17,8 @@ struct BarTabApp: App {
         
     init() {
         FirebaseApp.configure()
-        if Auth.auth().currentUser == nil {
-            Auth.auth().signInAnonymously()
-        }
         
-        Purchases.configure(withAPIKey: "appl_mtWeWLbXBczlrxImSUOLQowDdlK", appUserID: Auth.auth().currentUser?.uid)
+        Purchases.configure(withAPIKey: "appl_mtWeWLbXBczlrxImSUOLQowDdlK")
     }
     
     var body: some Scene {
