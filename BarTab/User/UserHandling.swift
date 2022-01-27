@@ -27,8 +27,10 @@ class UserHandling: ObservableObject {
     
     init() {
         loadUser()
+        
+        print("Initializing userHandler...")
     }
-    
+        
     let db = Firestore.firestore().collection("users")
     
     func loadUser() {
@@ -41,18 +43,22 @@ class UserHandling: ObservableObject {
                 
                 self.user = data
             }
+        
+        print("Calling loadUser...")
     }
     
     func updateUserEmail(_ email: String) {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         
         db.document(userID).setData([ "email" : email ] , merge: true)
+        print("Updating email...")
     }
     
     func updateUserAssociation(_ association: String) {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         
         db.document(userID).setData([ "association" : association ] , merge: true)
+        print("Updating association...")
     }
     
     func updateUserTagUsage(_ isUsingTags: Bool) {
@@ -83,7 +89,7 @@ class UserHandling: ObservableObject {
         }
     }
     
-    func resetPassword(for email: String, completion: @escaping (UserError?) -> ()) {
+    static func resetPassword(for email: String, completion: @escaping (UserError?) -> ()) {
         Auth.auth().sendPasswordReset(withEmail: email) { error in
             if let error = error {
                 if let errorCode = AuthErrorCode(rawValue: error._code) {
@@ -93,22 +99,18 @@ class UserHandling: ObservableObject {
         }
     }
     
-    func createUser(withEmail email: String, password: String, completion: @escaping (UserError?) -> ()) {
+    static func createUser(withEmail email: String, password: String, completion: @escaping (UserError?) -> ()) {
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if let error = error {
                 if let errorCode = AuthErrorCode(rawValue: error._code) {
                     return completion(UserError.convertedError(errorCode))
                 }
-            } else {
-                self.updateUserEmail(email)
             }
         }
     }
     
-    func signIn(withEmail email: String, password: String, completion: @escaping (UserError?) -> ()) {
-        Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
-            guard self != nil else { return }
-            
+    static func signIn(withEmail email: String, password: String, completion: @escaping (UserError?) -> ()) {
+        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             if let error = error {
                 if let errorCode = AuthErrorCode(rawValue: error._code) {
                     return completion(UserError.convertedError(errorCode))

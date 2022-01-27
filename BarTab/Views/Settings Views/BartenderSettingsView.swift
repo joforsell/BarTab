@@ -170,6 +170,9 @@ struct BartenderSettingsView: View {
                 .foregroundColor(.accentColor)
             }
         }
+        .onAppear {
+            print(userHandler.user)
+        }
     }
 }
 

@@ -12,8 +12,8 @@ struct HomeView: View {
     @EnvironmentObject var avoider: KeyboardAvoider
     @StateObject var drinkListVM = DrinkListViewModel()
     @StateObject var customerListVM = CustomerListViewModel()
+    @StateObject var userHandler = UserHandling()
     @EnvironmentObject var confirmationVM: ConfirmationViewModel
-    @EnvironmentObject var userHandler: UserHandling
     @StateObject var orientationInfo = OrientationInfo()
     
     @Namespace var orderNamespace
@@ -27,6 +27,7 @@ struct HomeView: View {
         ZStack {
             VStack {
                 HeaderView(viewState: $viewState)
+                    .environmentObject(userHandler)
                     .frame(height: 134)
                 switch viewState {
                 case .main:
@@ -63,6 +64,7 @@ struct HomeView: View {
                         .cornerRadius(radius: 20, corners: .topRight)
                         .environmentObject(drinkListVM)
                         .environmentObject(customerListVM)
+                        .environmentObject(userHandler)
                 }
             }
             .overlay(alignment: .bottomLeading) {
@@ -122,6 +124,7 @@ struct HomeView: View {
                     .transition(AnyTransition.asymmetric(insertion: .identity, removal: .opacity))
                     .environmentObject(customerListVM)
                     .environmentObject(drinkListVM)
+                    .environmentObject(userHandler)
             }
         }
     }
