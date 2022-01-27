@@ -209,7 +209,7 @@ struct CreateAccountView: View {
                         alertTitle = "Du måste ange ett lösenord."
                         isShowingAlert = true
                     } else {
-                        userHandler.createUser(withEmail: email, password: password) { error in
+                        UserHandling.createUser(withEmail: email, password: password) { error in
                             if let error = error {
                                 alertTitle = "Kunde inte skapa konto."
                                 alertMessage = error.errorDescription ?? "Okänt fel."

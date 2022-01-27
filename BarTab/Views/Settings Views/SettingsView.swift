@@ -152,7 +152,8 @@ struct SettingsView: View {
         
         func oneDayHasElapsedSince(_ date: Date) -> Bool {
             let timeSinceLatestEmail = -latestEmail.timeIntervalSinceNow
-            return timeSinceLatestEmail > 86400
+            return timeSinceLatestEmail > 10
+//            86400
         }
         
         var emailButton: some View {

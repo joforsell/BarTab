@@ -12,7 +12,6 @@ import Purchases
 @main
 struct BarTabApp: App {
     @StateObject var authentication = Authentication()
-    @StateObject var userHandler = UserHandling()
     @StateObject var confirmationVM = ConfirmationViewModel()
         
     init() {
@@ -25,7 +24,6 @@ struct BarTabApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(authentication)
-                .environmentObject(userHandler)
                 .environmentObject(confirmationVM)
         }
     }

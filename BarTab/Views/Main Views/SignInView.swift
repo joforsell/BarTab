@@ -9,7 +9,6 @@ import SwiftUI
 import SwiftUIX
 
 struct SignInView: View {
-    @EnvironmentObject var userHandler: UserHandling
     @EnvironmentObject var avoider: KeyboardAvoider
     
     @State private var email = ""
@@ -66,7 +65,7 @@ struct SignInView: View {
                         HStack {
                             Spacer()
                             Button {
-                                userHandler.resetPassword(for: email) { error in
+                                UserHandling.resetPassword(for: email) { error in
                                     if let error = error {
                                         alertTitle = "Kunde inte skicka nytt lösenord."
                                         alertMessage = error.errorDescription ?? "Okänt fel."
@@ -233,7 +232,7 @@ struct SignInView: View {
                         alertTitle = "Du måste ange ett lösenord."
                         isShowingAlert = true
                     } else {
-                        userHandler.signIn(withEmail: email, password: password) { error in
+                        UserHandling.signIn(withEmail: email, password: password) { error in
                             if let error = error {
                                 alertTitle = "Kunde inte logga in."
                                 alertMessage = error.errorDescription ?? "Okänt fel."
