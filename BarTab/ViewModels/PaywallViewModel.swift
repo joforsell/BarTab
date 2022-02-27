@@ -11,7 +11,7 @@ import SwiftUI
 import FirebaseFunctions
 
 class PaywallViewModel: ObservableObject {
-    @Published var selectedSub: Subscription = .monthly
+    @Published var selectedSub: Subscription = .annual
     @Published var offerings: Purchases.Offering?
         
     init() {

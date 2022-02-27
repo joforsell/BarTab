@@ -23,6 +23,10 @@
 		3E65094026FCB26900ACDF41 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E65093F26FCB26900ACDF41 /* Preview Assets.xcassets */; };
 		3E658368276B568400555030 /* View+RoundedCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E658367276B568400555030 /* View+RoundedCorners.swift */; };
 		3E662B5E2700C76A00033A11 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 3E662B5D2700C76A00033A11 /* Introspect */; };
+		3E66B89C27CA12170067C56F /* PhoneTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E66B89B27CA12170067C56F /* PhoneTabView.swift */; };
+		3E66B89F27CA216E0067C56F /* PhoneOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E66B89E27CA216E0067C56F /* PhoneOrderView.swift */; };
+		3E66B8A127CA217B0067C56F /* PhoneCustomerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E66B8A027CA217B0067C56F /* PhoneCustomerListView.swift */; };
+		3E66B8A327CA21830067C56F /* PhoneSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E66B8A227CA21830067C56F /* PhoneSettingsView.swift */; };
 		3E678775275D52FC0072259F /* ConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E678774275D52FC0072259F /* ConfirmationViewModel.swift */; };
 		3E678777275D62170072259F /* AddCustomerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E678776275D62170072259F /* AddCustomerView.swift */; };
 		3E67E60927444E1700999511 /* CustomerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E67E60827444E1700999511 /* CustomerViewModel.swift */; };
@@ -94,6 +98,10 @@
 		3E65093F26FCB26900ACDF41 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3E65094126FCB26900ACDF41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E658367276B568400555030 /* View+RoundedCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+RoundedCorners.swift"; sourceTree = "<group>"; };
+		3E66B89B27CA12170067C56F /* PhoneTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneTabView.swift; sourceTree = "<group>"; };
+		3E66B89E27CA216E0067C56F /* PhoneOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneOrderView.swift; sourceTree = "<group>"; };
+		3E66B8A027CA217B0067C56F /* PhoneCustomerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCustomerListView.swift; sourceTree = "<group>"; };
+		3E66B8A227CA21830067C56F /* PhoneSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneSettingsView.swift; sourceTree = "<group>"; };
 		3E678774275D52FC0072259F /* ConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewModel.swift; sourceTree = "<group>"; };
 		3E678776275D62170072259F /* AddCustomerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomerView.swift; sourceTree = "<group>"; };
 		3E67E60827444E1700999511 /* CustomerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerViewModel.swift; sourceTree = "<group>"; };
@@ -235,13 +243,22 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		3E70E0EF275EB0270020B429 /* Main Views */ = {
+		3E66B89D27CA121F0067C56F /* iPhone */ = {
 			isa = PBXGroup;
 			children = (
-				3E7C9AFD2771D49800B8A431 /* ContentView.swift */,
+				3E66B89B27CA12170067C56F /* PhoneTabView.swift */,
+				3E66B89E27CA216E0067C56F /* PhoneOrderView.swift */,
+				3E66B8A027CA217B0067C56F /* PhoneCustomerListView.swift */,
+				3E66B8A227CA21830067C56F /* PhoneSettingsView.swift */,
+			);
+			path = iPhone;
+			sourceTree = "<group>";
+		};
+		3E66B8A427CC03090067C56F /* iPad */ = {
+			isa = PBXGroup;
+			children = (
 				3E8FAA17279C336C00FBA06D /* SignInView.swift */,
 				3E7C9B012772069700B8A431 /* PaywallView.swift */,
-				3E6E702C279D7B2000FB1639 /* BackgroundBlob.swift */,
 				3E67EC6A279467DF008A2B3D /* SubscriptionDetailsView.swift */,
 				3E7C9AFF2772065500B8A431 /* CreateAccountView.swift */,
 				3E817153275574F600F4B0D3 /* HomeView.swift */,
@@ -251,6 +268,16 @@
 				3E8730232759755100F8E610 /* ConfirmOrderView.swift */,
 				3E873021275961B500F8E610 /* DrinkCardView.swift */,
 				3E817159275576B400F4B0D3 /* CustomerListView.swift */,
+			);
+			path = iPad;
+			sourceTree = "<group>";
+		};
+		3E70E0EF275EB0270020B429 /* Main Views */ = {
+			isa = PBXGroup;
+			children = (
+				3E7C9AFD2771D49800B8A431 /* ContentView.swift */,
+				3E66B89D27CA121F0067C56F /* iPhone */,
+				3E66B8A427CC03090067C56F /* iPad */,
 			);
 			path = "Main Views";
 			sourceTree = "<group>";
@@ -313,6 +340,7 @@
 		3E7C9B032772073200B8A431 /* Helper Views */ = {
 			isa = PBXGroup;
 			children = (
+				3E6E702C279D7B2000FB1639 /* BackgroundBlob.swift */,
 				3E5DFDC62787A4770056F0CC /* KeyboardAvoider */,
 				3E6F1A2827712B5300661021 /* CustomInputView.swift */,
 				3E70E0E9275EAF100020B429 /* ToastView.swift */,
@@ -395,8 +423,8 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 				sv,
+				Base,
 			);
 			mainGroup = 3E65092C26FCB26900ACDF41;
 			packageReferences = (
@@ -443,19 +471,23 @@
 				3E5DFDC82787A8AA0056F0CC /* KeyboardAvoider.swift in Sources */,
 				3E5DFDCA2787A91E0056F0CC /* KeyboardAvoiderPreferences.swift in Sources */,
 				3E5EE16427823A060044B178 /* PaywallViewModel.swift in Sources */,
+				3E66B8A127CA217B0067C56F /* PhoneCustomerListView.swift in Sources */,
 				3E6916D2276E584B009E80D7 /* ImagePickerView.swift in Sources */,
 				3E658368276B568400555030 /* View+RoundedCorners.swift in Sources */,
 				3E678775275D52FC0072259F /* ConfirmationViewModel.swift in Sources */,
 				3E7C9B002772065500B8A431 /* CreateAccountView.swift in Sources */,
 				3E70E0E8275EABE40020B429 /* BartenderSettingsView.swift in Sources */,
+				3E66B89F27CA216E0067C56F /* PhoneOrderView.swift in Sources */,
 				3E70E0F7275EB2790020B429 /* ClearModalBackground.swift in Sources */,
 				3E7BEFDC26FCDD1900453C1B /* CustomerModel.swift in Sources */,
+				3E66B8A327CA21830067C56F /* PhoneSettingsView.swift in Sources */,
 				3E6F1A272771282900661021 /* Date+RawRepresentable.swift in Sources */,
 				3E70E0E6275EABDC0020B429 /* CustomerSettingsView.swift in Sources */,
 				3E5DFDCC2787A9460056F0CC /* KeyboardAvoiding.swift in Sources */,
 				3E7C9AFE2771D49800B8A431 /* ContentView.swift in Sources */,
 				3E5DE2B32746E75600B5723D /* DrinkViewModel.swift in Sources */,
 				3E70E0EE275EB0160020B429 /* View+RoundedBorder.swift in Sources */,
+				3E66B89C27CA12170067C56F /* PhoneTabView.swift in Sources */,
 				3E6FA3B42756A7ED0023DAB7 /* BodyView.swift in Sources */,
 				3E7BEFE126FCDD6D00453C1B /* DrinkModel.swift in Sources */,
 				3E8FAA18279C336C00FBA06D /* SignInView.swift in Sources */,
@@ -616,7 +648,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = BarTab/BarTab.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"BarTab/Preview Content\"";
 				DEVELOPMENT_TEAM = 5PNV6G957X;
 				ENABLE_PREVIEWS = YES;
@@ -630,7 +662,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.joforsell.BarTab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -641,7 +673,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = BarTab/BarTab.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"BarTab/Preview Content\"";
 				DEVELOPMENT_TEAM = 5PNV6G957X;
 				ENABLE_PREVIEWS = YES;
@@ -655,7 +687,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.joforsell.BarTab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

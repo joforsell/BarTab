@@ -119,7 +119,7 @@ class UserHandling: ObservableObject {
         }
     }
     
-    func signOut(completion: @escaping (Bool) -> ()) {
+    static func signOut(completion: @escaping (Bool) -> ()) {
         do {
             try Auth.auth().signOut()
             completion(true)

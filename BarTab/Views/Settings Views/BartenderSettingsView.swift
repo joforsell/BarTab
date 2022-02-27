@@ -129,7 +129,7 @@ struct BartenderSettingsView: View {
                     
                 }
                 .overlay(alignment: .topLeading) {
-                    Text("Association".uppercased())
+                    Text("Organisation".uppercased())
                         .font(.caption2)
                         .foregroundColor(.white)
                         .opacity(0.5)

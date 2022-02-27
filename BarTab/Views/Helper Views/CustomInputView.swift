@@ -38,7 +38,7 @@ struct CustomInputView: View {
                     }
                 }
                 )
-                    .autocapitalization(.words)
+                    .autocapitalization(.none)
                     .disableAutocorrection(true)
                     .font(.title3)
                 Spacer()
