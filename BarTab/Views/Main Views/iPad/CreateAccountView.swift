@@ -56,17 +56,9 @@ struct CreateAccountView: View {
                 finishButton
                 Spacer()
                 HStack {
-                    Button {
-                        
-                    } label: {
-                        Text("Integritetspolicy")
-                    }
+                    Link("Integritetspolicy", destination: URL(string: "https://bartab-d48b2.web.app/privacypolicy.html")!)
                     Spacer()
-                    Button {
-                        
-                    } label: {
-                        Text("Användarvillkor")
-                    }
+                    Link("Användarvillkor", destination: URL(string: "https://bartab-d48b2.web.app/termsandconditions.html")!)
                 }
                 .frame(width: 300)
                 .padding(.vertical)

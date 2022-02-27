@@ -77,7 +77,6 @@ struct SignInView: View {
                             }
                         }
                         .frame(width: 300)
-//                        .padding(.vertical)
                         Divider()
                             .frame(width: 300)
                             .padding()

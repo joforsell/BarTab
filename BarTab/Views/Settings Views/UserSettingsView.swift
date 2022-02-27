@@ -83,7 +83,7 @@ struct UserSettingsView: View {
                     }
                     Spacer()
                     Button {
-                        userHandler.signOut { completed in
+                        UserHandling.signOut { completed in
                             if completed {
                                 authentication.userAuthState = .signedOut
                             }

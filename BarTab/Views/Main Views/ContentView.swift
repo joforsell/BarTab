@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.verticalSizeClass) var verticalSizeClass
     @EnvironmentObject var authentication: Authentication
     @StateObject var avoider = KeyboardAvoider()
     
@@ -20,8 +22,13 @@ struct ContentView: View {
             PaywallView()
                 .environmentObject(avoider)
         case .subscribed:
-            HomeView()
-                .environmentObject(avoider)
+            if horizontalSizeClass == .regular && verticalSizeClass == .regular {
+                HomeView()
+                    .environmentObject(avoider)
+            } else {
+                PhoneTabView()
+                    .environmentObject(avoider)
+            }
         }
     }
 }

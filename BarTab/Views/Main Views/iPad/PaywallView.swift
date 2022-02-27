@@ -62,12 +62,20 @@ struct PaywallView: View {
                     }
                     Group {
                         subContinueButton
+                        HStack {
+                            Spacer()
+                            Link("Integritetspolicy", destination: URL(string: "https://bartab-d48b2.web.app/privacypolicy.html")!)
+                                .foregroundColor(.accentColor)
+                            Text("och")
+                            Link("Användarvillkor", destination: URL(string: "https://bartab-d48b2.web.app/termsandconditions.html")!)
+                                .foregroundColor(.accentColor)
+                            Spacer()
+                        }
+                            .frame(width: columnWidth * 0.8)
+                            .font(.callout)
+                            .padding(.bottom, 16)
                         logoutButton
-                        #warning("Remove before deploying")
-                        Button("Bypass paywall (for beta)") { authentication.userAuthState = .subscribed }
-                        .foregroundColor(.red)
-                            .padding(48)
-                        Spacer()
+                            .padding(.bottom, 48)
                     }
                     HStack(spacing: 2) {
                         Button {
@@ -186,7 +194,7 @@ private extension PaywallView {
     
     private var logoutButton: some View {
         Button {
-            userHandler.signOut { _ in }
+            UserHandling.signOut { _ in }
         } label: {
             Text("Logga ut")
                 .foregroundColor(.white)
@@ -202,14 +210,26 @@ private extension PaywallView {
         var body: some View {
             switch selectedSub {
             case .monthly:
-                return Text("\(offerings?.monthly?.localizedPriceString ?? "") / månad")
-                    .fontWeight(.bold)
+                return VStack {
+                    Text("\(offerings?.monthly?.localizedPriceString ?? "Price not found") / månad")
+                        .fontWeight(.bold)
+                    Text("Första veckan gratis!")
+                        .font(.caption2)
+                }
             case .annual:
-                return Text("\(offerings?.annual?.localizedPriceString ?? "") / år")
-                    .fontWeight(.bold)
+                return VStack {
+                    Text("\(offerings?.annual?.localizedPriceString ?? "Price not found") / år")
+                        .fontWeight(.bold)
+                    Text("Första veckan gratis!")
+                        .font(.caption2)
+                }
             case .lifetime:
-                return Text("\(offerings?.lifetime?.localizedPriceString ?? "")")
-                    .fontWeight(.bold)
+                return VStack {
+                    Text("\(offerings?.lifetime?.localizedPriceString ?? "Price not found")")
+                        .fontWeight(.bold)
+                    Text("Betala bara en gång!")
+                        .font(.caption2)
+                }
             }
         }
     }
@@ -233,7 +253,7 @@ private extension PaywallView {
                         VStack {
                             Text(package?.product.localizedTitle ?? "")
                                 .font(.callout)
-                            Text(package?.localizedPriceString ?? "")
+                            Text(package?.localizedPriceString ?? "Price not found")
                                 .foregroundColor(.white)
                                 .font(.title)
                                 .fontWeight(.bold)

@@ -108,7 +108,7 @@ struct ConfirmOrderView: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    Image("beer")
+                    Image(drinkVM.drink.image.rawValue)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: UIScreen.main.bounds.width * 0.2)
@@ -183,7 +183,7 @@ struct ConfirmOrderView: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    Image("beer")
+                    Image(drinkVM.drink.image.rawValue)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: UIScreen.main.bounds.width * 0.2)

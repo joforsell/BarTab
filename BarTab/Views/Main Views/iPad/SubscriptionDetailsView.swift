@@ -15,7 +15,7 @@ struct SubscriptionDetailsView: View {
                 Image(systemName: "arrow.triangle.2.circlepath.circle.fill")
                     .foregroundColor(.accentColor)
                     .font(.system(size: 240, weight: .thin))
-                    .padding(.bottom, 48)
+                    .padding(.vertical, 48)
                 Text("Prenumerationsdetaljer")
                     .font(.title)
                     .fontWeight(.bold)
