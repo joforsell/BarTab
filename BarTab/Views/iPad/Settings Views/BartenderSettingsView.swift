@@ -11,7 +11,6 @@ import FirebaseAuth
 struct BartenderSettingsView: View {
     @EnvironmentObject var userHandler: UserHandling
     @EnvironmentObject var avoider: KeyboardAvoider
-    @EnvironmentObject var authentication: Authentication
     
     @Binding var settingsShown: SettingsRouter
     
@@ -169,9 +168,6 @@ struct BartenderSettingsView: View {
                 .padding()
                 .foregroundColor(.accentColor)
             }
-        }
-        .onAppear {
-            print(userHandler.user)
         }
     }
 }

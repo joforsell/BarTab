@@ -10,6 +10,8 @@ import Combine
 import Introspect
 
 struct DrinkSettingsDetailView: View {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.verticalSizeClass) var verticalSizeClass
     @EnvironmentObject var drinkListVM: DrinkListViewModel
     @EnvironmentObject var avoider: KeyboardAvoider
     @Binding var drinkVM: DrinkViewModel
@@ -180,6 +182,18 @@ struct DrinkSettingsDetailView: View {
                 Spacer()
             }
             Spacer()
+        }
+        .overlay(alignment: .topLeading) {
+            Button {
+                withAnimation {
+                    detailsViewShown = .none
+                }
+            } label: {
+                Image(systemName: "chevron.left")
+                    .padding()
+                    .foregroundColor(.white)
+                    .opacity(0.6)
+            }
         }
         .preferredColorScheme(.dark)
     }
