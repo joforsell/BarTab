@@ -69,7 +69,7 @@ struct CustomerSettingsView: View {
     }
 }
 
-struct CustomerRow: View {
+private struct CustomerRow: View {
     @Binding var customerVM: CustomerViewModel
     var geometry: GeometryProxy
     

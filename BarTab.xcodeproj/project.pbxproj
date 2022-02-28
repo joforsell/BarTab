@@ -254,9 +254,19 @@
 			path = iPhone;
 			sourceTree = "<group>";
 		};
-		3E66B8A427CC03090067C56F /* iPad */ = {
+		3E6E59C127CD55FF0073CF3B /* iPad */ = {
 			isa = PBXGroup;
 			children = (
+				3E70E0EF275EB0270020B429 /* Main Views */,
+				3E70E0F0275EB05B0020B429 /* Settings Views */,
+			);
+			path = iPad;
+			sourceTree = "<group>";
+		};
+		3E70E0EF275EB0270020B429 /* Main Views */ = {
+			isa = PBXGroup;
+			children = (
+				3E7C9AFD2771D49800B8A431 /* ContentView.swift */,
 				3E8FAA17279C336C00FBA06D /* SignInView.swift */,
 				3E7C9B012772069700B8A431 /* PaywallView.swift */,
 				3E67EC6A279467DF008A2B3D /* SubscriptionDetailsView.swift */,
@@ -268,16 +278,6 @@
 				3E8730232759755100F8E610 /* ConfirmOrderView.swift */,
 				3E873021275961B500F8E610 /* DrinkCardView.swift */,
 				3E817159275576B400F4B0D3 /* CustomerListView.swift */,
-			);
-			path = iPad;
-			sourceTree = "<group>";
-		};
-		3E70E0EF275EB0270020B429 /* Main Views */ = {
-			isa = PBXGroup;
-			children = (
-				3E7C9AFD2771D49800B8A431 /* ContentView.swift */,
-				3E66B89D27CA121F0067C56F /* iPhone */,
-				3E66B8A427CC03090067C56F /* iPad */,
 			);
 			path = "Main Views";
 			sourceTree = "<group>";
@@ -351,8 +351,8 @@
 		3E817152275574AF00F4B0D3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				3E70E0EF275EB0270020B429 /* Main Views */,
-				3E70E0F0275EB05B0020B429 /* Settings Views */,
+				3E66B89D27CA121F0067C56F /* iPhone */,
+				3E6E59C127CD55FF0073CF3B /* iPad */,
 				3E7C9B032772073200B8A431 /* Helper Views */,
 				3E70E0F1275EB07F0020B429 /* Extensions */,
 			);

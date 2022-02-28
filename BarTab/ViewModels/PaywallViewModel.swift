@@ -59,12 +59,9 @@ class PaywallViewModel: ObservableObject {
         functions.httpsCallable("transferData").call(["oldUser": oldUser, "newUser": newUser]) { _, error in
             if let error = error as NSError? {
                 if error.domain == FunctionsErrorDomain {
-                    let code = FunctionsErrorCode(rawValue: error.code)
-                    let message = error.localizedDescription
-                    let details = error.userInfo[FunctionsErrorDetailsKey]
-                    print(code)
-                    print(message)
-                    print(details)
+                    _ = FunctionsErrorCode(rawValue: error.code)
+                    _ = error.localizedDescription
+                    _ = error.userInfo[FunctionsErrorDetailsKey]
                 }
             }
         }

@@ -32,7 +32,7 @@ struct PhoneOrderView: View {
                                     tappedDrink = drinkVM.id
                                     confirmationVM.selectedDrink = drinkVM
                                 }
-                                .aspectRatio(0.9, contentMode: .fit)
+                                .aspectRatio(1.4, contentMode: .fit)
                                 .matchedGeometryEffect(id: drinkVM.id, in: orderNamespace, isSource: true)
                                 .environmentObject(customerListVM)
                                 .environmentObject(drinkListVM)

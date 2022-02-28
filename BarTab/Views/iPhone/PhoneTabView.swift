@@ -9,12 +9,18 @@ import SwiftUI
 import SwiftUIX
 
 struct PhoneTabView: View {
+    @EnvironmentObject var avoider: KeyboardAvoider
+    @StateObject var drinkListVM = DrinkListViewModel()
+    @StateObject var customerListVM = CustomerListViewModel()
+    @StateObject var userHandler = UserHandling()
+
     var body: some View {
         TabView {
             PhoneOrderView()
                 .tabItem {
                     Image(systemName: "house")
                 }
+                .environmentObject(drinkListVM)
             PhoneCustomerListView()
                 .tabItem {
                     Image(systemName: "person")
@@ -23,6 +29,9 @@ struct PhoneTabView: View {
                 .tabItem {
                     Image(systemName: "gear")
                 }
+                .environmentObject(drinkListVM)
+                .environmentObject(customerListVM)
+                .environmentObject(userHandler)
         }
     }
 }

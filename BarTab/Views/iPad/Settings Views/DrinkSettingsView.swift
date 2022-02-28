@@ -68,7 +68,7 @@ struct DrinkSettingsView: View {
     }
 }
 
-struct DrinkRow: View {
+private struct DrinkRow: View {
     @Binding var drinkVM: DrinkViewModel
     var geometry: GeometryProxy
     
