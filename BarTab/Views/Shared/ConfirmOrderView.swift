@@ -22,6 +22,7 @@ struct ConfirmOrderView: View {
     @State private var tagKey = ""
     @State private var isShowingPurchaseConfirmedToast = false
     @State private var currentCustomerName = ""
+    @State private var textSize = CGSize(width: 200, height: 100)
     
     var body: some View {
         if userHandler.user.usingTags {
@@ -51,8 +52,12 @@ struct ConfirmOrderView: View {
             VStack(alignment: .leading) {
                 Text(drinkVM.drink.name).font(.system(size: 80, weight: .black))
                     .fixedSize()
+                    .minimumScaleFactor(0.1)
+                    .padding(.horizontal)
                 Text("\(drinkVM.drink.price) kr").font(.system(size: 60))
                     .fixedSize()
+                    .minimumScaleFactor(0.1)
+                    .padding(.horizontal)
                 Spacer()
             }
             .foregroundColor(.white)
@@ -66,6 +71,9 @@ struct ConfirmOrderView: View {
                 Text("Läs av din bricka för att slutföra köpet.")
                     .font(.headline)
                     .foregroundColor(.white)
+                    .fixedSize()
+                    .minimumScaleFactor(0.1)
+                    .padding(.horizontal)
             }
             VStack {
                 HStack {
@@ -137,8 +145,19 @@ struct ConfirmOrderView: View {
             VStack(alignment: .leading) {
                 Text(drinkVM.drink.name).font(.system(size: 80, weight: .black))
                     .fixedSize()
+                    .padding(.horizontal)
+                    .background(
+                        GeometryReader { geo -> Color in
+                            DispatchQueue.main.async {  // hack for modifying state during view rendering.
+                                textSize = geo.size
+                            }
+                            return Color.clear
+                        }
+                    )
                 Text("\(drinkVM.drink.price) kr").font(.system(size: 60))
                     .fixedSize()
+                    .minimumScaleFactor(0.1)
+                    .padding(.horizontal)
                 Spacer()
             }
             .foregroundColor(.white)
@@ -163,6 +182,9 @@ struct ConfirmOrderView: View {
                 Text("Välj vem som betalar för att slutföra köpet.")
                     .font(.headline)
                     .foregroundColor(.white)
+                    .fixedSize()
+                    .minimumScaleFactor(0.1)
+                    .padding(.horizontal)
             }
             VStack {
                 HStack {

@@ -9,9 +9,9 @@ import SwiftUI
 
 struct PhoneOrderView: View {
     @EnvironmentObject var avoider: KeyboardAvoider
-    @StateObject var drinkListVM = DrinkListViewModel()
-    @StateObject var customerListVM = CustomerListViewModel()
-    @StateObject var userHandler = UserHandling()
+    @EnvironmentObject var drinkListVM: DrinkListViewModel
+    @EnvironmentObject var customerListVM: CustomerListViewModel
+    @EnvironmentObject var userHandler: UserHandling
     @EnvironmentObject var confirmationVM: ConfirmationViewModel
     
     @Namespace var orderNamespace
@@ -23,6 +23,19 @@ struct PhoneOrderView: View {
     var body: some View {
         ZStack {
             VStack {
+                HStack {
+                    Image(uiImage: Bundle.main.icon ?? UIImage())
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .foregroundColor(.accentColor)
+                        .frame(width: 40, height: 40)
+                        .cornerRadius(10)
+                        .padding(8)
+                    Text(userHandler.user.association ?? "BarTab")
+                        .foregroundColor(.gray)
+                        .font(.system(size: 20))
+                    Spacer()
+                }
                 ScrollView(.vertical, showsIndicators: false){
                     LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: 2), spacing: 8) {
                         let sortedList = drinkListVM.sortDrinks(drinkListVM.drinkVMs, by: userHandler.user.drinkSorting)
@@ -41,8 +54,8 @@ struct PhoneOrderView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .animation(.easeInOut)
                 }
-                .padding(.horizontal, 8)
             }
+            .padding(.horizontal, 10)
             .background(
                 Image("backgroundbar")
                     .resizable()

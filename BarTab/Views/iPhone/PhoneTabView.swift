@@ -21,10 +21,14 @@ struct PhoneTabView: View {
                     Image(systemName: "house")
                 }
                 .environmentObject(drinkListVM)
+                .environmentObject(customerListVM)
+                .environmentObject(userHandler)
             PhoneCustomerListView()
                 .tabItem {
                     Image(systemName: "person")
                 }
+                .environmentObject(customerListVM)
+                .environmentObject(userHandler)
             PhoneSettingsView()
                 .tabItem {
                     Image(systemName: "gear")

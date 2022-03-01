@@ -16,6 +16,7 @@ struct PhoneSettingsView: View {
 
     @State private var settingsShown: SettingsRouter = .drinks
     @State private var detailsShown: DetailViewRouter = .none
+    @State private var showingUser = false
     
     private let routerButtonSize: CGFloat = 40
     private let routerButtonCornerRadius: CGFloat = 10
@@ -26,6 +27,7 @@ struct PhoneSettingsView: View {
             HStack(spacing: 16) {
                 Button {
                     settingsShown = .drinks
+                    detailsShown = .none
                 } label: {
                     Image("beer")
                         .resizable()
@@ -38,6 +40,7 @@ struct PhoneSettingsView: View {
                 }
                 Button {
                     settingsShown = .customers
+                    detailsShown = .none
                 } label: {
                     Image(systemName: "person.2")
                         .resizable()
@@ -50,6 +53,7 @@ struct PhoneSettingsView: View {
                 }
                 Button {
                     settingsShown = .bartender
+                    detailsShown = .none
                 } label: {
                     Image("bartender")
                         .resizable()
@@ -89,8 +93,10 @@ struct PhoneSettingsView: View {
     private var drinkScrollList: some View {
         switch detailsShown {
         case .drink(let drinkVM, let detailsViewShown):
-            DrinkSettingsDetailView(drinkVM: drinkVM, detailsViewShown: detailsViewShown)
-                .transition(.move(edge: .trailing))
+            KeyboardAvoiding(with: avoider) {
+                DrinkSettingsDetailView(drinkVM: drinkVM, detailsViewShown: detailsViewShown)
+            }
+            .transition(.move(edge: .trailing))
         case .customer(_, _):
             EmptyView()
         case .none:

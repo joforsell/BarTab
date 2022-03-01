@@ -9,8 +9,7 @@ import SwiftUI
 
 struct PhoneCustomerListView: View {
     var body: some View {
-        Text("CustomerList")
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        CustomerListView()
             .background(
                 Image("backgroundbar")
                     .resizable()
