@@ -22,6 +22,7 @@
 		3E65093D26FCB26900ACDF41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E65093C26FCB26900ACDF41 /* Assets.xcassets */; };
 		3E65094026FCB26900ACDF41 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E65093F26FCB26900ACDF41 /* Preview Assets.xcassets */; };
 		3E658368276B568400555030 /* View+RoundedCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E658367276B568400555030 /* View+RoundedCorners.swift */; };
+		3E65A6FC27CEB958001E3E70 /* Bundle+AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E65A6FB27CEB958001E3E70 /* Bundle+AppIcon.swift */; };
 		3E662B5E2700C76A00033A11 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 3E662B5D2700C76A00033A11 /* Introspect */; };
 		3E66B89C27CA12170067C56F /* PhoneTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E66B89B27CA12170067C56F /* PhoneTabView.swift */; };
 		3E66B89F27CA216E0067C56F /* PhoneOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E66B89E27CA216E0067C56F /* PhoneOrderView.swift */; };
@@ -98,6 +99,7 @@
 		3E65093F26FCB26900ACDF41 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3E65094126FCB26900ACDF41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E658367276B568400555030 /* View+RoundedCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+RoundedCorners.swift"; sourceTree = "<group>"; };
+		3E65A6FB27CEB958001E3E70 /* Bundle+AppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+AppIcon.swift"; sourceTree = "<group>"; };
 		3E66B89B27CA12170067C56F /* PhoneTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneTabView.swift; sourceTree = "<group>"; };
 		3E66B89E27CA216E0067C56F /* PhoneOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneOrderView.swift; sourceTree = "<group>"; };
 		3E66B8A027CA217B0067C56F /* PhoneCustomerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCustomerListView.swift; sourceTree = "<group>"; };
@@ -243,6 +245,24 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		3E65A6FA27CE2A47001E3E70 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				3E7C9AFD2771D49800B8A431 /* ContentView.swift */,
+				3E70E0F8275EB2EC0020B429 /* DrinkSettingsDetailsView.swift */,
+				3E70E0E5275EABDC0020B429 /* CustomerSettingsView.swift */,
+				3E70E0E7275EABE40020B429 /* BartenderSettingsView.swift */,
+				3E850704279708F400A56E17 /* UserSettingsView.swift */,
+				3E8FAA17279C336C00FBA06D /* SignInView.swift */,
+				3E7C9B012772069700B8A431 /* PaywallView.swift */,
+				3E67EC6A279467DF008A2B3D /* SubscriptionDetailsView.swift */,
+				3E7C9AFF2772065500B8A431 /* CreateAccountView.swift */,
+				3E873021275961B500F8E610 /* DrinkCardView.swift */,
+				3E8730232759755100F8E610 /* ConfirmOrderView.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		3E66B89D27CA121F0067C56F /* iPhone */ = {
 			isa = PBXGroup;
 			children = (
@@ -266,17 +286,10 @@
 		3E70E0EF275EB0270020B429 /* Main Views */ = {
 			isa = PBXGroup;
 			children = (
-				3E7C9AFD2771D49800B8A431 /* ContentView.swift */,
-				3E8FAA17279C336C00FBA06D /* SignInView.swift */,
-				3E7C9B012772069700B8A431 /* PaywallView.swift */,
-				3E67EC6A279467DF008A2B3D /* SubscriptionDetailsView.swift */,
-				3E7C9AFF2772065500B8A431 /* CreateAccountView.swift */,
 				3E817153275574F600F4B0D3 /* HomeView.swift */,
 				3E817155275575E500F4B0D3 /* HeaderView.swift */,
 				3E6FA3B32756A7ED0023DAB7 /* BodyView.swift */,
 				3E817157275576AB00F4B0D3 /* OrderView.swift */,
-				3E8730232759755100F8E610 /* ConfirmOrderView.swift */,
-				3E873021275961B500F8E610 /* DrinkCardView.swift */,
 				3E817159275576B400F4B0D3 /* CustomerListView.swift */,
 			);
 			path = "Main Views";
@@ -287,15 +300,11 @@
 			children = (
 				3E70E0E1275EAB340020B429 /* SettingsView.swift */,
 				3E70E0E3275EABD10020B429 /* DrinkSettingsView.swift */,
-				3E70E0F8275EB2EC0020B429 /* DrinkSettingsDetailsView.swift */,
 				3E88B0F4276A7814003561E1 /* AddDrinkView.swift */,
 				3E6916D1276E584B009E80D7 /* ImagePickerView.swift */,
-				3E70E0E5275EABDC0020B429 /* CustomerSettingsView.swift */,
 				3E70E0EB275EAFE00020B429 /* CustomerSettingsDetailsView.swift */,
 				3E6916D3276E78EE009E80D7 /* UpdateTagView.swift */,
 				3E678776275D62170072259F /* AddCustomerView.swift */,
-				3E70E0E7275EABE40020B429 /* BartenderSettingsView.swift */,
-				3E850704279708F400A56E17 /* UserSettingsView.swift */,
 			);
 			path = "Settings Views";
 			sourceTree = "<group>";
@@ -308,6 +317,7 @@
 				3E658367276B568400555030 /* View+RoundedCorners.swift */,
 				3E6916D7276E88BB009E80D7 /* View+Centered.swift */,
 				3E6F1A262771282900661021 /* Date+RawRepresentable.swift */,
+				3E65A6FB27CEB958001E3E70 /* Bundle+AppIcon.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -351,6 +361,7 @@
 		3E817152275574AF00F4B0D3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3E65A6FA27CE2A47001E3E70 /* Shared */,
 				3E66B89D27CA121F0067C56F /* iPhone */,
 				3E6E59C127CD55FF0073CF3B /* iPad */,
 				3E7C9B032772073200B8A431 /* Helper Views */,
@@ -486,6 +497,7 @@
 				3E5DFDCC2787A9460056F0CC /* KeyboardAvoiding.swift in Sources */,
 				3E7C9AFE2771D49800B8A431 /* ContentView.swift in Sources */,
 				3E5DE2B32746E75600B5723D /* DrinkViewModel.swift in Sources */,
+				3E65A6FC27CEB958001E3E70 /* Bundle+AppIcon.swift in Sources */,
 				3E70E0EE275EB0160020B429 /* View+RoundedBorder.swift in Sources */,
 				3E66B89C27CA12170067C56F /* PhoneTabView.swift in Sources */,
 				3E6FA3B42756A7ED0023DAB7 /* BodyView.swift in Sources */,

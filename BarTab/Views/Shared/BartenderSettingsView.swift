@@ -9,6 +9,9 @@ import SwiftUI
 import FirebaseAuth
 
 struct BartenderSettingsView: View {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.verticalSizeClass) var verticalSizeClass
+
     @EnvironmentObject var userHandler: UserHandling
     @EnvironmentObject var avoider: KeyboardAvoider
     
@@ -19,6 +22,8 @@ struct BartenderSettingsView: View {
     
     @State private var showError = false
     @State private var errorString = ""
+    
+    @State private var showingUserInformation = false
     
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
@@ -152,11 +157,19 @@ struct BartenderSettingsView: View {
                 }
             Spacer()
         }
+        .sheet(isPresented: $showingUserInformation) {
+            UserSettingsView(settingsShown: $settingsShown)
+                .clearModalBackground()
+        }
         .center(.horizontal)
         .overlay(alignment: .topTrailing) {
             Button {
                 withAnimation {
-                    settingsShown = .user
+                    if isPhone() {
+                        showingUserInformation = true
+                    } else {
+                        settingsShown = .user
+                    }
                 }
             } label: {
                 VStack(alignment: .center) {
@@ -169,6 +182,10 @@ struct BartenderSettingsView: View {
                 .foregroundColor(.accentColor)
             }
         }
+    }
+    
+    private func isPhone() -> Bool {
+        return !(horizontalSizeClass == .regular && verticalSizeClass == .regular)
     }
 }
 

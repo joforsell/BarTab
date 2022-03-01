@@ -184,18 +184,25 @@ struct DrinkSettingsDetailView: View {
             Spacer()
         }
         .overlay(alignment: .topLeading) {
-            Button {
-                withAnimation {
-                    detailsViewShown = .none
+            if isPhone() {
+                Button {
+                    withAnimation {
+                        detailsViewShown = .none
+                    }
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .padding()
+                        .foregroundColor(.white)
+                        .opacity(0.6)
+                        .contentShape(Rectangle().size(width: 40, height: 40))
                 }
-            } label: {
-                Image(systemName: "chevron.left")
-                    .padding()
-                    .foregroundColor(.white)
-                    .opacity(0.6)
             }
         }
-        .preferredColorScheme(.dark)
+        .preferredColorScheme(isPhone() ? .none : .dark)
+    }
+    
+    private func isPhone() -> Bool {
+        return !(horizontalSizeClass == .regular && verticalSizeClass == .regular)
     }
 }
 

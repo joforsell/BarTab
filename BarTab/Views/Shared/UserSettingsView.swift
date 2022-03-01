@@ -6,10 +6,15 @@
 //
 
 import SwiftUI
+import SwiftUIX
 import Purchases
 import Firebase
 
 struct UserSettingsView: View {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.verticalSizeClass) var verticalSizeClass
+    @Environment(\.presentationMode) var presentationMode
+
     @EnvironmentObject var userHandler: UserHandling
     @EnvironmentObject var authentication: Authentication
     @ObservedObject var userSettingsVM = UserSettingsViewModel()
@@ -25,38 +30,16 @@ struct UserSettingsView: View {
             Image(systemName: "person.circle")
                 .resizable()
                 .scaledToFit()
-                .frame(height: 120)
+                .frame(maxHeight: 120)
                 .foregroundColor(.accentColor)
-                .padding(.bottom, 48)
+                .padding(.bottom, isPhone() ? 24 : 48)
             
-            VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    Text("Kopplad mailadress:")
-                    Spacer()
-                    Text(Auth.auth().currentUser?.email ?? "-")
+            VStack(alignment: isPhone() ? .center : .leading, spacing: 8) {
+                if isPhone() {
+                    phoneView
+                } else {
+                    padView
                 }
-                Divider()
-                HStack {
-                    Text("Användaren skapades:")
-                    Spacer()
-                    Text(userSettingsVM.firstSeenAsString)
-                }
-                Divider()
-                    .frame(width: 300)
-                HStack {
-                    Text("Prenumerationen förnyas:")
-                    Spacer()
-                    Text(userSettingsVM.expireDateAsString)
-                }
-                Divider()
-                    .frame(width: 300)
-                HStack {
-                    Text("Typ av prenumeration:")
-                    Spacer()
-                    Text(userSettingsVM.purchaser?.activeSubscriptions.first ?? "Livstid")
-                }
-                Divider()
-                    .padding(.bottom, 48)
                 HStack {
                     Button {
                         isShowingDeleteAlert = true
@@ -70,6 +53,7 @@ struct UserSettingsView: View {
                             }
                     }
                     .frame(width: 150, height: 44)
+                    .padding()
                     .alert(isPresented: $isShowingDeleteAlert) {
                         Alert(title: Text("Är du säker på att du vill radera ditt konto?"), message: Text("När du raderar ditt konto raderas också all relaterad data. Din prenumeration sägs inte upp automatiskt, detta måste du göra i dina inställningar."), primaryButton: .default(Text("Avbryt")), secondaryButton: .destructive(Text("Radera konto")) { userHandler.deleteUser { result in
                             switch result {
@@ -98,17 +82,23 @@ struct UserSettingsView: View {
                             }
                     }
                     .frame(width: 150, height: 44)
+                    .padding()
                 }
             }
             .foregroundColor(.white)
-            .frame(width: 500)
+            .frame(maxWidth: isPhone() ? UIScreen.main.bounds.width : 500)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(VisualEffectBlurView(blurStyle: .dark))
         .center(.horizontal)
         .overlay(alignment: .topTrailing) {
             Button {
                 withAnimation {
-                    settingsShown = .bartender
+                    if isPhone() {
+                        presentationMode.wrappedValue.dismiss()
+                    } else {
+                        settingsShown = .bartender
+                    }
                 }
             } label: {
                 Image(systemName: "xmark.circle.fill")
@@ -118,5 +108,71 @@ struct UserSettingsView: View {
             }
             .padding()
         }
+    }
+    
+    @ViewBuilder
+    private var phoneView: some View {
+        VStack(alignment: .center) {
+            Text("Kopplad mailadress:").fontWeight(.bold)
+            Text(Auth.auth().currentUser?.email ?? "-")
+        }
+        Divider()
+            .frame(maxWidth: 300)
+        VStack(alignment: .center) {
+            Text("Användaren skapades:").fontWeight(.bold)
+            Text(userSettingsVM.firstSeenAsString)
+        }
+        Divider()
+            .frame(maxWidth: 300)
+        VStack(alignment: .center) {
+            Text("Prenumerationen förnyas:").fontWeight(.bold)
+            Text(userSettingsVM.expireDateAsString)
+        }
+        Divider()
+            .frame(maxWidth: 300)
+        VStack(alignment: .center) {
+            Text("Typ av prenumeration:").fontWeight(.bold)
+            Text(userSettingsVM.purchaser?.activeSubscriptions.first ?? "Livstid")
+        }
+        Divider()
+            .frame(maxWidth: 300)
+            .padding(.bottom, 48)
+    }
+    
+    @ViewBuilder
+    private var padView: some View {
+        HStack {
+            Text("Kopplad mailadress:")
+            Spacer()
+            Text(Auth.auth().currentUser?.email ?? "-")
+        }
+        Divider()
+            .frame(maxWidth: 300)
+        HStack {
+            Text("Användaren skapades:")
+            Spacer()
+            Text(userSettingsVM.firstSeenAsString)
+        }
+        Divider()
+            .frame(maxWidth: 300)
+        HStack {
+            Text("Prenumerationen förnyas:")
+            Spacer()
+            Text(userSettingsVM.expireDateAsString)
+        }
+        Divider()
+            .frame(maxWidth: 300)
+        HStack {
+            Text("Typ av prenumeration:")
+            Spacer()
+            Text(userSettingsVM.purchaser?.activeSubscriptions.first ?? "Livstid")
+        }
+        Divider()
+            .frame(maxWidth: 300)
+            .padding(.bottom, 48)
+    }
+    
+    private func isPhone() -> Bool {
+        return !(horizontalSizeClass == .regular && verticalSizeClass == .regular)
     }
 }
