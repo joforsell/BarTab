@@ -7,50 +7,31 @@
 
 import Foundation
 import Purchases
-import Combine
+import SwiftUI
 
 class UserSettingsViewModel: ObservableObject {
+    @Environment(\.locale) var locale
     @Published var purchaser: Purchases.PurchaserInfo?
-    @Published var firstSeenAsString = "-"
     @Published var expireDateAsString = "-"
-    
-    var cancellables = Set<AnyCancellable>()
+    @Published var subscriptionType = "Livstid"
     
     init() {
-        Purchases.shared.purchaserInfo { purchaserInfo, error in
+        Purchases.shared.purchaserInfo { [weak self] purchaserInfo, error in
+            guard let self = self else { return }
             self.purchaser = purchaserInfo
+            self.expireDateAsString = self.formattedDate(purchaserInfo?.latestExpirationDate)
+            self.subscriptionType = purchaserInfo?.activeSubscriptions.first ?? "Livstid"
         }
-        
-        $purchaser
-            .map {
-                guard self.purchaser != nil else { return "-" }
-                
-                let formatter = DateFormatter()
-                formatter.dateStyle = .medium
-                formatter.timeStyle = .none
-                formatter.locale = Locale(identifier: "sv_SE")
-                let dateString = formatter.string(from: $0!.firstSeen)
-                return dateString
-                }
-            .assign(to: \.firstSeenAsString, on: self)
-            .store(in: &cancellables)
-        
-        $purchaser
-            .map {
-                guard self.purchaser != nil else { return "-" }
-                
-                let formatter = DateFormatter()
-                formatter.dateStyle = .medium
-                formatter.timeStyle = .none
-                formatter.locale = Locale(identifier: "sv_SE")
-            
-                guard let expDate = $0!.latestExpirationDate else { return "-" }
-                
-                let dateString = formatter.string(from: expDate)
-                return dateString
-                }
-            .assign(to: \.expireDateAsString, on: self)
-            .store(in: &cancellables)
+    }
+    
+    private func formattedDate(_ date: Date?) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        formatter.locale = Locale(identifier: locale.identifier)
 
+        guard let expDate = date else { return "-" }
+
+        return formatter.string(from: expDate)
     }
 }

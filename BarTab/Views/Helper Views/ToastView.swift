@@ -25,6 +25,8 @@ struct ToastView: View {
             VStack(alignment: .leading) {
                 Text(title)
                     .font(.title)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.1)
                 if let subTitle = subTitle {
                     Text(subTitle)
                         .foregroundColor(.black)
@@ -38,6 +40,7 @@ struct ToastView: View {
         .background(Color.white)
         .cornerRadius(20)
         .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 6)
+        .padding()
     }
 }
 

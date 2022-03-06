@@ -13,9 +13,12 @@ struct SubscriptionDetailsView: View {
         ScrollView {
             VStack(alignment: .center) {
                 Image(systemName: "arrow.triangle.2.circlepath.circle.fill")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
                     .foregroundColor(.accentColor)
                     .font(.system(size: 240, weight: .thin))
                     .padding(.vertical, 48)
+                    .frame(maxWidth: UIScreen.main.bounds.width/2, maxHeight: UIScreen.main.bounds.height/2)
                 Text("Prenumerationsdetaljer")
                     .font(.title)
                     .fontWeight(.bold)
@@ -27,7 +30,9 @@ struct SubscriptionDetailsView: View {
                     Prenumerationer kommer automatiskt förnyas om inte automatisk förnyelse stängs av minst 24 timmar innan slutet på nuvarande prenumerationsperiod. Detta kan göras via Inställningar > Apple-ID > Abonnemang.
                     """)
                     .multilineTextAlignment(.leading)
-                    .padding(48)
+                    .padding(.bottom, 48)
+                    .padding(.top, 8)
+                    .padding(.horizontal, 8)
             }
         }
         .foregroundColor(.white)

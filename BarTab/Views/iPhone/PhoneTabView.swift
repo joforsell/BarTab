@@ -13,26 +13,22 @@ struct PhoneTabView: View {
     @StateObject var drinkListVM = DrinkListViewModel()
     @StateObject var customerListVM = CustomerListViewModel()
     @StateObject var userHandler = UserHandling()
+    
+    @State private var selection: TabBarItem = .drinks
 
     var body: some View {
-        TabView {
+        CustomTabBarContainerView(selection: $selection) {
             PhoneOrderView()
-                .tabItem {
-                    Image(systemName: "house")
-                }
+                .tabBarItem(tab: .drinks, selection: $selection)
                 .environmentObject(drinkListVM)
                 .environmentObject(customerListVM)
                 .environmentObject(userHandler)
             PhoneCustomerListView()
-                .tabItem {
-                    Image(systemName: "person")
-                }
+                .tabBarItem(tab: .customers, selection: $selection)
                 .environmentObject(customerListVM)
                 .environmentObject(userHandler)
             PhoneSettingsView()
-                .tabItem {
-                    Image(systemName: "gear")
-                }
+                .tabBarItem(tab: .settings, selection: $selection)
                 .environmentObject(drinkListVM)
                 .environmentObject(customerListVM)
                 .environmentObject(userHandler)

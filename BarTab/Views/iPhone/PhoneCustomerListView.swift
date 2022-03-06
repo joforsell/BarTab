@@ -17,6 +17,5 @@ struct PhoneCustomerListView: View {
                     .overlay(Color.black.opacity(0.5).blendMode(.overlay))
                     .ignoresSafeArea()
             )
-
     }
 }

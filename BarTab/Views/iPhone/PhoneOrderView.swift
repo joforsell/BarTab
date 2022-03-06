@@ -54,6 +54,7 @@ struct PhoneOrderView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .animation(.easeInOut)
                 }
+                .padding(.bottom, 48)
             }
             .padding(.horizontal, 10)
             .background(

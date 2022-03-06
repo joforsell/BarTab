@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseAuth
+import ToastUI
 
 struct BartenderSettingsView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
@@ -14,16 +15,23 @@ struct BartenderSettingsView: View {
 
     @EnvironmentObject var userHandler: UserHandling
     @EnvironmentObject var avoider: KeyboardAvoider
+    @EnvironmentObject var customerListVM: CustomerListViewModel
     
     @Binding var settingsShown: SettingsRouter
     
+    @AppStorage("latestEmail") var latestEmail: Date = Date(timeIntervalSinceReferenceDate: 60000)
+    
     @State private var editingAssociation = false
     @State private var editingEmail = false
+    @State private var editingPhoneNumber = false
     
     @State private var showError = false
     @State private var errorString = ""
+    @State private var errorTitle = ""
     
     @State private var showingUserInformation = false
+    @State private var isShowingEmailConfirmation = false
+    @State private var confirmEmails = false
     
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
@@ -32,7 +40,7 @@ struct BartenderSettingsView: View {
             Image("bartender")
                 .resizable()
                 .scaledToFit()
-                .frame(height: 200)
+                .frame(width: isPhone() ? UIScreen.main.bounds.width/2 : 200)
                 .foregroundColor(.accentColor)
                 .offset(x: -20)
             
@@ -41,7 +49,7 @@ struct BartenderSettingsView: View {
                     TextField("",
                               text: $userHandler.user.email,
                               onEditingChanged: { editingChanged in
-                        self.avoider.editingField = 10
+                        self.avoider.editingField = 1
                         if editingChanged {
                             withAnimation {
                                 editingEmail = true
@@ -90,14 +98,14 @@ struct BartenderSettingsView: View {
             .cornerRadius(6)
             .addBorder(editingEmail ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
             .padding(.top, 48)
-            .avoidKeyboard(tag: 10)
+            .avoidKeyboard(tag: 1)
             
             VStack(alignment: .leading, spacing: 2) {
                 HStack(alignment: .bottom) {
                     TextField("",
                               text: $userHandler.user.association,
                               onEditingChanged: { editingChanged in
-                        self.avoider.editingField = 11
+                        self.avoider.editingField = 2
                         if editingChanged {
                             withAnimation {
                                 editingAssociation = true
@@ -146,7 +154,63 @@ struct BartenderSettingsView: View {
             .background(Color.gray.opacity(0.2))
             .cornerRadius(6)
             .addBorder(editingAssociation ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
-            .avoidKeyboard(tag: 11)
+            .avoidKeyboard(tag: 2)
+            
+            VStack(alignment: .leading, spacing: 2) {
+                HStack(alignment: .bottom) {
+                    TextField("",
+                              text: $userHandler.user.number,
+                              onEditingChanged: { editingChanged in
+                        self.avoider.editingField = 3
+                        if editingChanged {
+                            withAnimation {
+                                editingPhoneNumber = true
+                            }
+                        } else {
+                            withAnimation {
+                                editingPhoneNumber = false
+                            }
+                        } },
+                              onCommit: {
+                        withAnimation {
+                            editingPhoneNumber.toggle()
+                        }
+                        userHandler.updateUserPhoneNumber(userHandler.user.number ?? "")
+                    }
+                    )
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
+                        .font(.title3)
+                    Spacer()
+                }
+                .offset(y: 4)
+                .overlay(alignment: .trailing) {
+                    Image(systemName: editingPhoneNumber ? "checkmark.rectangle.fill" : "phone.circle.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .opacity(editingPhoneNumber ? 1 : 0.5)
+                        .foregroundColor(editingPhoneNumber ? .accentColor : .white)
+                        .onTapGesture {
+                            editingPhoneNumber ? userHandler.updateUserPhoneNumber(userHandler.user.number ?? "") : nil
+                            UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
+                        }
+                    
+                }
+                .overlay(alignment: .topLeading) {
+                    Text("Telefonnummer".uppercased())
+                        .font(.caption2)
+                        .foregroundColor(.white)
+                        .opacity(0.5)
+                        .offset(y: -10)
+                }
+            }
+            .frame(width: 300, height: 24)
+            .padding()
+            .foregroundColor(.white)
+            .background(Color.gray.opacity(0.2))
+            .cornerRadius(6)
+            .addBorder(editingPhoneNumber ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
+            .avoidKeyboard(tag: 3)
             
             Toggle("Använd RFID-brickor", isOn: $userHandler.user.usingTags)
                 .toggleStyle(SwitchToggleStyle(tint: .accentColor))
@@ -163,23 +227,39 @@ struct BartenderSettingsView: View {
         }
         .center(.horizontal)
         .overlay(alignment: .topTrailing) {
-            Button {
-                withAnimation {
-                    if isPhone() {
-                        showingUserInformation = true
-                    } else {
-                        settingsShown = .user
+            VStack {
+                Button {
+                    withAnimation {
+                        if isPhone() {
+                            showingUserInformation = true
+                        } else {
+                            settingsShown = .user
+                        }
                     }
+                } label: {
+                    VStack(alignment: .center) {
+                        Image(systemName: "person.circle.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 44)
+                    }
+                    .padding()
+                    .foregroundColor(.accentColor)
                 }
-            } label: {
-                VStack(alignment: .center) {
-                    Image(systemName: "person.circle.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 44)
-                }
-                .padding()
-                .foregroundColor(.accentColor)
+                emailButton
+                    .alert(isPresented: $showError) {
+                        if oneDayHasElapsedSince(latestEmail) {
+                            return Alert(title: Text(errorTitle),
+                                         message: Text(errorString),
+                                         primaryButton: .default(Text("Avbryt")),
+                                         secondaryButton: .default(Text("OK"), action: emailButtonAction))
+                        } else {
+                            return Alert(title: errorTitle, message: errorString, dismissButtonTitle: "OK")
+                        }
+                    }
+            }
+            .toast(isPresented: $isShowingEmailConfirmation, dismissAfter: 6, onDismiss: { isShowingEmailConfirmation = false }) {
+                ToastView(systemImage: ("envelope.fill", .accentColor, 50), title: "Mailutskick sändes", subTitle: "Ett mail med aktuellt saldo skickades till användare med kopplad mailadress.")
             }
         }
     }
@@ -187,6 +267,50 @@ struct BartenderSettingsView: View {
     private func isPhone() -> Bool {
         return !(horizontalSizeClass == .regular && verticalSizeClass == .regular)
     }
+    
+    private func oneDayHasElapsedSince(_ date: Date) -> Bool {
+        let timeSinceLatestEmail = -latestEmail.timeIntervalSinceNow
+        return timeSinceLatestEmail > 60
+    }
+    
+    private var emailButton: some View {
+        Button {
+            if oneDayHasElapsedSince(latestEmail) {
+                errorTitle = "Är du säker på att du vill göra ett mailutskick?"
+                errorString = "Detta skickar ett mail med aktuellt saldo till alla användare som angett en mailadress."
+            } else {
+                errorTitle = "Kunde inte skicka"
+                errorString = "Du kan bara göra utskick en gång i minuten."
+            }
+            showError = true
+        } label: {
+            Image(systemName: "envelope.fill")
+                .font(.largeTitle)
+                .foregroundColor(oneDayHasElapsedSince(latestEmail) ? .accentColor : .accentColor.opacity(0.3))
+        }
+    }
+    
+    private func emailButtonAction() {
+        var customers = [Customer]()
+        customerListVM.customerVMs.forEach { customerVM in
+            customers.append(customerVM.customer)
+        }
+        customerListVM.sendEmails(from: userHandler.user, to: customers) { result in
+            switch result {
+            case .failure(let error):
+                errorTitle = "Error sending emails"
+                errorString = error.localizedDescription
+                showError = true
+            case .success(_):
+                latestEmail = Date()
+            }
+        }
+        latestEmail = Date()
+        withAnimation {
+            isShowingEmailConfirmation.toggle()
+        }
+    }
+
 }
 
 

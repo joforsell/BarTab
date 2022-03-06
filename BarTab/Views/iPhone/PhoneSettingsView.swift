@@ -17,6 +17,9 @@ struct PhoneSettingsView: View {
     @State private var settingsShown: SettingsRouter = .drinks
     @State private var detailsShown: DetailViewRouter = .none
     @State private var showingUser = false
+    @State private var showingAddDrinkView = false
+    @State private var showingAddCustomerView = false
+    @State private var showingButton = true
     
     private let routerButtonSize: CGFloat = 40
     private let routerButtonCornerRadius: CGFloat = 10
@@ -69,24 +72,72 @@ struct PhoneSettingsView: View {
                 switch settingsShown {
                 case .drinks:
                     drinkScrollList
+                        .padding(.bottom, 48)
                 case .customers:
                     customerScrollList
+                        .padding(.bottom, 48)
                 case .bartender:
                     bartenderView
+                        .padding(.bottom, 48)
                 default:
                     drinkScrollList
+                        .padding(.bottom, 48)
                 }
             }
         }
-            .background(VisualEffectBlurView(blurStyle: .dark)
-                            .ignoresSafeArea())
-            .background(
-                Image("backgroundbar")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .overlay(Color.black.opacity(0.5).blendMode(.overlay))
-                    .ignoresSafeArea()
-            )
+        .overlay(alignment: .bottomTrailing) {
+            if settingsShown == .drinks && showingButton {
+                addDrinkButton
+            } else if settingsShown == .customers && showingButton {
+                addCustomerButton
+            }
+        }
+        
+        .background(VisualEffectBlurView(blurStyle: .dark)
+                        .ignoresSafeArea())
+        .background(
+            Image("backgroundbar")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .overlay(Color.black.opacity(0.5).blendMode(.overlay))
+                .ignoresSafeArea()
+        )
+    }
+    
+    private var addCustomerButton: some View {
+        Button {
+            showingAddCustomerView = true
+        } label: {
+            Image(systemName: "person.crop.circle.badge.plus")
+                .resizable()
+                .scaledToFit()
+                .foregroundColor(.accentColor)
+                .padding()
+                .frame(width: 90)
+        }
+        .offset(y: -50)
+        .sheet(isPresented: $showingAddCustomerView) {
+            AddCustomerView()
+                .clearModalBackground()
+        }
+    }
+    
+    private var addDrinkButton: some View {
+        Button {
+            showingAddDrinkView = true
+        } label: {
+            Image(systemName: "plus.circle.fill")
+                .resizable()
+                .scaledToFit()
+                .foregroundColor(.accentColor)
+                .padding()
+                .frame(width: 84)
+        }
+        .offset(y: -50)
+        .sheet(isPresented: $showingAddDrinkView) {
+            AddDrinkView(detailViewShown: $detailsShown)
+                .clearModalBackground()
+        }
     }
     
     @ViewBuilder
@@ -95,8 +146,8 @@ struct PhoneSettingsView: View {
         case .drink(let drinkVM, let detailsViewShown):
             KeyboardAvoiding(with: avoider) {
                 DrinkSettingsDetailView(drinkVM: drinkVM, detailsViewShown: detailsViewShown)
+                    .transition(.move(edge: .trailing))
             }
-            .transition(.move(edge: .trailing))
         case .customer(_, _):
             EmptyView()
         case .none:
@@ -110,6 +161,7 @@ struct PhoneSettingsView: View {
                             .contentShape(Rectangle())
                             .onTapGesture {
                                 withAnimation {
+                                    showingButton = false
                                     detailsShown = .drink(drinkVM: $drinkVM, detailsViewShown: $detailsShown)
                                 }
                             }
@@ -117,6 +169,9 @@ struct PhoneSettingsView: View {
                             .padding(.top, 4)
                     }
                 }
+            }
+            .onAppear {
+                showingButton = true
             }
         }
     }
@@ -148,18 +203,38 @@ struct PhoneSettingsView: View {
         }
     }
     
+    @ViewBuilder
     private var customerScrollList: some View {
-        VStack(spacing: 4) {
-            ForEach($customerListVM.customerVMs) { $customerVM in
-                VStack(spacing: 0) {
-                    CustomerRow(customerVM: $customerVM)
-                        .padding(.horizontal)
-                        .padding(.vertical, 8)
-                        .background(Color.clear)
-                        .contentShape(Rectangle())
-                    Divider()
-                        .padding(.top, 4)
+        switch detailsShown {
+        case .drink(_, _):
+            EmptyView()
+        case .customer(let customerVM, let detailsViewShown):
+            KeyboardAvoiding(with: avoider) {
+                CustomerSettingsDetailView(customerVM: customerVM, detailsViewShown: detailsViewShown)
+            }
+            .transition(.move(edge: .trailing))
+        case .none:
+            VStack(spacing: 4) {
+                ForEach($customerListVM.customerVMs) { $customerVM in
+                    VStack(spacing: 0) {
+                        CustomerRow(customerVM: $customerVM)
+                            .padding(.horizontal)
+                            .padding(.vertical, 8)
+                            .background(Color.clear)
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                withAnimation {
+                                    showingButton = false
+                                    detailsShown = .customer(customerVM: $customerVM, detailsViewShown: $detailsShown)
+                                }
+                            }
+                        Divider()
+                            .padding(.top, 4)
+                    }
                 }
+            }
+            .onAppear {
+                showingButton = true
             }
         }
     }

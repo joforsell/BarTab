@@ -26,71 +26,74 @@ struct UserSettingsView: View {
     @State private var isShowingLogOutAlert = false
         
     var body: some View {
-        VStack(alignment: .center, spacing: 20) {
-            Image(systemName: "person.circle")
-                .resizable()
-                .scaledToFit()
-                .frame(maxHeight: 120)
-                .foregroundColor(.accentColor)
-                .padding(.bottom, isPhone() ? 24 : 48)
-            
-            VStack(alignment: isPhone() ? .center : .leading, spacing: 8) {
-                if isPhone() {
-                    phoneView
-                } else {
-                    padView
-                }
-                HStack {
-                    Button {
-                        isShowingDeleteAlert = true
-                    } label: {
-                        RoundedRectangle(cornerRadius: 6)
-                            .foregroundColor(.red)
-                            .overlay {
-                                Label("Radera konto", systemImage: "trash.fill")
-                                    .foregroundColor(.white)
-                                    .font(.caption)
-                            }
+        GeometryReader { geometry in
+            VStack(alignment: .center, spacing: 20) {
+                Spacer()
+                Image(systemName: "person.circle")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(maxHeight: 120)
+                    .foregroundColor(.accentColor)
+                    .padding(.bottom, isPhone() ? 24 : 48)
+                
+                VStack(alignment: isPhone() ? .center : .leading, spacing: 8) {
+                    if isPhone() {
+                        phoneView
+                    } else {
+                        padView
                     }
-                    .frame(width: 150, height: 44)
-                    .padding()
-                    .alert(isPresented: $isShowingDeleteAlert) {
-                        Alert(title: Text("Är du säker på att du vill radera ditt konto?"), message: Text("När du raderar ditt konto raderas också all relaterad data. Din prenumeration sägs inte upp automatiskt, detta måste du göra i dina inställningar."), primaryButton: .default(Text("Avbryt")), secondaryButton: .destructive(Text("Radera konto")) { userHandler.deleteUser { result in
-                            switch result {
-                            case .failure(let error):
-                                print(error.localizedDescription)
-                            case .success(_):
-                                authentication.userAuthState = .signedOut
-                            }
+                    HStack {
+                        Button {
+                            isShowingDeleteAlert = true
+                        } label: {
+                            RoundedRectangle(cornerRadius: 6)
+                                .foregroundColor(.red)
+                                .overlay {
+                                    Label("Radera konto", systemImage: "trash.fill")
+                                        .foregroundColor(.white)
+                                        .font(.caption)
+                                }
                         }
-                        })
-                    }
-                    Spacer()
-                    Button {
-                        UserHandling.signOut { completed in
-                            if completed {
-                                authentication.userAuthState = .signedOut
+                        .frame(width: 150, height: 44)
+                        .padding()
+                        .alert(isPresented: $isShowingDeleteAlert) {
+                            Alert(title: Text("Är du säker på att du vill radera ditt konto?"), message: Text("När du raderar ditt konto raderas också all relaterad data. Din prenumeration sägs inte upp automatiskt, detta måste du göra i dina inställningar."), primaryButton: .default(Text("Avbryt")), secondaryButton: .destructive(Text("Radera konto")) { userHandler.deleteUser { result in
+                                switch result {
+                                case .failure(let error):
+                                    print(error.localizedDescription)
+                                case .success(_):
+                                    authentication.userAuthState = .signedOut
+                                }
                             }
+                            })
                         }
-                    } label: {
-                        RoundedRectangle(cornerRadius: 6)
-                            .foregroundColor(.accentColor)
-                            .overlay {
-                                Label("Logga ut", systemImage: "rectangle.portrait.and.arrow.right")
-                                    .foregroundColor(.white)
-                                    .font(.caption)
+                        Spacer()
+                        Button {
+                            UserHandling.signOut { completed in
+                                if completed {
+                                    authentication.userAuthState = .signedOut
+                                }
                             }
+                        } label: {
+                            RoundedRectangle(cornerRadius: 6)
+                                .foregroundColor(.accentColor)
+                                .overlay {
+                                    Label("Logga ut", systemImage: "rectangle.portrait.and.arrow.right")
+                                        .foregroundColor(.white)
+                                        .font(.caption)
+                                }
+                        }
+                        .frame(width: 150, height: 44)
+                        .padding()
                     }
-                    .frame(width: 150, height: 44)
-                    .padding()
                 }
+                .foregroundColor(.white)
+                .frame(maxWidth: isPhone() ? UIScreen.main.bounds.width : 500)
+                Spacer()
             }
-            .foregroundColor(.white)
-            .frame(maxWidth: isPhone() ? UIScreen.main.bounds.width : 500)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .center(.horizontal)
+            }
         .background(VisualEffectBlurView(blurStyle: .dark))
-        .center(.horizontal)
         .overlay(alignment: .topTrailing) {
             Button {
                 withAnimation {
@@ -119,12 +122,6 @@ struct UserSettingsView: View {
         Divider()
             .frame(maxWidth: 300)
         VStack(alignment: .center) {
-            Text("Användaren skapades:").fontWeight(.bold)
-            Text(userSettingsVM.firstSeenAsString)
-        }
-        Divider()
-            .frame(maxWidth: 300)
-        VStack(alignment: .center) {
             Text("Prenumerationen förnyas:").fontWeight(.bold)
             Text(userSettingsVM.expireDateAsString)
         }
@@ -132,7 +129,7 @@ struct UserSettingsView: View {
             .frame(maxWidth: 300)
         VStack(alignment: .center) {
             Text("Typ av prenumeration:").fontWeight(.bold)
-            Text(userSettingsVM.purchaser?.activeSubscriptions.first ?? "Livstid")
+            Text(userSettingsVM.subscriptionType)
         }
         Divider()
             .frame(maxWidth: 300)
@@ -145,13 +142,6 @@ struct UserSettingsView: View {
             Text("Kopplad mailadress:")
             Spacer()
             Text(Auth.auth().currentUser?.email ?? "-")
-        }
-        Divider()
-            .frame(maxWidth: 300)
-        HStack {
-            Text("Användaren skapades:")
-            Spacer()
-            Text(userSettingsVM.firstSeenAsString)
         }
         Divider()
             .frame(maxWidth: 300)
