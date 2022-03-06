@@ -27,8 +27,6 @@ class UserHandling: ObservableObject {
     
     init() {
         loadUser()
-        
-        print("Initializing userHandler...")
     }
         
     let db = Firestore.firestore().collection("users")
@@ -43,40 +41,42 @@ class UserHandling: ObservableObject {
                 
                 self.user = data
             }
-        
-        print("Calling loadUser...")
     }
     
     func updateUserEmail(_ email: String) {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         
-        db.document(userID).setData([ "email" : email ] , merge: true)
-        print("Updating email...")
+        db.document(userID).setData(["email": email], merge: true)
     }
     
     func updateUserAssociation(_ association: String) {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         
-        db.document(userID).setData([ "association" : association ] , merge: true)
-        print("Updating association...")
+        db.document(userID).setData(["association": association], merge: true)
+    }
+    
+    func updateUserPhoneNumber(_ number: String) {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        
+        db.document(userID).setData(["number": number], merge: true)
     }
     
     func updateUserTagUsage(_ isUsingTags: Bool) {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         
-        db.document(userID).setData([ "usingTags" : isUsingTags ] , merge: true)
+        db.document(userID).setData(["usingTags": isUsingTags], merge: true)
     }
     
     func updateColumnCount(_ columnCount: Int) {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         
-        db.document(userID).setData([ "drinkCardColumns" : columnCount ] , merge: true)
+        db.document(userID).setData(["drinkCardColumns": columnCount], merge: true)
     }
     
     func updateDrinkSorting(_ drinkSorting: DrinkListViewModel.DrinkSorting) {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         
-        db.document(userID).setData([ "drinkSorting" : drinkSorting.rawValue ] , merge: true)
+        db.document(userID).setData(["drinkSorting": drinkSorting.rawValue], merge: true)
     }
     
     func deleteUser(completion: @escaping (Result<Bool, Error>) -> ()) {

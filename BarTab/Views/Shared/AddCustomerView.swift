@@ -1,25 +1,26 @@
 //
-//  AddDrinkView.swift
+//  AddCustomerView.swift
 //  BarTab
 //
-//  Created by Johan Forsell on 2021-12-15.
+//  Created by Johan Forsell on 2021-12-05.
 //
 
 import SwiftUI
 import SwiftUIX
 
-struct AddDrinkView: View {
-    @EnvironmentObject var drinkListVM: DrinkListViewModel
-    @EnvironmentObject var avoider: KeyboardAvoider
+struct AddCustomerView: View {
     @Environment(\.presentationMode) var presentationMode
-    
-    @Binding var detailViewShown: DetailViewRouter
+
+    @EnvironmentObject var customerListVM: CustomerListViewModel
+    @EnvironmentObject var avoider: KeyboardAvoider
     
     @State private var name = ""
-    @State private var price = ""
+    @State private var email = ""
+    @State private var balance = ""
     
     @State private var editingName = false
-    @State private var editingPrice = false
+    @State private var editingEmail = false
+    @State private var editingBalance = false
     
     @State private var isShowingAlert = false
     
@@ -29,22 +30,19 @@ struct AddDrinkView: View {
                 Spacer()
                 
                 KeyboardAvoiding(with: avoider) {
-                    Image(systemName: "plus.circle.fill")
+                    Image(systemName: "person.crop.circle.badge.plus")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
                         .foregroundColor(.accentColor)
                         .font(.system(size: 240, weight: .thin))
                         .padding(.bottom, 48)
+                        .frame(maxWidth: geometry.size.width/2, maxHeight: geometry.size.height/2)
                 
-                    CustomInputView(title: "Namn",
-                                    image: "square.text.square.fill",
-                                    editing: $editingName,
-                                    text: $name,
-                                    keybTag: 6)
+                    CustomInputView(title: "Namn", image: "person.text.rectangle.fill", editing: $editingName, text: $name, keybTag: 7)
                     
-                    CustomInputView(title: "Pris",
-                                    image: "dollarsign.square.fill",
-                                    editing: $editingPrice,
-                                    text: $price,
-                                    keybTag: 7)
+                    CustomInputView(title: "Mailadress", image: "envelope.fill", editing: $editingEmail, text: $email, keybTag: 8)
+                    
+                    CustomInputView(title: "Ingående saldo", image: "dollarsign.square.fill", editing: $editingBalance, text: $balance, keybTag: 9)
                 }
                 
                 Color.clear
@@ -55,22 +53,21 @@ struct AddDrinkView: View {
                             if name.trimmingCharacters(in: .whitespaces).isEmpty {
                                 isShowingAlert = true
                             } else {
-                                drinkListVM.addDrink(name: name, price: Int(price) ?? 0)
-                                detailViewShown = .none
+                                customerListVM.addCustomer(name: name, balance: Int(balance) ?? 0, email: email)
                                 presentationMode.wrappedValue.dismiss()
                             }
                         } label: {
                             RoundedRectangle(cornerRadius: 6)
                                 .overlay {
-                                    Text("Skapa dryck".uppercased())
+                                    Text("Skapa användare".uppercased())
                                         .foregroundColor(.white)
                                         .fontWeight(.bold)
                                 }
                         }
                     }
-                    .alert(isPresented: $isShowingAlert) {
-                        Alert(title: Text("Drycken måste ha ett namn"), dismissButton: .default(Text("OK").foregroundColor(.accentColor)))
-                    }
+                .alert(isPresented: $isShowingAlert) {
+                    Alert(title: Text("Användaren måste ha ett namn"), dismissButton: .default(Text("OK").foregroundColor(.accentColor)))
+                }
                 Spacer()
             }
             .center(.horizontal)
@@ -78,4 +75,3 @@ struct AddDrinkView: View {
         .background(VisualEffectBlurView(blurStyle: .dark))
     }
 }
-

@@ -43,6 +43,9 @@
 		3E6916D4276E78EE009E80D7 /* UpdateTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6916D3276E78EE009E80D7 /* UpdateTagView.swift */; };
 		3E6916D8276E88BB009E80D7 /* View+Centered.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6916D7276E88BB009E80D7 /* View+Centered.swift */; };
 		3E6C68B0278C697C00EFE42C /* OrientationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C68AF278C697C00EFE42C /* OrientationInfo.swift */; };
+		3E6E097827D3386500BF13EE /* CustomTabBarContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6E097727D3386500BF13EE /* CustomTabBarContainerView.swift */; };
+		3E6E097B27D3416100BF13EE /* TabBarItemsPreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6E097A27D3416100BF13EE /* TabBarItemsPreferenceKey.swift */; };
+		3E6E097D27D3417200BF13EE /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6E097C27D3417200BF13EE /* TabBarItem.swift */; };
 		3E6E702D279D7B2000FB1639 /* BackgroundBlob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6E702C279D7B2000FB1639 /* BackgroundBlob.swift */; };
 		3E6F1A272771282900661021 /* Date+RawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6F1A262771282900661021 /* Date+RawRepresentable.swift */; };
 		3E6F1A2927712B5300661021 /* CustomInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6F1A2827712B5300661021 /* CustomInputView.swift */; };
@@ -80,6 +83,7 @@
 		3E96528F27824BBD00815A74 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E96528E27824BBD00815A74 /* StoreKit.framework */; };
 		3EBC4986270A4D7F006B4857 /* CustomerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBC4985270A4D7F006B4857 /* CustomerRepository.swift */; };
 		3EBC4988270B8845006B4857 /* DrinkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBC4987270B8845006B4857 /* DrinkRepository.swift */; };
+		3EEF5BD427CF67D000CC9AAF /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEF5BD327CF67D000CC9AAF /* CustomTabBarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -114,6 +118,9 @@
 		3E6916D7276E88BB009E80D7 /* View+Centered.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Centered.swift"; sourceTree = "<group>"; };
 		3E6C68AF278C697C00EFE42C /* OrientationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrientationInfo.swift; sourceTree = "<group>"; };
 		3E6C68B1278D979200EFE42C /* BarTab.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BarTab.entitlements; sourceTree = "<group>"; };
+		3E6E097727D3386500BF13EE /* CustomTabBarContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarContainerView.swift; sourceTree = "<group>"; };
+		3E6E097A27D3416100BF13EE /* TabBarItemsPreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItemsPreferenceKey.swift; sourceTree = "<group>"; };
+		3E6E097C27D3417200BF13EE /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
 		3E6E702C279D7B2000FB1639 /* BackgroundBlob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundBlob.swift; sourceTree = "<group>"; };
 		3E6F1A262771282900661021 /* Date+RawRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+RawRepresentable.swift"; sourceTree = "<group>"; };
 		3E6F1A2827712B5300661021 /* CustomInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInputView.swift; sourceTree = "<group>"; };
@@ -148,6 +155,7 @@
 		3E96528E27824BBD00815A74 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		3EBC4985270A4D7F006B4857 /* CustomerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerRepository.swift; sourceTree = "<group>"; };
 		3EBC4987270B8845006B4857 /* DrinkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkRepository.swift; sourceTree = "<group>"; };
+		3EEF5BD327CF67D000CC9AAF /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,8 +257,9 @@
 			isa = PBXGroup;
 			children = (
 				3E7C9AFD2771D49800B8A431 /* ContentView.swift */,
+				3E817159275576B400F4B0D3 /* CustomerListView.swift */,
 				3E70E0F8275EB2EC0020B429 /* DrinkSettingsDetailsView.swift */,
-				3E70E0E5275EABDC0020B429 /* CustomerSettingsView.swift */,
+				3E70E0EB275EAFE00020B429 /* CustomerSettingsDetailsView.swift */,
 				3E70E0E7275EABE40020B429 /* BartenderSettingsView.swift */,
 				3E850704279708F400A56E17 /* UserSettingsView.swift */,
 				3E8FAA17279C336C00FBA06D /* SignInView.swift */,
@@ -259,6 +268,8 @@
 				3E7C9AFF2772065500B8A431 /* CreateAccountView.swift */,
 				3E873021275961B500F8E610 /* DrinkCardView.swift */,
 				3E8730232759755100F8E610 /* ConfirmOrderView.swift */,
+				3E88B0F4276A7814003561E1 /* AddDrinkView.swift */,
+				3E678776275D62170072259F /* AddCustomerView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -267,11 +278,23 @@
 			isa = PBXGroup;
 			children = (
 				3E66B89B27CA12170067C56F /* PhoneTabView.swift */,
+				3E6E097927D3414300BF13EE /* CustomTabBar */,
 				3E66B89E27CA216E0067C56F /* PhoneOrderView.swift */,
 				3E66B8A027CA217B0067C56F /* PhoneCustomerListView.swift */,
 				3E66B8A227CA21830067C56F /* PhoneSettingsView.swift */,
 			);
 			path = iPhone;
+			sourceTree = "<group>";
+		};
+		3E6E097927D3414300BF13EE /* CustomTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				3EEF5BD327CF67D000CC9AAF /* CustomTabBarView.swift */,
+				3E6E097727D3386500BF13EE /* CustomTabBarContainerView.swift */,
+				3E6E097C27D3417200BF13EE /* TabBarItem.swift */,
+				3E6E097A27D3416100BF13EE /* TabBarItemsPreferenceKey.swift */,
+			);
+			path = CustomTabBar;
 			sourceTree = "<group>";
 		};
 		3E6E59C127CD55FF0073CF3B /* iPad */ = {
@@ -290,7 +313,6 @@
 				3E817155275575E500F4B0D3 /* HeaderView.swift */,
 				3E6FA3B32756A7ED0023DAB7 /* BodyView.swift */,
 				3E817157275576AB00F4B0D3 /* OrderView.swift */,
-				3E817159275576B400F4B0D3 /* CustomerListView.swift */,
 			);
 			path = "Main Views";
 			sourceTree = "<group>";
@@ -300,11 +322,9 @@
 			children = (
 				3E70E0E1275EAB340020B429 /* SettingsView.swift */,
 				3E70E0E3275EABD10020B429 /* DrinkSettingsView.swift */,
-				3E88B0F4276A7814003561E1 /* AddDrinkView.swift */,
+				3E70E0E5275EABDC0020B429 /* CustomerSettingsView.swift */,
 				3E6916D1276E584B009E80D7 /* ImagePickerView.swift */,
-				3E70E0EB275EAFE00020B429 /* CustomerSettingsDetailsView.swift */,
 				3E6916D3276E78EE009E80D7 /* UpdateTagView.swift */,
-				3E678776275D62170072259F /* AddCustomerView.swift */,
 			);
 			path = "Settings Views";
 			sourceTree = "<group>";
@@ -481,6 +501,7 @@
 				3E6916D4276E78EE009E80D7 /* UpdateTagView.swift in Sources */,
 				3E5DFDC82787A8AA0056F0CC /* KeyboardAvoider.swift in Sources */,
 				3E5DFDCA2787A91E0056F0CC /* KeyboardAvoiderPreferences.swift in Sources */,
+				3EEF5BD427CF67D000CC9AAF /* CustomTabBarView.swift in Sources */,
 				3E5EE16427823A060044B178 /* PaywallViewModel.swift in Sources */,
 				3E66B8A127CA217B0067C56F /* PhoneCustomerListView.swift in Sources */,
 				3E6916D2276E584B009E80D7 /* ImagePickerView.swift in Sources */,
@@ -504,6 +525,7 @@
 				3E7BEFE126FCDD6D00453C1B /* DrinkModel.swift in Sources */,
 				3E8FAA18279C336C00FBA06D /* SignInView.swift in Sources */,
 				3E817156275575E500F4B0D3 /* HeaderView.swift in Sources */,
+				3E6E097D27D3417200BF13EE /* TabBarItem.swift in Sources */,
 				3E70E0E4275EABD10020B429 /* DrinkSettingsView.swift in Sources */,
 				3E7C9B022772069700B8A431 /* PaywallView.swift in Sources */,
 				3E6C68B0278C697C00EFE42C /* OrientationInfo.swift in Sources */,
@@ -522,7 +544,9 @@
 				3E5F33642712AF95005340B6 /* UserHandling.swift in Sources */,
 				3E850705279708F400A56E17 /* UserSettingsView.swift in Sources */,
 				3E817158275576AB00F4B0D3 /* OrderView.swift in Sources */,
+				3E6E097B27D3416100BF13EE /* TabBarItemsPreferenceKey.swift in Sources */,
 				3E6916D8276E88BB009E80D7 /* View+Centered.swift in Sources */,
+				3E6E097827D3386500BF13EE /* CustomTabBarContainerView.swift in Sources */,
 				3E70E0E2275EAB340020B429 /* SettingsView.swift in Sources */,
 				3E60E3A5271147A500F1363B /* UserModel.swift in Sources */,
 				3E88B0F5276A7814003561E1 /* AddDrinkView.swift in Sources */,
@@ -660,7 +684,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = BarTab/BarTab.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BarTab/Preview Content\"";
 				DEVELOPMENT_TEAM = 5PNV6G957X;
 				ENABLE_PREVIEWS = YES;
@@ -670,7 +694,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.joforsell.BarTab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -685,7 +709,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = BarTab/BarTab.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BarTab/Preview Content\"";
 				DEVELOPMENT_TEAM = 5PNV6G957X;
 				ENABLE_PREVIEWS = YES;
@@ -695,7 +719,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.joforsell.BarTab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

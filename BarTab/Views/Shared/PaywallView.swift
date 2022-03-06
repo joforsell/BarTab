@@ -11,11 +11,20 @@ import Purchases
 import FirebaseAuth
 
 struct PaywallView: View {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.verticalSizeClass) var verticalSizeClass
+
     @EnvironmentObject var authentication: Authentication
     @EnvironmentObject var userHandler: UserHandling
     @ObservedObject var paywallVM = PaywallViewModel()
     
-    let columnWidth: CGFloat = 500
+    var columnWidth: CGFloat {
+        if isPhone() {
+            return UIScreen.main.bounds.width
+        } else {
+            return 500
+        }
+    }
     
     @State private var isShowingLoginView = false
     @State private var isShowingSubscriptionDetails = false
@@ -49,7 +58,7 @@ struct PaywallView: View {
                     Spacer()
                     sellingPoints
                     Spacer()
-                    HStack(spacing: 16) {
+                    HStack(spacing: isPhone() ? 8 : 16) {
                         SubButton(package: paywallVM.offerings?.monthly,
                                   selection: .monthly,
                                   selectedSub: $paywallVM.selectedSub)
@@ -60,6 +69,7 @@ struct PaywallView: View {
                                   selection: .lifetime,
                                   selectedSub: $paywallVM.selectedSub)
                     }
+                    .padding(.horizontal, isPhone() ? 8 : 0)
                     Group {
                         subContinueButton
                         HStack {
@@ -136,15 +146,18 @@ private extension PaywallView {
         ContentRow(width: columnWidth,
                    headerText: "Håll enkelt koll",
                    bodyText: "Glöm bort manuella bonglistor och att räkna samman saldon efter varje träff. Med BarTab håller du och dina bargäster enkelt koll på saldoställningar.",
-                   image: Image(systemName: "dollarsign.circle.fill"))
+                   image: Image(systemName: "dollarsign.circle.fill"),
+                   isPhone: isPhone())
         ContentRow(width: columnWidth,
                    headerText: "Obegränsad bargästlista",
                    bodyText: "Lägg till obegränsat antal bargäster med automatiskt uppdaterande saldo och låt dem beställa från en dryckeslista som bara begränsas av ditt barskåp.",
-                   image: Image(systemName: "person.2.circle.fill"))
+                   image: Image(systemName: "person.2.circle.fill"),
+                   isPhone: isPhone())
         ContentRow(width: columnWidth,
                    headerText: "Maila aktuellt saldo",
                    bodyText: "Det ska vara enkelt att låta dina bargäster hålla koll på sitt saldo. Med ett knapptryck kan du skicka mail till varje gäst med deras aktuella saldo.",
-                   image: Image(systemName: "envelope.fill"))
+                   image: Image(systemName: "envelope.fill"),
+                   isPhone: isPhone())
             .padding(.bottom, 48)
     }
     
@@ -190,6 +203,7 @@ private extension PaywallView {
         }
         .padding(.vertical)
         .padding(.top)
+        .padding(.horizontal, isPhone() ? 8 : 0)
     }
     
     private var logoutButton: some View {
@@ -257,10 +271,16 @@ private extension PaywallView {
                                 .foregroundColor(.white)
                                 .font(.title)
                                 .fontWeight(.bold)
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.5)
                         }
                     }
             }
         }
+    }
+    
+    private func isPhone() -> Bool {
+        return !(horizontalSizeClass == .regular && verticalSizeClass == .regular)
     }
 }
 
@@ -274,6 +294,7 @@ private extension PaywallView {
         let headerText: String
         let bodyText: String
         let image: Image
+        let isPhone: Bool
         
         var body: some View {
             VStack(alignment: .leading) {
@@ -284,13 +305,14 @@ private extension PaywallView {
             }
             .frame(maxWidth: width, alignment: .leading)
             .padding()
+            .padding(.leading, isPhone ? 40 : 0)
             .overlay(alignment: .topLeading) {
                 image
                     .resizable()
                     .scaledToFit()
                     .frame(width: 30)
                     .padding(.horizontal, 20)
-                    .offset(x: -(width * 0.1), y: width * 0.04)
+                    .offset(x: isPhone ? -8 : -(width * 0.1), y: width * 0.04)
             }
         }
     }

@@ -35,6 +35,7 @@ struct CustomerListView: View {
             ScrollView {
                 ForEach(customerListVM.customerVMs) { customerVM in
                     customerRow(customerVM)
+                        .padding(.bottom, isPhone() ? customerListVM.customerVMs.last?.name == customerVM.name ? 48 : 0 : 0)
                 }
             }
             Spacer()

@@ -152,8 +152,7 @@ struct SettingsView: View {
         
         func oneDayHasElapsedSince(_ date: Date) -> Bool {
             let timeSinceLatestEmail = -latestEmail.timeIntervalSinceNow
-            return timeSinceLatestEmail > 10
-//            86400
+            return timeSinceLatestEmail > 60
         }
         
         var emailButton: some View {
@@ -163,7 +162,7 @@ struct SettingsView: View {
                     errorString = "Detta skickar ett mail med aktuellt saldo till alla användare som angett en mailadress."
                 } else {
                     errorTitle = "Kunde inte skicka"
-                    errorString = "Du kan inte göra mailutskick oftare än var 24:e timma."
+                    errorString = "Du kan bara göra utskick en gång i minuten."
                 }
                 showError = true
             } label: {

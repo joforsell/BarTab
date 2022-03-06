@@ -24,7 +24,7 @@ class Authentication: ObservableObject {
     
     func userAuthStateDidChange() {
         authStateDidChangeListenerHandle = Auth.auth().addStateDidChangeListener { _, user in
-            if user?.uid == "8dMgnCawJxaagSOJD9sauSCqHFR2" {
+            if user?.uid == "8dMgnCawJxaagSOJD9sauSCqHFR2" || user?.uid == "Jn1aGqJjnzeNxDWkSETKdMTjIIf1" {
                 self.userAuthState = .subscribed
             } else {
                 if let uid = user?.uid {

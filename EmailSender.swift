@@ -16,11 +16,11 @@ class EmailSender {
             let customerName = customer.name
             let firstName = customerName.components(separatedBy: " ").first
             let color = customer.balance > 0 ? "7CD338" : "F05F55"
-            let phoneNumber = "0708324536"
+            let phoneNumber = user.number ?? ""
             let headerText = "Saldouppdatering"
             let bodyText = ""
             
-            if  !customer.email.isEmpty {
+            if  !customer.email.isEmpty && customer.email.contains("@") {
                 
                 Firestore.firestore().collection("mail").addDocument(data: [
                     "to" : customer.email,

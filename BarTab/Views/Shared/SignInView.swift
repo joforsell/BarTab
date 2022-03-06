@@ -9,6 +9,9 @@ import SwiftUI
 import SwiftUIX
 
 struct SignInView: View {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.verticalSizeClass) var verticalSizeClass
+
     @EnvironmentObject var avoider: KeyboardAvoider
     
     @State private var email = ""
@@ -25,29 +28,21 @@ struct SignInView: View {
     
     
     var body: some View {
-        ZStack {
-            Image("backgroundbar")
-                .resizable()
-                .scaledToFill()
-                .ignoresSafeArea()
-            BackgroundBlob()
-                .fill(.black)
-                .blur(radius: 80)
-                .ignoresSafeArea()
-            VStack(alignment: .center, spacing: 20) {
-                KeyboardAvoiding(with: avoider) {
-                    Spacer()
-                    Image("beer")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 150)
-                        .foregroundColor(.accentColor)
-                    Image("logotext")
-                        .frame(width: 50)
-                    Spacer()
-                    emailInput
-                    passwordInput
-                        .overlay(alignment: .trailing) {
+        VStack(alignment: .center, spacing: 20) {
+            Spacer()
+            KeyboardAvoiding(with: avoider) {
+                Image("beer")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 150)
+                    .foregroundColor(.accentColor)
+                Image("logotext")
+                    .frame(width: 50)
+                Spacer()
+                emailInput
+                passwordInput
+                    .overlay(alignment: .trailing) {
+                        if !editingPassword {
                             Button {
                                 showingPassword.toggle()
                             } label: {
@@ -58,45 +53,55 @@ struct SignInView: View {
                                     .opacity(0.5)
                                     .padding(10)
                             }
-                            .offset(x: editingPassword ? 56 : 0)
                         }
-                    finishButton
-                    Group {
-                        HStack {
-                            Spacer()
-                            Button {
-                                UserHandling.resetPassword(for: email) { error in
-                                    if let error = error {
-                                        alertTitle = "Kunde inte skicka nytt lösenord."
-                                        alertMessage = error.errorDescription ?? "Okänt fel."
-                                        isShowingAlert = true
-                                    }
-                                }
-                            } label: {
-                                Text("Glömt lösenord?")
+                    }
+                finishButton
+            }
+            Group {
+                HStack {
+                    Spacer()
+                    Button {
+                        UserHandling.resetPassword(for: email) { error in
+                            if let error = error {
+                                alertTitle = "Kunde inte skicka nytt lösenord."
+                                alertMessage = error.errorDescription ?? "Okänt fel."
+                                isShowingAlert = true
                             }
                         }
-                        .frame(width: 300)
-                        Divider()
-                            .frame(width: 300)
-                            .padding()
-                        Button {
-                            isShowingCreateAccountView = true
-                        } label: {
-                            Text("Skapa nytt konto")
-                                .font(.caption)
-                        }
-                        .sheet(isPresented: $isShowingCreateAccountView) {
-                            CreateAccountView()
-                                .clearModalBackground()
-                        }
-                        Spacer()
+                    } label: {
+                        Text("Glömt lösenord?")
                     }
                 }
+                .frame(width: 300)
+                Divider()
+                    .frame(width: 300)
+                    .padding()
+                Button {
+                    isShowingCreateAccountView = true
+                } label: {
+                    Text("Skapa nytt konto")
+                        .font(.caption)
+                }
+                .sheet(isPresented: $isShowingCreateAccountView) {
+                    CreateAccountView()
+                        .clearModalBackground()
+                }
+                Spacer()
             }
-            .frame(maxWidth: .infinity)
-            .foregroundColor(.white)
         }
+        .frame(maxWidth: .infinity)
+        .foregroundColor(.white)
+        .background(
+            ZStack {
+                Image("backgroundbar")
+                    .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea()
+                BackgroundBlob()
+                    .fill(.black)
+                    .blur(radius: 80)
+                    .ignoresSafeArea()
+            })
     }
     
     private var emailInput: some View {
@@ -252,5 +257,9 @@ struct SignInView: View {
             .alert(isPresented: $isShowingAlert) {
                 Alert(title: Text(alertTitle), message: Text(alertMessage), dismissButton: .default(Text("OK").foregroundColor(.accentColor)))
             }
+    }
+    
+    private func isPhone() -> Bool {
+        return !(horizontalSizeClass == .regular && verticalSizeClass == .regular)
     }
 }

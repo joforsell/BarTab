@@ -10,6 +10,9 @@ import Combine
 import Introspect
 
 struct CustomerSettingsDetailView: View {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.verticalSizeClass) var verticalSizeClass
+
     @EnvironmentObject var customerListVM: CustomerListViewModel
     @EnvironmentObject var avoider: KeyboardAvoider
     @EnvironmentObject var userHandler: UserHandling
@@ -59,6 +62,7 @@ struct CustomerSettingsDetailView: View {
                     //                        }
                     //                        .offset(x: 40)
                     //                    }
+                    
                     VStack(alignment: .leading, spacing: 2) {
                         HStack(alignment: .bottom) {
                             TextField("",
@@ -244,35 +248,35 @@ struct CustomerSettingsDetailView: View {
                     .cornerRadius(6)
                     .addBorder(editingBalance ? addingToBalance ? Color("Lead") : Color("Deficit") : Color.clear, width: 1, cornerRadius: 6)
                     .avoidKeyboard(tag: 5)
-                    .overlay(alignment: .trailing) {
-                        HStack(spacing: 4) {
-                            Button {
-                                withAnimation {
-                                    addingToBalance = true
-                                    editingBalance.toggle()
-                                }
-                            } label: {
-                                Image(systemName: "plus.square.fill")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .foregroundColor(Color("Lead"))
-                                    .frame(width: 40)
+
+                    HStack(spacing: 4) {
+                        Button {
+                            withAnimation {
+                                addingToBalance = true
+                                editingBalance.toggle()
                             }
-                            Button {
-                                withAnimation {
-                                    addingToBalance = false
-                                    editingBalance.toggle()
-                                }
-                            } label: {
-                                Image(systemName: "minus.square.fill")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .foregroundColor(Color("Deficit"))
-                                    .frame(width: 40)
-                            }
+                        } label: {
+                            Image(systemName: "plus.square.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .foregroundColor(Color("Lead"))
+                                .frame(width: 40)
                         }
-                        .offset(x: 90)
+                        Spacer()
+                        Button {
+                            withAnimation {
+                                addingToBalance = false
+                                editingBalance.toggle()
+                            }
+                        } label: {
+                            Image(systemName: "minus.square.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .foregroundColor(Color("Deficit"))
+                                .frame(width: 40)
+                        }
                     }
+                    .frame(width: 300, height: 24)
                     
                     VStack(alignment: .leading) {
                         HStack {
@@ -333,5 +337,25 @@ struct CustomerSettingsDetailView: View {
                 }
                 Spacer()
             }
+            .overlay(alignment: .topLeading) {
+                if isPhone() {
+                    Button {
+                        withAnimation {
+                            detailsViewShown = .none
+                        }
+                    } label: {
+                        Image(systemName: "chevron.left")
+                            .padding()
+                            .foregroundColor(.white)
+                            .opacity(0.6)
+                            .contentShape(Rectangle().size(width: 40, height: 40))
+                    }
+                }
+            }
+            .preferredColorScheme(.dark)
         }
+    
+    private func isPhone() -> Bool {
+        return !(horizontalSizeClass == .regular && verticalSizeClass == .regular)
+    }
 }
