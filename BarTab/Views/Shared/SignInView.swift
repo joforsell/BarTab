@@ -22,8 +22,8 @@ struct SignInView: View {
     
     @State private var showingPassword = false
     @State private var isShowingAlert = false
-    @State private var alertTitle = ""
-    @State private var alertMessage = ""
+    @State private var alertTitle: LocalizedStringKey = ""
+    @State private var alertMessage: LocalizedStringKey = ""
     @State private var isShowingCreateAccountView = false
     
     
@@ -63,13 +63,13 @@ struct SignInView: View {
                     Button {
                         UserHandling.resetPassword(for: email) { error in
                             if let error = error {
-                                alertTitle = "Kunde inte skicka nytt lösenord."
-                                alertMessage = error.errorDescription ?? "Okänt fel."
+                                alertTitle = "Could send new password."
+                                alertMessage = error.errorDescription ?? "Unknown error."
                                 isShowingAlert = true
                             }
                         }
                     } label: {
-                        Text("Glömt lösenord?")
+                        Text("Forgot password?")
                     }
                 }
                 .frame(width: 300)
@@ -79,7 +79,7 @@ struct SignInView: View {
                 Button {
                     isShowingCreateAccountView = true
                 } label: {
-                    Text("Skapa nytt konto")
+                    Text("Create new account")
                         .font(.caption)
                 }
                 .sheet(isPresented: $isShowingCreateAccountView) {
@@ -147,7 +147,8 @@ struct SignInView: View {
             }
             
             .overlay(alignment: .topLeading) {
-                Text("Mailadress".uppercased())
+                Text("E-mail address")
+                    .textCase(.uppercase)
                     .font(.caption2)
                     .foregroundColor(.white)
                     .opacity(0.5)
@@ -207,7 +208,8 @@ struct SignInView: View {
                 }
             }
             .overlay(alignment: .topLeading) {
-                Text("Lösenord".uppercased())
+                Text("Password")
+                    .textCase(.uppercase)
                     .font(.caption2)
                     .opacity(0.5)
                     .offset(y: -10)
@@ -230,16 +232,16 @@ struct SignInView: View {
             .overlay {
                 Button {
                     if email.trimmingCharacters(in: .whitespaces).isEmpty {
-                        alertTitle = "Du måste ange en mailadress."
+                        alertTitle = "Please enter an e-mail address."
                         isShowingAlert = true
                     } else if password.trimmingCharacters(in: .whitespaces).isEmpty {
-                        alertTitle = "Du måste ange ett lösenord."
+                        alertTitle = "Please enter a password."
                         isShowingAlert = true
                     } else {
                         UserHandling.signIn(withEmail: email, password: password) { error in
                             if let error = error {
-                                alertTitle = "Kunde inte logga in."
-                                alertMessage = error.errorDescription ?? "Okänt fel."
+                                alertTitle = "Could not sign in."
+                                alertMessage = error.errorDescription ?? "Unknown error."
                                 isShowingAlert = true
                             }
                         }
@@ -248,9 +250,10 @@ struct SignInView: View {
                     RoundedRectangle(cornerRadius: 6)
                         .foregroundColor(.accentColor)
                         .overlay {
-                            Text("Logga in".uppercased())
+                            Text("Sign in")
                                 .foregroundColor(.white)
                                 .fontWeight(.bold)
+                                .textCase(.uppercase)
                         }
                 }
             }

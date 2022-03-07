@@ -71,7 +71,7 @@ struct HomeView: View {
                 if viewState == .main {
                     Menu {
                         Menu {
-                            Picker(selection: $userHandler.user.drinkSorting, label: Text("Sortera")) {
+                            Picker(selection: $userHandler.user.drinkSorting, label: Text("Sort")) {
                                 ForEach(DrinkListViewModel.DrinkSorting.allCases, id: \.self) { sorting in
                                     Text(sorting.description)
                                         .foregroundColor(userHandler.user.drinkSorting == sorting ? .accentColor : .black)
@@ -81,10 +81,10 @@ struct HomeView: View {
                                 userHandler.updateDrinkSorting(sorting)
                             }
                         } label: {
-                            Label("Sortera", systemImage: "arrow.left.arrow.right.circle")
+                            Label("Sort", systemImage: "arrow.left.arrow.right.circle")
                         }
                         Menu {
-                            Picker("Drycker per rad", selection: $userHandler.user.drinkCardColumns) {
+                            Picker("Drinks per row", selection: $userHandler.user.drinkCardColumns) {
                                 Text("2").tag(2)
                                 Text("3").tag(3)
                                 Text("4").tag(4)
@@ -95,7 +95,7 @@ struct HomeView: View {
                                 userHandler.updateColumnCount(columnCount)
                             }
                         } label: {
-                            Label("Drycker per rad", systemImage: orientationInfo.orientation == .landscape ? "apps.ipad.landscape" : "apps.ipad")
+                            Label("Drinks per row", systemImage: orientationInfo.orientation == .landscape ? "apps.ipad.landscape" : "apps.ipad")
                         }
                     } label: {
                         Image(systemName: "slider.horizontal.3")

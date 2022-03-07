@@ -10,7 +10,7 @@ import SwiftUI
 struct CustomInputView: View {
     @EnvironmentObject var avoider: KeyboardAvoider
     
-    var title: String
+    var title: LocalizedStringKey
     var image: String
     @Binding var editing: Bool
     @Binding var text: String
@@ -51,8 +51,9 @@ struct CustomInputView: View {
                     .opacity(0.5)
             }
             .overlay(alignment: .topLeading) {
-                Text(title.uppercased())
+                Text(title)
                     .font(.caption2)
+                    .textCase(.uppercase)
                     .foregroundColor(.white)
                     .opacity(0.5)
                     .offset(y: -10)

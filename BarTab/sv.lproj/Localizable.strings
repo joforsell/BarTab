@@ -1,0 +1,252 @@
+/* No comment provided by engineer. */
+"%@ / month" = "%@ / månad";
+
+/* No comment provided by engineer. */
+"%@ / year" = "%@ / år";
+
+/* No comment provided by engineer. */
+"%@ bought %@ with $%lld." = "%@ köpte %@ för %lld kr.";
+
+/* No comment provided by engineer. */
+"%@." = "%@.";
+
+/* No comment provided by engineer. */
+"$%@" = "%@ kr";
+
+/* No comment provided by engineer. */
+"$%lld" = "%lld kr";
+
+/* No comment provided by engineer. */
+"A network error occurred. Please try again." = "Ett nätverksfel inträffade. Försök igen.";
+
+/* No comment provided by engineer. */
+"Add" = "Lägg till";
+
+/* No comment provided by engineer. */
+"Add an unlimited amount of bar guests with balances that are updated automatically and let them order from a drink list only limited by the contents of your bar." = "Lägg till obegränsat antal bargäster med automatiskt uppdaterande saldo och låt dem beställa från en dryckeslista som bara begränsas av ditt barskåp.";
+
+/* No comment provided by engineer. */
+"An e-mail showing current balance was sent to each bar guest with an associated e-mail address." = "Ett mail med aktuellt saldo skickades till alla bargäster med en kopplad mailadress.";
+
+/* No comment provided by engineer. */
+"and" = "och";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete this bar guest?" = "Är du säker på att du vill radera den här bargästen?";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete this drink?" = "Är du säker på att du vill radera den här drycken?";
+
+/* No comment provided by engineer. */
+"Are you sure you want to delete your account?" = "Är du säker på att du vill radera ditt konto?";
+
+/* No comment provided by engineer. */
+"Are you sure you want to send e-mail(s)?" = "Är du säker på att du vill göra ett mailutskick?";
+
+/* No comment provided by engineer. */
+"Association" = "Organisation";
+
+/* No comment provided by engineer. */
+"Balance" = "Saldo";
+
+/* No comment provided by engineer. */
+"Cancel" = "Avbryt";
+
+/* No comment provided by engineer. */
+"Choose the bar guest making the purchase." = "Välj vem som betalar för att slutföra köpet.";
+
+/* No comment provided by engineer. */
+"Connected e-mail address:" = "Kopplad mailadress:";
+
+/* No comment provided by engineer. */
+"Could not create account." = "Kunde inte skapa konto.";
+
+/* No comment provided by engineer. */
+"Could not find a user with the given e-mail address." = "Hittade ingen användare kopplad till den angivna mailadressen.";
+
+/* No comment provided by engineer. */
+"Could not send" = "Kunde inte skicka";
+
+/* No comment provided by engineer. */
+"Could not sign in." = "Kunde inte logga in.";
+
+/* No comment provided by engineer. */
+"Create account" = "Skapa konto";
+
+/* No comment provided by engineer. */
+"Create bar guest" = "Skapa bargäst";
+
+/* No comment provided by engineer. */
+"Create drink" = "Skapa dryck";
+
+/* No comment provided by engineer. */
+"Create new account" = "Skapa nytt konto";
+
+/* No comment provided by engineer. */
+"Delete" = "Radera";
+
+/* No comment provided by engineer. */
+"Delete account" = "Radera konto";
+
+/* No comment provided by engineer. */
+"Delete bar guest" = "Radera bargäst";
+
+/* No comment provided by engineer. */
+"Delete drink" = "Radera dryck";
+
+/* No comment provided by engineer. */
+"Drinks per row" = "Drycker per rad";
+
+/* No comment provided by engineer. */
+"E-mail" = "Mailadress";
+
+/* No comment provided by engineer. */
+"E-mail address" = "Mailadress";
+
+/* No comment provided by engineer. */
+"E-mail(s) sent" = "Mail skickades";
+
+/* No comment provided by engineer. */
+"Error sending emails" = "Fel vid skickande av mail";
+
+/* No comment provided by engineer. */
+"First week for free!" = "Första veckan gratis!";
+
+/* No comment provided by engineer. */
+"Forget tallying purchases and adding up balance after every night. With BarTab you and your bar guests can easily keep track of running tabs." = "Glöm bort manuella bonglistor och att räkna samman saldon efter varje träff. Med BarTab håller du och dina bargäster enkelt koll på saldoställningar.";
+
+/* No comment provided by engineer. */
+"Forgot password?" = "Glömt lösenord?";
+
+/* No comment provided by engineer. */
+"Invalid e-mail address." = "Ej giltig mailadress.";
+
+/* No comment provided by engineer. */
+"Letting your bar guests keep track of their balance should be easy. With the press of a button you can e-mail each of your bar guests their current balance." = "Det ska vara enkelt att låta dina bargäster hålla koll på sitt saldo. Med ett knapptryck kan du skicka mail till varje gäst med deras aktuella saldo.";
+
+/* No comment provided by engineer. */
+"Lifetime" = "Livstid";
+
+/* No comment provided by engineer. */
+"Name" = "Namn";
+
+/* No comment provided by engineer. */
+"Opening balance" = "Ingående saldo";
+
+/* No comment provided by engineer. */
+"Password" = "Lösenord";
+
+/* No comment provided by engineer. */
+"Password too weak." = "För svagt lösenord.";
+
+/* No comment provided by engineer. */
+"Pay only once!" = "Betala bara en gång!";
+
+/* No comment provided by engineer. */
+"Phone number" = "Telefonnummer";
+
+/* No comment provided by engineer. */
+"Please enter a password." = "Du måste ange ett lösenord.";
+
+/* No comment provided by engineer. */
+"Please enter an e-mail address." = "Du måste ange en mailadress.";
+
+/* No comment provided by engineer. */
+"Price" = "Pris";
+
+/* No comment provided by engineer. */
+"Privacy policy" = "Integritetspolicy";
+
+/* No comment provided by engineer. */
+"Restoration failed" = "Återställningen misslyckades";
+
+/* No comment provided by engineer. */
+"Restore purchase" = "Återställ köp";
+
+/* No comment provided by engineer. */
+"RFID tag was updated" = "RFID-brickan uppdaterades";
+
+/* No comment provided by engineer. */
+"Scan a tag to assign it to" = "Läs av en bricka för att koppla den till";
+
+/* No comment provided by engineer. */
+"Scan your tag" = "Läs av bricka";
+
+/* No comment provided by engineer. */
+"Scan your tag to finalize your purchase." = "Läs av din bricka för att slutföra köpet.";
+
+/* No comment provided by engineer. */
+"Send e-mail with current balance" = "Maila aktuellt saldo";
+
+/* No comment provided by engineer. */
+"Sign in" = "Logga in";
+
+/* No comment provided by engineer. */
+"Sign out" = "Logga ut";
+
+/* No comment provided by engineer. */
+"Sort" = "Sortera";
+
+/* No comment provided by engineer. */
+"Stay on top of things" = "Håll enkelt koll";
+
+/* No comment provided by engineer. */
+"Subscription details" = "Prenumerationsdetaljer";
+
+/* No comment provided by engineer. */
+"Subscription is renewed:" = "Prenumerationen förnyas:";
+
+/* No comment provided by engineer. */
+"Subscription type:" = "Typ av prenumeration:";
+
+/* No comment provided by engineer. */
+"Subtract" = "Ta bort";
+
+/* No comment provided by engineer. */
+"Terms of use" = "Användarvillkor";
+
+/* No comment provided by engineer. */
+"The bar guest needs a name" = "Bargästen måste ha ett namn";
+
+/* No comment provided by engineer. */
+"The drink needs a name" = "Drycken måste ha ett namn";
+
+/* No comment provided by engineer. */
+"The given e-mail address is already in use." = "Den angivna mailadressen används redan.";
+
+/* No comment provided by engineer. */
+"The password does not match the user." = "Lösenordet stämmer inte med användaren.";
+
+/* No comment provided by engineer. */
+"The scanned RFID tag is now assigned to %@" = "Den skannade RFID-brickan är nu kopplad till %@";
+
+/* No comment provided by engineer. */
+"This will send an e-mail showing current balance to each bar guest with an associated e-mail address." = "Detta skickar ett mail med aktuellt saldo till varje bargäst med en kopplad mailadress.";
+
+/* No comment provided by engineer. */
+"Unknown error." = "Okänt fel.";
+
+/* No comment provided by engineer. */
+"Unlimited list of bar guests" = "Obegränsad bargästlista";
+
+/* No comment provided by engineer. */
+"Uppdate \nRFID tag" = "Uppdatera \nRFID-bricka";
+
+/* No comment provided by engineer. */
+"Use RFID tags" = "Använd RFID-brickor";
+
+/* No comment provided by engineer. */
+"Using BarTab requires an active subscription. You can choose between paying monthly, annually or a one time fee that keeps you subscribed indefinitely.\n\nIf you choose to subscribe monthly or annually, your first subscription period will include a week long free trial before you are charged. If you decide you do not want to pay for the service, you need to cancel your subscription no less than 24 hours before the trial runs out, or you will be charged according to your chosen subscription type.\n\nSubscriptions are renewed automatically unless cancelled at least 24 hours before the end of the current subscription period. This can be done through Settings > Apple-ID > Subscriptions." = "För att använda BarTab krävs en aktiv prenumeration. Alternativ för prenumerationer är betala månadsvis, betala årsvis eller betala en engångskostnad för en prenumeration som aldrig upphör.\n\nOm du väljer att betala månadsvis eller årsvis inkluderas en veckas prövoperiod innan du debiteras. Du måste avbryta din prenumeration minst 24 timmar innan prövoperioden avslutas om du inte vill betala för tjänsten, annars debiteras du enligt vald prenumerationstid.\n\nPrenumerationer kommer automatiskt förnyas om inte automatisk förnyelse stängs av minst 24 timmar innan slutet på nuvarande prenumerationsperiod. Detta kan göras via Inställningar > Apple-ID > Abonnemang.";
+
+/* No comment provided by engineer. */
+"When you delete your account, all related data is also deleted. Your subscription is not automatically cancelled, this needs to be done in your settings." = "När du raderar ditt konto raderas också all relaterad data. Din prenumeration sägs inte upp automatiskt, detta måste du göra i dina inställningar.";
+
+/* No comment provided by engineer. */
+"You can only send e-mail(s) once every minute." = "Du kan bara skicka mail en gång i minuten.";
+
+/* No comment provided by engineer. */
+"Your purchase could not be restored, no valid reciept was found." = "Ditt köp kunde inte återställas, inget giltigt kvitto kunde hittas.";
+
+/* No comment provided by engineer. */
+"Your purchase was finalized" = "Ditt köp slutfördes";
+

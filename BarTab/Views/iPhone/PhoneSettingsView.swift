@@ -190,7 +190,7 @@ struct PhoneSettingsView: View {
                     Text(drinkVM.drink.name)
                         .font(.callout)
                         .fontWeight(.bold)
-                    Text("\(drinkVM.drink.price) kr")
+                    Text("$\(drinkVM.drink.price)")
                         .font(.footnote)
                 }
                 Spacer()
@@ -257,7 +257,7 @@ struct PhoneSettingsView: View {
                     Text(customerVM.customer.name)
                         .font(.callout)
                         .fontWeight(.bold)
-                    Text("\(customerVM.customer.balance) kr")
+                    Text("$\(customerVM.customer.balance)")
                         .font(.footnote)
                         .foregroundColor(customerVM.balanceColor)
                 }

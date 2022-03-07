@@ -19,16 +19,10 @@ struct SubscriptionDetailsView: View {
                     .font(.system(size: 240, weight: .thin))
                     .padding(.vertical, 48)
                     .frame(maxWidth: UIScreen.main.bounds.width/2, maxHeight: UIScreen.main.bounds.height/2)
-                Text("Prenumerationsdetaljer")
+                Text("Subscription details")
                     .font(.title)
                     .fontWeight(.bold)
-                Text("""
-                    För att använda BarTab krävs en aktiv prenumeration. Alternativ för prenumerationer är betala månadsvis, betala årsvis eller betala en engångskostnad för en prenumeration som aldrig upphör.
-
-                    Om du väljer att betala månadsvis eller årsvis inkluderas en veckas prövoperiod innan du debiteras. Du måste avbryta din prenumeration minst 24 timmar innan prövoperioden avslutas om du inte vill betala för tjänsten, annars debiteras du enligt vald prenumerationstid.
-                    
-                    Prenumerationer kommer automatiskt förnyas om inte automatisk förnyelse stängs av minst 24 timmar innan slutet på nuvarande prenumerationsperiod. Detta kan göras via Inställningar > Apple-ID > Abonnemang.
-                    """)
+                Text(LocalizedStringKey("Using BarTab requires an active subscription. You can choose between paying monthly, annually or a one time fee that keeps you subscribed indefinitely.\n\nIf you choose to subscribe monthly or annually, your first subscription period will include a week long free trial before you are charged. If you decide you do not want to pay for the service, you need to cancel your subscription no less than 24 hours before the trial runs out, or you will be charged according to your chosen subscription type.\n\nSubscriptions are renewed automatically unless cancelled at least 24 hours before the end of the current subscription period. This can be done through Settings > Apple-ID > Subscriptions."))
                     .multilineTextAlignment(.leading)
                     .padding(.bottom, 48)
                     .padding(.top, 8)

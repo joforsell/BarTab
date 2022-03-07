@@ -26,8 +26,10 @@ struct BartenderSettingsView: View {
     @State private var editingPhoneNumber = false
     
     @State private var showError = false
-    @State private var errorString = ""
-    @State private var errorTitle = ""
+    @State private var errorString: LocalizedStringKey = ""
+    @State private var errorTitle: LocalizedStringKey = ""
+    @State private var localizedErrorString = ""
+    @State private var showLocalizedError = false
     
     @State private var showingUserInformation = false
     @State private var isShowingEmailConfirmation = false
@@ -84,8 +86,9 @@ struct BartenderSettingsView: View {
                         }
                 }
                 .overlay(alignment: .topLeading) {
-                    Text("Email".uppercased())
+                    Text("E-mail")
                         .font(.caption2)
+                        .textCase(.uppercase)
                         .foregroundColor(.white)
                         .opacity(0.5)
                         .offset(y: -10)
@@ -141,8 +144,9 @@ struct BartenderSettingsView: View {
                     
                 }
                 .overlay(alignment: .topLeading) {
-                    Text("Organisation".uppercased())
+                    Text("Association")
                         .font(.caption2)
+                        .textCase(.uppercase)
                         .foregroundColor(.white)
                         .opacity(0.5)
                         .offset(y: -10)
@@ -197,8 +201,9 @@ struct BartenderSettingsView: View {
                     
                 }
                 .overlay(alignment: .topLeading) {
-                    Text("Telefonnummer".uppercased())
+                    Text("Phone number")
                         .font(.caption2)
+                        .textCase(.uppercase)
                         .foregroundColor(.white)
                         .opacity(0.5)
                         .offset(y: -10)
@@ -212,7 +217,7 @@ struct BartenderSettingsView: View {
             .addBorder(editingPhoneNumber ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
             .avoidKeyboard(tag: 3)
             
-            Toggle("Använd RFID-brickor", isOn: $userHandler.user.usingTags)
+            Toggle("Use RFID tags", isOn: $userHandler.user.usingTags)
                 .toggleStyle(SwitchToggleStyle(tint: .accentColor))
                 .frame(width: 300, height: 24)
                 .foregroundColor(.white)
@@ -251,15 +256,15 @@ struct BartenderSettingsView: View {
                         if oneDayHasElapsedSince(latestEmail) {
                             return Alert(title: Text(errorTitle),
                                          message: Text(errorString),
-                                         primaryButton: .default(Text("Avbryt")),
+                                         primaryButton: .default(Text("Cancel")),
                                          secondaryButton: .default(Text("OK"), action: emailButtonAction))
                         } else {
-                            return Alert(title: errorTitle, message: errorString, dismissButtonTitle: "OK")
+                            return Alert(title: Text(errorTitle), message: Text(errorString), dismissButton: .default(Text("OK")))
                         }
                     }
             }
             .toast(isPresented: $isShowingEmailConfirmation, dismissAfter: 6, onDismiss: { isShowingEmailConfirmation = false }) {
-                ToastView(systemImage: ("envelope.fill", .accentColor, 50), title: "Mailutskick sändes", subTitle: "Ett mail med aktuellt saldo skickades till användare med kopplad mailadress.")
+                ToastView(systemImage: ("envelope.fill", .accentColor, 50), title: "E-mail(s) sent", subTitle: "An e-mail showing current balance was sent to each bar guest with an associated e-mail address.")
             }
         }
     }
@@ -276,17 +281,20 @@ struct BartenderSettingsView: View {
     private var emailButton: some View {
         Button {
             if oneDayHasElapsedSince(latestEmail) {
-                errorTitle = "Är du säker på att du vill göra ett mailutskick?"
-                errorString = "Detta skickar ett mail med aktuellt saldo till alla användare som angett en mailadress."
+                errorTitle = "Are you sure you want to send e-mail(s)?"
+                errorString = "This will send an e-mail showing current balance to each bar guest with an associated e-mail address."
             } else {
-                errorTitle = "Kunde inte skicka"
-                errorString = "Du kan bara göra utskick en gång i minuten."
+                errorTitle = "Could not send"
+                errorString = "You can only send e-mail(s) once every minute."
             }
             showError = true
         } label: {
             Image(systemName: "envelope.fill")
                 .font(.largeTitle)
                 .foregroundColor(oneDayHasElapsedSince(latestEmail) ? .accentColor : .accentColor.opacity(0.3))
+        }
+        .alert(isPresented: $showLocalizedError) {
+            Alert(title: Text(errorTitle), message: Text(localizedErrorString), dismissButton: .default(Text("OK")))
         }
     }
     
@@ -299,8 +307,8 @@ struct BartenderSettingsView: View {
             switch result {
             case .failure(let error):
                 errorTitle = "Error sending emails"
-                errorString = error.localizedDescription
-                showError = true
+                localizedErrorString = error.localizedDescription
+                showLocalizedError = true
             case .success(_):
                 latestEmail = Date()
             }

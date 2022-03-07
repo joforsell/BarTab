@@ -34,12 +34,12 @@ struct ConfirmOrderView: View {
     
     var orderWithTagView: some View {
         ZStack {
-            TextField("Läs av bricka", text: $tagKey, onCommit: {
+            TextField("Scan your tag", text: $tagKey, onCommit: {
                 customerListVM.customerBoughtWithKey(drinkVM.drink, key: tagKey)
                 customerListVM.customerWithKey(tagKey) { result in
                     switch result {
                     case .failure(_):
-                        currentCustomerName = "Okänd"
+                        currentCustomerName = "Unknown"
                     case .success(let customer):
                         currentCustomerName = customer.name
                     }
@@ -50,11 +50,13 @@ struct ConfirmOrderView: View {
             })
                 .opacity(0)
             VStack(alignment: .leading) {
-                Text(drinkVM.drink.name).font(.system(size: 80, weight: .black))
+                Text(drinkVM.drink.name)
+                    .font(.system(size: 80, weight: .black))
                     .fixedSize()
                     .minimumScaleFactor(0.1)
                     .padding(.horizontal)
-                Text("\(drinkVM.drink.price) kr").font(.system(size: 60))
+                Text("$\(drinkVM.drink.price)")
+                    .font(.system(size: 60))
                     .fixedSize()
                     .minimumScaleFactor(0.1)
                     .padding(.horizontal)
@@ -68,7 +70,7 @@ struct ConfirmOrderView: View {
                     .font(.system(size: 140))
                     .foregroundColor(.accentColor)
                     .padding()
-                Text("Läs av din bricka för att slutföra köpet.")
+                Text("Scan your tag to finalize your purchase.")
                     .font(.headline)
                     .foregroundColor(.white)
                     .fixedSize()
@@ -129,7 +131,7 @@ struct ConfirmOrderView: View {
             withAnimation {
                 tappedDrink = nil
             } }) {
-                ToastView(systemImage: ("checkmark.circle.fill", .accentColor, 50), title: "Ditt köp slutfördes", subTitle: "\(currentCustomerName) köpte \(confirmationVM.selectedDrink?.drink.name.lowercased() ?? "saknas") för \(confirmationVM.selectedDrink?.drink.price ?? 0) kr.")
+                ToastView(systemImage: ("checkmark.circle.fill", .accentColor, 50), title: "Your purchase was finalized", subTitle: "\(currentCustomerName) bought \(confirmationVM.selectedDrink?.drink.name.lowercased() ?? "missing") with $\(confirmationVM.selectedDrink?.drink.price ?? 0).")
             }
             .background(VisualEffectBlurView(blurStyle: .dark))
             .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -154,7 +156,7 @@ struct ConfirmOrderView: View {
                             return Color.clear
                         }
                     )
-                Text("\(drinkVM.drink.price) kr").font(.system(size: 60))
+                Text("$\(drinkVM.drink.price)").font(.system(size: 60))
                     .fixedSize()
                     .minimumScaleFactor(0.1)
                     .padding(.horizontal)
@@ -179,7 +181,7 @@ struct ConfirmOrderView: View {
                         .font(.system(size: 140))
                         .foregroundColor(.accentColor)
                 }
-                Text("Välj vem som betalar för att slutföra köpet.")
+                Text("Choose the bar guest making the purchase.")
                     .font(.headline)
                     .foregroundColor(.white)
                     .fixedSize()
@@ -218,7 +220,7 @@ struct ConfirmOrderView: View {
             withAnimation {
                 tappedDrink = nil
             } }) {
-                ToastView(systemImage: ("checkmark.circle.fill", .accentColor, 50), title: "Ditt köp slutfördes", subTitle: "\(currentCustomerName) köpte \(confirmationVM.selectedDrink?.drink.name.lowercased() ?? "saknas") för \(confirmationVM.selectedDrink?.drink.price ?? 0) kr.")
+                ToastView(systemImage: ("checkmark.circle.fill", .accentColor, 50), title: "Your purchase was finalized", subTitle: "\(currentCustomerName) bought \(confirmationVM.selectedDrink?.drink.name.lowercased() ?? "missing") with $\(confirmationVM.selectedDrink?.drink.price ?? 0).")
             }
             .background(VisualEffectBlurView(blurStyle: .dark))
             .clipShape(RoundedRectangle(cornerRadius: 20))

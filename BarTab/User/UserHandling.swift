@@ -124,7 +124,6 @@ class UserHandling: ObservableObject {
             try Auth.auth().signOut()
             completion(true)
         } catch {
-            print("Kunde inte logga ut: \(error.localizedDescription)")
             completion(false)
         }
     }

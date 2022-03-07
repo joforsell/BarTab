@@ -13,14 +13,14 @@ class UserSettingsViewModel: ObservableObject {
     @Environment(\.locale) var locale
     @Published var purchaser: Purchases.PurchaserInfo?
     @Published var expireDateAsString = "-"
-    @Published var subscriptionType = "Livstid"
+    @Published var subscriptionType = ""
     
     init() {
         Purchases.shared.purchaserInfo { [weak self] purchaserInfo, error in
             guard let self = self else { return }
             self.purchaser = purchaserInfo
             self.expireDateAsString = self.formattedDate(purchaserInfo?.latestExpirationDate)
-            self.subscriptionType = purchaserInfo?.activeSubscriptions.first ?? "Livstid"
+            self.subscriptionType = purchaserInfo?.activeSubscriptions.first?.localizedCapitalized ?? ""
         }
     }
     

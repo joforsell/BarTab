@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import SwiftUI
 
 enum UserError: Error {
     case incorrectPassword
@@ -19,22 +20,22 @@ enum UserError: Error {
 }
 
 extension UserError: LocalizedError {
-    var errorDescription: String? {
+    var errorDescription: LocalizedStringKey? {
         switch self {
         case .incorrectPassword:
-            return NSLocalizedString("Lösenordet stämmer inte med användaren.", comment: "")
+            return LocalizedStringKey("The password does not match the user.")
         case .invalidEmail:
-             return NSLocalizedString("Ej giltig mailadress.", comment: "")
+            return LocalizedStringKey("Invalid e-mail address.")
         case .accountDoesNotExist:
-            return NSLocalizedString("Hittade ingen användare kopplad till den angivna mailadressen.", comment: "")
+            return LocalizedStringKey("Could not find a user with the given e-mail address.")
         case .couldNotCreate:
-            return NSLocalizedString("Den angivna mailadressen används redan.", comment: "")
+            return LocalizedStringKey("The given e-mail address is already in use.")
         case .unknownError:
-            return NSLocalizedString("Okänt fel.", comment: "")
+            return LocalizedStringKey("Unknown error.")
         case .networkError:
-            return NSLocalizedString("Ett nätverksfel inträffade. Försök igen.", comment: "")
+            return LocalizedStringKey("A network error occurred. Please try again.")
         case .weakPassword:
-            return NSLocalizedString("För svagt lösenord.", comment: "")
+            return LocalizedStringKey("Password too weak.")
         }
     }
 }
