@@ -32,7 +32,6 @@ struct ImagePickerView: View {
         }
         .padding()
         .frame(width: 300)
-//        .background(Color("AppBlue").scaleEffect(1.5))
     }
 }
 

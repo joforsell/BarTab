@@ -103,7 +103,7 @@ struct SettingsView: View {
                                             if oneDayHasElapsedSince(latestEmail) {
                                                 return Alert(title: Text(errorTitle),
                                                              message: Text(errorString),
-                                                             primaryButton: .default(Text("Avbryt")),
+                                                             primaryButton: .default(Text("Cancel")),
                                                              secondaryButton: .default(Text("OK"), action: emailButtonAction))
                                             } else {
                                                 return Alert(title: errorTitle, message: errorString, dismissButtonTitle: "OK")
@@ -144,7 +144,7 @@ struct SettingsView: View {
                 }
             }
             .toast(isPresented: $isShowingEmailConfirmation, dismissAfter: 6, onDismiss: { isShowingEmailConfirmation = false }) {
-                ToastView(systemImage: ("envelope.fill", .accentColor, 50), title: "Mailutskick sändes", subTitle: "Ett mail med aktuellt saldo skickades till användare med kopplad mailadress.")
+                ToastView(systemImage: ("envelope.fill", .accentColor, 50), title: "E-mail(s) sent", subTitle: "An e-mail showing current balance was sent to each bar guest with an associated e-mail address.")
             }
             .background(VisualEffectBlurView(blurStyle: .dark))
             .ignoresSafeArea(.keyboard)
@@ -158,11 +158,11 @@ struct SettingsView: View {
         var emailButton: some View {
             Button {
                 if oneDayHasElapsedSince(latestEmail) {
-                    errorTitle = "Är du säker på att du vill göra ett mailutskick?"
-                    errorString = "Detta skickar ett mail med aktuellt saldo till alla användare som angett en mailadress."
+                    errorTitle = "Are you sure you want to send e-mail(s)?"
+                    errorString = "This will send an e-mail showing current balance to each bar guest with an associated e-mail address."
                 } else {
-                    errorTitle = "Kunde inte skicka"
-                    errorString = "Du kan bara göra utskick en gång i minuten."
+                    errorTitle = "Could not send"
+                    errorString = "You can only send e-mail(s) once every minute."
                 }
                 showError = true
             } label: {

@@ -22,8 +22,8 @@ struct CreateAccountView: View {
     
     @State private var showingPassword = false
     @State private var isShowingAlert = false
-    @State private var alertTitle = ""
-    @State private var alertMessage = ""
+    @State private var alertTitle: LocalizedStringKey = ""
+    @State private var alertMessage: LocalizedStringKey = ""
     @State private var isShowingToast = false
     
     var body: some View {
@@ -56,9 +56,9 @@ struct CreateAccountView: View {
                 finishButton
                 Spacer()
                 HStack {
-                    Link("Integritetspolicy", destination: URL(string: "https://bartab-d48b2.web.app/privacypolicy.html")!)
+                    Link("Privacy policy", destination: URL(string: "https://bartab-d48b2.web.app/privacypolicy.html")!)
                     Spacer()
-                    Link("Användarvillkor", destination: URL(string: "https://bartab-d48b2.web.app/termsandconditions.html")!)
+                    Link("Terms of use", destination: URL(string: "https://bartab-d48b2.web.app/termsandconditions.html")!)
                 }
                 .frame(width: 300)
                 .padding(.vertical)
@@ -112,8 +112,9 @@ struct CreateAccountView: View {
             }
 
             .overlay(alignment: .topLeading) {
-                Text("Mailadress".uppercased())
+                Text("E-mail address")
                     .font(.caption2)
+                    .textCase(.uppercase)
                     .foregroundColor(.white)
                     .opacity(0.5)
                     .offset(y: -10)
@@ -172,8 +173,9 @@ struct CreateAccountView: View {
                 }
             }
             .overlay(alignment: .topLeading) {
-                Text("Lösenord".uppercased())
+                Text("Password")
                     .font(.caption2)
+                    .textCase(.uppercase)
                     .opacity(0.5)
                     .offset(y: -10)
             }
@@ -195,16 +197,16 @@ struct CreateAccountView: View {
             .overlay {
                 Button {
                     if email.trimmingCharacters(in: .whitespaces).isEmpty {
-                        alertTitle = "Du måste ange en mailadress."
+                        alertTitle = "Please enter an e-mail address."
                         isShowingAlert = true
                     } else if password.trimmingCharacters(in: .whitespaces).isEmpty {
-                        alertTitle = "Du måste ange ett lösenord."
+                        alertTitle = "Please enter a password."
                         isShowingAlert = true
                     } else {
                         UserHandling.createUser(withEmail: email, password: password) { error in
                             if let error = error {
-                                alertTitle = "Kunde inte skapa konto."
-                                alertMessage = error.errorDescription ?? "Okänt fel."
+                                alertTitle = "Could not create account."
+                                alertMessage = error.errorDescription ?? "Unknown error."
                                 isShowingAlert = true
                             }
                         }
@@ -213,14 +215,15 @@ struct CreateAccountView: View {
                     RoundedRectangle(cornerRadius: 6)
                         .foregroundColor(.accentColor)
                         .overlay {
-                            Text("Skapa konto".uppercased())
+                            Text("Create account")
                                 .foregroundColor(.white)
                                 .fontWeight(.bold)
+                                .textCase(.uppercase)
                         }
                 }
             }
             .alert(isPresented: $isShowingAlert) {
-                Alert(title: Text(alertTitle), message: Text(alertMessage), dismissButton: .default(Text("OK").foregroundColor(.accentColor)))
+                Alert(title: Text(alertTitle), message: Text(alertMessage), dismissButton: .default(Text("OK")))
             }
 
     }

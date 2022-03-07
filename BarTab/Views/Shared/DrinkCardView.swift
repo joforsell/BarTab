@@ -22,7 +22,7 @@ struct DrinkCardView: View {
                     .padding()
                 VStack(alignment: .leading) {
                     Text(drinkVM.drink.name).font(.title3).bold()
-                    Text("\(drinkVM.drink.price) kr")
+                    Text("$\(drinkVM.drink.price)")
                     Spacer()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)

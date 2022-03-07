@@ -49,7 +49,7 @@ struct UserSettingsView: View {
                             RoundedRectangle(cornerRadius: 6)
                                 .foregroundColor(.red)
                                 .overlay {
-                                    Label("Radera konto", systemImage: "trash.fill")
+                                    Label("Delete account", systemImage: "trash.fill")
                                         .foregroundColor(.white)
                                         .font(.caption)
                                 }
@@ -57,7 +57,7 @@ struct UserSettingsView: View {
                         .frame(width: 150, height: 44)
                         .padding()
                         .alert(isPresented: $isShowingDeleteAlert) {
-                            Alert(title: Text("Är du säker på att du vill radera ditt konto?"), message: Text("När du raderar ditt konto raderas också all relaterad data. Din prenumeration sägs inte upp automatiskt, detta måste du göra i dina inställningar."), primaryButton: .default(Text("Avbryt")), secondaryButton: .destructive(Text("Radera konto")) { userHandler.deleteUser { result in
+                            Alert(title: Text("Are you sure you want to delete your account?"), message: Text("When you delete your account, all related data is also deleted. Your subscription is not automatically cancelled, this needs to be done in your settings."), primaryButton: .default(Text("Cancel")), secondaryButton: .destructive(Text("Delete account")) { userHandler.deleteUser { result in
                                 switch result {
                                 case .failure(let error):
                                     print(error.localizedDescription)
@@ -78,7 +78,7 @@ struct UserSettingsView: View {
                             RoundedRectangle(cornerRadius: 6)
                                 .foregroundColor(.accentColor)
                                 .overlay {
-                                    Label("Logga ut", systemImage: "rectangle.portrait.and.arrow.right")
+                                    Label("Sign out", systemImage: "rectangle.portrait.and.arrow.right")
                                         .foregroundColor(.white)
                                         .font(.caption)
                                 }
@@ -116,20 +116,24 @@ struct UserSettingsView: View {
     @ViewBuilder
     private var phoneView: some View {
         VStack(alignment: .center) {
-            Text("Kopplad mailadress:").fontWeight(.bold)
+            Text("Connected e-mail address:").fontWeight(.bold)
             Text(Auth.auth().currentUser?.email ?? "-")
         }
         Divider()
             .frame(maxWidth: 300)
         VStack(alignment: .center) {
-            Text("Prenumerationen förnyas:").fontWeight(.bold)
+            Text("Subscription is renewed:").fontWeight(.bold)
             Text(userSettingsVM.expireDateAsString)
         }
         Divider()
             .frame(maxWidth: 300)
         VStack(alignment: .center) {
-            Text("Typ av prenumeration:").fontWeight(.bold)
-            Text(userSettingsVM.subscriptionType)
+            Text("Subscription type:").fontWeight(.bold)
+            if userSettingsVM.subscriptionType != "" {
+                Text(userSettingsVM.subscriptionType)
+            } else {
+                Text("Lifetime")
+            }
         }
         Divider()
             .frame(maxWidth: 300)
@@ -139,23 +143,23 @@ struct UserSettingsView: View {
     @ViewBuilder
     private var padView: some View {
         HStack {
-            Text("Kopplad mailadress:")
+            Text("Connected e-mail address:")
             Spacer()
             Text(Auth.auth().currentUser?.email ?? "-")
         }
         Divider()
             .frame(maxWidth: 300)
         HStack {
-            Text("Prenumerationen förnyas:")
+            Text("Subscription is renewed:")
             Spacer()
             Text(userSettingsVM.expireDateAsString)
         }
         Divider()
             .frame(maxWidth: 300)
         HStack {
-            Text("Typ av prenumeration:")
+            Text("Subscription type:")
             Spacer()
-            Text(userSettingsVM.purchaser?.activeSubscriptions.first ?? "Livstid")
+            Text(userSettingsVM.subscriptionType)
         }
         Divider()
             .frame(maxWidth: 300)

@@ -38,11 +38,11 @@ struct AddCustomerView: View {
                         .padding(.bottom, 48)
                         .frame(maxWidth: geometry.size.width/2, maxHeight: geometry.size.height/2)
                 
-                    CustomInputView(title: "Namn", image: "person.text.rectangle.fill", editing: $editingName, text: $name, keybTag: 7)
+                    CustomInputView(title: "Name", image: "person.text.rectangle.fill", editing: $editingName, text: $name, keybTag: 7)
                     
-                    CustomInputView(title: "Mailadress", image: "envelope.fill", editing: $editingEmail, text: $email, keybTag: 8)
+                    CustomInputView(title: "E-mail address", image: "envelope.fill", editing: $editingEmail, text: $email, keybTag: 8)
                     
-                    CustomInputView(title: "Ingående saldo", image: "dollarsign.square.fill", editing: $editingBalance, text: $balance, keybTag: 9)
+                    CustomInputView(title: "Opening balance", image: "dollarsign.square.fill", editing: $editingBalance, text: $balance, keybTag: 9)
                 }
                 
                 Color.clear
@@ -59,14 +59,15 @@ struct AddCustomerView: View {
                         } label: {
                             RoundedRectangle(cornerRadius: 6)
                                 .overlay {
-                                    Text("Skapa användare".uppercased())
+                                    Text("Create bar guest")
                                         .foregroundColor(.white)
                                         .fontWeight(.bold)
+                                        .textCase(.uppercase)
                                 }
                         }
                     }
                 .alert(isPresented: $isShowingAlert) {
-                    Alert(title: Text("Användaren måste ha ett namn"), dismissButton: .default(Text("OK").foregroundColor(.accentColor)))
+                    Alert(title: Text("The bar guest needs a name"), dismissButton: .default(Text("OK")))
                 }
                 Spacer()
             }

@@ -9,8 +9,8 @@ import SwiftUI
 
 struct ToastView: View {
     var systemImage: (String, Color, CGFloat)?
-    var title: String
-    var subTitle: String?
+    var title: LocalizedStringKey
+    var subTitle: LocalizedStringKey?
     
     
     var body: some View {
@@ -41,12 +41,5 @@ struct ToastView: View {
         .cornerRadius(20)
         .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 6)
         .padding()
-    }
-}
-
-struct ToastView_Previews: PreviewProvider {
-    static var previews: some View {
-        ToastView(systemImage: ("envelope.fill", Color("AppYellow"), 50), title: "Mail skickades", subTitle: "Nuvarande saldo skickades till samtliga kunder.")
-            .previewLayout(.sizeThatFits)
     }
 }

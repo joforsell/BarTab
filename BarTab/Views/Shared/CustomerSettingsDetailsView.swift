@@ -94,8 +94,9 @@ struct CustomerSettingsDetailView: View {
                             .disabled(!editingName)
                         }
                         .overlay(alignment: .topLeading) {
-                            Text("Namn".uppercased())
+                            Text("Name")
                                 .font(.caption2)
+                                .textCase(.uppercase)
                                 .foregroundColor(.white)
                                 .opacity(0.5)
                                 .offset(y: -10)
@@ -143,8 +144,9 @@ struct CustomerSettingsDetailView: View {
                             .disabled(!editingEmail)
                         }
                         .overlay(alignment: .topLeading) {
-                            Text("Mailadress".uppercased())
+                            Text("E-mail address")
                                 .font(.caption2)
+                                .textCase(.uppercase)
                                 .foregroundColor(.white)
                                 .opacity(0.5)
                                 .offset(y: -10)
@@ -188,7 +190,7 @@ struct CustomerSettingsDetailView: View {
                                         }
                                     }
                             } else {
-                                Text("\(customerVM.balanceAsString) kr")
+                                Text("$\(customerVM.balanceAsString)")
                                     .font(.title3)
                                     .foregroundColor(customerVM.balanceColor)
                             }
@@ -221,20 +223,23 @@ struct CustomerSettingsDetailView: View {
                         }
                         .overlay(alignment: .topLeading) {
                             if !editingBalance {
-                                Text("Saldo".uppercased())
+                                Text("Balance")
                                     .font(.caption2)
+                                    .textCase(.uppercase)
                                     .foregroundColor(.white)
                                     .opacity(0.5)
                                     .offset(y: -10)
                             } else if editingBalance && addingToBalance {
-                                Text("Lägg till".uppercased())
+                                Text("Add")
                                     .font(.caption2)
+                                    .textCase(.uppercase)
                                     .foregroundColor(Color("Lead"))
                                     .opacity(0.5)
                                     .offset(y: -10)
                             } else {
-                                Text("Ta bort".uppercased())
+                                Text("Subtract")
                                     .font(.caption2)
+                                    .textCase(.uppercase)
                                     .foregroundColor(Color("Deficit"))
                                     .opacity(0.5)
                                     .offset(y: -10)
@@ -289,7 +294,7 @@ struct CustomerSettingsDetailView: View {
                                 Button {
                                     isShowingKeyField.toggle()
                                 } label: {
-                                    Text("Uppdatera \nRFID-bricka")
+                                    Text("Uppdate \nRFID tag")
                                         .multilineTextAlignment(.leading)
                                         .fixedSize()
                                         .frame(width: 160, height: 24, alignment: .leading)
@@ -321,10 +326,10 @@ struct CustomerSettingsDetailView: View {
                                     .foregroundColor(.red)
                             }
                             .alert(isPresented: $showError) {
-                                Alert(title: Text("Radera användare"),
-                                      message: Text("Är du säker på att du vill radera den här användaren?"),
-                                      primaryButton: .default(Text("Avbryt")),
-                                      secondaryButton: .destructive(Text("Radera")) {
+                                Alert(title: Text("Delete bar guest"),
+                                      message: Text("Are you sure you want to delete this bar guest?"),
+                                      primaryButton: .default(Text("Cancel")),
+                                      secondaryButton: .destructive(Text("Delete")) {
                                     customerListVM.removeCustomer(customerVM.customer)
                                     detailsViewShown = .none
                                 })

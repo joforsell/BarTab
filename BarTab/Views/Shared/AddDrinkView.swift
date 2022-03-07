@@ -40,13 +40,13 @@ struct AddDrinkView: View {
                         .padding(.bottom, 48)
                         .frame(maxWidth: geometry.size.width/2, maxHeight: geometry.size.height/2)
                 
-                    CustomInputView(title: "Namn",
+                    CustomInputView(title: "Name",
                                     image: "square.text.square.fill",
                                     editing: $editingName,
                                     text: $name,
                                     keybTag: 1)
                     
-                    CustomInputView(title: "Pris",
+                    CustomInputView(title: "Price",
                                     image: "dollarsign.square.fill",
                                     editing: $editingPrice,
                                     text: $price,
@@ -68,14 +68,15 @@ struct AddDrinkView: View {
                         } label: {
                             RoundedRectangle(cornerRadius: 6)
                                 .overlay {
-                                    Text("Skapa dryck".uppercased())
+                                    Text("Create drink")
                                         .foregroundColor(.white)
                                         .fontWeight(.bold)
+                                        .textCase(.uppercase)
                                 }
                         }
                     }
                     .alert(isPresented: $isShowingAlert) {
-                        Alert(title: Text("Drycken måste ha ett namn"), dismissButton: .default(Text("OK").foregroundColor(.accentColor)))
+                        Alert(title: Text("The drink needs a name"), dismissButton: .default(Text("OK")))
                     }
                 Spacer()
             }

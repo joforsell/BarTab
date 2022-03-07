@@ -24,7 +24,7 @@ struct UpdateTagView: View {
             HStack {
                 Spacer()
                 ZStack {
-                    TextField("Läs av bricka", text: $tagKey, onCommit: {
+                    TextField("Scan your tag", text: $tagKey, onCommit: {
                         customerListVM.updateKey(of: customer, with: tagKey)
                         isShowingKeyUpdatedToast = true
                     })
@@ -38,7 +38,7 @@ struct UpdateTagView: View {
                             .padding(48)
                             .foregroundColor(.accentColor)
                         HStack {
-                            Text("Läs av RFID-bricka för att koppla till")
+                            Text("Scan a tag to assign it to")
                             Text("\(customer.name).")
                                 .fontWeight(.heavy)
                         }
@@ -53,7 +53,7 @@ struct UpdateTagView: View {
         .toast(isPresented: $isShowingKeyUpdatedToast, dismissAfter: 3, onDismiss: {
             presentationMode.wrappedValue.dismiss()
         }) {
-            ToastView(systemImage: ("checkmark.circle.fill", .accentColor, 50), title: "RFID-bricka uppdaterades", subTitle: "Den avlästa RFID-brickan är nu kopplad till \(customer.name)")
+            ToastView(systemImage: ("checkmark.circle.fill", .accentColor, 50), title: "RFID tag was updated", subTitle: "The scanned RFID tag is now assigned to \(customer.name)")
             }
         .introspectTextField { textField in
             textField.becomeFirstResponder()

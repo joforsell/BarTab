@@ -61,7 +61,7 @@ struct CustomerListView: View {
             VStack(alignment: .leading) {
                 Text(customerVM.customer.name)
                     .font(.callout)
-                Text("\(customerVM.customer.balance) kr")
+                Text("$\(customerVM.customer.balance)")
                     .font(.footnote)
                     .foregroundColor(customerVM.balanceColor)
             }

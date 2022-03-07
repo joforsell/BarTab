@@ -85,8 +85,9 @@ struct DrinkSettingsDetailView: View {
                         .disabled(!editingName)
                     }
                     .overlay(alignment: .topLeading) {
-                        Text("Namn".uppercased())
+                        Text("Name")
                             .font(.caption2)
+                            .textCase(.uppercase)
                             .foregroundColor(.white)
                             .opacity(0.5)
                             .offset(y: -10)
@@ -138,8 +139,9 @@ struct DrinkSettingsDetailView: View {
                         .disabled(!editingPrice)
                     }
                     .overlay(alignment: .topLeading) {
-                        Text("Pris".uppercased())
+                        Text("Price")
                             .font(.caption2)
+                            .textCase(.uppercase)
                             .foregroundColor(.white)
                             .opacity(0.5)
                             .offset(y: -10)
@@ -169,10 +171,10 @@ struct DrinkSettingsDetailView: View {
                                 .foregroundColor(.red)
                         }
                         .alert(isPresented: $showError) {
-                            Alert(title: Text("Radera dryck"),
-                                  message: Text("Är du säker på att du vill radera den här drycken?"),
-                                  primaryButton: .default(Text("Avbryt")),
-                                  secondaryButton: .destructive(Text("Radera")) {
+                            Alert(title: Text("Delete drink"),
+                                  message: Text("Are you sure you want to delete this drink?"),
+                                  primaryButton: .default(Text("Cancel")),
+                                  secondaryButton: .destructive(Text("Delete")) {
                                 drinkListVM.removeDrink(drinkVM.drink)
                                 detailsViewShown = .none
                             })

@@ -30,8 +30,8 @@ struct PaywallView: View {
     @State private var isShowingSubscriptionDetails = false
     @State private var isShowingAlert = false
     
-    @State private var alertTitle = ""
-    @State private var alertMessage = ""
+    @State private var alertTitle: LocalizedStringKey = ""
+    @State private var alertMessage: LocalizedStringKey = ""
     
     var body: some View {
         ZStack {
@@ -74,10 +74,10 @@ struct PaywallView: View {
                         subContinueButton
                         HStack {
                             Spacer()
-                            Link("Integritetspolicy", destination: URL(string: "https://bartab-d48b2.web.app/privacypolicy.html")!)
+                            Link(LocalizedStringKey("Privacy policy"), destination: URL(string: "https://bartab-d48b2.web.app/privacypolicy.html")!)
                                 .foregroundColor(.accentColor)
-                            Text("och")
-                            Link("Användarvillkor", destination: URL(string: "https://bartab-d48b2.web.app/termsandconditions.html")!)
+                            Text("and")
+                            Link(LocalizedStringKey("Terms of use"), destination: URL(string: "https://bartab-d48b2.web.app/termsandconditions.html")!)
                                 .foregroundColor(.accentColor)
                             Spacer()
                         }
@@ -91,7 +91,7 @@ struct PaywallView: View {
                         Button {
                             isShowingSubscriptionDetails.toggle()
                         } label: {
-                            Text("Prenumerationsdetaljer")
+                            Text("Subscription details")
                             Image(systemName: "chevron.up")
                                 .rotationEffect(.degrees(isShowingSubscriptionDetails ? 0 : 180))
                                 .font(.footnote)
@@ -106,8 +106,8 @@ struct PaywallView: View {
                             if let newUserID = Auth.auth().currentUser?.uid {
                                 Purchases.shared.restoreTransactions { purchaserInfo, error in
                                     if error != nil {
-                                        alertTitle = "Återställningen misslyckades"
-                                        alertMessage = "Ditt köp kunde inte återställas, inget giltigt kvitto kunde hittas."
+                                        alertTitle = "Restoration failed"
+                                        alertMessage = "Your purchase could not be restored, no valid reciept was found."
                                         isShowingAlert = true
                                     } else {
                                         if let oldUserID = purchaserInfo?.originalAppUserId {
@@ -117,10 +117,10 @@ struct PaywallView: View {
                                 }
                             }
                         } label: {
-                            Text("Återställ köp")
+                            Text("Restore purchase")
                         }
                         .alert(isPresented: $isShowingAlert) {
-                            Alert(title: alertTitle, message: alertMessage, dismissButtonTitle: "OK")
+                            Alert(title: Text(alertTitle), message: Text(alertMessage), dismissButton: .default(Text("OK")))
                         }
                     }
                     .frame(width: columnWidth * 0.8)
@@ -132,9 +132,6 @@ struct PaywallView: View {
                 .center(.horizontal)
             }
         }
-        .onAppear {
-            print(Auth.auth().currentUser?.uid ?? "Ingen inloggad")
-        }
     }
 }
 
@@ -144,18 +141,18 @@ private extension PaywallView {
     @ViewBuilder
     private var sellingPoints: some View {
         ContentRow(width: columnWidth,
-                   headerText: "Håll enkelt koll",
-                   bodyText: "Glöm bort manuella bonglistor och att räkna samman saldon efter varje träff. Med BarTab håller du och dina bargäster enkelt koll på saldoställningar.",
+                   headerText: "Stay on top of things",
+                   bodyText: "Forget tallying purchases and adding up balance after every night. With BarTab you and your bar guests can easily keep track of running tabs.",
                    image: Image(systemName: "dollarsign.circle.fill"),
                    isPhone: isPhone())
         ContentRow(width: columnWidth,
-                   headerText: "Obegränsad bargästlista",
-                   bodyText: "Lägg till obegränsat antal bargäster med automatiskt uppdaterande saldo och låt dem beställa från en dryckeslista som bara begränsas av ditt barskåp.",
+                   headerText: "Unlimited list of bar guests",
+                   bodyText: "Add an unlimited amount of bar guests with balances that are updated automatically and let them order from a drink list only limited by the contents of your bar.",
                    image: Image(systemName: "person.2.circle.fill"),
                    isPhone: isPhone())
         ContentRow(width: columnWidth,
-                   headerText: "Maila aktuellt saldo",
-                   bodyText: "Det ska vara enkelt att låta dina bargäster hålla koll på sitt saldo. Med ett knapptryck kan du skicka mail till varje gäst med deras aktuella saldo.",
+                   headerText: "Send e-mail with current balance",
+                   bodyText: "Letting your bar guests keep track of their balance should be easy. With the press of a button you can e-mail each of your bar guests their current balance.",
                    image: Image(systemName: "envelope.fill"),
                    isPhone: isPhone())
             .padding(.bottom, 48)
@@ -210,7 +207,7 @@ private extension PaywallView {
         Button {
             UserHandling.signOut { _ in }
         } label: {
-            Text("Logga ut")
+            Text("Sign out")
                 .foregroundColor(.white)
                 .font(.callout)
                 .fontWeight(.semibold)
@@ -225,23 +222,23 @@ private extension PaywallView {
             switch selectedSub {
             case .monthly:
                 return VStack {
-                    Text("\(offerings?.monthly?.localizedPriceString ?? "Price not found") / månad")
+                    Text("\(offerings?.monthly?.localizedPriceString ?? "Price not found") / month")
                         .fontWeight(.bold)
-                    Text("Första veckan gratis!")
+                    Text("First week for free!")
                         .font(.caption2)
                 }
             case .annual:
                 return VStack {
-                    Text("\(offerings?.annual?.localizedPriceString ?? "Price not found") / år")
+                    Text("\(offerings?.annual?.localizedPriceString ?? "Price not found") / year")
                         .fontWeight(.bold)
-                    Text("Första veckan gratis!")
+                    Text("First week for free!")
                         .font(.caption2)
                 }
             case .lifetime:
                 return VStack {
                     Text("\(offerings?.lifetime?.localizedPriceString ?? "Price not found")")
                         .fontWeight(.bold)
-                    Text("Betala bara en gång!")
+                    Text("Pay only once!")
                         .font(.caption2)
                 }
             }
@@ -291,8 +288,8 @@ private extension PaywallView {
 private extension PaywallView {
     struct ContentRow: View {
         let width: CGFloat
-        let headerText: String
-        let bodyText: String
+        let headerText: LocalizedStringKey
+        let bodyText: LocalizedStringKey
         let image: Image
         let isPhone: Bool
         
