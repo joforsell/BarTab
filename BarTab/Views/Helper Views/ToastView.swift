@@ -29,6 +29,7 @@ struct ToastView: View {
                     .minimumScaleFactor(0.1)
                 if let subTitle = subTitle {
                     Text(subTitle)
+                        .minimumScaleFactor(0.1)
                         .foregroundColor(.black)
                         .padding(.bottom, 2)
                         .padding(.trailing)

@@ -35,9 +35,3 @@ struct PhoneTabView: View {
         }
     }
 }
-
-struct PhoneTabView_Previews: PreviewProvider {
-    static var previews: some View {
-        PhoneTabView()
-    }
-}
