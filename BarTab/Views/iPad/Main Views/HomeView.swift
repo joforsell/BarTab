@@ -116,7 +116,7 @@ struct HomeView: View {
                     .ignoresSafeArea()
             )
             if tappedDrink != nil {
-                ConfirmOrderView(drinkVM: confirmationVM.selectedDrink ?? ConfirmationViewModel.errorDrink, tappedDrink: $tappedDrink)
+                ConfirmOrderView(drinkVM: confirmationVM.selectedDrink ?? ConfirmationViewModel.errorDrink, tappedDrink: tappedDrink, pct: flyToModal ? 1 : 0, onClose: dismissConfirmOrderView)
                     .frame(maxWidth: UIScreen.main.bounds.width * 0.9, maxHeight: UIScreen.main.bounds.height * 0.9)
                     .matchedGeometryEffect(id: isGeometryMatched ? tappedDrink! : "", in: orderNamespace, isSource: false)
                     .onAppear { withAnimation { flyToModal = true } }
@@ -127,6 +127,10 @@ struct HomeView: View {
                     .environmentObject(userHandler)
             }
         }
+    }
+    
+    private func dismissConfirmOrderView() {
+        tappedDrink = nil
     }
 }
 

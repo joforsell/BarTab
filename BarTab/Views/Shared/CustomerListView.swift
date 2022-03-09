@@ -14,36 +14,53 @@ struct CustomerListView: View {
 
     @EnvironmentObject var customerListVM: CustomerListViewModel
     @EnvironmentObject var userHandler: UserHandling
+    
+    @State private var currentCustomer: Customer? = nil
         
     var body: some View {
-        VStack {
-            if isPhone() {
-                HStack {
-                    Image(uiImage: Bundle.main.icon ?? UIImage())
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .foregroundColor(.accentColor)
-                        .frame(width: 40, height: 40)
-                        .cornerRadius(10)
-                        .padding(8)
-                    Text(userHandler.user.association ?? "BarTab")
-                        .foregroundColor(.gray)
-                        .font(.system(size: 20))
-                    Spacer()
+        ZStack {
+            VStack {
+                if isPhone() {
+                    HStack {
+                        Image(uiImage: Bundle.main.icon ?? UIImage())
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundColor(.accentColor)
+                            .frame(width: 40, height: 40)
+                            .cornerRadius(10)
+                            .padding(8)
+                        Text(userHandler.user.association ?? "BarTab")
+                            .foregroundColor(.gray)
+                            .font(.system(size: 20))
+                        Spacer()
+                    }
                 }
-            }
-            ScrollView {
-                ForEach(customerListVM.customerVMs) { customerVM in
-                    customerRow(customerVM)
-                        .padding(.bottom, isPhone() ? customerListVM.customerVMs.last?.name == customerVM.name ? 48 : 0 : 0)
+                ScrollView {
+                    ForEach(customerListVM.customerVMs) { customerVM in
+                        customerRow(customerVM)
+                            .padding(.bottom, isPhone() ? customerListVM.customerVMs.last?.name == customerVM.name ? 48 : 0 : 0)
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                if isPhone() {
+                                    withAnimation {
+                                        currentCustomer = customerVM.customer
+                                    }
+                                }
+                            }
+                    }
                 }
+                Spacer()
             }
-            Spacer()
+            .padding(.horizontal, 10)
+            .frame(width: isPhone() ? UIScreen.main.bounds.width : UIScreen.main.bounds.width * 0.3)
+            .background(isPhone() ? Color.clear : Color.black.opacity(0.6))
+            .padding(.leading, isPhone() ? 0 : 10)
+            if currentCustomer != nil {
+                TransactionsListView(customer: currentCustomer!, onClose: close)
+                    .transition(.move(edge: .trailing))
+                    .zIndex(3)
+            }
         }
-        .padding(.horizontal, 10)
-        .frame(width: isPhone() ? UIScreen.main.bounds.width : UIScreen.main.bounds.width * 0.3)
-        .background(isPhone() ? Color.clear : Color.black.opacity(0.6))
-        .padding(.leading, isPhone() ? 0 : 10)
     }
     
     func customerRow(_ customerVM: CustomerViewModel) -> some View {
@@ -75,6 +92,12 @@ struct CustomerListView: View {
         .frame(height: 60, alignment: .leading)
         .cornerRadius(10)
         .addBorder(Color.white.opacity(0.1), width: 1, cornerRadius: 10)
+    }
+    
+    private func close() {
+        withAnimation {
+            currentCustomer = nil
+        }
     }
     
     private func isPhone() -> Bool {

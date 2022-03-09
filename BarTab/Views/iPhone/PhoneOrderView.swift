@@ -42,8 +42,10 @@ struct PhoneOrderView: View {
                         ForEach(sortedList) { drinkVM in
                             DrinkCardView(drinkVM: drinkVM)
                                 .onTapGesture {
-                                    tappedDrink = drinkVM.id
-                                    confirmationVM.selectedDrink = drinkVM
+                                    withAnimation {
+                                        tappedDrink = drinkVM.id
+                                        confirmationVM.selectedDrink = drinkVM
+                                    }
                                 }
                                 .aspectRatio(1.4, contentMode: .fit)
                                 .matchedGeometryEffect(id: drinkVM.id, in: orderNamespace, isSource: true)
@@ -65,16 +67,23 @@ struct PhoneOrderView: View {
                     .ignoresSafeArea()
             )
             if tappedDrink != nil {
-                ConfirmOrderView(drinkVM: confirmationVM.selectedDrink ?? ConfirmationViewModel.errorDrink, tappedDrink: $tappedDrink)
-                    .frame(maxWidth: UIScreen.main.bounds.width * 0.9, maxHeight: UIScreen.main.bounds.height * 0.9)
+                ConfirmOrderView(drinkVM: confirmationVM.selectedDrink ?? ConfirmationViewModel.errorDrink, tappedDrink: tappedDrink, pct: flyToModal ? 1 : 0, onClose: dismissConfirmOrderView)
                     .matchedGeometryEffect(id: isGeometryMatched ? tappedDrink! : "", in: orderNamespace, isSource: false)
                     .onAppear { withAnimation { flyToModal = true } }
                     .onDisappear { flyToModal = false }
-                    .transition(AnyTransition.asymmetric(insertion: .identity, removal: .opacity))
+                    .transition(.asymmetric(insertion: .identity, removal: .move(edge: .bottom)))
                     .environmentObject(customerListVM)
                     .environmentObject(drinkListVM)
                     .environmentObject(userHandler)
+                    .zIndex(3)
+                    .padding(.bottom, 60)
             }
+        }
+    }
+    
+    private func dismissConfirmOrderView() {
+        withAnimation {
+            tappedDrink = nil
         }
     }
 }

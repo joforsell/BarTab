@@ -69,7 +69,6 @@ class CustomerListViewModel: ObservableObject {
     
     func customerBoughtWithKey(_ drink: Drink, key: String) {
         customerRepository.subtractFromBalanceOfKeyHolder(with: key, by: drink.price)
-//        customerRepository.addBoughtDrinkWithKey(drink, key: key)
     }
     
     func customerWithKey(_ key: String, completion: @escaping (Result<Customer, Error>) -> ()) {
@@ -82,7 +81,6 @@ class CustomerListViewModel: ObservableObject {
         guard customer.id != nil else { return }
         
         customerRepository.subtractFromBalanceOf(customer, by: drink.price)
-//        customerRepository.addBoughtDrink(drink, to: customer)
     }
     
     func sendEmails(from user: User, to customers: [Customer], completion: @escaping (Result<Bool, Error>) -> Void) {
