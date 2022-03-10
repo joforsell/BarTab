@@ -1,27 +1,37 @@
-////
-////  UserSettingsViewModel.swift
-////  BarTab
-////
-////  Created by Johan Forsell on 2021-10-31.
-////
 //
-//import SwiftUI
-//import Combine
+//  UserSettingsViewModel.swift
+//  BarTab
 //
-//class UserSettingsViewModel: ObservableObject {
-//    @Published var settingsRepository = UserSettingsRepository()
-//    @Published var settings = UserSettings()
+//  Created by Johan Forsell on 2022-01-18.
 //
-//    var subscriptions = Set<AnyCancellable>()
-//
-//    init() {
-//        settingsRepository.$settings
-//            .assign(to: \.settings, on: self)
-//            .store(in: &subscriptions)
-//    }
-//
-//    func createSettings() {
-//        let newSettings = UserSettings()
-//        settingsRepository.addSettings(newSettings)
-//    }
-//}
+
+import Foundation
+import Purchases
+import SwiftUI
+
+class UserSettingsViewModel: ObservableObject {
+    @Environment(\.locale) var locale
+    @Published var purchaser: Purchases.PurchaserInfo?
+    @Published var expireDateAsString = "-"
+    @Published var subscriptionType = ""
+    
+    init() {
+        Purchases.shared.purchaserInfo { [weak self] purchaserInfo, error in
+            guard let self = self else { return }
+            self.purchaser = purchaserInfo
+            self.expireDateAsString = self.formattedDate(purchaserInfo?.latestExpirationDate)
+            self.subscriptionType = purchaserInfo?.activeSubscriptions.first?.localizedCapitalized ?? ""
+        }
+    }
+    
+    private func formattedDate(_ date: Date?) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        formatter.locale = Locale(identifier: locale.identifier)
+
+        guard let expDate = date else { return "-" }
+
+        return formatter.string(from: expDate)
+    }
+}

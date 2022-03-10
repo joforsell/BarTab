@@ -5,16 +5,25 @@
 //  Created by Johan Forsell on 2021-11-16.
 //
 
-import Foundation
+import SwiftUI
 import Combine
 
 class CustomerViewModel: ObservableObject, Identifiable {
     @Published var customerRepository = CustomerRepository()
     @Published var customer: Customer
-    @Published var transactions = [TransactionViewModel]()
+    @Published var name = ""
+    @Published var email = ""
+    @Published var balanceAsString = ""
     
     var id = ""
-        
+    var balanceColor: Color {
+        if customer.balance > 0 {
+            return Color("Lead")
+        } else {
+            return Color("Deficit")
+        }
+    }
+    
     private var cancellables = Set<AnyCancellable>()
     
     init(customer: Customer) {
@@ -28,19 +37,39 @@ class CustomerViewModel: ObservableObject, Identifiable {
             .store(in: &cancellables)
         
         $customer
-            .map { customer in
-                customer.transactions.map { transaction in
-                    TransactionViewModel(transaction: transaction)
-                }
+            .compactMap { customer in
+                customer.name
             }
-            .assign(to: \.transactions, on: self)
+            .assign(to: \.name, on: self)
             .store(in: &cancellables)
         
-//        $customer
-//            .debounce(for: 1, scheduler: RunLoop.main)
-//            .sink { customer in
-//                self.customerRepository.updateCustomer(customer)
-//            }
-//            .store(in: &cancellables)
+        $customer
+            .compactMap { customer in
+                customer.email
+            }
+            .assign(to: \.email, on: self)
+            .store(in: &cancellables)
+
+        
+        $customer
+            .compactMap { customer in
+                String(customer.balance)
+            }
+            .assign(to: \.balanceAsString, on: self)
+            .store(in: &cancellables)
+        
+        $name
+            .debounce(for: 1, scheduler: RunLoop.main)
+            .sink { name in
+                self.customerRepository.updateName(of: self.customer, to: name)
+            }
+            .store(in: &cancellables)
+        
+        $email
+            .debounce(for: 1, scheduler: RunLoop.main)
+            .sink { email in
+                self.customerRepository.updateEmail(of: self.customer, to: email)
+            }
+            .store(in: &cancellables)
     }
 }

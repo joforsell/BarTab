@@ -7,24 +7,24 @@
 
 import SwiftUI
 import Firebase
+import Purchases
 
 @main
 struct BarTabApp: App {
-    @StateObject var userInfo = UserInfo()
-    @StateObject var settings = SettingsManager()
-    
+    @StateObject var authentication = Authentication()
+    @StateObject var confirmationVM = ConfirmationViewModel()
+        
     init() {
         FirebaseApp.configure()
-        if Auth.auth().currentUser == nil {
-            Auth.auth().signInAnonymously()
-        }
+        
+        Purchases.configure(withAPIKey: "appl_mtWeWLbXBczlrxImSUOLQowDdlK")
     }
     
     var body: some Scene {
         WindowGroup {
-            HomeView()
-                .environmentObject(userInfo)
-                .environmentObject(settings)
+            ContentView()
+                .environmentObject(authentication)
+                .environmentObject(confirmationVM)
         }
     }
 }

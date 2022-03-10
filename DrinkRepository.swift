@@ -9,12 +9,13 @@ import Foundation
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import Combine
 
 class DrinkRepository: ObservableObject {
-    
-    let db = Firestore.firestore().collection("drinks")
-    
+        
     @Published var drinks = [Drink]()
+    
+    var cancellables = Set<AnyCancellable>()
     
     init() {
         loadData()
@@ -23,7 +24,7 @@ class DrinkRepository: ObservableObject {
     func loadData() {
         let userId = Auth.auth().currentUser?.uid
         
-        db
+        Firestore.firestore().collection("drinks")
             .whereField("userId", isEqualTo: userId as Any)
             .addSnapshotListener { (querySnapshot, error) in
             if let querySnapshot = querySnapshot {
@@ -38,35 +39,29 @@ class DrinkRepository: ObservableObject {
         do {
             var addedDrink = drink
             addedDrink.userId = Auth.auth().currentUser?.uid
-            let _ = try db.addDocument(from: addedDrink)
+            let _ = try Firestore.firestore().collection("drinks").addDocument(from: addedDrink)
         } catch {
             fatalError("Unable to encode drink: \(error.localizedDescription)")
         }
     }
     
     func removeDrink(_ drink: Drink) {
-        if let drinkID = drink.id {
-            db.document(drinkID).delete() { error in
-                if let error = error {
-                    print(error)
-                }
-            }
-        }
-    }
-    
-    func updateDrink(_ drink: Drink) {
-        if let drinkID = drink.id {
-            do {
-                try db.document(drinkID).setData(from: drink)
-            } catch {
-                fatalError("Unable to encode drink: \(error.localizedDescription)")
+        Firestore.firestore().collection("drinks").document(drink.id!).delete() { error in
+            if let error = error {
+                print(error)
             }
         }
     }
     
     func updateDrinkPrice(of drink: Drink, to price: Int) {
-        if let drinkID = drink.id {
-            db.document(drinkID).updateData(["price" : price])
-        }
+        Firestore.firestore().collection("drinks").document(drink.id!).updateData(["price" : price])
+    }
+    
+    func updateDrinkName(of drink: Drink, to name: String) {
+        Firestore.firestore().collection("drinks").document(drink.id!).updateData(["name" : name])
+    }
+    
+    func updateImage(of drink: Drink, to image: String) {
+        Firestore.firestore().collection("drinks").document(drink.id!).updateData(["image" : image])
     }
 }
