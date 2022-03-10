@@ -14,4 +14,30 @@ struct Drink: Codable, Identifiable {
     var name: String
     var price: Int
     var userId: String?
+    var image: DrinkImage = .beer
+}
+
+enum DrinkImage: String, Codable, CaseIterable {
+    case beer
+    case gintonic
+    case shot
+    case whiskey
+    case cocktail
+    case coffee
+    case drink
+    case fruitjuice
+    case glasswithstraw
+    case tea
+    case wine
+    case beermug
+    case cocktail2
+    case coconutdrink
+    case colddrink
+    case energydrink
+    case firecocktail
+    case glass
+    case hotchocolate
+    case martini
+    case smoothie
+    case teacup
 }

@@ -12,7 +12,7 @@ struct Customer: Codable, Identifiable {
     @DocumentID var id = UUID().uuidString
     var name: String
     var balance: Int
-    var key: String?
+    var key: String
     var email: String
     var transactions: [Transaction] = []
     var userId: String?

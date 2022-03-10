@@ -8,7 +8,4 @@
    <FileRef
       location = "group:BarTab.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:Pods/Pods.xcodeproj">
-   </FileRef>
 </Workspace>

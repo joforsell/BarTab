@@ -2,17 +2,19 @@
 //  TransactionViewModel.swift
 //  BarTab
 //
-//  Created by Johan Forsell on 2021-11-27.
+//  Created by Johan Forsell on 2022-03-09.
 //
 
 import Foundation
+import SwiftUI
 import Combine
 
-class TransactionViewModel: ObservableObject, Identifiable {
+class TransactionViewModel: ObservableObject {
+    @Environment(\.locale) var locale
+
+    @Published var transactionImage: Image?
+    @Published var transactionDate = ""
     @Published var transaction: Transaction
-    
-    var formattedTimestamp = ""
-    var id = ""
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -20,19 +22,27 @@ class TransactionViewModel: ObservableObject, Identifiable {
         self.transaction = transaction
         
         $transaction
-            .compactMap { transaction in
-                transaction.id
+            .map { transaction in
+                if transaction.image == "openingBalance" {
+                    return Image(systemName: "star")
+                } else if transaction.image == "addedBalance" {
+                    return Image(systemName: "plus.circle")
+                } else {
+                    return Image(transaction.image)
+                }
             }
-            .assign(to: \.id, on: self)
+            .assign(to: \.transactionImage, on: self)
             .store(in: &cancellables)
         
         $transaction
-            .sink { transaction in
+            .map { transaction in
                 let formatter = DateFormatter()
-                formatter.dateFormat = "YY/MM/dd"
-                let formattedDate = formatter.string(from: transaction.createdTime)
-                self.formattedTimestamp = formattedDate
+                formatter.dateStyle = .medium
+                formatter.timeStyle = .none
+                formatter.locale = Locale(identifier: self.locale.identifier)
+                return formatter.string(from: transaction.date)
             }
+            .assign(to: \.transactionDate, on: self)
             .store(in: &cancellables)
     }
 }
