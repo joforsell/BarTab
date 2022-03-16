@@ -54,7 +54,8 @@ struct PhoneOrderView: View {
                         }
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .animation(.easeInOut)
+                    .animation(.easeInOut, value: userHandler.user.drinkCardColumns)
+                    .animation(.easeInOut, value: userHandler.user.drinkSorting)
                 }
                 .padding(.bottom, 48)
             }

@@ -69,6 +69,7 @@ struct DrinkSettingsView: View {
 }
 
 private struct DrinkRow: View {
+    @EnvironmentObject var userHandler: UserHandling
     @Binding var drinkVM: DrinkViewModel
     var geometry: GeometryProxy
     
@@ -83,7 +84,7 @@ private struct DrinkRow: View {
                 Text(drinkVM.drink.name)
                     .font(.callout)
                     .fontWeight(.bold)
-                Text("$\(drinkVM.drink.price)")
+                Text(Currency.display(drinkVM.drink.price, with: userHandler.user.currency))
                     .font(.footnote)
             }
             Spacer()

@@ -33,27 +33,38 @@ struct TransactionsListView: View {
                 Spacer()
                 Text(customer?.name ?? "Unknown")
                     .foregroundColor(.white)
-                    .font(.callout)
+                    .font(.title3)
                 Spacer()
                 Image(systemName: "person")
                     .resizable()
                     .scaledToFit()
+                    .scaleEffect(0.6)
+                    .foregroundColor(.white)
                     .frame(height: 50)
-                    .padding()
                     .clipShape(Circle())
                     .overlay {
                         Circle()
                             .stroke(Color.white.opacity(0.3), lineWidth: 1)
                     }
+                    .padding()
             }
             .frame(height: 50)
+            .padding(.top, 8)
             Rectangle()
                 .frame(maxWidth: .infinity, maxHeight: 2)
                 .foregroundColor(.white.opacity(0.3))
                 .padding(.bottom, 0)
             ScrollView {
                 ForEach(transactionListVM.transactions) { transaction in
-                    TransactionRow(transactionVM: TransactionViewModel(transaction: transaction))
+                    HStack {
+                        Rectangle()
+                            .frame(width: 4)
+                            .foregroundColor(barColor(for: transaction.name))
+                        VStack {
+                            TransactionRow(transactionVM: TransactionViewModel(transaction: transaction))
+                            Divider()
+                        }
+                    }
                 }
             }
         }
@@ -61,25 +72,78 @@ struct TransactionsListView: View {
     }
     
     struct TransactionRow: View {
+        @EnvironmentObject var userHandler: UserHandling
+
         @StateObject var transactionVM: TransactionViewModel
 
         var body: some View {
             HStack {
-                transactionVM.transactionImage!
-                    .resizable()
-                    .scaledToFit()
-                    .foregroundColor(.accentColor)
-                    .padding(.horizontal)
-                Text("$\(transactionVM.transaction.amount)")
-                    .padding(.trailing)
-                Text(transactionVM.transaction.name)
-                Spacer()
-                Text(transactionVM.transactionDate)
+                transactionImage
+                nameAndPrice
+                timeForTransaction
             }
-            .padding()
+            .padding(.trailing)
             .foregroundColor(.white)
             .frame(height: 60, alignment: .leading)
             .cornerRadius(10)
+        }
+        
+        var transactionImage: some View {
+            VStack(alignment: .center) {
+                transactionVM.transactionImage!
+                    .resizable()
+                    .scaledToFit()
+                    .maxHeight(38)
+                    .foregroundColor(.accentColor)
+            }
+            .frame(width: 30)
+            .padding(8)
+        }
+        
+        var nameAndPrice: some View {
+            VStack(alignment: .leading) {
+                Text(transactionVM.transaction.name)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+                HStack {
+                    Text(addOrRemove(transactionVM.transaction))
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
+                    Spacer()
+                    Text(Currency.display(transactionVM.transaction.newBalance, with: userHandler.user.currency))
+                        .opacity(0.5)
+                        .padding(.trailing, 4)
+                }
+            }
+        }
+        
+        var timeForTransaction: some View {
+            VStack {
+                Spacer()
+                Text(transactionVM.transactionDate)
+                    .padding(.bottom, 0)
+                Text(transactionVM.transactionTime)
+                Spacer()
+            }
+            .font(.caption2)
+        }
+        
+        private func addOrRemove(_ transaction: Transaction) -> String {
+            if transaction.name != "Opening balance" && transaction.name != "Added to balance" {
+                return Currency.remove(transactionVM.transaction.amount, with: userHandler.user.currency)
+            } else {
+                return Currency.add(transactionVM.transaction.amount, with: userHandler.user.currency)
+            }
+        }
+    }
+    
+    private func barColor(for transaction: String) -> Color {
+        if transaction == "Opening balance" || transaction == "Added to balance" {
+            return Color("Lead")
+        } else {
+            return Color("Deficit")
         }
     }
 }

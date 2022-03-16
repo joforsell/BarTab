@@ -54,7 +54,7 @@ struct ConfirmOrderView: View, Animatable {
                 Text(drinkVM.drink.name).font(.system(size: 80, weight: .black))
                     .lineLimit(1)
                     .minimumScaleFactor(0.1)
-                Text("$\(drinkVM.drink.price)").font(.system(size: 60))
+                Text(Currency.display(drinkVM.drink.price, with: userHandler.user.currency)).font(.system(size: 60))
                     .minimumScaleFactor(0.1)
                 Spacer()
             }
@@ -141,7 +141,7 @@ struct ConfirmOrderView: View, Animatable {
     
     private func makeTransaction(customer: Customer, drink: Drink) -> Transaction {
         let now = Date()
-        return Transaction(name: drink.name, image: drink.image.rawValue, amount: drink.price, date: now, customerID: customer.id!)
+        return Transaction(name: drink.name, image: drink.image.rawValue, amount: drink.price, newBalance: (customer.balance - drink.price), date: now, customerID: customer.id!)
     }
     
     private func isPhone() -> Bool {

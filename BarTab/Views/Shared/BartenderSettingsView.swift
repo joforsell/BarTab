@@ -217,6 +217,21 @@ struct BartenderSettingsView: View {
             .addBorder(editingPhoneNumber ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
             .avoidKeyboard(tag: 3)
             
+            HStack {
+                Text("Currency")
+                    .foregroundColor(.white)
+                Spacer()
+                Picker("Currency", selection: $userHandler.user.currency) {
+                    Text("SEK").tag(Currency.sek)
+                    Text("NOK").tag(Currency.nok)
+                    Text("DKR").tag(Currency.dkr)
+                    Text("USD").tag(Currency.usd)
+                    Text("EUR").tag(Currency.eur)
+                    Text("GBP").tag(Currency.gbp)
+                }
+            }
+            .frame(width: 300, height: 24)
+            
             Toggle("Use RFID tags", isOn: $userHandler.user.usingTags)
                 .toggleStyle(SwitchToggleStyle(tint: .accentColor))
                 .frame(width: 300, height: 24)
@@ -251,17 +266,19 @@ struct BartenderSettingsView: View {
                     .padding()
                     .foregroundColor(.accentColor)
                 }
-                emailButton
-                    .alert(isPresented: $showError) {
-                        if oneDayHasElapsedSince(latestEmail) {
-                            return Alert(title: Text(errorTitle),
-                                         message: Text(errorString),
-                                         primaryButton: .default(Text("Cancel")),
-                                         secondaryButton: .default(Text("OK"), action: emailButtonAction))
-                        } else {
-                            return Alert(title: Text(errorTitle), message: Text(errorString), dismissButton: .default(Text("OK")))
+                if isPhone() {
+                    emailButton
+                        .alert(isPresented: $showError) {
+                            if oneDayHasElapsedSince(latestEmail) {
+                                return Alert(title: Text(errorTitle),
+                                             message: Text(errorString),
+                                             primaryButton: .default(Text("Cancel")),
+                                             secondaryButton: .default(Text("OK"), action: emailButtonAction))
+                            } else {
+                                return Alert(title: Text(errorTitle), message: Text(errorString), dismissButton: .default(Text("OK")))
+                            }
                         }
-                    }
+                }
             }
             .toast(isPresented: $isShowingEmailConfirmation, dismissAfter: 6, onDismiss: { isShowingEmailConfirmation = false }) {
                 ToastView(systemImage: ("envelope.fill", .accentColor, 50), title: "E-mail(s) sent", subTitle: "An e-mail showing current balance was sent to each bar guest with an associated e-mail address.")

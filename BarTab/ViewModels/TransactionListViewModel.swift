@@ -20,6 +20,7 @@ class TransactionListViewModel: ObservableObject {
         guard let id = customer.id else { return }
         Firestore.firestore().collection("transactions")
             .whereField("customerID", isEqualTo: id)
+            .order(by: "date")
             .getDocuments() { querySnapshot, error in
                 if let err = error {
                     print("Error getting documents: \(err)")

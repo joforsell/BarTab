@@ -45,14 +45,17 @@ struct HomeView: View {
                                         .matchedGeometryEffect(id: drinkVM.id, in: orderNamespace, isSource: true)
                                         .environmentObject(customerListVM)
                                         .environmentObject(drinkListVM)
+                                        .environmentObject(userHandler)
                                 }
                             }
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .animation(.easeInOut)
+                            .animation(.easeInOut, value: userHandler.user.drinkCardColumns)
+                            .animation(.easeInOut, value: userHandler.user.drinkSorting)
                         }
                                                 
                         CustomerListView()
                             .environmentObject(customerListVM)
+                            .environmentObject(userHandler)
 
                     }
                     .padding(.leading)
@@ -119,18 +122,22 @@ struct HomeView: View {
                 ConfirmOrderView(drinkVM: confirmationVM.selectedDrink ?? ConfirmationViewModel.errorDrink, tappedDrink: tappedDrink, pct: flyToModal ? 1 : 0, onClose: dismissConfirmOrderView)
                     .frame(maxWidth: UIScreen.main.bounds.width * 0.9, maxHeight: UIScreen.main.bounds.height * 0.9)
                     .matchedGeometryEffect(id: isGeometryMatched ? tappedDrink! : "", in: orderNamespace, isSource: false)
-                    .onAppear { withAnimation { flyToModal = true } }
+                    .onAppear { flyToModal = true }
                     .onDisappear { flyToModal = false }
-                    .transition(AnyTransition.asymmetric(insertion: .identity, removal: .opacity))
+                    .transition(.asymmetric(insertion: .identity, removal: .move(edge: .bottom)))
+                    .animation(.easeInOut, value: flyToModal)
                     .environmentObject(customerListVM)
                     .environmentObject(drinkListVM)
                     .environmentObject(userHandler)
+                    .zIndex(3)
             }
         }
     }
     
     private func dismissConfirmOrderView() {
-        tappedDrink = nil
+        withAnimation {
+            tappedDrink = nil
+        }
     }
 }
 

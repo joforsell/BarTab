@@ -28,7 +28,6 @@ class UserSettingsViewModel: ObservableObject {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .none
-        formatter.locale = Locale(identifier: locale.identifier)
 
         guard let expDate = date else { return "-" }
 

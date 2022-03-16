@@ -85,6 +85,7 @@ struct PhoneSettingsView: View {
                 }
             }
         }
+        .frame(maxWidth: .infinity)
         .overlay(alignment: .bottomTrailing) {
             if settingsShown == .drinks && showingButton {
                 addDrinkButton
@@ -92,7 +93,6 @@ struct PhoneSettingsView: View {
                 addCustomerButton
             }
         }
-        
         .background(VisualEffectBlurView(blurStyle: .dark)
                         .ignoresSafeArea())
         .background(
@@ -177,6 +177,7 @@ struct PhoneSettingsView: View {
     }
     
     private struct DrinkRow: View {
+        @EnvironmentObject var userHandler: UserHandling
         @Binding var drinkVM: DrinkViewModel
         
         var body: some View {
@@ -190,7 +191,7 @@ struct PhoneSettingsView: View {
                     Text(drinkVM.drink.name)
                         .font(.callout)
                         .fontWeight(.bold)
-                    Text("$\(drinkVM.drink.price)")
+                    Text(Currency.display(drinkVM.drink.price, with: userHandler.user.currency))
                         .font(.footnote)
                 }
                 Spacer()
@@ -240,6 +241,7 @@ struct PhoneSettingsView: View {
     }
     
     private struct CustomerRow: View {
+        @EnvironmentObject var userHandler: UserHandling
         @Binding var customerVM: CustomerViewModel
         
         var body: some View {
@@ -257,7 +259,7 @@ struct PhoneSettingsView: View {
                     Text(customerVM.customer.name)
                         .font(.callout)
                         .fontWeight(.bold)
-                    Text("$\(customerVM.customer.balance)")
+                    Text(Currency.display(customerVM.customer.balance, with: userHandler.user.currency))
                         .font(.footnote)
                         .foregroundColor(customerVM.balanceColor)
                 }

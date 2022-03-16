@@ -14,4 +14,5 @@ struct User: Codable {
     var usingTags: Bool = false
     var drinkCardColumns: Int = 4
     var drinkSorting: DrinkListViewModel.DrinkSorting = .az
+    var currency: Currency = .usd
 }
