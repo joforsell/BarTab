@@ -41,10 +41,8 @@ struct CustomerListView: View {
                             .padding(.bottom, isPhone() ? customerListVM.customerVMs.last?.name == customerVM.name ? 48 : 0 : 0)
                             .contentShape(Rectangle())
                             .onTapGesture {
-                                if isPhone() {
-                                    withAnimation {
-                                        currentCustomer = customerVM.customer
-                                    }
+                                withAnimation {
+                                    currentCustomer = customerVM.customer
                                 }
                             }
                     }
@@ -57,6 +55,8 @@ struct CustomerListView: View {
             .padding(.leading, isPhone() ? 0 : 10)
             if currentCustomer != nil {
                 TransactionsListView(customer: currentCustomer!, onClose: close)
+                    .frame(width: isPhone() ? UIScreen.main.bounds.width : UIScreen.main.bounds.width * 0.3)
+                    .cornerRadius(isPhone() ? 0 : 10)
                     .transition(.move(edge: .trailing))
                     .zIndex(3)
             }
@@ -78,7 +78,7 @@ struct CustomerListView: View {
             VStack(alignment: .leading) {
                 Text(customerVM.customer.name)
                     .font(.callout)
-                Text("$\(customerVM.customer.balance)")
+                Text(Currency.display(customerVM.customer.balance, with: userHandler.user.currency))
                     .font(.footnote)
                     .foregroundColor(customerVM.balanceColor)
             }

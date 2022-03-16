@@ -14,6 +14,5 @@ struct Customer: Codable, Identifiable {
     var balance: Int
     var key: String
     var email: String
-    var transactions: [Transaction] = []
     var userId: String?
 }

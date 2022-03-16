@@ -74,10 +74,10 @@ struct PaywallView: View {
                         subContinueButton
                         HStack {
                             Spacer()
-                            Link(LocalizedStringKey("Privacy policy"), destination: URL(string: "https://bartab-d48b2.web.app/privacypolicy.html")!)
+                            Link(LocalizedStringKey("Privacy policy"), destination: URL(string: "https://bartab.info/privacypolicy.html")!)
                                 .foregroundColor(.accentColor)
                             Text("and")
-                            Link(LocalizedStringKey("Terms of use"), destination: URL(string: "https://bartab-d48b2.web.app/termsandconditions.html")!)
+                            Link(LocalizedStringKey("Terms of use"), destination: URL(string: "https://bartab.info/termsandconditions.html")!)
                                 .foregroundColor(.accentColor)
                             Spacer()
                         }

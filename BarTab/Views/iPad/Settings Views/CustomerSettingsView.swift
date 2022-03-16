@@ -70,6 +70,8 @@ struct CustomerSettingsView: View {
 }
 
 private struct CustomerRow: View {
+    @EnvironmentObject var userHandler: UserHandling
+
     @Binding var customerVM: CustomerViewModel
     var geometry: GeometryProxy
     
@@ -88,7 +90,7 @@ private struct CustomerRow: View {
                 Text(customerVM.customer.name)
                     .font(.callout)
                     .fontWeight(.bold)
-                Text("$\(customerVM.customer.balance)")
+                Text(Currency.display(customerVM.customer.balance, with: userHandler.user.currency))
                     .font(.footnote)
                     .foregroundColor(customerVM.balanceColor)
             }

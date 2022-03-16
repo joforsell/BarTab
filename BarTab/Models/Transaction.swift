@@ -13,6 +13,7 @@ struct Transaction: Codable, Identifiable {
     let name: String
     let image: String
     let amount: Int
+    let newBalance: Int
     let date: Date
     let customerID: String
 }

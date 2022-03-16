@@ -14,6 +14,7 @@ class TransactionViewModel: ObservableObject {
 
     @Published var transactionImage: Image?
     @Published var transactionDate = ""
+    @Published var transactionTime = ""
     @Published var transaction: Transaction
     
     private var cancellables = Set<AnyCancellable>()
@@ -24,9 +25,11 @@ class TransactionViewModel: ObservableObject {
         $transaction
             .map { transaction in
                 if transaction.image == "openingBalance" {
-                    return Image(systemName: "star")
+                    return Image(systemName: "rectangle.portrait.and.arrow.right")
                 } else if transaction.image == "addedBalance" {
-                    return Image(systemName: "plus.circle")
+                    return Image(systemName: "plus.square")
+                } else if transaction.image == "removedBalance" {
+                    return Image(systemName: "minus.square")
                 } else {
                     return Image(transaction.image)
                 }
@@ -39,10 +42,20 @@ class TransactionViewModel: ObservableObject {
                 let formatter = DateFormatter()
                 formatter.dateStyle = .medium
                 formatter.timeStyle = .none
-                formatter.locale = Locale(identifier: self.locale.identifier)
                 return formatter.string(from: transaction.date)
             }
             .assign(to: \.transactionDate, on: self)
+            .store(in: &cancellables)
+        
+        $transaction
+            .map { transaction in
+                let formatter = DateFormatter()
+                formatter.dateStyle = .none
+                formatter.timeStyle = .short
+                formatter.locale = self.locale
+                return formatter.string(from: transaction.date)
+            }
+            .assign(to: \.transactionTime, on: self)
             .store(in: &cancellables)
     }
 }

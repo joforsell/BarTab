@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftUIX
 
 struct DrinkCardView: View {
+    @EnvironmentObject var userHandler: UserHandling
     var drinkVM: DrinkViewModel
     
     var body: some View {
@@ -22,7 +23,7 @@ struct DrinkCardView: View {
                     .padding()
                 VStack(alignment: .leading) {
                     Text(drinkVM.drink.name).font(.title3).bold()
-                    Text("$\(drinkVM.drink.price)")
+                    Text(Currency.display(drinkVM.drink.price, with: userHandler.user.currency))
                     Spacer()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
