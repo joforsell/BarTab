@@ -88,7 +88,7 @@ struct ConfirmOrderView: View, Animatable {
                             .foregroundColor(.accentColor)
                     }
                 }
-                Text(userHandler.user.usingTags ? LocalizedStringKey("Scan your tag to finalize your purchase.") : LocalizedStringKey("Choose the bar guest making the purchase."))
+                Text(userHandler.user.usingTags ? LocalizedStringKey("Scan your tag to finalize your purchase.") : LocalizedStringKey("Select the bar guest making the purchase."))
                     .font(.headline)
                     .foregroundColor(.white)
                     .lineLimit(1)
@@ -128,7 +128,7 @@ struct ConfirmOrderView: View, Animatable {
             withAnimation {
                 onClose()
             } }) {
-                ToastView(systemImage: ("checkmark.circle.fill", .accentColor, 50), title: "Your purchase was finalized", subTitle: "\(currentCustomerName) bought \(confirmationVM.selectedDrink?.drink.name.lowercased() ?? "missing") for $\(confirmationVM.selectedDrink?.drink.price ?? 0).")
+                ToastView(systemImage: ("checkmark.circle.fill", .accentColor, 50), title: "Your purchase was finalized", subTitle: "\(currentCustomerName) bought \(confirmationVM.selectedDrink?.drink.name.lowercased() ?? "missing") for \(Currency.display(confirmationVM.selectedDrink?.drink.price ?? 0, with: userHandler.user.currency)).")
             }
             .background(VisualEffectBlurView(blurStyle: .dark))
             .clipShape(RoundedRectangle(cornerRadius: 20))

@@ -17,12 +17,13 @@ struct BarTabApp: App {
     init() {
         FirebaseApp.configure()
         
-        Purchases.configure(withAPIKey: "appl_mtWeWLbXBczlrxImSUOLQowDdlK")
+        Purchases.configure(withAPIKey: Keys.revenueCat)
     }
     
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .preferredColorScheme(.dark)
                 .environmentObject(authentication)
                 .environmentObject(confirmationVM)
         }

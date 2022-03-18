@@ -294,7 +294,7 @@ struct CustomerSettingsDetailView: View {
                                 Button {
                                     isShowingKeyField.toggle()
                                 } label: {
-                                    Text("Uppdate \nRFID tag")
+                                    Text("Update \nRFID tag")
                                         .multilineTextAlignment(.leading)
                                         .fixedSize()
                                         .frame(width: 160, height: 24, alignment: .leading)

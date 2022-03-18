@@ -5,9 +5,6 @@
 "%@ / year" = "%@ / år";
 
 /* No comment provided by engineer. */
-"%@ bought %@ for $%lld." = "%@ köpte %@ för $%lld.";
-
-/* No comment provided by engineer. */
 "%@." = "%@.";
 
 /* No comment provided by engineer. */
@@ -50,7 +47,7 @@
 "Cancel" = "Avbryt";
 
 /* No comment provided by engineer. */
-"Select the bar guest making the purchase." = "Välj vem som betalar för att slutföra köpet.";
+"Choose the bar guest making the purchase." = "Välj vem som betalar för att slutföra köpet.";
 
 /* No comment provided by engineer. */
 "Connected e-mail address:" = "Kopplad mailadress:";
@@ -78,9 +75,6 @@
 
 /* No comment provided by engineer. */
 "Create new account" = "Skapa nytt konto";
-
-/* No comment provided by engineer. */
-"Currency" = "Valuta";
 
 /* No comment provided by engineer. */
 "Delete" = "Radera";
@@ -230,7 +224,7 @@
 "Unlimited list of bar guests" = "Obegränsad bargästlista";
 
 /* No comment provided by engineer. */
-"Update \nRFID tag" = "Uppdatera \nRFID-bricka";
+"Uppdate \nRFID tag" = "Uppdatera \nRFID-bricka";
 
 /* No comment provided by engineer. */
 "Use RFID tags" = "Använd RFID-brickor";
