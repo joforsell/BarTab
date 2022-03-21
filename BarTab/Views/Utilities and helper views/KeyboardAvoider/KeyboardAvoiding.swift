@@ -26,7 +26,7 @@ struct KeyboardAvoiding<Content>: View where Content: View{
         
         return self.content()
             .offset(y: isKeyboard ? avoider.slideSize.height + offset : 0)
-            .animation( avoider.isInitialized ? .easeInOut(duration: 0.16) : .none)
+            .animation(avoider.isInitialized ? .easeInOut(duration: 0.16) : .none, value: isKeyboard)
             .registerKeyboardAvoider(avoider)
     }
 }
