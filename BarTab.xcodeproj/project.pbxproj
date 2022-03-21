@@ -54,6 +54,9 @@
 		3E6F1A272771282900661021 /* Date+RawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6F1A262771282900661021 /* Date+RawRepresentable.swift */; };
 		3E6F1A2927712B5300661021 /* CustomInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6F1A2827712B5300661021 /* CustomInputView.swift */; };
 		3E6FA3B42756A7ED0023DAB7 /* BodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6FA3B32756A7ED0023DAB7 /* BodyView.swift */; };
+		3E7033B627E90CD500245A93 /* AsyncButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7033B527E90CD500245A93 /* AsyncButton.swift */; };
+		3E7033B827E90FA100245A93 /* UIApplication+safeAreaInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7033B727E90FA100245A93 /* UIApplication+safeAreaInsets.swift */; };
+		3E7033BA27E9131E00245A93 /* ErrorPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7033B927E9131E00245A93 /* ErrorPrompt.swift */; };
 		3E7062DA27149AB500B02C4E /* ToastUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3E7062D927149AB500B02C4E /* ToastUI */; };
 		3E70E0E2275EAB340020B429 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E70E0E1275EAB340020B429 /* SettingsView.swift */; };
 		3E70E0E4275EABD10020B429 /* DrinkSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E70E0E3275EABD10020B429 /* DrinkSettingsView.swift */; };
@@ -136,6 +139,9 @@
 		3E6F1A262771282900661021 /* Date+RawRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+RawRepresentable.swift"; sourceTree = "<group>"; };
 		3E6F1A2827712B5300661021 /* CustomInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInputView.swift; sourceTree = "<group>"; };
 		3E6FA3B32756A7ED0023DAB7 /* BodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyView.swift; sourceTree = "<group>"; };
+		3E7033B527E90CD500245A93 /* AsyncButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncButton.swift; sourceTree = "<group>"; };
+		3E7033B727E90FA100245A93 /* UIApplication+safeAreaInsets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+safeAreaInsets.swift"; sourceTree = "<group>"; };
+		3E7033B927E9131E00245A93 /* ErrorPrompt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPrompt.swift; sourceTree = "<group>"; };
 		3E70E0E1275EAB340020B429 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		3E70E0E3275EABD10020B429 /* DrinkSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkSettingsView.swift; sourceTree = "<group>"; };
 		3E70E0E5275EABDC0020B429 /* CustomerSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSettingsView.swift; sourceTree = "<group>"; };
@@ -354,6 +360,7 @@
 				3E6916D7276E88BB009E80D7 /* View+Centered.swift */,
 				3E6F1A262771282900661021 /* Date+RawRepresentable.swift */,
 				3E65A6FB27CEB958001E3E70 /* Bundle+AppIcon.swift */,
+				3E7033B727E90FA100245A93 /* UIApplication+safeAreaInsets.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -395,6 +402,8 @@
 				3E6F1A2827712B5300661021 /* CustomInputView.swift */,
 				3E70E0E9275EAF100020B429 /* ToastView.swift */,
 				3EF404A327E53E7200F67C3F /* Keys.swift */,
+				3E7033B527E90CD500245A93 /* AsyncButton.swift */,
+				3E7033B927E9131E00245A93 /* ErrorPrompt.swift */,
 			);
 			path = "Utilities and helper views";
 			sourceTree = "<group>";
@@ -516,6 +525,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E67EC6B279467DF008A2B3D /* SubscriptionDetailsView.swift in Sources */,
+				3E7033BA27E9131E00245A93 /* ErrorPrompt.swift in Sources */,
 				3EF404A427E53E7200F67C3F /* Keys.swift in Sources */,
 				3E8730242759755100F8E610 /* ConfirmOrderView.swift in Sources */,
 				3E8645D52718A3C0009BFFAA /* EmailSender.swift in Sources */,
@@ -547,6 +557,7 @@
 				3E66B89C27CA12170067C56F /* PhoneTabView.swift in Sources */,
 				3E6FA3B42756A7ED0023DAB7 /* BodyView.swift in Sources */,
 				3E7BEFE126FCDD6D00453C1B /* DrinkModel.swift in Sources */,
+				3E7033B627E90CD500245A93 /* AsyncButton.swift in Sources */,
 				3E8FAA18279C336C00FBA06D /* SignInView.swift in Sources */,
 				3E817156275575E500F4B0D3 /* HeaderView.swift in Sources */,
 				3E6E097D27D3417200BF13EE /* TabBarItem.swift in Sources */,
@@ -572,6 +583,7 @@
 				3E817158275576AB00F4B0D3 /* OrderView.swift in Sources */,
 				3E6E097B27D3416100BF13EE /* TabBarItemsPreferenceKey.swift in Sources */,
 				3E6916D8276E88BB009E80D7 /* View+Centered.swift in Sources */,
+				3E7033B827E90FA100245A93 /* UIApplication+safeAreaInsets.swift in Sources */,
 				3E6E097827D3386500BF13EE /* CustomTabBarContainerView.swift in Sources */,
 				3E70E0E2275EAB340020B429 /* SettingsView.swift in Sources */,
 				3E60E3A5271147A500F1363B /* UserModel.swift in Sources */,
@@ -651,7 +663,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -707,7 +719,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -730,7 +742,7 @@
 				DEVELOPMENT_TEAM = 5PNV6G957X;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = BarTab/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -755,7 +767,7 @@
 				DEVELOPMENT_TEAM = 5PNV6G957X;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = BarTab/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

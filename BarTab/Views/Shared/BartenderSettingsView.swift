@@ -26,8 +26,9 @@ struct BartenderSettingsView: View {
     @State private var editingPhoneNumber = false
     
     @State private var showError = false
-    @State private var errorString: LocalizedStringKey = ""
-    @State private var errorTitle: LocalizedStringKey = ""
+//    @State private var errorString = ""
+//    @State private var errorTitle = ""
+    @State private var errorPrompt: ErrorPrompt?
     @State private var localizedErrorString = ""
     @State private var showLocalizedError = false
     
@@ -268,16 +269,24 @@ struct BartenderSettingsView: View {
                 }
                 if isPhone() {
                     emailButton
-                        .alert(isPresented: $showError) {
+                        .alert(errorPrompt?.title ?? LocalizedStringKey("There was an error"), isPresented: $showError, presenting: errorPrompt, actions: { prompt in
                             if oneDayHasElapsedSince(latestEmail) {
-                                return Alert(title: Text(errorTitle),
-                                             message: Text(errorString),
-                                             primaryButton: .default(Text("Cancel")),
-                                             secondaryButton: .default(Text("OK"), action: emailButtonAction))
+                                Button("Cancel") {
+                                    showError = false
+                                }
+                                AsyncButton(action: {
+                                    await emailButtonAction()
+                                }, label: {
+                                    Text("OK")
+                                })
                             } else {
-                                return Alert(title: Text(errorTitle), message: Text(errorString), dismissButton: .default(Text("OK")))
+                                Button("OK") {
+                                    showError = false
+                                }
                             }
-                        }
+                        }, message: { prompt in
+                            Text(prompt.message)
+                        })
                 }
             }
             .toast(isPresented: $isShowingEmailConfirmation, dismissAfter: 6, onDismiss: { isShowingEmailConfirmation = false }) {
@@ -298,44 +307,35 @@ struct BartenderSettingsView: View {
     private var emailButton: some View {
         Button {
             if oneDayHasElapsedSince(latestEmail) {
-                errorTitle = "Are you sure you want to send e-mail(s)?"
-                errorString = "This will send an e-mail showing current balance to each bar guest with an associated e-mail address."
+                errorPrompt = ErrorPrompt(title: "Are you sure you want to send e-mail(s)?", message: "This will send an e-mail showing current balance to each bar guest with an associated e-mail address.")
+                showError = true
             } else {
-                errorTitle = "Could not send"
-                errorString = "You can only send e-mail(s) once every minute."
+                errorPrompt = ErrorPrompt(title: "Could not send", message: "You can only send e-mail(s) once every minute.")
+                showError = true
             }
-            showError = true
         } label: {
             Image(systemName: "envelope.fill")
                 .font(.largeTitle)
                 .foregroundColor(oneDayHasElapsedSince(latestEmail) ? .accentColor : .accentColor.opacity(0.3))
         }
-        .alert(isPresented: $showLocalizedError) {
-            Alert(title: Text(errorTitle), message: Text(localizedErrorString), dismissButton: .default(Text("OK")))
-        }
     }
     
-    private func emailButtonAction() {
+    private func emailButtonAction() async {
         var customers = [Customer]()
         customerListVM.customerVMs.forEach { customerVM in
             customers.append(customerVM.customer)
         }
-        customerListVM.sendEmails(from: userHandler.user, to: customers) { result in
-            switch result {
-            case .failure(let error):
-                errorTitle = "Error sending emails"
-                localizedErrorString = error.localizedDescription
-                showLocalizedError = true
-            case .success(_):
-                latestEmail = Date()
+        do {
+            try await customerListVM.sendEmails(from: userHandler.user, to: customers)
+            latestEmail = Date()
+            withAnimation {
+                isShowingEmailConfirmation.toggle()
             }
-        }
-        latestEmail = Date()
-        withAnimation {
-            isShowingEmailConfirmation.toggle()
+        } catch {
+            errorPrompt = ErrorPrompt(title: "Error sending emails", message: "")
+            showError = true
         }
     }
-
 }
 
 

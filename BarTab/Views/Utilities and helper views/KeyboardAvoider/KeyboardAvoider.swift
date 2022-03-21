@@ -11,6 +11,8 @@ import Combine
 
 final class KeyboardAvoider : ObservableObject {
     
+    @Environment(\.safeAreaInsets) private var safeAreaInsets
+    
     private var _rects = [Int: CGRect]()
     
     var rects: [Int: CGRect] {
@@ -107,7 +109,7 @@ extension KeyboardAvoider {
     func keyboardOffsets(isTabBar: Bool = true, offset: CGFloat = 0) -> (total: CGFloat, adjusted: CGFloat) {
         
         let tabBarHeight = isTabBar ? UITabBarController().tabBar.frame.height : 0
-        let safeAreaHeight = UIApplication.shared.windows.first{ $0.isKeyWindow }?.safeAreaInsets.bottom ?? 0
+        let safeAreaHeight = safeAreaInsets.bottom
         let totalKeyboardOffset = self.keyboardRect.height
         let keyboardOffset = totalKeyboardOffset > 0 ? totalKeyboardOffset - tabBarHeight - safeAreaHeight - offset : 0
         

@@ -99,15 +99,15 @@ struct SettingsView: View {
                                     Spacer()
                                     
                                     emailButton
-                                        .alert(isPresented: $showError) {
-                                            if oneDayHasElapsedSince(latestEmail) {
-                                                return Alert(title: Text(errorTitle),
-                                                             message: Text(errorString),
-                                                             primaryButton: .default(Text("Cancel")),
-                                                             secondaryButton: .default(Text("OK"), action: emailButtonAction))
-                                            } else {
-                                                return Alert(title: errorTitle, message: errorString, dismissButtonTitle: "OK")
+                                        .alert(errorTitle, isPresented: $showError) {
+                                            Button("Cancel") {
+                                                showError = false
                                             }
+                                            AsyncButton(action: {
+                                                await emailButtonAction()
+                                            }, label: {
+                                                Text("OK")
+                                            })
                                         }
                                     
                                 }
@@ -171,25 +171,23 @@ struct SettingsView: View {
                     .foregroundColor(oneDayHasElapsedSince(latestEmail) ? .accentColor : .accentColor.opacity(0.3))
             }
         }
+    
         
-        func emailButtonAction() {
+        func emailButtonAction() async {
             var customers = [Customer]()
             customerListVM.customerVMs.forEach { customerVM in
                 customers.append(customerVM.customer)
             }
-            customerListVM.sendEmails(from: userHandler.user, to: customers) { result in
-                switch result {
-                case .failure(let error):
-                    errorTitle = "Error sending emails"
-                    errorString = error.localizedDescription
-                    showError = true
-                case .success(_):
-                    latestEmail = Date()
+            do {
+                try await customerListVM.sendEmails(from: userHandler.user, to: customers)
+                latestEmail = Date()
+                withAnimation {
+                    isShowingEmailConfirmation.toggle()
                 }
-            }
-            latestEmail = Date()
-            withAnimation {
-                isShowingEmailConfirmation.toggle()
+            } catch {
+                errorTitle = "Error sending emails"
+                errorString = error.localizedDescription
+                showError = true
             }
         }
 }
