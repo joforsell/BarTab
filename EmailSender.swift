@@ -12,6 +12,16 @@ import SwiftUI
 
 class EmailSender {
     
+    static func sendFeedback(subject: String, message: String, returnAddress: String) {
+        Firestore.firestore().collection("mail").addDocument(data: [
+            "to": "forsell.johan@hotmail.com",
+            "message": [
+                "subject": subject,
+                "text": "\(message)\n\nSent from \(returnAddress)",
+            ],
+        ])
+    }
+    
     static func sendEmails(to customers: [Customer], from user: User) async throws {
         var unsubscribed: [String] = []
         do {
@@ -29,13 +39,16 @@ class EmailSender {
             let customerName = customer.name
             let firstName = customerName.components(separatedBy: " ").first
             let color = customer.balance > 0 ? "7CD338" : "F05F55"
-            let phoneNumber = user.number ?? ""
-            let subjectText = LocalizedStringKey("Current balance at \(user.association ?? "BarTab")")
-            let headerText = LocalizedStringKey("Saldouppdatering")
-            let greeting = LocalizedStringKey("Hello \(firstName ?? "")!")
-            let currentBalanceText = LocalizedStringKey("Your current balance at \(user.association ?? "BarTab") is:")
-            let missingEmail = LocalizedStringKey("Email address missing")
+            let phoneNumber = user.phoneNumber ?? ""
+            let subjectText = String(format: NSLocalizedString("Current balance at %@", comment: ""), user.association ?? "BarTab")
+            let headerText = String(format: NSLocalizedString("Balance update", comment: ""))
             let bodyText = ""
+            let greeting = String(format: NSLocalizedString("Hello %@!", comment: ""), firstName ?? "")
+            let currentBalanceText = String(format: NSLocalizedString("Your current balance at %@ is:", comment: ""), user.association ?? "BarTab")
+            let missingEmail = String(format: NSLocalizedString("Email address missing", comment: ""))
+            let questionsText = String(format: NSLocalizedString("Inqueries can be sent to:", comment: ""))
+            let unsubscribeLinkText = String(format: NSLocalizedString("Unsubscribe", comment: ""))
+            let unsubscribeMessageText = String(format: NSLocalizedString(" from future balance updates", comment: ""))
             
             if !unsubscribed.contains(customer.email) && !customer.email.isEmpty && customer.email.contains("@") {
                 
@@ -133,7 +146,8 @@ class EmailSender {
                                                 <div class="col-lge" style="display:inline-block;width:100%;max-width:395px;vertical-align:top;padding-bottom:20px;font-family:Arial,sans-serif;font-size:16px;line-height:22px;color:#363636;">
                                                   <p style="margin-top:0;margin-bottom:12px;">\(greeting)</p>
                                                   <p style="margin-top:0;margin-bottom:18px;">\(currentBalanceText)</p>
-                                                  <p style="margin:0;background: #14213D; text-decoration: none; padding: 10px 25px; color: #\(color); border-radius: 4px; display:inline-block; mso-padding-alt:0;text-underline-color:#cccccc"><!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%;mso-text-raise:20pt">&nbsp;</i><![endif]--><span style="mso-text-raise:10pt;font-weight:bold;">\(Currency.display(customer.balance, with: user.currency))</span><!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%">&nbsp;</i><![endif]--></a></p>
+                                                  <p style="margin:0;background: #14213D; text-decoration: none; padding: 10px 25px; color: #\(color); border-radius: 4px; display:inline-block; mso-padding-alt:0;text-underline-color:#cccccc"><!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%;mso-text-raise:20pt">&nbsp;</i><![endif]--><span style="mso-text-raise:10pt;font-weight:bold;">\(Currency.display(customer.balance, with: user))</span><!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%">&nbsp;</i><![endif]--></a></p>
+                                                  <a href="https://bartab.info/history/\(customer.id ?? "")"><img src="https://firebasestorage.googleapis.com/v0/b/bartab-d48b2.appspot.com/o/history.png?alt=media&token=3f925ded-71ff-453b-a478-7822e20cbcc7" style="display: inline-block; width: 30px; height: auto; line-height: 50px; vertical-align: -8px; padding-left: 10px;"></a>
                                                 </div>
                                                 <!--[if mso]>
                                                 </td>
@@ -145,7 +159,8 @@ class EmailSender {
                                             <tr>
                                               <td style="padding:30px;text-align:center;font-size:20px;background-color:#14213D;color:#cccccc;">
                                                 <p style="margin:0 0 14px 0;"><img src="https://firebasestorage.googleapis.com/v0/b/bartab-d48b2.appspot.com/o/Swish_Symbol_SVG.svg?alt=media&token=e1d3d2ae-3fc9-40db-964b-67e0d54c0e7f" height="20" alt="Swish" style="display:inline-block;color:#cccccc;">  \(phoneNumber)</p>
-                                                <p style="margin:0;font-size:14px;line-height:20px;">Om du har frågor eller funderingar:<br><a class="email" href="mailto:\(user.email ?? "")" style="color:#cccccc;text-decoration:underline;">&#128233; \(user.email ?? "\(missingEmail)")</a></p>
+                                                <p style="margin:0;font-size:14px;line-height:20px;">\(questionsText)<br><a class="email" href="mailto:\(user.email ?? "")" style="color:#cccccc;text-decoration:underline;">&#128233; \(user.email ?? "\(missingEmail)")</a></p>
+                                                <p style="margin-top:20px;font-size:8px;line-height:20px;"><a style="color:#cccccc;" href="https://bartab.info/unsubscribe/\(customer.id ?? "")">\(unsubscribeLinkText)</a>\(unsubscribeMessageText)</p>
                                               </td>
                                             </tr>
                                           </table>

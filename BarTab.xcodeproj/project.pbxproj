@@ -67,6 +67,8 @@
 		3E70E0EE275EB0160020B429 /* View+RoundedBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E70E0ED275EB0160020B429 /* View+RoundedBorder.swift */; };
 		3E70E0F7275EB2790020B429 /* ClearModalBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E70E0F6275EB2790020B429 /* ClearModalBackground.swift */; };
 		3E70E0F9275EB2EC0020B429 /* DrinkSettingsDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E70E0F8275EB2EC0020B429 /* DrinkSettingsDetailsView.swift */; };
+		3E72E0E927F0F5ED0001A691 /* FeedbackMailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E72E0E827F0F5ED0001A691 /* FeedbackMailView.swift */; };
+		3E72E0ED27F38BB50001A691 /* View+ConditionalModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E72E0EC27F38BB50001A691 /* View+ConditionalModifier.swift */; };
 		3E76DD1927E1D4D500F78DE5 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E76DD1827E1D4D500F78DE5 /* Currency.swift */; };
 		3E7BEFDC26FCDD1900453C1B /* CustomerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFDB26FCDD1900453C1B /* CustomerModel.swift */; };
 		3E7BEFDE26FCDD2800453C1B /* DrinkListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFDD26FCDD2800453C1B /* DrinkListViewModel.swift */; };
@@ -151,6 +153,8 @@
 		3E70E0ED275EB0160020B429 /* View+RoundedBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+RoundedBorder.swift"; sourceTree = "<group>"; };
 		3E70E0F6275EB2790020B429 /* ClearModalBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearModalBackground.swift; sourceTree = "<group>"; };
 		3E70E0F8275EB2EC0020B429 /* DrinkSettingsDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkSettingsDetailsView.swift; sourceTree = "<group>"; };
+		3E72E0E827F0F5ED0001A691 /* FeedbackMailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackMailView.swift; sourceTree = "<group>"; };
+		3E72E0EC27F38BB50001A691 /* View+ConditionalModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+ConditionalModifier.swift"; sourceTree = "<group>"; };
 		3E76DD1827E1D4D500F78DE5 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		3E7BEFDB26FCDD1900453C1B /* CustomerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerModel.swift; sourceTree = "<group>"; };
 		3E7BEFDD26FCDD2800453C1B /* DrinkListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkListViewModel.swift; sourceTree = "<group>"; };
@@ -283,6 +287,7 @@
 				3E70E0F8275EB2EC0020B429 /* DrinkSettingsDetailsView.swift */,
 				3E70E0EB275EAFE00020B429 /* CustomerSettingsDetailsView.swift */,
 				3E70E0E7275EABE40020B429 /* BartenderSettingsView.swift */,
+				3E72E0E827F0F5ED0001A691 /* FeedbackMailView.swift */,
 				3E850704279708F400A56E17 /* UserSettingsView.swift */,
 				3E8FAA17279C336C00FBA06D /* SignInView.swift */,
 				3E7C9B012772069700B8A431 /* PaywallView.swift */,
@@ -361,6 +366,7 @@
 				3E6F1A262771282900661021 /* Date+RawRepresentable.swift */,
 				3E65A6FB27CEB958001E3E70 /* Bundle+AppIcon.swift */,
 				3E7033B727E90FA100245A93 /* UIApplication+safeAreaInsets.swift */,
+				3E72E0EC27F38BB50001A691 /* View+ConditionalModifier.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -471,7 +477,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1320;
 				TargetAttributes = {
 					3E65093426FCB26900ACDF41 = {
 						CreatedOnToolsVersion = 12.5;
@@ -526,6 +532,7 @@
 			files = (
 				3E67EC6B279467DF008A2B3D /* SubscriptionDetailsView.swift in Sources */,
 				3E7033BA27E9131E00245A93 /* ErrorPrompt.swift in Sources */,
+				3E72E0ED27F38BB50001A691 /* View+ConditionalModifier.swift in Sources */,
 				3EF404A427E53E7200F67C3F /* Keys.swift in Sources */,
 				3E8730242759755100F8E610 /* ConfirmOrderView.swift in Sources */,
 				3E8645D52718A3C0009BFFAA /* EmailSender.swift in Sources */,
@@ -560,6 +567,7 @@
 				3E7033B627E90CD500245A93 /* AsyncButton.swift in Sources */,
 				3E8FAA18279C336C00FBA06D /* SignInView.swift in Sources */,
 				3E817156275575E500F4B0D3 /* HeaderView.swift in Sources */,
+				3E72E0E927F0F5ED0001A691 /* FeedbackMailView.swift in Sources */,
 				3E6E097D27D3417200BF13EE /* TabBarItem.swift in Sources */,
 				3E70E0E4275EABD10020B429 /* DrinkSettingsView.swift in Sources */,
 				3E7C9B022772069700B8A431 /* PaywallView.swift in Sources */,
@@ -616,6 +624,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -678,6 +687,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -737,7 +747,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = BarTab/BarTab.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"BarTab/Preview Content\"";
 				DEVELOPMENT_TEAM = 5PNV6G957X;
 				ENABLE_PREVIEWS = YES;
@@ -747,7 +757,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.joforsell.BarTab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -762,7 +772,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = BarTab/BarTab.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"BarTab/Preview Content\"";
 				DEVELOPMENT_TEAM = 5PNV6G957X;
 				ENABLE_PREVIEWS = YES;
@@ -772,7 +782,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.joforsell.BarTab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

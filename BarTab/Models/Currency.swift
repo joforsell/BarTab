@@ -6,58 +6,62 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum Currency: String, CaseIterable, Codable {
-    case sek, dkr, nok, usd, eur, gbp
+    case sek, dkr, nok, usd, cad, eur, gbp
     
-    static func display(_ amount: Int, with currency: Currency) -> String {
-        switch currency {
+    static func display(_ amount: Float, with user: User) -> String {
+        let formattedAmount = user.showingDecimals ? String(format: "%.2f", amount) : String(format: "%.0f", amount)
+        switch user.currency {
         case sek, dkr, nok:
-            return "\(amount) kr"
-        case usd:
+            return "\(formattedAmount) kr"
+        case usd, cad:
             if amount < 0 {
-                let redactedAmountString = String(amount).replacingOccurrences(of: "-", with: "")
+                let redactedAmountString = String(formattedAmount).replacingOccurrences(of: "-", with: "")
                 return "-$\(redactedAmountString)"
             }
-            return "$\(amount)"
+            return "$\(formattedAmount)"
         case eur:
             if amount < 0 {
-                let redactedAmountString = String(amount).replacingOccurrences(of: "-", with: "")
+                let redactedAmountString = String(formattedAmount).replacingOccurrences(of: "-", with: "")
                 return "-€\(redactedAmountString)"
             }
-            return "€\(amount)"
+            return "€\(formattedAmount)"
         case gbp:
             if amount < 0 {
-                let redactedAmountString = String(amount).replacingOccurrences(of: "-", with: "")
+                let redactedAmountString = String(formattedAmount).replacingOccurrences(of: "-", with: "")
                 return "-£\(redactedAmountString)"
             }
-            return "£\(amount)"
+            return "£\(formattedAmount)"
         }
     }
     
-    static func add(_ amount: Int, with currency: Currency) -> String {
-        switch currency {
+    static func add(_ amount: Float, with user: User) -> String {
+        let formattedAmount = user.showingDecimals ? String(format: "%.2f", amount) : String(format: "%.0f", amount)
+        switch user.currency {
         case sek, dkr, nok:
-            return "+\(amount) kr"
-        case usd:
-            return "+$\(amount)"
+            return "+\(formattedAmount) kr"
+        case usd, cad:
+            return "+$\(formattedAmount)"
         case eur:
-            return "+€\(amount)"
+            return "+€\(formattedAmount)"
         case gbp:
-            return "+£\(amount)"
+            return "+£\(formattedAmount)"
         }
     }
 
-    static func remove(_ amount: Int, with currency: Currency) -> String {
-        switch currency {
+    static func remove(_ amount: Float, with user: User) -> String {
+        let formattedAmount = user.showingDecimals ? String(format: "%.2f", amount) : String(format: "%.0f", amount)
+        switch user.currency {
         case sek, dkr, nok:
-            return "-\(amount) kr"
-        case usd:
-            return "-$\(amount)"
+            return "-\(formattedAmount) kr"
+        case usd, cad:
+            return "-$\(formattedAmount)"
         case eur:
-            return "-€\(amount)"
+            return "-€\(formattedAmount)"
         case gbp:
-            return "-£\(amount)"
+            return "-£\(formattedAmount)"
         }
     }
 

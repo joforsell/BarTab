@@ -11,20 +11,10 @@ import Combine
 class DrinkListViewModel: ObservableObject {
     @Published var drinkRepository = DrinkRepository()
     @Published var drinkVMs = [DrinkViewModel]()
-    @Published var userHandler = UserHandling()
-    
-    @Published var sorting: DrinkListViewModel.DrinkSorting = .az
         
     var cancellables = Set<AnyCancellable>()
     
     init() {
-        userHandler.$user
-            .map {
-                $0.drinkSorting
-            }
-            .assign(to: \.sorting, on: self)
-            .store(in: &cancellables)
-        
         drinkRepository.$drinks
             .map { drinks in
                 let sortedDrinks = drinks.sorted { $0.name < $1.name}
@@ -36,8 +26,8 @@ class DrinkListViewModel: ObservableObject {
             .store(in: &cancellables)
     }
                     
-    func addDrink(name: String, price: Int) {
-        let newDrink = Drink(name: name, price: price)
+    func addDrink(name: String, price: Float) {
+        let newDrink = Drink(name: name, price: (round(price * 100) / 100.0))
         drinkRepository.addDrink(newDrink)
     }
     
@@ -47,7 +37,7 @@ class DrinkListViewModel: ObservableObject {
         drinkRepository.removeDrink(drink)
     }
     
-    func updateDrinkPrice(of drink: Drink, to price: Int) {
+    func updateDrinkPrice(of drink: Drink, to price: Float) {
         guard drink.id != nil else { return }
         
         drinkRepository.updateDrinkPrice(of: drink, to: price)
@@ -73,12 +63,12 @@ class DrinkListViewModel: ObservableObject {
             }
         }
         
-        var description: String {
+        var description: LocalizedStringKey {
             switch self {
-            case .az: return "A-Ö"
-            case .za: return "Ö-A"
-            case .lowPriceFirst: return "Lägst pris först"
-            case .highPriceFirst: return "Högst pris först"
+            case .az: return LocalizedStringKey("A-Z")
+            case .za: return LocalizedStringKey("Z-A")
+            case .lowPriceFirst: return LocalizedStringKey("Lowest price first")
+            case .highPriceFirst: return LocalizedStringKey("Highest price first")
             }
         }
         

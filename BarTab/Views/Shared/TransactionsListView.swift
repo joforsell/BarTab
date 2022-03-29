@@ -112,7 +112,7 @@ struct TransactionsListView: View {
                         .lineLimit(1)
                         .minimumScaleFactor(0.5)
                     Spacer()
-                    Text(Currency.display(transactionVM.transaction.newBalance, with: userHandler.user.currency))
+                    Text(Currency.display(transactionVM.transaction.newBalance, with: userHandler.user))
                         .opacity(0.5)
                         .padding(.trailing, 4)
                 }
@@ -132,9 +132,9 @@ struct TransactionsListView: View {
         
         private func addOrRemove(_ transaction: Transaction) -> String {
             if transaction.name != "Opening balance" && transaction.name != "Added to balance" {
-                return Currency.remove(transactionVM.transaction.amount, with: userHandler.user.currency)
+                return Currency.remove(transactionVM.transaction.amount, with: userHandler.user)
             } else {
-                return Currency.add(transactionVM.transaction.amount, with: userHandler.user.currency)
+                return Currency.add(transactionVM.transaction.amount, with: userHandler.user)
             }
         }
     }

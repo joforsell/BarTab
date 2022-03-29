@@ -61,15 +61,15 @@ class CustomerRepository: ObservableObject {
         Firestore.firestore().collection("customers").document(customer.id!).updateData([ "email" : email ])
     }
     
-    func addToBalanceOf(_ customer: Customer, by adjustment: Int) {
-        Firestore.firestore().collection("customers").document(customer.id!).updateData([ "balance" : FieldValue.increment(Int64(adjustment)) ])
+    func addToBalanceOf(_ customer: Customer, by adjustment: Float) {
+        Firestore.firestore().collection("customers").document(customer.id!).updateData([ "balance" : FieldValue.increment(Int64(round(adjustment * 100) / 100.0)) ])
     }
     
-    func subtractFromBalanceOf(_ customer: Customer, by adjustment: Int) {
-        Firestore.firestore().collection("customers").document(customer.id!).updateData([ "balance" : FieldValue.increment(Int64(-adjustment)) ])
+    func subtractFromBalanceOf(_ customer: Customer, by adjustment: Float) {
+        Firestore.firestore().collection("customers").document(customer.id!).updateData([ "balance" : FieldValue.increment(Int64(-(round(adjustment * 100) / 100.0))) ])
     }
     
-    func subtractFromBalanceOfKeyHolder(with key: String, by adjustment: Int) {
+    func subtractFromBalanceOfKeyHolder(with key: String, by adjustment: Float) {
         Firestore.firestore().collection("customers").whereField("key", isEqualTo: key).getDocuments() { snapshot, error in
             guard snapshot != nil else { return }
             for document in snapshot!.documents {
@@ -79,21 +79,6 @@ class CustomerRepository: ObservableObject {
             }
         }
 
-    }
-    
-    func addBoughtDrink(_ drink: Drink, to customer: Customer) {
-        Firestore.firestore().collection("customers").document(customer.id!).updateData([ "drinksBought" : FieldValue.arrayUnion([drink])])
-    }
-    
-    func addBoughtDrinkWithKey(_ drink: Drink, key: String) {
-        Firestore.firestore().collection("customers").whereField("key", isEqualTo: key).getDocuments() { snapshot, error in
-            guard snapshot != nil else { return }
-            for document in snapshot!.documents {
-                guard let data = try? document.data(as: Customer.self) else { return }
-                
-                Firestore.firestore().collection("customers").document(data.id!).updateData([ "drinksBought" : FieldValue.arrayUnion([drink])])
-            }
-        }
     }
     
     func getCustomerWithKey(_ key: String, completion: @escaping (Result<Customer, Error>) -> ()) {

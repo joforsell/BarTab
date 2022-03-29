@@ -11,7 +11,7 @@ import FirebaseFirestoreSwift
 struct Customer: Codable, Identifiable {
     @DocumentID var id = UUID().uuidString
     var name: String
-    var balance: Int
+    var balance: Float
     var key: String
     var email: String
     var userId: String?
