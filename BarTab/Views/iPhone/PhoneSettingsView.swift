@@ -191,7 +191,7 @@ struct PhoneSettingsView: View {
                     Text(drinkVM.drink.name)
                         .font(.callout)
                         .fontWeight(.bold)
-                    Text(Currency.display(drinkVM.drink.price, with: userHandler.user.currency))
+                    Text(Currency.display(drinkVM.drink.price, with: userHandler.user))
                         .font(.footnote)
                 }
                 Spacer()
@@ -259,7 +259,7 @@ struct PhoneSettingsView: View {
                     Text(customerVM.customer.name)
                         .font(.callout)
                         .fontWeight(.bold)
-                    Text(Currency.display(customerVM.customer.balance, with: userHandler.user.currency))
+                    Text(Currency.display(customerVM.customer.balance, with: userHandler.user))
                         .font(.footnote)
                         .foregroundColor(customerVM.balanceColor)
                 }

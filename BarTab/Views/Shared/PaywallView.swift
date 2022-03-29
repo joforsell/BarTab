@@ -271,6 +271,7 @@ private extension PaywallView {
                                 .lineLimit(1)
                                 .minimumScaleFactor(0.5)
                         }
+                        .padding(.horizontal, 2)
                     }
             }
         }

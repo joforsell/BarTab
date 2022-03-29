@@ -12,8 +12,8 @@ struct Transaction: Codable, Identifiable {
     @DocumentID var id = UUID().uuidString
     let name: String
     let image: String
-    let amount: Int
-    let newBalance: Int
+    let amount: Float
+    let newBalance: Float
     let date: Date
     let customerID: String
 }

@@ -206,7 +206,7 @@ struct CreateAccountView: View {
                         UserHandling.createUser(withEmail: email, password: password) { error in
                             if let error = error {
                                 alertTitle = "Could not create account."
-                                alertMessage = error.errorDescription ?? "Unknown error."
+                                alertMessage = error.localizedErrorDescription ?? "Unknown error."
                                 isShowingAlert = true
                             }
                         }

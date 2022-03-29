@@ -44,13 +44,13 @@ struct AddDrinkView: View {
                                     image: "square.text.square.fill",
                                     editing: $editingName,
                                     text: $name,
-                                    keybTag: 1)
+                                    keyboardTag: 1)
                     
                     CustomInputView(title: "Price",
                                     image: "dollarsign.square.fill",
                                     editing: $editingPrice,
                                     text: $price,
-                                    keybTag: 2)
+                                    keyboardTag: 2)
                 }
                 
                 Color.clear
@@ -61,7 +61,7 @@ struct AddDrinkView: View {
                             if name.trimmingCharacters(in: .whitespaces).isEmpty {
                                 isShowingAlert = true
                             } else {
-                                drinkListVM.addDrink(name: name, price: Int(price) ?? 0)
+                                drinkListVM.addDrink(name: name, price: Float(price) ?? 0)
                                 detailViewShown = .none
                                 presentationMode.wrappedValue.dismiss()
                             }

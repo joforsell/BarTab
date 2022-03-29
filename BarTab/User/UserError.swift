@@ -20,7 +20,7 @@ enum UserError: Error {
 }
 
 extension UserError: LocalizedError {
-    var errorDescription: LocalizedStringKey? {
+    var localizedErrorDescription: LocalizedStringKey? {
         switch self {
         case .incorrectPassword:
             return LocalizedStringKey("The password does not match the user.")

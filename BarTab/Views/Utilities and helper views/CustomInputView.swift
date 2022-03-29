@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import UIKit
+import Combine
 
 struct CustomInputView: View {
     @EnvironmentObject var avoider: KeyboardAvoider
@@ -14,7 +16,25 @@ struct CustomInputView: View {
     var image: String
     @Binding var editing: Bool
     @Binding var text: String
-    var keybTag: Int
+    var keyboardTag: Int
+    var keyboardType: UIKeyboardType = .default
+    var autocapitalizationType: UITextAutocapitalizationType = .none
+    var disablingAutocorrection: Bool = true
+    var isNumberInput: Bool = false
+    @Binding var numberString: String
+    
+    init(title: LocalizedStringKey, image: String, editing: Binding<Bool>, text: Binding<String>, keyboardTag: Int, keyboardType: UIKeyboardType = .default, autocapitalizationType: UITextAutocapitalizationType = .none, disablingAutocorrection: Bool = true, isNumberInput: Bool = false, numberString: Binding<String> = .constant("")) {
+        self.title = title
+        self.image = image
+        _editing = editing
+        _text = text
+        self.keyboardTag = keyboardTag
+        self.keyboardType = keyboardType
+        self.autocapitalizationType = autocapitalizationType
+        self.disablingAutocorrection = disablingAutocorrection
+        self.isNumberInput = isNumberInput
+        _numberString = numberString
+    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
@@ -22,7 +42,7 @@ struct CustomInputView: View {
                 TextField("",
                           text: $text,
                           onEditingChanged: { editingChanged in
-                    self.avoider.editingField = keybTag
+                    self.avoider.editingField = keyboardTag
                     if editingChanged {
                         withAnimation {
                             editing = true
@@ -31,24 +51,38 @@ struct CustomInputView: View {
                         withAnimation {
                             editing = false
                         }
-                    } },
-                          onCommit: {
-                    withAnimation {
-                        editing.toggle()
+                    } }, onCommit: {
+                        withAnimation {
+                            editing.toggle()
+                        }
                     }
-                }
                 )
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
+                    .if(isNumberInput) { view in
+                        view.onReceive(Just(numberString)) { newValue in
+                            let filtered = newValue.filter { "01233456789.".contains($0) }
+                            if filtered != newValue {
+                                numberString = filtered
+                            }
+                        }
+                    }
+                    .keyboardType(keyboardType)
+                    .autocapitalization(autocapitalizationType)
+                    .disableAutocorrection(disablingAutocorrection)
                     .font(.title3)
                 Spacer()
             }
             .offset(y: 4)
             .overlay(alignment: .trailing) {
-                Image(systemName: image)
-                    .resizable()
-                    .scaledToFit()
-                    .opacity(0.5)
+                Button {
+                    UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
+                } label: {
+                    Image(systemName: editing ? "checkmark.rectangle.fill" : image)
+                        .resizable()
+                        .scaledToFit()
+                        .opacity(editing ? 1 : 0.5)
+                        .foregroundColor(editing ? .accentColor : .white)
+                }
+                .disabled(!editing)
             }
             .overlay(alignment: .topLeading) {
                 Text(title)
@@ -66,6 +100,6 @@ struct CustomInputView: View {
         .background(Color.gray.opacity(0.2))
         .cornerRadius(6)
         .addBorder(editing ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
-        .avoidKeyboard(tag: keybTag)
+        .avoidKeyboard(tag: keyboardTag)
     }
 }

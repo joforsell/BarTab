@@ -54,7 +54,7 @@ struct ConfirmOrderView: View, Animatable {
                 Text(drinkVM.drink.name).font(.system(size: 80, weight: .black))
                     .lineLimit(1)
                     .minimumScaleFactor(0.1)
-                Text(Currency.display(drinkVM.drink.price, with: userHandler.user.currency)).font(.system(size: 60))
+                Text(Currency.display(drinkVM.drink.price, with: userHandler.user)).font(.system(size: 60))
                     .minimumScaleFactor(0.1)
                 Spacer()
             }
@@ -128,7 +128,7 @@ struct ConfirmOrderView: View, Animatable {
             withAnimation {
                 onClose()
             } }) {
-                ToastView(systemImage: ("checkmark.circle.fill", .accentColor, 50), title: "Your purchase was finalized", subTitle: "\(currentCustomerName) bought \(confirmationVM.selectedDrink?.drink.name.lowercased() ?? "missing") for \(Currency.display(confirmationVM.selectedDrink?.drink.price ?? 0, with: userHandler.user.currency)).")
+                ToastView(systemImage: ("checkmark.circle.fill", .accentColor, 50), title: "Your purchase was finalized", subTitle: "\(currentCustomerName) bought \(confirmationVM.selectedDrink?.drink.name.lowercased() ?? "missing") for \(Currency.display(confirmationVM.selectedDrink?.drink.price ?? 0, with: userHandler.user)).")
             }
             .background(VisualEffectBlurView(blurStyle: .dark))
             .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -141,7 +141,7 @@ struct ConfirmOrderView: View, Animatable {
     
     private func makeTransaction(customer: Customer, drink: Drink) -> Transaction {
         let now = Date()
-        return Transaction(name: drink.name, image: drink.image.rawValue, amount: drink.price, newBalance: (customer.balance - drink.price), date: now, customerID: customer.id!)
+        return Transaction(name: drink.name, image: drink.image.rawValue, amount: (round(drink.price * 100) / 100.0), newBalance: (round((customer.balance - drink.price) * 100) / 100.0), date: now, customerID: customer.id!)
     }
     
     private func isPhone() -> Bool {

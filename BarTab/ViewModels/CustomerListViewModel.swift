@@ -28,8 +28,8 @@ class CustomerListViewModel: ObservableObject {
             .store(in: &subscriptions)
     }
     
-    func addCustomer(name: String, balance: Int = 0, key: String = "", email: String) {
-        let newCustomer = Customer(name: name, balance: balance, key: key, email: email)
+    func addCustomer(name: String, balance: Float = 0, key: String = "", email: String) {
+        let newCustomer = Customer(name: name, balance: (round(balance * 100) / 100.0), key: key, email: email)
         customerRepository.addCustomer(newCustomer)
     }
         
@@ -55,19 +55,19 @@ class CustomerListViewModel: ObservableObject {
         customerRepository.updateKey(of: customer, with: key)
     }
         
-    func addToBalance(of customer: Customer, by adjustment: Int) {
+    func addToBalance(of customer: Customer, by adjustment: Float) {
         guard customer.id != nil else { return }
         
         let now = Date()
-        TransactionListViewModel.addTransaction(Transaction(name: "Added to balance", image: "addedBalance", amount: adjustment, newBalance: (customer.balance + adjustment), date: now, customerID: customer.id!))
+        TransactionListViewModel.addTransaction(Transaction(name: "Added to balance", image: "addedBalance", amount: (round(adjustment * 100) / 100.0), newBalance: (round((customer.balance + adjustment) * 100) / 100.0), date: now, customerID: customer.id!))
         customerRepository.addToBalanceOf(customer, by: adjustment)
     }
     
-    func subtractFromBalance(of customer: Customer, by adjustment: Int) {
+    func subtractFromBalance(of customer: Customer, by adjustment: Float) {
         guard customer.id != nil else { return }
         
         let now = Date()
-        TransactionListViewModel.addTransaction(Transaction(name: "Removed from balance", image: "removedBalance", amount: adjustment, newBalance: (customer.balance - adjustment), date: now, customerID: customer.id!))
+        TransactionListViewModel.addTransaction(Transaction(name: "Removed from balance", image: "removedBalance", amount: (round(adjustment * 100) / 100.0), newBalance: (round((customer.balance - adjustment) * 100) / 100.0), date: now, customerID: customer.id!))
         customerRepository.subtractFromBalanceOf(customer, by: adjustment)
     }
     

@@ -9,6 +9,7 @@ import Foundation
 import Combine
 
 class DrinkViewModel: ObservableObject, Identifiable {
+    @Published var userHandler = UserHandling()
     @Published var drinkRepository = DrinkRepository()
     @Published var drink: Drink
     @Published var priceAsString = ""
@@ -40,7 +41,7 @@ class DrinkViewModel: ObservableObject, Identifiable {
         
         $drink
             .map { drink in
-                String(drink.price)
+                    String(drink.price)
             }
             .assign(to: \.priceAsString, on: self)
             .store(in: &cancellables)
@@ -62,7 +63,7 @@ class DrinkViewModel: ObservableObject, Identifiable {
         $priceAsString
             .debounce(for: 1, scheduler: RunLoop.main)
             .sink { price in
-                self.drinkRepository.updateDrinkPrice(of: self.drink, to: Int(price) ?? 0)
+                self.drinkRepository.updateDrinkPrice(of: self.drink, to: Float(price) ?? 0)
             }
             .store(in: &cancellables)
         

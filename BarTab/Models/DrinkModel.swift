@@ -12,7 +12,7 @@ import FirebaseFirestoreSwift
 struct Drink: Codable, Identifiable {
     @DocumentID var id = UUID().uuidString
     var name: String
-    var price: Int
+    var price: Float
     var userId: String?
     var image: DrinkImage = .beer
 }

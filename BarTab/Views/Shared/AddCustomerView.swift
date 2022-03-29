@@ -38,11 +38,11 @@ struct AddCustomerView: View {
                         .padding(.bottom, 48)
                         .frame(maxWidth: geometry.size.width/2, maxHeight: geometry.size.height/2)
                 
-                    CustomInputView(title: "Name", image: "person.text.rectangle.fill", editing: $editingName, text: $name, keybTag: 7)
+                    CustomInputView(title: "Name", image: "person.text.rectangle.fill", editing: $editingName, text: $name, keyboardTag: 7)
                     
-                    CustomInputView(title: "E-mail address", image: "envelope.fill", editing: $editingEmail, text: $email, keybTag: 8)
+                    CustomInputView(title: "E-mail address", image: "envelope.fill", editing: $editingEmail, text: $email, keyboardTag: 8)
                     
-                    CustomInputView(title: "Opening balance", image: "dollarsign.square.fill", editing: $editingBalance, text: $balance, keybTag: 9)
+                    CustomInputView(title: "Opening balance", image: "dollarsign.square.fill", editing: $editingBalance, text: $balance, keyboardTag: 9)
                 }
                 
                 Color.clear
@@ -53,7 +53,7 @@ struct AddCustomerView: View {
                             if name.trimmingCharacters(in: .whitespaces).isEmpty {
                                 isShowingAlert = true
                             } else {
-                                customerListVM.addCustomer(name: name, balance: Int(balance) ?? 0, email: email)
+                                customerListVM.addCustomer(name: name, balance: Float(balance) ?? 0, email: email)
                                 presentationMode.wrappedValue.dismiss()
                             }
                         } label: {

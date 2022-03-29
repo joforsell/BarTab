@@ -1,3 +1,5 @@
+" from future balance updates" = " från framtida saldouppdateringar";
+
 /* No comment provided by engineer. */
 "%@ / month" = "%@ / månad";
 
@@ -5,13 +7,15 @@
 "%@ / year" = "%@ / år";
 
 /* No comment provided by engineer. */
-"%@ bought %@ for $%lld." = "%@ köpte %@ för $%lld.";
+"%@ bought %@ for %@." = "%@ köpte %@ för %@.";
 
 /* No comment provided by engineer. */
 "%@." = "%@.";
 
 /* No comment provided by engineer. */
 "$%@" = "%@ kr";
+
+"A-Z" = "A-Ö";
 
 /* No comment provided by engineer. */
 "A network error occurred. Please try again." = "Ett nätverksfel inträffade. Försök igen.";
@@ -46,6 +50,8 @@
 /* No comment provided by engineer. */
 "Balance" = "Saldo";
 
+"Balance update" = "Saldouppdatering";
+
 /* No comment provided by engineer. */
 "Cancel" = "Avbryt";
 
@@ -63,6 +69,8 @@
 
 /* No comment provided by engineer. */
 "Could not send" = "Kunde inte skicka";
+
+"Could not send new password." = "Kunde inte skicka nytt lösenord";
 
 /* No comment provided by engineer. */
 "Could not sign in." = "Kunde inte logga in.";
@@ -82,6 +90,8 @@
 /* No comment provided by engineer. */
 "Currency" = "Valuta";
 
+"Current balance at %@" = "Nuvarande saldo hos %@";
+
 /* No comment provided by engineer. */
 "Delete" = "Radera";
 
@@ -94,6 +104,8 @@
 /* No comment provided by engineer. */
 "Delete drink" = "Radera dryck";
 
+"Display decimals" = "Visa decimaler";
+
 /* No comment provided by engineer. */
 "Drinks per row" = "Drycker per rad";
 
@@ -103,14 +115,24 @@
 /* No comment provided by engineer. */
 "E-mail address" = "Mailadress";
 
+"Email address missing" = "Mailadress saknas";
+
 /* No comment provided by engineer. */
 "E-mail(s) sent" = "Mail skickades";
 
 /* No comment provided by engineer. */
 "Error sending emails" = "Fel vid skickande av mail";
 
+"Having issues or missing a feature?" = "Stött på problem eller saknar en funktion?";
+
+"Hello %@!" = "Hej %@!";
+
+"Highest price first" = "Högst pris först";
+
 /* No comment provided by engineer. */
 "First week for free!" = "Första veckan gratis!";
+
+"Inqueries can be sent to:" = "Om du har frågor eller funderingar:";
 
 /* No comment provided by engineer. */
 "Forget tallying purchases and adding up balance after every night. With BarTab you and your bar guests can easily keep track of running tabs." = "Glöm bort manuella bonglistor och att räkna samman saldon efter varje träff. Med BarTab håller du och dina bargäster enkelt koll på saldoställningar.";
@@ -121,17 +143,25 @@
 /* No comment provided by engineer. */
 "Invalid e-mail address." = "Ej giltig mailadress.";
 
+"Let me know" = "Skicka gärna feedback";
+
 /* No comment provided by engineer. */
 "Letting your bar guests keep track of their balance should be easy. With the press of a button you can e-mail each of your bar guests their current balance." = "Det ska vara enkelt att låta dina bargäster hålla koll på sitt saldo. Med ett knapptryck kan du skicka mail till varje gäst med deras aktuella saldo.";
 
 /* No comment provided by engineer. */
 "Lifetime" = "Livstid";
 
+"Lowest price first" = "Lägst pris först";
+
 /* No comment provided by engineer. */
 "Name" = "Namn";
 
 /* No comment provided by engineer. */
 "Opening balance" = "Ingående saldo";
+
+"On" = "På";
+
+"Off" = "Av";
 
 /* No comment provided by engineer. */
 "Password" = "Lösenord";
@@ -157,6 +187,8 @@
 /* No comment provided by engineer. */
 "Privacy policy" = "Integritetspolicy";
 
+"Reply to" = "Skicka svar till";
+
 /* No comment provided by engineer. */
 "Restoration failed" = "Återställningen misslyckades";
 
@@ -177,6 +209,8 @@
 
 /* No comment provided by engineer. */
 "Send e-mail with current balance" = "Maila aktuellt saldo";
+
+"Send feedback" = "Skicka feedback";
 
 /* No comment provided by engineer. */
 "Sign in" = "Logga in";
@@ -202,8 +236,12 @@
 /* No comment provided by engineer. */
 "Subtract" = "Ta bort";
 
+"Subject" = "Ämne";
+
 /* No comment provided by engineer. */
 "Terms of use" = "Användarvillkor";
+
+"Thank you for your feedback!" = "Tack för din feedback!";
 
 /* No comment provided by engineer. */
 "The bar guest needs a name" = "Bargästen måste ha ett namn";
@@ -220,6 +258,8 @@
 /* No comment provided by engineer. */
 "The scanned RFID tag is now assigned to %@" = "Den skannade RFID-brickan är nu kopplad till %@";
 
+"There was an error" = "Ett fel uppstod";
+
 /* No comment provided by engineer. */
 "This will send an e-mail showing current balance to each bar guest with an associated e-mail address." = "Detta skickar ett mail med aktuellt saldo till varje bargäst med en kopplad mailadress.";
 
@@ -228,6 +268,8 @@
 
 /* No comment provided by engineer. */
 "Unlimited list of bar guests" = "Obegränsad bargästlista";
+
+"Unsubscribe" = "Avanmäl dig";
 
 /* No comment provided by engineer. */
 "Update \nRFID tag" = "Uppdatera \nRFID-bricka";
@@ -244,9 +286,12 @@
 /* No comment provided by engineer. */
 "You can only send e-mail(s) once every minute." = "Du kan bara skicka mail en gång i minuten.";
 
+"Your current balance at %@ is:" = "Ditt nuvarande saldo hos %@ är:";
+
 /* No comment provided by engineer. */
 "Your purchase could not be restored, no valid reciept was found." = "Ditt köp kunde inte återställas, inget giltigt kvitto kunde hittas.";
 
 /* No comment provided by engineer. */
 "Your purchase was finalized" = "Ditt köp slutfördes";
 
+"Z-A" = "Ö-A";

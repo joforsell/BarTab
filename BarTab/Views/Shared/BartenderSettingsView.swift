@@ -26,8 +26,6 @@ struct BartenderSettingsView: View {
     @State private var editingPhoneNumber = false
     
     @State private var showError = false
-//    @State private var errorString = ""
-//    @State private var errorTitle = ""
     @State private var errorPrompt: ErrorPrompt?
     @State private var localizedErrorString = ""
     @State private var showLocalizedError = false
@@ -35,6 +33,7 @@ struct BartenderSettingsView: View {
     @State private var showingUserInformation = false
     @State private var isShowingEmailConfirmation = false
     @State private var confirmEmails = false
+    @State private var presentingFeedbackSheet = false
     
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
@@ -164,7 +163,7 @@ struct BartenderSettingsView: View {
             VStack(alignment: .leading, spacing: 2) {
                 HStack(alignment: .bottom) {
                     TextField("",
-                              text: $userHandler.user.number,
+                              text: $userHandler.user.phoneNumber,
                               onEditingChanged: { editingChanged in
                         self.avoider.editingField = 3
                         if editingChanged {
@@ -180,7 +179,7 @@ struct BartenderSettingsView: View {
                         withAnimation {
                             editingPhoneNumber.toggle()
                         }
-                        userHandler.updateUserPhoneNumber(userHandler.user.number ?? "")
+                        userHandler.updateUserPhoneNumber(userHandler.user.phoneNumber ?? "")
                     }
                     )
                         .autocapitalization(.none)
@@ -196,7 +195,7 @@ struct BartenderSettingsView: View {
                         .opacity(editingPhoneNumber ? 1 : 0.5)
                         .foregroundColor(editingPhoneNumber ? .accentColor : .white)
                         .onTapGesture {
-                            editingPhoneNumber ? userHandler.updateUserPhoneNumber(userHandler.user.number ?? "") : nil
+                            editingPhoneNumber ? userHandler.updateUserPhoneNumber(userHandler.user.phoneNumber ?? "") : nil
                             UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
                         }
                     
@@ -230,6 +229,32 @@ struct BartenderSettingsView: View {
                     Text("EUR").tag(Currency.eur)
                     Text("GBP").tag(Currency.gbp)
                 }
+                .onChange(of: userHandler.user.currency) { currency in
+                    userHandler.updateCurrency(currency)
+                }
+            }
+            .frame(width: 300, height: 24)
+            
+            HStack {
+                Text("Display decimals")
+                    .foregroundColor(.white)
+                Spacer()
+                Button {
+                    if userHandler.user.showingDecimals {
+                        userHandler.updateDecimalUsage(false)
+                    } else {
+                        userHandler.updateDecimalUsage(true)
+                    }
+                } label: {
+                    if userHandler.user.showingDecimals {
+                        Text("On")
+                            .textCase(.uppercase)
+                    } else {
+                        Text("Off")
+                            .textCase(.uppercase)
+                    }
+                }
+                .foregroundColor(.accentColor)
             }
             .frame(width: 300, height: 24)
             
@@ -240,6 +265,32 @@ struct BartenderSettingsView: View {
                 .onChange(of: userHandler.user.usingTags) { usingTags in
                     userHandler.updateUserTagUsage(usingTags)
                 }
+            VStack {
+                Text("Having issues or missing a feature?")
+                    .font(.caption2)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.3)
+                Button {
+                    presentingFeedbackSheet = true
+                } label: {
+                    RoundedRectangle(cornerRadius: 6)
+                        .overlay {
+                            Text("Let me know")
+                                .foregroundColor(.white)
+                                .fontWeight(.bold)
+                                .textCase(.uppercase)
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.3)
+                        }
+                }
+                .sheet(isPresented: $presentingFeedbackSheet) {
+                    FeedbackMailView()
+                        .clearModalBackground()
+                }
+            }
+            .frame(width: 300, height: 48)
+            .padding(.top, 48)
+            
             Spacer()
         }
         .sheet(isPresented: $showingUserInformation) {

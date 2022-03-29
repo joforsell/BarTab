@@ -79,6 +79,18 @@ class UserHandling: ObservableObject {
         db.document(userID).setData(["drinkSorting": drinkSorting.rawValue], merge: true)
     }
     
+    func updateCurrency(_ currency: Currency) {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        
+        db.document(userID).setData(["currency": currency.rawValue], merge: true)
+    }
+    
+    func updateDecimalUsage(_ showingDecimals: Bool) {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+
+        db.document(userID).setData(["showingDecimals": showingDecimals], merge: true)
+    }
+    
     func deleteUser(completion: @escaping (Result<Bool, Error>) -> ()) {
         Auth.auth().currentUser?.delete { error in
             if let error = error {

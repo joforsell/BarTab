@@ -63,8 +63,8 @@ struct SignInView: View {
                     Button {
                         UserHandling.resetPassword(for: email) { error in
                             if let error = error {
-                                alertTitle = "Could send new password."
-                                alertMessage = error.errorDescription ?? "Unknown error."
+                                alertTitle = "Could not send new password."
+                                alertMessage = error.localizedErrorDescription ?? "Unknown error."
                                 isShowingAlert = true
                             }
                         }
@@ -241,7 +241,7 @@ struct SignInView: View {
                         UserHandling.signIn(withEmail: email, password: password) { error in
                             if let error = error {
                                 alertTitle = "Could not sign in."
-                                alertMessage = error.errorDescription ?? "Unknown error."
+                                alertMessage = error.localizedErrorDescription ?? "Unknown error."
                                 isShowingAlert = true
                             }
                         }

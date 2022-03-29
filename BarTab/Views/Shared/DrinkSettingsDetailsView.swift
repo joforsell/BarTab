@@ -51,109 +51,21 @@ struct DrinkSettingsDetailView: View {
                         }
                         .offset(x: 40)
                     }
+                CustomInputView(title: "Name",
+                                image: "square.text.square.fill",
+                                editing: $editingName,
+                                text: $drinkVM.name,
+                                keyboardTag: 1,
+                                autocapitalizationType: .words)
                 
-                VStack(alignment: .leading, spacing: 2) {
-                    HStack(alignment: .bottom) {
-                        TextField("",
-                                  text: $drinkVM.name,
-                                  onEditingChanged: { editingChanged in
-                            self.avoider.editingField = 1
-                            if editingChanged {
-                                editingName = true
-                            } else {
-                                editingName = false
-                            } },
-                                  onCommit: {
-                            editingName.toggle()
-                        }
-                        )
-                            .disableAutocorrection(true)
-                            .font(.title3)
-                        Spacer()
-                    }
-                    .offset(y: 4)
-                    .overlay(alignment: .trailing) {
-                        Button {
-                            UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
-                        } label: {
-                            Image(systemName: editingName ? "checkmark.rectangle.fill" : "square.text.square.fill")
-                                .resizable()
-                                .scaledToFit()
-                                .opacity(editingName ? 1 : 0.5)
-                                .foregroundColor(editingName ? .accentColor : .white)
-                        }
-                        .disabled(!editingName)
-                    }
-                    .overlay(alignment: .topLeading) {
-                        Text("Name")
-                            .font(.caption2)
-                            .textCase(.uppercase)
-                            .foregroundColor(.white)
-                            .opacity(0.5)
-                            .offset(y: -10)
-                    }
-                }
-                .frame(width: 300, height: 24)
-                .padding()
-                .foregroundColor(.white)
-                .background(Color.gray.opacity(0.2))
-                .cornerRadius(6)
-                .addBorder(editingName ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
-                .padding(.top, 48)
-                .avoidKeyboard(tag: 1)
-                
-                VStack(alignment: .leading, spacing: 2) {
-                    HStack(alignment: .bottom) {
-                        TextField("",
-                                  text: $drinkVM.priceAsString,
-                                  onEditingChanged: { editingChanged in
-                            self.avoider.editingField = 2
-                            if editingChanged {
-                                editingPrice = true
-                            } else {
-                                editingPrice = false
-                            } }, onCommit: {
-                                editingPrice.toggle()
-                            }
-                        )
-                            .onReceive(Just(drinkVM.priceAsString)) { newValue in
-                                let filtered = newValue.filter { "01233456789".contains($0) }
-                                if filtered != newValue {
-                                    drinkVM.priceAsString = filtered
-                                }
-                            }
-                            .font(.title3)
-                        Spacer()
-                    }
-                    .offset(y: 4)
-                    .overlay(alignment: .trailing) {
-                        Button {
-                            UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
-                        } label: {
-                            Image(systemName: editingPrice ? "checkmark.rectangle.fill" : "dollarsign.square.fill")
-                                .resizable()
-                                .scaledToFit()
-                                .opacity(editingPrice ? 1 : 0.5)
-                                .foregroundColor(editingPrice ? .accentColor : .white)
-                        }
-                        .disabled(!editingPrice)
-                    }
-                    .overlay(alignment: .topLeading) {
-                        Text("Price")
-                            .font(.caption2)
-                            .textCase(.uppercase)
-                            .foregroundColor(.white)
-                            .opacity(0.5)
-                            .offset(y: -10)
-                    }
-                }
-                .frame(width: 300, height: 24)
-                .padding()
-                .foregroundColor(.white)
-                .background(Color.gray.opacity(0.2))
-                .cornerRadius(6)
-                .addBorder(editingPrice ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
-                .avoidKeyboard(tag: 2)
+                CustomInputView(title: "Price",
+                                image: "dollarsign.square.fill",
+                                editing: $editingPrice,
+                                text: $drinkVM.priceAsString,
+                                keyboardTag: 2,
+                                keyboardType: .decimalPad,
+                                isNumberInput: true,
+                                numberString: $drinkVM.priceAsString)
                 
                 VStack(alignment: .leading) {
                     HStack {

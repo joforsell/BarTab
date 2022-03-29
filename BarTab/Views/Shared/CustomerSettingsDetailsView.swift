@@ -169,11 +169,11 @@ struct CustomerSettingsDetailView: View {
                                     self.avoider.editingField = 5
                                 }, onCommit: {
                                     if addingToBalance {
-                                        customerListVM.addToBalance(of: customerVM.customer, by: Int(balanceAdjustment) ?? 0)
-                                        customerVM.customer.balance += Int(balanceAdjustment) ?? 0
+                                        customerListVM.addToBalance(of: customerVM.customer, by: Float(balanceAdjustment) ?? 0)
+                                        customerVM.customer.balance += Float(balanceAdjustment) ?? 0
                                     } else {
-                                        customerListVM.subtractFromBalance(of: customerVM.customer, by: Int(balanceAdjustment) ?? 0)
-                                        customerVM.customer.balance -= Int(balanceAdjustment) ?? 0
+                                        customerListVM.subtractFromBalance(of: customerVM.customer, by: Float(balanceAdjustment) ?? 0)
+                                        customerVM.customer.balance -= Float(balanceAdjustment) ?? 0
                                     }
                                     withAnimation {
                                         editingBalance = false
@@ -184,13 +184,13 @@ struct CustomerSettingsDetailView: View {
                                         customerVM.customer.balance = balance
                                     }
                                     .onReceive(Just(balanceAdjustment)) { newValue in
-                                        let filtered = newValue.filter { "01233456789".contains($0) }
+                                        let filtered = newValue.filter { "01233456789.".contains($0) }
                                         if filtered != newValue {
                                             self.balanceAdjustment = filtered
                                         }
                                     }
                             } else {
-                                Text("$\(customerVM.balanceAsString)")
+                                Text(Currency.display(customerVM.customer.balance, with: userHandler.user))
                                     .font(.title3)
                                     .foregroundColor(customerVM.balanceColor)
                             }
@@ -201,11 +201,11 @@ struct CustomerSettingsDetailView: View {
                             Button {
                                 UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
                                 if addingToBalance {
-                                    customerListVM.addToBalance(of: customerVM.customer, by: Int(balanceAdjustment) ?? 0)
-                                    customerVM.customer.balance += Int(balanceAdjustment) ?? 0
+                                    customerListVM.addToBalance(of: customerVM.customer, by: Float(balanceAdjustment) ?? 0)
+                                    customerVM.customer.balance += Float(balanceAdjustment) ?? 0
                                 } else {
-                                    customerListVM.subtractFromBalance(of: customerVM.customer, by: Int(balanceAdjustment) ?? 0)
-                                    customerVM.customer.balance -= Int(balanceAdjustment) ?? 0
+                                    customerListVM.subtractFromBalance(of: customerVM.customer, by: Float(balanceAdjustment) ?? 0)
+                                    customerVM.customer.balance -= Float(balanceAdjustment) ?? 0
                                 }
                                 withAnimation {
                                     editingBalance = false
