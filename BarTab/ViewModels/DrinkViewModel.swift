@@ -7,21 +7,22 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 class DrinkViewModel: ObservableObject, Identifiable {
-    @Published var userHandler = UserHandling()
     @Published var drinkRepository = DrinkRepository()
     @Published var drink: Drink
     @Published var priceAsString = ""
     @Published var name = ""
     @Published var image: DrinkImage = .beer
-
-    
+    @Published var showingDecimals: Bool
+            
     var id = ""
         
     private var cancellables = Set<AnyCancellable>()
     
-    init(drink: Drink) {
+    init(showingDecimals: Bool, drink: Drink) {
+        self.showingDecimals = showingDecimals
         self.drink = drink
         
         $drink
@@ -41,7 +42,22 @@ class DrinkViewModel: ObservableObject, Identifiable {
         
         $drink
             .map { drink in
-                    String(drink.price)
+                if self.showingDecimals {
+                    return String(format: "%.2f", drink.price)
+                } else {
+                    return String(format: "%.0f", drink.price)
+                }
+            }
+            .assign(to: \.priceAsString, on: self)
+            .store(in: &cancellables)
+        
+        $showingDecimals
+            .map { showingDecimals in
+                if showingDecimals {
+                    return String(format: "%.2f", self.drink.price)
+                } else {
+                    return String(format: "%.0f", self.drink.price)
+                }
             }
             .assign(to: \.priceAsString, on: self)
             .store(in: &cancellables)

@@ -13,6 +13,7 @@ struct DrinkSettingsDetailView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.verticalSizeClass) var verticalSizeClass
     
+    @EnvironmentObject var userHandler: UserHandling
     @EnvironmentObject var drinkListVM: DrinkListViewModel
     @EnvironmentObject var avoider: KeyboardAvoider
     @Binding var drinkVM: DrinkViewModel
@@ -64,8 +65,7 @@ struct DrinkSettingsDetailView: View {
                                 text: $drinkVM.priceAsString,
                                 keyboardTag: 2,
                                 keyboardType: .decimalPad,
-                                isNumberInput: true,
-                                numberString: $drinkVM.priceAsString)
+                                isNumberInput: true)
                 
                 VStack(alignment: .leading) {
                     HStack {
@@ -98,6 +98,9 @@ struct DrinkSettingsDetailView: View {
             }
             Spacer()
         }
+        .onChange(of: userHandler.user.showingDecimals) { showingDecimals in
+            drinkVM.showingDecimals = showingDecimals
+        }
         .overlay(alignment: .topLeading) {
             if isPhone() {
                 Button {
@@ -113,7 +116,6 @@ struct DrinkSettingsDetailView: View {
                 }
             }
         }
-        .preferredColorScheme(.dark)
     }
     
     private func isPhone() -> Bool {
