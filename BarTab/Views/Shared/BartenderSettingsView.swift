@@ -16,6 +16,7 @@ struct BartenderSettingsView: View {
     @EnvironmentObject var userHandler: UserHandling
     @EnvironmentObject var avoider: KeyboardAvoider
     @EnvironmentObject var customerListVM: CustomerListViewModel
+    @EnvironmentObject var drinkListVM: DrinkListViewModel
     
     @Binding var settingsShown: SettingsRouter
     
@@ -242,8 +243,14 @@ struct BartenderSettingsView: View {
                 Button {
                     if userHandler.user.showingDecimals {
                         userHandler.updateDecimalUsage(false)
+                        for drinkVM in drinkListVM.drinkVMs {
+                            drinkVM.showingDecimals = false
+                        }
                     } else {
                         userHandler.updateDecimalUsage(true)
+                        for drinkVM in drinkListVM.drinkVMs {
+                            drinkVM.showingDecimals = true
+                        }
                     }
                 } label: {
                     if userHandler.user.showingDecimals {

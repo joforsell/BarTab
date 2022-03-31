@@ -11,7 +11,7 @@ class ConfirmationViewModel: ObservableObject {
     @Published var isShowingConfirmationView: Bool
     @Published var selectedDrink: DrinkViewModel?
     
-    static let errorDrink = DrinkViewModel(drink: Drink(name: "Dryck saknas", price: 0))
+    static let errorDrink = DrinkViewModel(showingDecimals: true, drink: Drink(name: "Dryck saknas", price: 0))
     
     init() {
         self.isShowingConfirmationView = false

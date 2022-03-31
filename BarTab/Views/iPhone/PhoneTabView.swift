@@ -10,9 +10,9 @@ import SwiftUIX
 
 struct PhoneTabView: View {
     @EnvironmentObject var avoider: KeyboardAvoider
+    @StateObject var userHandler = UserHandling()
     @StateObject var drinkListVM = DrinkListViewModel()
     @StateObject var customerListVM = CustomerListViewModel()
-    @StateObject var userHandler = UserHandling()
     
     @State private var selection: TabBarItem = .drinks
 
@@ -32,6 +32,9 @@ struct PhoneTabView: View {
                 .environmentObject(drinkListVM)
                 .environmentObject(customerListVM)
                 .environmentObject(userHandler)
+        }
+        .onAppear {
+            drinkListVM.setup(userHandler.user.showingDecimals)
         }
     }
 }

@@ -11,15 +11,23 @@ import Combine
 class DrinkListViewModel: ObservableObject {
     @Published var drinkRepository = DrinkRepository()
     @Published var drinkVMs = [DrinkViewModel]()
-        
+
+    var showingDecimals: Bool
+    
+    func setup(_ showingDecimals: Bool) {
+        self.showingDecimals = showingDecimals
+    }
+    
     var cancellables = Set<AnyCancellable>()
     
-    init() {
+    init(showingDecimals: Bool = true) {
+        self.showingDecimals = showingDecimals
+        
         drinkRepository.$drinks
             .map { drinks in
                 let sortedDrinks = drinks.sorted { $0.name < $1.name}
                 return sortedDrinks.map { drink in
-                    DrinkViewModel(drink: drink)
+                    DrinkViewModel(showingDecimals: showingDecimals, drink: drink)
                 }
             }
             .assign(to: \.drinkVMs, on: self)
