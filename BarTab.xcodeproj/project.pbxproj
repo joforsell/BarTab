@@ -89,7 +89,8 @@
 		3E873022275961B500F8E610 /* DrinkCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E873021275961B500F8E610 /* DrinkCardView.swift */; };
 		3E8730242759755100F8E610 /* ConfirmOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8730232759755100F8E610 /* ConfirmOrderView.swift */; };
 		3E88B0F5276A7814003561E1 /* AddDrinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E88B0F4276A7814003561E1 /* AddDrinkView.swift */; };
-		3E8EF680280F3AC20044B315 /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = 3E8EF67F280F3AC20044B315 /* Inject */; };
+		3E8EF682280F49030044B315 /* BalanceUpdateEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EF681280F49030044B315 /* BalanceUpdateEmailView.swift */; };
+		3E8EF684280F4ECB0044B315 /* BalanceUpdateEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EF683280F4ECB0044B315 /* BalanceUpdateEmailViewModel.swift */; };
 		3E8FAA18279C336C00FBA06D /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8FAA17279C336C00FBA06D /* SignInView.swift */; };
 		3E96528F27824BBD00815A74 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E96528E27824BBD00815A74 /* StoreKit.framework */; };
 		3EBC4986270A4D7F006B4857 /* CustomerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBC4985270A4D7F006B4857 /* CustomerRepository.swift */; };
@@ -174,6 +175,8 @@
 		3E873021275961B500F8E610 /* DrinkCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkCardView.swift; sourceTree = "<group>"; };
 		3E8730232759755100F8E610 /* ConfirmOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOrderView.swift; sourceTree = "<group>"; };
 		3E88B0F4276A7814003561E1 /* AddDrinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDrinkView.swift; sourceTree = "<group>"; };
+		3E8EF681280F49030044B315 /* BalanceUpdateEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceUpdateEmailView.swift; sourceTree = "<group>"; };
+		3E8EF683280F4ECB0044B315 /* BalanceUpdateEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceUpdateEmailViewModel.swift; sourceTree = "<group>"; };
 		3E8FAA17279C336C00FBA06D /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		3E96528E27824BBD00815A74 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		3EBC4985270A4D7F006B4857 /* CustomerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerRepository.swift; sourceTree = "<group>"; };
@@ -188,7 +191,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E8EF680280F3AC20044B315 /* Inject in Frameworks */,
 				3E96528F27824BBD00815A74 /* StoreKit.framework in Frameworks */,
 				3E7062DA27149AB500B02C4E /* ToastUI in Frameworks */,
 				3E5F333D2741703000AA54AA /* AlertToast in Frameworks */,
@@ -299,6 +301,7 @@
 				3E8730232759755100F8E610 /* ConfirmOrderView.swift */,
 				3E88B0F4276A7814003561E1 /* AddDrinkView.swift */,
 				3E678776275D62170072259F /* AddCustomerView.swift */,
+				3E8EF681280F49030044B315 /* BalanceUpdateEmailView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 				3E5EE16327823A060044B178 /* PaywallViewModel.swift */,
 				3E6C68AF278C697C00EFE42C /* OrientationInfo.swift */,
 				3E8507062797578300A56E17 /* UserSettingsViewModel.swift */,
+				3E8EF683280F4ECB0044B315 /* BalanceUpdateEmailViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -467,7 +471,6 @@
 				3E67EC752794CC97008A2B3D /* FirebaseFunctions */,
 				3E67EC772794CC97008A2B3D /* FirebaseStorage */,
 				3E67EC792794CC97008A2B3D /* FirebaseStorageSwift-Beta */,
-				3E8EF67F280F3AC20044B315 /* Inject */,
 			);
 			productName = BarTab;
 			productReference = 3E65093526FCB26900ACDF41 /* BarTab.app */;
@@ -504,7 +507,6 @@
 				3E8134AE2764DEBB00637E61 /* XCRemoteSwiftPackageReference "SwiftUIX" */,
 				3E813C392785D24700CC2EAA /* XCRemoteSwiftPackageReference "purchases-ios" */,
 				3E67EC6E2794CC97008A2B3D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				3E8EF67E280F3AC10044B315 /* XCRemoteSwiftPackageReference "Inject" */,
 			);
 			productRefGroup = 3E65093626FCB26900ACDF41 /* Products */;
 			projectDirPath = "";
@@ -561,6 +563,7 @@
 				3E6F1A272771282900661021 /* Date+RawRepresentable.swift in Sources */,
 				3E70E0E6275EABDC0020B429 /* CustomerSettingsView.swift in Sources */,
 				3E5DFDCC2787A9460056F0CC /* KeyboardAvoiding.swift in Sources */,
+				3E8EF684280F4ECB0044B315 /* BalanceUpdateEmailViewModel.swift in Sources */,
 				3E7C9AFE2771D49800B8A431 /* ContentView.swift in Sources */,
 				3E5DE2B32746E75600B5723D /* DrinkViewModel.swift in Sources */,
 				3E65A6FC27CEB958001E3E70 /* Bundle+AppIcon.swift in Sources */,
@@ -577,6 +580,7 @@
 				3E7C9B022772069700B8A431 /* PaywallView.swift in Sources */,
 				3E6C68B0278C697C00EFE42C /* OrientationInfo.swift in Sources */,
 				3E64DA3927D932A100978EBC /* TransactionsListView.swift in Sources */,
+				3E8EF682280F49030044B315 /* BalanceUpdateEmailView.swift in Sources */,
 				3EBC4988270B8845006B4857 /* DrinkRepository.swift in Sources */,
 				3E6E702D279D7B2000FB1639 /* BackgroundBlob.swift in Sources */,
 				3E6F1A2927712B5300661021 /* CustomInputView.swift in Sources */,
@@ -874,14 +878,6 @@
 				minimumVersion = 3.0.0;
 			};
 		};
-		3E8EF67E280F3AC10044B315 /* XCRemoteSwiftPackageReference "Inject" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/krzysztofzablocki/Inject.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -939,11 +935,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3E813C392785D24700CC2EAA /* XCRemoteSwiftPackageReference "purchases-ios" */;
 			productName = Purchases;
-		};
-		3E8EF67F280F3AC20044B315 /* Inject */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3E8EF67E280F3AC10044B315 /* XCRemoteSwiftPackageReference "Inject" */;
-			productName = Inject;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
