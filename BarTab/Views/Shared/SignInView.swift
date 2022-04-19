@@ -26,6 +26,7 @@ struct SignInView: View {
     @State private var alertMessage: LocalizedStringKey = ""
     @State private var isShowingCreateAccountView = false
     
+    @FocusState private var focused: FocusedField?
     
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
@@ -169,28 +170,50 @@ struct SignInView: View {
     private var passwordInput: some View {
         VStack(alignment: .leading, spacing: 2) {
             HStack(alignment: .bottom) {
-                CocoaTextField("", text: $password) { editingChanged in
-                    self.avoider.editingField = 13
-                    if editingChanged {
-                        withAnimation {
-                            editingPassword = true
-                        }
-                    } else {
+                ZStack {
+                    SecureField("", text: $password, onCommit: {
                         withAnimation {
                             editingPassword = false
                         }
-                    }
-                } onCommit: {
-                    withAnimation {
-                        editingPassword = false
-                    }
+                    })
+                    .font(.title3)
+                    .foregroundColor(.white)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .textContentType(.password)
+                    .focused($focused, equals: .secure)
+                    .onChange(of: focused, perform: { focus in
+                        if focus == .secure {
+                            avoider.editingField = 13
+                            editingPassword = true
+                        } else {
+                            editingPassword = false
+                        }
+                    })
+                    .opacity(showingPassword ? 0 : 1)
+                    
+                    TextField("", text: $password, onCommit: {
+                        withAnimation {
+                            editingPassword = false
+                        }
+                    })
+                    .font(.title3)
+                    .foregroundColor(.white)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
+                    .textContentType(.password)
+                    .focused($focused, equals: .password)
+                    .onChange(of: focused, perform: { focus in
+                        if focus == .password {
+                            avoider.editingField = 13
+                            editingPassword = true
+                        } else {
+                            editingPassword = false
+                        }
+                    })
+                    .opacity(showingPassword ? 1 : 0)
                 }
-                .font(UIFont.preferredFont(forTextStyle: .title3))
-                .foregroundColor(.white)
-                .secureTextEntry(!showingPassword)
-                .autocapitalization(.none)
-                .disableAutocorrection(true)
-                .keyboardType(.emailAddress)
+
                 
                 Spacer()
             }
@@ -264,5 +287,11 @@ struct SignInView: View {
     
     private func isPhone() -> Bool {
         return !(horizontalSizeClass == .regular && verticalSizeClass == .regular)
+    }
+    
+    enum FocusedField {
+        case username
+        case password
+        case secure
     }
 }

@@ -8,6 +8,7 @@
 import SwiftUI
 import FirebaseAuth
 import ToastUI
+import Inject
 
 struct BartenderSettingsView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
@@ -17,6 +18,8 @@ struct BartenderSettingsView: View {
     @EnvironmentObject var avoider: KeyboardAvoider
     @EnvironmentObject var customerListVM: CustomerListViewModel
     @EnvironmentObject var drinkListVM: DrinkListViewModel
+    
+    @ObservedObject private var iO = Inject.observer
     
     @Binding var settingsShown: SettingsRouter
     
@@ -351,6 +354,7 @@ struct BartenderSettingsView: View {
                 ToastView(systemImage: ("envelope.fill", .accentColor, 50), title: "E-mail(s) sent", subTitle: "An e-mail showing current balance was sent to each bar guest with an associated e-mail address.")
             }
         }
+        .enableInjection()
     }
     
     private func isPhone() -> Bool {
