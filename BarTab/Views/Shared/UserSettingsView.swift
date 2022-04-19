@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftUIX
 import Purchases
 import Firebase
+import Inject
 
 struct UserSettingsView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
@@ -18,6 +19,7 @@ struct UserSettingsView: View {
     @EnvironmentObject var userHandler: UserHandling
     @EnvironmentObject var authentication: Authentication
     @ObservedObject var userSettingsVM = UserSettingsViewModel()
+    @ObservedObject private var iO = Inject.observer
     @Binding var settingsShown: SettingsRouter
     
     @State private var isShowingAccountLinkModal = false
@@ -111,6 +113,7 @@ struct UserSettingsView: View {
             }
             .padding()
         }
+        .enableInjection()
     }
     
     @ViewBuilder

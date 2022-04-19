@@ -89,6 +89,7 @@
 		3E873022275961B500F8E610 /* DrinkCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E873021275961B500F8E610 /* DrinkCardView.swift */; };
 		3E8730242759755100F8E610 /* ConfirmOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8730232759755100F8E610 /* ConfirmOrderView.swift */; };
 		3E88B0F5276A7814003561E1 /* AddDrinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E88B0F4276A7814003561E1 /* AddDrinkView.swift */; };
+		3E8EF680280F3AC20044B315 /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = 3E8EF67F280F3AC20044B315 /* Inject */; };
 		3E8FAA18279C336C00FBA06D /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8FAA17279C336C00FBA06D /* SignInView.swift */; };
 		3E96528F27824BBD00815A74 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E96528E27824BBD00815A74 /* StoreKit.framework */; };
 		3EBC4986270A4D7F006B4857 /* CustomerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBC4985270A4D7F006B4857 /* CustomerRepository.swift */; };
@@ -187,6 +188,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E8EF680280F3AC20044B315 /* Inject in Frameworks */,
 				3E96528F27824BBD00815A74 /* StoreKit.framework in Frameworks */,
 				3E7062DA27149AB500B02C4E /* ToastUI in Frameworks */,
 				3E5F333D2741703000AA54AA /* AlertToast in Frameworks */,
@@ -465,6 +467,7 @@
 				3E67EC752794CC97008A2B3D /* FirebaseFunctions */,
 				3E67EC772794CC97008A2B3D /* FirebaseStorage */,
 				3E67EC792794CC97008A2B3D /* FirebaseStorageSwift-Beta */,
+				3E8EF67F280F3AC20044B315 /* Inject */,
 			);
 			productName = BarTab;
 			productReference = 3E65093526FCB26900ACDF41 /* BarTab.app */;
@@ -501,6 +504,7 @@
 				3E8134AE2764DEBB00637E61 /* XCRemoteSwiftPackageReference "SwiftUIX" */,
 				3E813C392785D24700CC2EAA /* XCRemoteSwiftPackageReference "purchases-ios" */,
 				3E67EC6E2794CC97008A2B3D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				3E8EF67E280F3AC10044B315 /* XCRemoteSwiftPackageReference "Inject" */,
 			);
 			productRefGroup = 3E65093626FCB26900ACDF41 /* Products */;
 			projectDirPath = "";
@@ -758,6 +762,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.2.1;
+				OTHER_LDFLAGS = (
+					"-Xlinker",
+					"-interposable",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.joforsell.BarTab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -783,6 +791,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.2.1;
+				OTHER_LDFLAGS = (
+					"-Xlinker",
+					"-interposable",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.joforsell.BarTab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -862,6 +874,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		3E8EF67E280F3AC10044B315 /* XCRemoteSwiftPackageReference "Inject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzysztofzablocki/Inject.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -919,6 +939,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3E813C392785D24700CC2EAA /* XCRemoteSwiftPackageReference "purchases-ios" */;
 			productName = Purchases;
+		};
+		3E8EF67F280F3AC20044B315 /* Inject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E8EF67E280F3AC10044B315 /* XCRemoteSwiftPackageReference "Inject" */;
+			productName = Inject;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
