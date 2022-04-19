@@ -1,0 +1,12 @@
+//
+//  BalanceUpdateEmailViewModel.swift
+//  BarTab
+//
+//  Created by Johan Forsell on 2022-04-19.
+//
+
+import Foundation
+
+class BalanceUpdateEmailViewModel: ObservableObject {
+    
+}
