@@ -14,6 +14,7 @@ class CustomerViewModel: ObservableObject, Identifiable {
     @Published var name = ""
     @Published var email = ""
     @Published var balanceAsString = ""
+    @Published var checked = false
     
     var id = ""
     var balanceColor: Color {

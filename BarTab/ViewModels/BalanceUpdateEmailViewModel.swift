@@ -8,5 +8,10 @@
 import Foundation
 
 class BalanceUpdateEmailViewModel: ObservableObject {
+    @Published var customerVMs: [CustomerViewModel]
+    @Published var message = ""
     
+    init(customerVMs: [CustomerViewModel]) {
+        self.customerVMs = customerVMs
+    }
 }
