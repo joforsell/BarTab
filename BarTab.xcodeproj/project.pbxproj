@@ -101,6 +101,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E4F9B302810A58900EDECE6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3E5DE2B22746E75600B5723D /* DrinkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkViewModel.swift; sourceTree = "<group>"; };
 		3E5DFDC72787A8AA0056F0CC /* KeyboardAvoider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAvoider.swift; sourceTree = "<group>"; };
 		3E5DFDC92787A91E0056F0CC /* KeyboardAvoiderPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAvoiderPreferences.swift; sourceTree = "<group>"; };
@@ -621,6 +622,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				3EF404A127E373C900F67C3F /* sv */,
+				3E4F9B302810A58900EDECE6 /* en */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

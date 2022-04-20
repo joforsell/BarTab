@@ -11,7 +11,7 @@ private struct RoundedCornersRectangle: Shape {
     var radius: CGFloat
     var corners: UIRectCorner
     
-    func path (in rect: CGRect) -> Path {
+    func path(in rect: CGRect) -> Path {
         let cornerRadii = CGSize(width: radius, height: radius)
         let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: cornerRadii)
         return Path(path.cgPath)
@@ -19,7 +19,7 @@ private struct RoundedCornersRectangle: Shape {
 }
 
 extension View {
-    func cornerRadius( radius: CGFloat, corners: UIRectCorner) -> some View {
+    func cornerRadius(radius: CGFloat, corners: UIRectCorner) -> some View {
         clipShape(RoundedCornersRectangle(radius: radius, corners: corners))
     }
 }
