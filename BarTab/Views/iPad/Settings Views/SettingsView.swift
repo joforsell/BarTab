@@ -179,7 +179,7 @@ struct SettingsView: View {
                 customers.append(customerVM.customer)
             }
             do {
-                try await customerListVM.sendEmails(from: userHandler.user, to: customers)
+//                try await customerListVM.sendEmails(from: userHandler.user, to: customers)
                 latestEmail = Date()
                 withAnimation {
                     isShowingEmailConfirmation.toggle()

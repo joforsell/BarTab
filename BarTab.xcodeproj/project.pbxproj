@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E5734262811519B0019EB9D /* FlowGrid in Frameworks */ = {isa = PBXBuildFile; productRef = 3E5734252811519B0019EB9D /* FlowGrid */; };
+		3E5734282811E1C70019EB9D /* EmailPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5734272811E1C70019EB9D /* EmailPreviewView.swift */; };
 		3E5DE2B32746E75600B5723D /* DrinkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DE2B22746E75600B5723D /* DrinkViewModel.swift */; };
 		3E5DFDC82787A8AA0056F0CC /* KeyboardAvoider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DFDC72787A8AA0056F0CC /* KeyboardAvoider.swift */; };
 		3E5DFDCA2787A91E0056F0CC /* KeyboardAvoiderPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DFDC92787A91E0056F0CC /* KeyboardAvoiderPreferences.swift */; };
@@ -102,6 +104,7 @@
 
 /* Begin PBXFileReference section */
 		3E4F9B302810A58900EDECE6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		3E5734272811E1C70019EB9D /* EmailPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailPreviewView.swift; sourceTree = "<group>"; };
 		3E5DE2B22746E75600B5723D /* DrinkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkViewModel.swift; sourceTree = "<group>"; };
 		3E5DFDC72787A8AA0056F0CC /* KeyboardAvoider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAvoider.swift; sourceTree = "<group>"; };
 		3E5DFDC92787A91E0056F0CC /* KeyboardAvoiderPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAvoiderPreferences.swift; sourceTree = "<group>"; };
@@ -194,6 +197,7 @@
 			files = (
 				3E96528F27824BBD00815A74 /* StoreKit.framework in Frameworks */,
 				3E7062DA27149AB500B02C4E /* ToastUI in Frameworks */,
+				3E5734262811519B0019EB9D /* FlowGrid in Frameworks */,
 				3E5F333D2741703000AA54AA /* AlertToast in Frameworks */,
 				3E8134B02764DEBB00637E61 /* SwiftUIX in Frameworks */,
 				3E662B5E2700C76A00033A11 /* Introspect in Frameworks */,
@@ -303,6 +307,7 @@
 				3E88B0F4276A7814003561E1 /* AddDrinkView.swift */,
 				3E678776275D62170072259F /* AddCustomerView.swift */,
 				3E8EF681280F49030044B315 /* BalanceUpdateEmailView.swift */,
+				3E5734272811E1C70019EB9D /* EmailPreviewView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -472,6 +477,7 @@
 				3E67EC752794CC97008A2B3D /* FirebaseFunctions */,
 				3E67EC772794CC97008A2B3D /* FirebaseStorage */,
 				3E67EC792794CC97008A2B3D /* FirebaseStorageSwift-Beta */,
+				3E5734252811519B0019EB9D /* FlowGrid */,
 			);
 			productName = BarTab;
 			productReference = 3E65093526FCB26900ACDF41 /* BarTab.app */;
@@ -508,6 +514,7 @@
 				3E8134AE2764DEBB00637E61 /* XCRemoteSwiftPackageReference "SwiftUIX" */,
 				3E813C392785D24700CC2EAA /* XCRemoteSwiftPackageReference "purchases-ios" */,
 				3E67EC6E2794CC97008A2B3D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				3E5734242811519B0019EB9D /* XCRemoteSwiftPackageReference "FlowGrid" */,
 			);
 			productRefGroup = 3E65093626FCB26900ACDF41 /* Products */;
 			projectDirPath = "";
@@ -603,6 +610,7 @@
 				3E7033B827E90FA100245A93 /* UIApplication+safeAreaInsets.swift in Sources */,
 				3E6E097827D3386500BF13EE /* CustomTabBarContainerView.swift in Sources */,
 				3E70E0E2275EAB340020B429 /* SettingsView.swift in Sources */,
+				3E5734282811E1C70019EB9D /* EmailPreviewView.swift in Sources */,
 				3E60E3A5271147A500F1363B /* UserModel.swift in Sources */,
 				3E64DA3B27D93CFB00978EBC /* TransactionViewModel.swift in Sources */,
 				3E88B0F5276A7814003561E1 /* AddDrinkView.swift in Sources */,
@@ -832,6 +840,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3E5734242811519B0019EB9D /* XCRemoteSwiftPackageReference "FlowGrid" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rdev/FlowGrid.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		3E5F333B2741703000AA54AA /* XCRemoteSwiftPackageReference "AlertToast" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/elai950/AlertToast.git";
@@ -883,6 +899,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3E5734252811519B0019EB9D /* FlowGrid */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E5734242811519B0019EB9D /* XCRemoteSwiftPackageReference "FlowGrid" */;
+			productName = FlowGrid;
+		};
 		3E5F333C2741703000AA54AA /* AlertToast */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3E5F333B2741703000AA54AA /* XCRemoteSwiftPackageReference "AlertToast" */;
