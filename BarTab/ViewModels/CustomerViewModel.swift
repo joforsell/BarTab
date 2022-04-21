@@ -15,6 +15,7 @@ class CustomerViewModel: ObservableObject, Identifiable {
     @Published var email = ""
     @Published var balanceAsString = ""
     @Published var checked = false
+    @Published var dateOfLastTransaction: Date?
     
     var id = ""
     var balanceColor: Color {
@@ -57,6 +58,15 @@ class CustomerViewModel: ObservableObject, Identifiable {
                 String(customer.balance)
             }
             .assign(to: \.balanceAsString, on: self)
+            .store(in: &cancellables)
+        
+        $customer
+            .map { customer in
+                let transactionListVM = TransactionListViewModel(customer: customer)
+                transactionListVM.transactions.sort { $0.date < $1.date }
+                return transactionListVM.transactions.last?.date
+            }
+            .assign(to: \.dateOfLastTransaction, on: self)
             .store(in: &cancellables)
         
         $name

@@ -20,19 +20,14 @@ struct BartenderSettingsView: View {
     
     @Binding var settingsShown: SettingsRouter
     
-    @AppStorage("latestEmail") var latestEmail: Date = Date(timeIntervalSinceReferenceDate: 60000)
-    
     @State private var editingAssociation = false
     @State private var editingEmail = false
     @State private var editingPhoneNumber = false
     
-    @State private var showError = false
-    @State private var errorPrompt: ErrorPrompt?
     @State private var localizedErrorString = ""
     @State private var showLocalizedError = false
     
     @State private var showingUserInformation = false
-    @State private var isShowingEmailConfirmation = false
     @State private var confirmEmails = false
     @State private var presentingFeedbackSheet = false
     @State private var presentingEmailView = false
@@ -86,28 +81,7 @@ struct BartenderSettingsView: View {
                     }
                     if isPhone() {
                         emailButton
-                            .alert(errorPrompt?.title ?? LocalizedStringKey("There was an error"), isPresented: $showError, presenting: errorPrompt, actions: { prompt in
-                                if oneDayHasElapsedSince(latestEmail) {
-                                    Button("Cancel") {
-                                        showError = false
-                                    }
-                                    AsyncButton(action: {
-                                        await emailButtonAction()
-                                    }, label: {
-                                        Text("OK")
-                                    })
-                                } else {
-                                    Button("OK") {
-                                        showError = false
-                                    }
-                                }
-                            }, message: { prompt in
-                                Text(prompt.message)
-                            })
                     }
-                }
-                .toast(isPresented: $isShowingEmailConfirmation, dismissAfter: 6, onDismiss: { isShowingEmailConfirmation = false }) {
-                    ToastView(systemImage: ("envelope.fill", .accentColor, 50), title: "E-mail(s) sent", subTitle: "An e-mail showing current balance was sent to each bar guest with an associated e-mail address.")
                 }
             }
             .fullScreenCover(isPresented: $presentingEmailView) {
@@ -385,46 +359,17 @@ struct BartenderSettingsView: View {
     private func isPhone() -> Bool {
         return !(horizontalSizeClass == .regular && verticalSizeClass == .regular)
     }
-    
-    private func oneDayHasElapsedSince(_ date: Date) -> Bool {
-        let timeSinceLatestEmail = -latestEmail.timeIntervalSinceNow
-        return timeSinceLatestEmail > 60
-    }
-    
+        
     private var emailButton: some View {
         Button {
-//            if oneDayHasElapsedSince(latestEmail) {
-//                errorPrompt = ErrorPrompt(title: "Are you sure you want to send e-mail(s)?", message: "This will send an e-mail showing current balance to each bar guest with an associated e-mail address.")
-//                showError = true
-//            } else {
-//                errorPrompt = ErrorPrompt(title: "Could not send", message: "You can only send e-mail(s) once every minute.")
-//                showError = true
-//            }
             withAnimation {
                 presentingEmailView = true
             }
         } label: {
             Image(systemName: "envelope.fill")
                 .font(.largeTitle)
-                .foregroundColor(oneDayHasElapsedSince(latestEmail) ? .accentColor : .accentColor.opacity(0.3))
+                .foregroundColor(.accentColor)
         }
-    }
-    
-    private func emailButtonAction() async {
-//        var customers = [Customer]()
-//        customerListVM.customerVMs.forEach { customerVM in
-//            customers.append(customerVM.customer)
-//        }
-//        do {
-//            try await customerListVM.sendEmails(from: userHandler.user, to: customers)
-//            latestEmail = Date()
-//            withAnimation {
-//                isShowingEmailConfirmation.toggle()
-//            }
-//        } catch {
-//            errorPrompt = ErrorPrompt(title: "Error sending emails", message: "")
-//            showError = true
-//        }
     }
 }
 

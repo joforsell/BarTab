@@ -37,6 +37,15 @@
       }
     },
     {
+      "identity" : "flowgrid",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/rdev/FlowGrid.git",
+      "state" : {
+        "revision" : "67b26028505b117020acd43ad5465cb59a5b0f3d",
+        "version" : "1.0.0"
+      }
+    },
+    {
       "identity" : "googleappmeasurement",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/GoogleAppMeasurement.git",

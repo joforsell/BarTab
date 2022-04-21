@@ -286,7 +286,7 @@
 /* No comment provided by engineer. */
 "You can only send e-mail(s) once every minute." = "You can only send e-mail(s) once every minute.";
 
-"Your current balance at %@ is:" = "Ditt nuvarande saldo hos %@ är:";
+"Your current balance at %@ is:" = "Your current balance at %@ is:";
 
 /* No comment provided by engineer. */
 "Your purchase could not be restored, no valid reciept was found." = "Your purchase could not be restored, no valid reciept was found.";
