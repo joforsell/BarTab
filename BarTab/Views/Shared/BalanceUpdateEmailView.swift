@@ -351,6 +351,20 @@ struct BalanceUpdateEmailView: View {
         }
     }
     
+    private func emailButtonAction(customerVMs: [CustomerViewModel]) async {
+        let checked = customerVMs.filter { $0.checked == true }
+        let recipients = checked.map { $0.customer }
+        do {
+            try await customerListVM.sendEmails(from: userHandler.user, to: recipients, with: message)
+            withAnimation {
+                isShowingEmailConfirmation.toggle()
+            }
+        } catch {
+            errorPrompt = ErrorPrompt(title: "Error sending emails", message: "")
+            showError = true
+        }
+    }
+    
     private func nooneIsChecked(in customerListVM: CustomerListViewModel) -> Bool {
         let checkedArray = customerListVM.customerVMs.filter { $0.checked == true }
         return checkedArray.isEmpty
@@ -371,20 +385,6 @@ struct BalanceUpdateEmailView: View {
         let positiveBalanceArray = customerListVM.customerVMs.filter{$0.customer.balance > 0}
         let checkedArray = positiveBalanceArray.filter { $0.checked == false }
         return checkedArray.isEmpty
-    }
-    
-    private func emailButtonAction(customerVMs: [CustomerViewModel]) async {
-        let checked = customerVMs.filter { $0.checked == true }
-        let recipients = checked.map { $0.customer }
-        do {
-            try await customerListVM.sendEmails(from: userHandler.user, to: recipients, with: message)
-            withAnimation {
-                isShowingEmailConfirmation.toggle()
-            }
-        } catch {
-            errorPrompt = ErrorPrompt(title: "Error sending emails", message: "")
-            showError = true
-        }
     }
 }
 
