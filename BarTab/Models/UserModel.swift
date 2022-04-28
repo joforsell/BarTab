@@ -10,7 +10,7 @@ import Foundation
 struct User: Codable {
     var email: String?
     var association: String?
-    var phoneNumber: String?
+    var number: String?
     var usingTags: Bool = false
     var drinkCardColumns: Int = 4
     var drinkSorting: DrinkListViewModel.DrinkSorting = .az

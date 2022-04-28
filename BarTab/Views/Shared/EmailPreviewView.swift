@@ -18,14 +18,14 @@ struct EmailPreviewView: UIViewRepresentable {
     func makeUIView(context: Context) -> WKWebView {
         let webView = WKWebView()
         let customer = previewCustomer ?? Customer(name: "John Appleseed", balance: 600, key: "", email: "john.appleseed@apple.com")
-        let html = EmailSender.makeHtml(for: customer, from: userHandler.user, with: message)
+        let html = EmailSender.makeHtml(for: customer, from: userHandler.user, with: message, methods: userHandler.paymentMethods)
         webView.loadHTMLString(html, baseURL: nil)
         return webView
     }
     
     func updateUIView(_ uiView: WKWebView, context: Context) {
         let customer = previewCustomer ?? Customer(name: "John Appleseed", balance: 600, key: "", email: "john.appleseed@apple.com")
-        let html = EmailSender.makeHtml(for: customer, from: userHandler.user, with: message)
+        let html = EmailSender.makeHtml(for: customer, from: userHandler.user, with: message, methods: userHandler.paymentMethods)
         uiView.loadHTMLString(html, baseURL: nil)
     }
     

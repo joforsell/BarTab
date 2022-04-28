@@ -17,6 +17,7 @@ struct BartenderSettingsView: View {
     @EnvironmentObject var avoider: KeyboardAvoider
     @EnvironmentObject var customerListVM: CustomerListViewModel
     @EnvironmentObject var drinkListVM: DrinkListViewModel
+    @AppStorage("keepAwake") var keepAwake = false
     
     @Binding var settingsShown: SettingsRouter
     
@@ -31,6 +32,14 @@ struct BartenderSettingsView: View {
     @State private var confirmEmails = false
     @State private var presentingFeedbackSheet = false
     @State private var presentingEmailView = false
+    @State private var showingPaymentMethodSelections = false
+    
+    @State private var editingSwish = false
+    @State private var editingBankAccount = false
+    @State private var editingPlusgiro = false
+    @State private var editingVenmo = false
+    @State private var editingPaypal = false
+    @State private var editingCashApp = false
     
     var body: some View {
         ZStack {
@@ -44,13 +53,18 @@ struct BartenderSettingsView: View {
                     .foregroundColor(.accentColor)
                     .offset(x: -20)
                 
-                emailInput
-                associationInput
-                phoneNumberInput
-                currencyPicker
-                decimalsToggle
-                rfidToggle
-                feedbackButton
+                // Settings fields and toggles
+                Group {
+                    emailInput
+                    associationInput
+                    phoneNumberInput
+                    paymentMethodFields
+                    currencyPicker
+                    decimalsToggle
+                    rfidToggle
+                    stayAwakeToggle
+                    feedbackButton
+                }
                 
                 Spacer()
             }
@@ -212,7 +226,7 @@ struct BartenderSettingsView: View {
         VStack(alignment: .leading, spacing: 2) {
             HStack(alignment: .bottom) {
                 TextField("",
-                          text: $userHandler.user.phoneNumber,
+                          text: $userHandler.user.number,
                           onEditingChanged: { editingChanged in
                     self.avoider.editingField = 3
                     if editingChanged {
@@ -228,7 +242,7 @@ struct BartenderSettingsView: View {
                     withAnimation {
                         editingPhoneNumber.toggle()
                     }
-                    userHandler.updateUserPhoneNumber(userHandler.user.phoneNumber ?? "")
+                    userHandler.updateUserPhoneNumber(userHandler.user.number ?? "")
                 }
                 )
                     .autocapitalization(.none)
@@ -244,7 +258,7 @@ struct BartenderSettingsView: View {
                     .opacity(editingPhoneNumber ? 1 : 0.5)
                     .foregroundColor(editingPhoneNumber ? .accentColor : .white)
                     .onTapGesture {
-                        editingPhoneNumber ? userHandler.updateUserPhoneNumber(userHandler.user.phoneNumber ?? "") : nil
+                        editingPhoneNumber ? userHandler.updateUserPhoneNumber(userHandler.user.number ?? "") : nil
                         UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
                     }
                 
@@ -265,6 +279,75 @@ struct BartenderSettingsView: View {
         .cornerRadius(6)
         .addBorder(editingPhoneNumber ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
         .avoidKeyboard(tag: 3)
+    }
+    
+    private var paymentMethodFields: some View {
+        VStack {
+            HStack {
+                Text("Payment methods")
+                    .font(.caption)
+                    .textCase(.uppercase)
+                    .padding()
+                Button {
+                    showingPaymentMethodSelections.toggle()
+                } label: {
+                    Image(systemName: "chevron.down.square.fill")
+                        .font(.caption)
+                        .foregroundColor(.accentColor)
+                }
+                .popover(isPresented: $showingPaymentMethodSelections) {
+                    MultiSelectionPickerView(items: $userHandler.paymentMethods)
+                }
+                Spacer()
+            }
+            ForEach(userHandler.paymentMethods.indices) { index in
+                if userHandler.paymentMethods[index].active {
+                    CustomInputView(title: makeLocalizedStringKey(for: userHandler.paymentMethods[index].method), image: "", editing: editingBool(for: userHandler.paymentMethods[index].method), text: $userHandler.paymentMethods[index].info, keyboardTag: 4 + index)
+                }
+            }
+            .onChange(of: userHandler.paymentMethods) { _ in
+                do {
+                    try userHandler.updatePaymentMethods()
+                } catch {
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    
+    private func editingBool(for method: PaymentMethod) -> Binding<Bool> {
+        switch method {
+        case .swish:
+            return $editingSwish
+        case .bankAccount:
+            return $editingBankAccount
+        case .plusgiro:
+            return $editingPlusgiro
+        case .venmo:
+            return $editingVenmo
+        case .paypal:
+            return $editingPaypal
+        case .cashApp:
+            return $editingCashApp
+        }
+    }
+        
+    private func makeLocalizedStringKey(for method: PaymentMethod) -> LocalizedStringKey {
+        switch method {
+        case .swish:
+            return LocalizedStringKey("Swish")
+        case .bankAccount:
+            return LocalizedStringKey("Bank Account")
+        case .plusgiro:
+            return LocalizedStringKey("Plusgiro")
+        case .venmo:
+            return LocalizedStringKey("Venmo")
+        case .paypal:
+            return LocalizedStringKey("PayPal")
+        case .cashApp:
+            return LocalizedStringKey("Cash App")
+        }
     }
     
     private var currencyPicker: some View {
@@ -326,6 +409,13 @@ struct BartenderSettingsView: View {
             .onChange(of: userHandler.user.usingTags) { usingTags in
                 userHandler.updateUserTagUsage(usingTags)
             }
+    }
+    
+    private var stayAwakeToggle: some View {
+        Toggle("Keep device awake", isOn: $keepAwake)
+            .toggleStyle(SwitchToggleStyle(tint: .accentColor))
+            .frame(width: 300, height: 24)
+            .foregroundColor(.white)
     }
     
     private var feedbackButton: some View {

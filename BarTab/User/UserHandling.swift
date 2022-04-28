@@ -22,12 +22,15 @@ class UserHandling: ObservableObject {
     }
     @Published var subscriptionActive: Bool = false
     @Published var userError: UserError? = nil
+    @Published var paymentMethods: [PaymentSelection] = [PaymentSelection(method: .swish, info: "", active: false), PaymentSelection(method: .bankAccount, info: "", active: false), PaymentSelection(method: .plusgiro, info: "", active: false), PaymentSelection(method: .venmo, info: "", active: false), PaymentSelection(method: .paypal, info: "", active: false), PaymentSelection(method: .cashApp, info: "", active: false)]
     
     private var cancellables = Set<AnyCancellable>()
     
     init() {
         loadUser()
+        loadPaymentMethods()
     }
+    
         
     let db = Firestore.firestore().collection("users")
     
@@ -41,6 +44,18 @@ class UserHandling: ObservableObject {
                 
                 self.user = data
             }
+    }
+    
+    func loadPaymentMethods() {
+        let defaults = UserDefaults.standard
+        if let paymentMethodData = defaults.object(forKey: "PaymentMethods") {
+            let decoder = JSONDecoder()
+            do {
+                self.paymentMethods = try decoder.decode([PaymentSelection].self, from: paymentMethodData as! Data)
+            } catch {
+                print("Error decoding...")
+            }
+        }
     }
     
     func updateUserEmail(_ email: String) {
@@ -91,6 +106,13 @@ class UserHandling: ObservableObject {
         db.document(userID).setData(["showingDecimals": showingDecimals], merge: true)
     }
     
+    func updatePaymentMethods() throws {
+        let encoder = JSONEncoder()
+        let json = try encoder.encode(paymentMethods)
+        let defaults = UserDefaults.standard
+        defaults.set(json, forKey: "PaymentMethods")
+    }
+
     func deleteUser(completion: @escaping (Result<Bool, Error>) -> ()) {
         Auth.auth().currentUser?.delete { error in
             if let error = error {

@@ -22,7 +22,7 @@ class EmailSender {
         ])
     }
     
-    static func sendEmails(to customers: [Customer], from user: User, with message: String) async throws {
+    static func sendEmails(to customers: [Customer], from user: User, with message: String, methods: [PaymentSelection]) async throws {
         var unsubscribed: [String] = []
         do {
             let unsubscribedCheck = try await Firestore.firestore().collection("unsubscribed").getDocuments()
@@ -44,18 +44,26 @@ class EmailSender {
                     "to" : customer.email,
                     "message" : [
                         "subject" : "\(subjectText)",
-                        "html" : EmailSender.makeHtml(for: customer, from: user, with: message)
+                        "html" : EmailSender.makeHtml(for: customer, from: user, with: message, methods: methods)
                     ]
                 ])
             }
         }
     }
     
-    static func makeHtml(for customer: Customer, from user: User, with message: String) -> String {
+    static func makePaymentOptionComponents(for methods: [PaymentSelection]) -> String {
+        var htmlString = ""
+        for method in methods where method.active == true {
+            htmlString += "<p style=\"margin:0 0 14px 0;\">\(method.localizedString): \(method.info)</p>"
+        }
+        return htmlString
+    }
+    
+    static func makeHtml(for customer: Customer, from user: User, with message: String, methods: [PaymentSelection]) -> String {
         let customerName = customer.name
         let firstName = customerName.components(separatedBy: " ").first
         let color = customer.balance > 0 ? "7CD338" : "F05F55"
-        let phoneNumber = user.phoneNumber ?? ""
+        let phoneNumber = user.number ?? ""
         let headerText = String(format: NSLocalizedString("Balance update", comment: ""))
         let bodyText = message
         let greeting = String(format: NSLocalizedString("Hello %@!", comment: ""), firstName ?? "")
@@ -64,6 +72,7 @@ class EmailSender {
         let questionsText = String(format: NSLocalizedString("Inqueries can be sent to:", comment: ""))
         let unsubscribeLinkText = String(format: NSLocalizedString("Unsubscribe", comment: ""))
         let unsubscribeMessageText = String(format: NSLocalizedString(" from future balance updates", comment: ""))
+        let paymentOptions = EmailSender.makePaymentOptionComponents(for: methods)
 
         return
             """
@@ -167,7 +176,7 @@ class EmailSender {
                         </tr>
                         <tr>
                           <td style="padding:30px;text-align:center;font-size:20px;background-color:#14213D;color:#cccccc;">
-                            <p style="margin:0 0 14px 0;"><img src="https://firebasestorage.googleapis.com/v0/b/bartab-d48b2.appspot.com/o/Swish_Symbol_SVG.svg?alt=media&token=e1d3d2ae-3fc9-40db-964b-67e0d54c0e7f" height="20" alt="Swish" style="display:inline-block;color:#cccccc;">  \(phoneNumber)</p>
+                            \(paymentOptions)
                             <p style="margin:0;font-size:14px;line-height:20px;">\(questionsText)<br><a class="email" href="mailto:\(user.email ?? "")" style="color:#cccccc;text-decoration:underline;">&#128233; \(user.email ?? "\(missingEmail)")</a></p>
                             <p style="margin-top:20px;font-size:8px;line-height:20px;"><a style="color:#cccccc;" href="https://bartab.info/unsubscribe/\(customer.id ?? "")">\(unsubscribeLinkText)</a>\(unsubscribeMessageText)</p>
                           </td>
