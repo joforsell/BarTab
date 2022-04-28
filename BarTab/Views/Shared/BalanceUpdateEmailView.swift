@@ -355,7 +355,7 @@ struct BalanceUpdateEmailView: View {
         let checked = customerVMs.filter { $0.checked == true }
         let recipients = checked.map { $0.customer }
         do {
-            try await customerListVM.sendEmails(from: userHandler.user, to: recipients, with: message)
+            try await customerListVM.sendEmails(from: userHandler.user, to: recipients, with: message, methods: userHandler.paymentMethods)
             withAnimation {
                 isShowingEmailConfirmation.toggle()
             }

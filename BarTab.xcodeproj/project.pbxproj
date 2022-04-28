@@ -94,6 +94,9 @@
 		3E8EF682280F49030044B315 /* BalanceUpdateEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EF681280F49030044B315 /* BalanceUpdateEmailView.swift */; };
 		3E8EF684280F4ECB0044B315 /* BalanceUpdateEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EF683280F4ECB0044B315 /* BalanceUpdateEmailViewModel.swift */; };
 		3E8FAA18279C336C00FBA06D /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8FAA17279C336C00FBA06D /* SignInView.swift */; };
+		3E93A12D2816692E001E6AA7 /* PaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E93A12C2816692E001E6AA7 /* PaymentMethod.swift */; };
+		3E93A12F28172939001E6AA7 /* MultiSelectionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E93A12E28172939001E6AA7 /* MultiSelectionPickerView.swift */; };
+		3E93A13128172E64001E6AA7 /* HalfSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E93A13028172E64001E6AA7 /* HalfSheet.swift */; };
 		3E96528F27824BBD00815A74 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E96528E27824BBD00815A74 /* StoreKit.framework */; };
 		3EBC4986270A4D7F006B4857 /* CustomerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBC4985270A4D7F006B4857 /* CustomerRepository.swift */; };
 		3EBC4988270B8845006B4857 /* DrinkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBC4987270B8845006B4857 /* DrinkRepository.swift */; };
@@ -182,6 +185,9 @@
 		3E8EF681280F49030044B315 /* BalanceUpdateEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceUpdateEmailView.swift; sourceTree = "<group>"; };
 		3E8EF683280F4ECB0044B315 /* BalanceUpdateEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceUpdateEmailViewModel.swift; sourceTree = "<group>"; };
 		3E8FAA17279C336C00FBA06D /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		3E93A12C2816692E001E6AA7 /* PaymentMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
+		3E93A12E28172939001E6AA7 /* MultiSelectionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectionPickerView.swift; sourceTree = "<group>"; };
+		3E93A13028172E64001E6AA7 /* HalfSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfSheet.swift; sourceTree = "<group>"; };
 		3E96528E27824BBD00815A74 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		3EBC4985270A4D7F006B4857 /* CustomerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerRepository.swift; sourceTree = "<group>"; };
 		3EBC4987270B8845006B4857 /* DrinkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkRepository.swift; sourceTree = "<group>"; };
@@ -296,6 +302,7 @@
 				3E70E0F8275EB2EC0020B429 /* DrinkSettingsDetailsView.swift */,
 				3E70E0EB275EAFE00020B429 /* CustomerSettingsDetailsView.swift */,
 				3E70E0E7275EABE40020B429 /* BartenderSettingsView.swift */,
+				3E93A12E28172939001E6AA7 /* MultiSelectionPickerView.swift */,
 				3E72E0E827F0F5ED0001A691 /* FeedbackMailView.swift */,
 				3E850704279708F400A56E17 /* UserSettingsView.swift */,
 				3E8FAA17279C336C00FBA06D /* SignInView.swift */,
@@ -390,6 +397,7 @@
 				3E7BEFE026FCDD6D00453C1B /* DrinkModel.swift */,
 				3E64DA3427D8C83700978EBC /* Transaction.swift */,
 				3E76DD1827E1D4D500F78DE5 /* Currency.swift */,
+				3E93A12C2816692E001E6AA7 /* PaymentMethod.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -422,6 +430,7 @@
 				3EF404A327E53E7200F67C3F /* Keys.swift */,
 				3E7033B527E90CD500245A93 /* AsyncButton.swift */,
 				3E7033B927E9131E00245A93 /* ErrorPrompt.swift */,
+				3E93A13028172E64001E6AA7 /* HalfSheet.swift */,
 			);
 			path = "Utilities and helper views";
 			sourceTree = "<group>";
@@ -560,6 +569,7 @@
 				3E66B8A127CA217B0067C56F /* PhoneCustomerListView.swift in Sources */,
 				3E6916D2276E584B009E80D7 /* ImagePickerView.swift in Sources */,
 				3E658368276B568400555030 /* View+RoundedCorners.swift in Sources */,
+				3E93A12D2816692E001E6AA7 /* PaymentMethod.swift in Sources */,
 				3E678775275D52FC0072259F /* ConfirmationViewModel.swift in Sources */,
 				3E64DA3727D90FF700978EBC /* TransactionListViewModel.swift in Sources */,
 				3E7C9B002772065500B8A431 /* CreateAccountView.swift in Sources */,
@@ -596,6 +606,7 @@
 				3E70E0EA275EAF100020B429 /* ToastView.swift in Sources */,
 				3E81715A275576B400F4B0D3 /* CustomerListView.swift in Sources */,
 				3EBC4986270A4D7F006B4857 /* CustomerRepository.swift in Sources */,
+				3E93A12F28172939001E6AA7 /* MultiSelectionPickerView.swift in Sources */,
 				3E5F33622712AF8B005340B6 /* AuthError.swift in Sources */,
 				3E5F33682712B7C9005340B6 /* UserError.swift in Sources */,
 				3E67E60927444E1700999511 /* CustomerViewModel.swift in Sources */,
@@ -611,6 +622,7 @@
 				3E6E097827D3386500BF13EE /* CustomTabBarContainerView.swift in Sources */,
 				3E70E0E2275EAB340020B429 /* SettingsView.swift in Sources */,
 				3E5734282811E1C70019EB9D /* EmailPreviewView.swift in Sources */,
+				3E93A13128172E64001E6AA7 /* HalfSheet.swift in Sources */,
 				3E60E3A5271147A500F1363B /* UserModel.swift in Sources */,
 				3E64DA3B27D93CFB00978EBC /* TransactionViewModel.swift in Sources */,
 				3E88B0F5276A7814003561E1 /* AddDrinkView.swift in Sources */,

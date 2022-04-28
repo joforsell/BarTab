@@ -64,7 +64,7 @@ struct DrinkSettingsDetailView: View {
                                 editing: $editingPrice,
                                 text: $drinkVM.priceAsString,
                                 keyboardTag: 2,
-                                keyboardType: .decimalPad,
+                                keyboardType: .numbersAndPunctuation,
                                 isNumberInput: true)
                 
                 VStack(alignment: .leading) {

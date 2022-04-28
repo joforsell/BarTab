@@ -87,7 +87,7 @@ class CustomerListViewModel: ObservableObject {
         customerRepository.subtractFromBalanceOf(customer, by: drink.price)
     }
     
-    func sendEmails(from user: User, to customers: [Customer], with message: String) async throws {
-        try await EmailSender.sendEmails(to: customers, from: user, with: message)
+    func sendEmails(from user: User, to customers: [Customer], with message: String, methods: [PaymentSelection]) async throws {
+        try await EmailSender.sendEmails(to: customers, from: user, with: message, methods: methods)
     }
 }
