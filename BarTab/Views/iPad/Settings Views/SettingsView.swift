@@ -24,6 +24,8 @@ struct SettingsView: View {
     @State private var errorTitle = ""
     @State private var errorString = ""
     @State private var isShowingEmailConfirmation = false
+    @State private var presentingEmailView = false
+
     
     private let routerButtonSize: CGFloat = 60
     
@@ -141,6 +143,11 @@ struct SettingsView: View {
                             }
                         }
                     }
+                    .sheet(isPresented: $presentingEmailView) {
+                        BalanceUpdateEmailView(presenting: $presentingEmailView)
+                            .clearModalBackground()
+                    }
+
                 }
             }
             .toast(isPresented: $isShowingEmailConfirmation, dismissAfter: 6, onDismiss: { isShowingEmailConfirmation = false }) {
@@ -157,18 +164,13 @@ struct SettingsView: View {
         
         var emailButton: some View {
             Button {
-                if oneDayHasElapsedSince(latestEmail) {
-                    errorTitle = "Are you sure you want to send e-mail(s)?"
-                    errorString = "This will send an e-mail showing current balance to each bar guest with an associated e-mail address."
-                } else {
-                    errorTitle = "Could not send"
-                    errorString = "You can only send e-mail(s) once every minute."
+                withAnimation {
+                    presentingEmailView = true
                 }
-                showError = true
             } label: {
                 Image(systemName: "envelope.fill")
                     .font(.largeTitle)
-                    .foregroundColor(oneDayHasElapsedSince(latestEmail) ? .accentColor : .accentColor.opacity(0.3))
+                    .foregroundColor(.accentColor)
             }
         }
     

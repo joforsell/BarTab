@@ -27,6 +27,7 @@ struct MultiSelectionPickerView: View {
             }
             .padding(.vertical, 4)
         }
+        .padding()
     }
     
     private func makeLocalizedStringKey(for method: PaymentMethod) -> LocalizedStringKey {
