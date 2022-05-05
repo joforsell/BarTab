@@ -12,7 +12,7 @@ import ToastUI
 struct BartenderSettingsView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.verticalSizeClass) var verticalSizeClass
-
+    
     @EnvironmentObject var userHandler: UserHandling
     @EnvironmentObject var avoider: KeyboardAvoider
     @EnvironmentObject var customerListVM: CustomerListViewModel
@@ -42,64 +42,66 @@ struct BartenderSettingsView: View {
     @State private var editingCashApp = false
     
     var body: some View {
-        ZStack {
-            VStack(alignment: .center, spacing: 20) {
-                Spacer()
-                
-                Image("bartender")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: isPhone() ? UIScreen.main.bounds.width/2 : 200)
-                    .foregroundColor(.accentColor)
-                    .offset(x: -20)
-                
-                // Settings fields and toggles
-                Group {
-                    emailInput
-                    associationInput
-                    phoneNumberInput
-                    paymentMethodFields
-                    currencyPicker
-                    decimalsToggle
-                    rfidToggle
-                    stayAwakeToggle
-                    feedbackButton
-                }
-                
-                Spacer()
-            }
-            .sheet(isPresented: $showingUserInformation) {
-                UserSettingsView(settingsShown: $settingsShown)
-                    .clearModalBackground()
-            }
-            .center(.horizontal)
-            .overlay(alignment: .topTrailing) {
-                VStack {
-                    Button {
-                        withAnimation {
-                            if isPhone() {
-                                showingUserInformation = true
-                            } else {
-                                settingsShown = .user
-                            }
-                        }
-                    } label: {
-                        VStack(alignment: .center) {
-                            Image(systemName: "person.circle.fill")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 44)
-                        }
-                        .padding()
+        ScrollView {
+            ZStack {
+                VStack(alignment: .center, spacing: 20) {
+                    Spacer()
+                    
+                    Image("bartender")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: isPhone() ? UIScreen.main.bounds.width/2 : 200)
                         .foregroundColor(.accentColor)
+                        .offset(x: -20)
+                    
+                    // Settings fields and toggles
+                    Group {
+                        emailInput
+                        associationInput
+                        phoneNumberInput
+                        paymentMethodFields
+                        currencyPicker
+                        decimalsToggle
+                        rfidToggle
+                        stayAwakeToggle
+                        feedbackButton
                     }
-                    if isPhone() {
-                        emailButton
+                    
+                    Spacer()
+                }
+                .sheet(isPresented: $showingUserInformation) {
+                    UserSettingsView(settingsShown: $settingsShown)
+                        .clearModalBackground()
+                }
+                .center(.horizontal)
+                .overlay(alignment: .topTrailing) {
+                    VStack {
+                        Button {
+                            withAnimation {
+                                if isPhone() {
+                                    showingUserInformation = true
+                                } else {
+                                    settingsShown = .user
+                                }
+                            }
+                        } label: {
+                            VStack(alignment: .center) {
+                                Image(systemName: "person.circle.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 44)
+                            }
+                            .padding()
+                            .foregroundColor(.accentColor)
+                        }
+                        if isPhone() {
+                            emailButton
+                        }
                     }
                 }
-            }
-            .fullScreenCover(isPresented: $presentingEmailView) {
-                BalanceUpdateEmailView(presenting: $presentingEmailView)
+                .fullScreenCover(isPresented: $presentingEmailView) {
+                    BalanceUpdateEmailView(presenting: $presentingEmailView)
+                }
             }
         }
     }
@@ -127,9 +129,9 @@ struct BartenderSettingsView: View {
                     userHandler.updateUserEmail(userHandler.user.email ?? "")
                 }
                 )
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-                    .font(.title3)
+                .autocapitalization(.none)
+                .disableAutocorrection(true)
+                .font(.title3)
                 Spacer()
             }
             .offset(y: 4)
@@ -186,9 +188,9 @@ struct BartenderSettingsView: View {
                     userHandler.updateUserAssociation(userHandler.user.association ?? "")
                 }
                 )
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-                    .font(.title3)
+                .autocapitalization(.none)
+                .disableAutocorrection(true)
+                .font(.title3)
                 Spacer()
             }
             .offset(y: 4)
@@ -245,9 +247,9 @@ struct BartenderSettingsView: View {
                     userHandler.updateUserPhoneNumber(userHandler.user.number ?? "")
                 }
                 )
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-                    .font(.title3)
+                .autocapitalization(.none)
+                .disableAutocorrection(true)
+                .font(.title3)
                 Spacer()
             }
             .offset(y: 4)
@@ -285,14 +287,14 @@ struct BartenderSettingsView: View {
         VStack {
             HStack {
                 Text("Payment methods")
-                    .font(.caption)
+                    .font(isPhone() ? .caption : .title3, weight: isPhone() ? .regular : .bold)
                     .textCase(.uppercase)
                     .padding()
                 Button {
                     showingPaymentMethodSelections.toggle()
                 } label: {
                     Image(systemName: "chevron.down.square.fill")
-                        .font(.caption)
+                        .font(.title3)
                         .foregroundColor(.accentColor)
                 }
                 .popover(isPresented: $showingPaymentMethodSelections) {
@@ -302,7 +304,7 @@ struct BartenderSettingsView: View {
             }
             ForEach(userHandler.paymentMethods.indices) { index in
                 if userHandler.paymentMethods[index].active {
-                    CustomInputView(title: makeLocalizedStringKey(for: userHandler.paymentMethods[index].method), image: "", editing: editingBool(for: userHandler.paymentMethods[index].method), text: $userHandler.paymentMethods[index].info, keyboardTag: 4 + index)
+                    CustomInputView(title: makeLocalizedStringKey(for: userHandler.paymentMethods[index].method), image: "dollarsign.circle", editing: editingBool(for: userHandler.paymentMethods[index].method), text: $userHandler.paymentMethods[index].info, keyboardTag: 4 + index)
                 }
             }
             .onChange(of: userHandler.paymentMethods) { _ in
@@ -313,6 +315,7 @@ struct BartenderSettingsView: View {
                 }
             }
         }
+        .frame(width: 300)
     }
     
     
@@ -332,7 +335,7 @@ struct BartenderSettingsView: View {
             return $editingCashApp
         }
     }
-        
+    
     private func makeLocalizedStringKey(for method: PaymentMethod) -> LocalizedStringKey {
         switch method {
         case .swish:
@@ -446,10 +449,6 @@ struct BartenderSettingsView: View {
         .padding(.top, 48)
     }
     
-    private func isPhone() -> Bool {
-        return !(horizontalSizeClass == .regular && verticalSizeClass == .regular)
-    }
-        
     private var emailButton: some View {
         Button {
             withAnimation {
@@ -460,6 +459,10 @@ struct BartenderSettingsView: View {
                 .font(.largeTitle)
                 .foregroundColor(.accentColor)
         }
+    }
+    
+    private func isPhone() -> Bool {
+        return !(horizontalSizeClass == .regular && verticalSizeClass == .regular)
     }
 }
 

@@ -26,8 +26,10 @@
 /* No comment provided by engineer. */
 "Add an unlimited amount of bar guests with balances that are updated automatically and let them order from a drink list only limited by the contents of your bar." = "Lägg till obegränsat antal bargäster med automatiskt uppdaterande saldo och låt dem beställa från en dryckeslista som bara begränsas av ditt barskåp.";
 
+"All" = "Alla";
+
 /* No comment provided by engineer. */
-"An e-mail showing current balance was sent to each bar guest with an associated e-mail address." = "Ett mail med aktuellt saldo skickades till alla bargäster med en kopplad mailadress.";
+"An e-mail showing current balance was sent to the chosen bar guests." = "Ett mail med aktuellt saldo skickades till alla valda bargäster.";
 
 /* No comment provided by engineer. */
 "and" = "och";
@@ -52,11 +54,12 @@
 
 "Balance update" = "Saldouppdatering";
 
+"Bank Account" = "Bankgiro";
+
 /* No comment provided by engineer. */
 "Cancel" = "Avbryt";
 
-/* No comment provided by engineer. */
-"Select the bar guest making the purchase." = "Välj vem som betalar för att slutföra köpet.";
+"Check bar guests with:" = "Välj bargäster med:";
 
 /* No comment provided by engineer. */
 "Connected e-mail address:" = "Kopplad mailadress:";
@@ -115,6 +118,8 @@
 /* No comment provided by engineer. */
 "E-mail address" = "Mailadress";
 
+"E-mail sent" = "Mail sändes";
+
 "Email address missing" = "Mailadress saknas";
 
 /* No comment provided by engineer. */
@@ -128,6 +133,8 @@
 "Hello %@!" = "Hej %@!";
 
 "Highest price first" = "Högst pris först";
+
+"Feedback" = "Återkoppling";
 
 /* No comment provided by engineer. */
 "First week for free!" = "Första veckan gratis!";
@@ -143,6 +150,8 @@
 /* No comment provided by engineer. */
 "Invalid e-mail address." = "Ej giltig mailadress.";
 
+"Keep device awake" = "Håll systemet vaket";
+
 "Let me know" = "Skicka gärna feedback";
 
 /* No comment provided by engineer. */
@@ -153,8 +162,14 @@
 
 "Lowest price first" = "Lägst pris först";
 
+"Message" = "Meddelande";
+
 /* No comment provided by engineer. */
 "Name" = "Namn";
+
+"Negative balance" = "Negativt saldo";
+
+"Not sending to:" = "Skickar inte till:";
 
 /* No comment provided by engineer. */
 "Opening balance" = "Ingående saldo";
@@ -172,6 +187,8 @@
 /* No comment provided by engineer. */
 "Pay only once!" = "Betala bara en gång!";
 
+"Payment methods" = "Betalningsmetoder";
+
 /* No comment provided by engineer. */
 "Phone number" = "Telefonnummer";
 
@@ -180,6 +197,10 @@
 
 /* No comment provided by engineer. */
 "Please enter an e-mail address." = "Du måste ange en mailadress.";
+
+"Positive balance" = "Positivt saldo";
+
+"Preview" = "Förhandsgranska";
 
 /* No comment provided by engineer. */
 "Price" = "Pris";
@@ -208,9 +229,16 @@
 "Scan your tag to finalize your purchase." = "Läs av din bricka för att slutföra köpet.";
 
 /* No comment provided by engineer. */
+"Select the bar guest making the purchase." = "Välj vem som betalar för att slutföra köpet.";
+
+"Send" = "Skicka";
+
+/* No comment provided by engineer. */
 "Send e-mail with current balance" = "Maila aktuellt saldo";
 
 "Send feedback" = "Skicka feedback";
+
+"Sending to:" = "Skickar till:";
 
 /* No comment provided by engineer. */
 "Sign in" = "Logga in";
@@ -224,6 +252,10 @@
 /* No comment provided by engineer. */
 "Stay on top of things" = "Håll enkelt koll";
 
+"Subject" = "Ämne";
+
+"Subject nor message cannot be left empty." = "Ämne och meddelande kan inte lämnas tomma.";
+
 /* No comment provided by engineer. */
 "Subscription details" = "Prenumerationsdetaljer";
 
@@ -235,8 +267,6 @@
 
 /* No comment provided by engineer. */
 "Subtract" = "Ta bort";
-
-"Subject" = "Ämne";
 
 /* No comment provided by engineer. */
 "Terms of use" = "Användarvillkor";
@@ -261,7 +291,7 @@
 "There was an error" = "Ett fel uppstod";
 
 /* No comment provided by engineer. */
-"This will send an e-mail showing current balance to each bar guest with an associated e-mail address." = "Detta skickar ett mail med aktuellt saldo till varje bargäst med en kopplad mailadress.";
+"This will send an e-mail showing current balance to the chosen bar guests." = "Detta skickar ett mail med aktuellt saldo till valda bargäster.";
 
 /* No comment provided by engineer. */
 "Unknown error." = "Okänt fel.";

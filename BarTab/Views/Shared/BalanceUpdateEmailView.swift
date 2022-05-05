@@ -65,6 +65,7 @@ struct BalanceUpdateEmailView: View {
                         .padding(.top, 24)
                         Spacer()
                     }
+                    .frame(width: columnWidth)
 
                     VStack(alignment: .center) {
                         sendListHeader

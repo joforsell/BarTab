@@ -138,7 +138,7 @@ class EmailSender {
                       <table role="presentation" style="width:94%;max-width:600px;border:none;border-spacing:0;text-align:left;font-family:Arial,sans-serif;font-size:16px;line-height:22px;color:#363636;">
                         <tr>
                           <td style="padding:40px 30px 30px 30px;text-align:center;font-size:24px;font-weight:bold;">
-                            <a href="http://www.example.com/" style="text-decoration:none;"><img src="https://firebasestorage.googleapis.com/v0/b/bartab-d48b2.appspot.com/o/applogo.png?alt=media&token=db7c44d2-975c-4640-a8e0-6dd9eb9a05f3" width="165" alt="BarTab Logo" style="width:120px;max-width:80%;height:auto;border:none;text-decoration:none;color:#ffffff;border-radius: 10px;"></a>
+                            <a href="http://www.example.com/" style="text-decoration:none;"><img src="https://firebasestorage.googleapis.com/v0/b/bartab-d48b2.appspot.com/o/1024.png?alt=media&token=d7c12ca0-6db8-4223-983e-afdf2340e2cd" width="165" alt="BarTab Logo" style="width:120px;max-width:80%;height:auto;border:none;text-decoration:none;color:#ffffff;border-radius: 10px;"></a>
                           </td>
                         </tr>
                         <tr>
