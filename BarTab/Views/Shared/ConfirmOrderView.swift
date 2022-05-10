@@ -22,6 +22,9 @@ struct ConfirmOrderView: View, Animatable {
     var drinkVM: DrinkViewModel
     var tappedDrink: String?
     
+    @Binding var orderList: [DrinkViewModel]
+    @Binding var orderMultiple: Bool
+    
     @State var pct: CGFloat
     
     let onClose: () -> Void
@@ -94,6 +97,19 @@ struct ConfirmOrderView: View, Animatable {
                     .lineLimit(1)
                     .minimumScaleFactor(0.1)
                     .padding(.horizontal)
+                Button {
+                    withAnimation {
+                        orderMultiple = true
+                        orderList.append(drinkVM)
+                    }
+                    onClose()
+                } label: {
+                    Image(systemName: "rectangle.stack.fill.badge.plus")
+                        .font(.title)
+                        .foregroundColor(.accentColor)
+                        .opacity(0.8)
+                        .padding()
+                }
             }
             VStack {
                 HStack {

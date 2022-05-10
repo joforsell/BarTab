@@ -18,6 +18,8 @@ struct PhoneOrderView: View {
     
     @Namespace var orderNamespace
     
+    @State var orderMultiple: Bool = false
+    @State var orderList = [DrinkViewModel]()
     @State var tappedDrink: String?
     @State var flyToModal: Bool = false
     var isGeometryMatched: Bool { !flyToModal && tappedDrink != nil }
@@ -37,6 +39,16 @@ struct PhoneOrderView: View {
                         .foregroundColor(.gray)
                         .font(.system(size: 20))
                     Spacer()
+                }
+                if orderMultiple {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            ForEach(orderList) { drinkVM in
+                                MultipleOrderCardView(drinkVM: drinkVM)
+                            }
+                        }
+                    }
+                    .frame(height: 150)
                 }
                 ScrollView(.vertical, showsIndicators: false){
                     LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: 2), spacing: 8) {
@@ -70,7 +82,12 @@ struct PhoneOrderView: View {
                     .ignoresSafeArea()
             )
             if tappedDrink != nil {
-                ConfirmOrderView(drinkVM: confirmationVM.selectedDrink ?? ConfirmationViewModel.errorDrink, tappedDrink: tappedDrink, pct: flyToModal ? 1 : 0, onClose: dismissConfirmOrderView)
+                ConfirmOrderView(drinkVM: confirmationVM.selectedDrink ?? ConfirmationViewModel.errorDrink,
+                                 tappedDrink: tappedDrink,
+                                 orderList: $orderList,
+                                 orderMultiple: $orderMultiple,
+                                 pct: flyToModal ? 1 : 0,
+                                 onClose: dismissConfirmOrderView)
                     .matchedGeometryEffect(id: isGeometryMatched ? tappedDrink! : "", in: orderNamespace, isSource: false)
                     .onAppear { withAnimation { flyToModal = true } }
                     .onDisappear { flyToModal = false }
