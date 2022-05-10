@@ -18,6 +18,9 @@ struct HomeView: View {
     
     @Namespace var orderNamespace
     
+    @State var orderMultiple: Bool = false
+    @State var orderList = [DrinkViewModel]()
+    
     @State var viewState: ViewState = .main
     @State var tappedDrink: String?
     @State var flyToModal: Bool = false
@@ -119,7 +122,12 @@ struct HomeView: View {
                     .ignoresSafeArea()
             )
             if tappedDrink != nil {
-                ConfirmOrderView(drinkVM: confirmationVM.selectedDrink ?? ConfirmationViewModel.errorDrink, tappedDrink: tappedDrink, pct: flyToModal ? 1 : 0, onClose: dismissConfirmOrderView)
+                ConfirmOrderView(drinkVM: confirmationVM.selectedDrink ?? ConfirmationViewModel.errorDrink,
+                                 tappedDrink: tappedDrink,
+                                 orderList: $orderList,
+                                 orderMultiple: $orderMultiple,
+                                 pct: flyToModal ? 1 : 0,
+                                 onClose: dismissConfirmOrderView)
                     .frame(maxWidth: UIScreen.main.bounds.width * 0.9, maxHeight: UIScreen.main.bounds.height * 0.9)
                     .matchedGeometryEffect(id: isGeometryMatched ? tappedDrink! : "", in: orderNamespace, isSource: false)
                     .onAppear { flyToModal = true }
