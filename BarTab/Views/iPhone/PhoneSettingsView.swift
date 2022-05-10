@@ -13,6 +13,8 @@ struct PhoneSettingsView: View {
     @EnvironmentObject var customerListVM: CustomerListViewModel
     @EnvironmentObject var userHandler: UserHandling
     @EnvironmentObject var avoider: KeyboardAvoider
+    
+    @AppStorage("backgroundColorIntensity") var backgroundColorIntensity: ColorIntensity = .medium
 
     @State private var settingsShown: SettingsRouter = .drinks
     @State private var detailsShown: DetailViewRouter = .none
@@ -99,7 +101,7 @@ struct PhoneSettingsView: View {
             Image("backgroundbar")
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .overlay(Color.black.opacity(0.5).blendMode(.overlay))
+                .overlay(backgroundColorIntensity.overlayColor)
                 .ignoresSafeArea()
         )
     }

@@ -14,6 +14,8 @@ struct PhoneOrderView: View {
     @EnvironmentObject var userHandler: UserHandling
     @EnvironmentObject var confirmationVM: ConfirmationViewModel
     
+    @AppStorage("backgroundColorIntensity") var backgroundColorIntensity: ColorIntensity = .medium
+    
     @Namespace var orderNamespace
     
     @State var tappedDrink: String?
@@ -64,7 +66,7 @@ struct PhoneOrderView: View {
                 Image("backgroundbar")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .overlay(Color.black.opacity(0.5).blendMode(.overlay))
+                    .overlay(backgroundColorIntensity.overlayColor)
                     .ignoresSafeArea()
             )
             if tappedDrink != nil {
