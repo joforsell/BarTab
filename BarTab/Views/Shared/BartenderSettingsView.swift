@@ -17,7 +17,9 @@ struct BartenderSettingsView: View {
     @EnvironmentObject var avoider: KeyboardAvoider
     @EnvironmentObject var customerListVM: CustomerListViewModel
     @EnvironmentObject var drinkListVM: DrinkListViewModel
+    
     @AppStorage("keepAwake") var keepAwake = false
+    @AppStorage("backgroundColorIntensity") var backgroundColorIntensity: ColorIntensity = .medium
     
     @Binding var settingsShown: SettingsRouter
     
@@ -64,6 +66,7 @@ struct BartenderSettingsView: View {
                         decimalsToggle
                         rfidToggle
                         stayAwakeToggle
+                        backgroundColorIntensityPicker
                         feedbackButton
                     }
                     
@@ -449,6 +452,21 @@ struct BartenderSettingsView: View {
         .padding(.top, 48)
     }
     
+    private var backgroundColorIntensityPicker: some View {
+        HStack {
+            Text("Background color intensity")
+                .foregroundColor(.white)
+            Spacer()
+            Picker("Intensity", selection: $backgroundColorIntensity) {
+                Text("High").tag(ColorIntensity.high)
+                Text("Medium").tag(ColorIntensity.medium)
+                Text("Low").tag(ColorIntensity.low)
+                Text("None").tag(ColorIntensity.none)
+            }
+        }
+        .frame(width: 300, height: 24)
+    }
+    
     private var emailButton: some View {
         Button {
             withAnimation {
@@ -463,6 +481,23 @@ struct BartenderSettingsView: View {
     
     private func isPhone() -> Bool {
         return !(horizontalSizeClass == .regular && verticalSizeClass == .regular)
+    }
+}
+
+enum ColorIntensity: String, CaseIterable {
+    case high, medium, low, none
+    
+    var overlayColor: some View {
+        switch self {
+        case .high:
+            return Color.black.opacity(0.2).blendMode(.overlay)
+        case .medium:
+            return Color.black.opacity(0.5).blendMode(.overlay)
+        case .low:
+            return Color.black.opacity(0.8).blendMode(.overlay)
+        case .none:
+            return Color.black.opacity(1).blendMode(.normal)
+        }
     }
 }
 
