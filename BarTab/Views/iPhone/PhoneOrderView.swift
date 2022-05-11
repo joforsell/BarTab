@@ -39,16 +39,39 @@ struct PhoneOrderView: View {
                         .foregroundColor(.gray)
                         .font(.system(size: 20))
                     Spacer()
+                    Button {
+                        withAnimation {
+                            orderMultiple.toggle()
+                            orderList.removeAll()
+                        }
+                    } label: {
+                        Image(systemName: orderMultiple ? "rectangle.stack.fill.badge.plus" : "rectangle.stack.badge.plus")
+                            .font(.title)
+                            .opacity(orderMultiple ? 1 : 0.4)
+                            .foregroundColor(.accentColor)
+                    }
                 }
                 if orderMultiple {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack {
-                            ForEach(orderList) { drinkVM in
-                                MultipleOrderCardView(drinkVM: drinkVM)
+                    if orderList.isEmpty {
+                        Text("Tap the item you want to add to the order")
+                    } else {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(alignment: .center, spacing: 4) {
+                                ForEach(orderList) { drinkVM in
+                                    MultipleOrderCardView(orderList: $orderList, drinkVM: drinkVM)
+                                        .frame(width: 80, height: 100)
+                                }
+                            }
+                        }
+                        .frame(height: 110)
+                        .onChange(of: orderList.count) { _ in
+                            if orderList.isEmpty {
+                                withAnimation {
+                                    orderMultiple = false
+                                }
                             }
                         }
                     }
-                    .frame(height: 150)
                 }
                 ScrollView(.vertical, showsIndicators: false){
                     LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: 2), spacing: 8) {
@@ -57,8 +80,12 @@ struct PhoneOrderView: View {
                             DrinkCardView(drinkVM: drinkVM)
                                 .onTapGesture {
                                     withAnimation {
-                                        tappedDrink = drinkVM.id
-                                        confirmationVM.selectedDrink = drinkVM
+                                        if orderMultiple {
+                                            orderList.append(drinkVM)
+                                        } else {
+                                            tappedDrink = drinkVM.id
+                                            confirmationVM.selectedDrink = drinkVM
+                                        }
                                     }
                                 }
                                 .aspectRatio(1.4, contentMode: .fit)

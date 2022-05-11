@@ -100,7 +100,7 @@ struct ConfirmOrderView: View, Animatable {
                 Button {
                     withAnimation {
                         orderMultiple = true
-                        orderList.append(drinkVM)
+                        orderList.insert(drinkVM, at: 0)
                     }
                     onClose()
                 } label: {
