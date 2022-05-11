@@ -9,7 +9,11 @@ import SwiftUI
 import SwiftUIX
 
 struct MultipleOrderCardView: View {
+    
     @EnvironmentObject var userHandler: UserHandling
+    
+    @Binding var orderList: [DrinkViewModel]
+    
     var drinkVM: DrinkViewModel
 
     var body: some View {
@@ -18,30 +22,42 @@ struct MultipleOrderCardView: View {
                 Image(drinkVM.drink.image.rawValue)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
+                    .minimumScaleFactor(0.2)
                     .foregroundColor(.accentColor.opacity(0.3))
-                    .frame(maxHeight: geo.size.height * 0.8)
+                    .frame(maxHeight: geo.size.height * 0.9, alignment: .center)
                     .padding()
                 VStack(alignment: .leading) {
+                    Spacer()
                     Text(drinkVM.drink.name)
                         .font(.caption2)
                         .fixedSize()
-                        .minimumScaleFactor(0.4)
+                        .minimumScaleFactor(0.1)
 
                     Text(Currency.display(drinkVM.drink.price, with: userHandler.user))
-                        .font(.title)
                         .bold()
                         .fixedSize()
-                        .minimumScaleFactor(0.4)
-                    Spacer()
+                        .minimumScaleFactor(0.1)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                 .foregroundColor(.white)
-                .padding()
+                .padding(4)
+                .overlay(alignment: .topTrailing) {
+                    Button {
+                        withAnimation {
+                            orderList.removeAll(where: { $0.id == drinkVM.id })
+                        }
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.body)
+                            .foregroundColor(.white)
+                            .padding(8)
+                    }
+                }
             }
             .background(VisualEffectBlurView(blurStyle: .dark))
-            .frame(width: 100, height: 140, alignment: .leading)
+            .frame(width: 80, height: 100, alignment: .leading)
             .clipShape(RoundedRectangle(cornerRadius: 10))
-            .addBorder(Color.white.opacity(0.1), width: 1, cornerRadius: 10)
+            .addBorder(Color.accentColor.opacity(0.8), width: 1, cornerRadius: 10)
         }
 
     }
