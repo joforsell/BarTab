@@ -85,6 +85,7 @@
 		3E817156275575E500F4B0D3 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E817155275575E500F4B0D3 /* HeaderView.swift */; };
 		3E817158275576AB00F4B0D3 /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E817157275576AB00F4B0D3 /* OrderView.swift */; };
 		3E81715A275576B400F4B0D3 /* CustomerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E817159275576B400F4B0D3 /* CustomerListView.swift */; };
+		3E84202B282A69AC003CE3F1 /* MultipleOrderCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E84202A282A69AC003CE3F1 /* MultipleOrderCardView.swift */; };
 		3E850705279708F400A56E17 /* UserSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E850704279708F400A56E17 /* UserSettingsView.swift */; };
 		3E8507072797578300A56E17 /* UserSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8507062797578300A56E17 /* UserSettingsViewModel.swift */; };
 		3E8645D52718A3C0009BFFAA /* EmailSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8645D42718A3C0009BFFAA /* EmailSender.swift */; };
@@ -94,6 +95,7 @@
 		3E8EF682280F49030044B315 /* BalanceUpdateEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EF681280F49030044B315 /* BalanceUpdateEmailView.swift */; };
 		3E8EF684280F4ECB0044B315 /* BalanceUpdateEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EF683280F4ECB0044B315 /* BalanceUpdateEmailViewModel.swift */; };
 		3E8FAA18279C336C00FBA06D /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8FAA17279C336C00FBA06D /* SignInView.swift */; };
+		3E920618282CE4A2007BDD8A /* OrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E920617282CE4A2007BDD8A /* OrderViewModel.swift */; };
 		3E93A12D2816692E001E6AA7 /* PaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E93A12C2816692E001E6AA7 /* PaymentMethod.swift */; };
 		3E93A12F28172939001E6AA7 /* MultiSelectionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E93A12E28172939001E6AA7 /* MultiSelectionPickerView.swift */; };
 		3E93A13128172E64001E6AA7 /* HalfSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E93A13028172E64001E6AA7 /* HalfSheet.swift */; };
@@ -176,6 +178,7 @@
 		3E817155275575E500F4B0D3 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		3E817157275576AB00F4B0D3 /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
 		3E817159275576B400F4B0D3 /* CustomerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerListView.swift; sourceTree = "<group>"; };
+		3E84202A282A69AC003CE3F1 /* MultipleOrderCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleOrderCardView.swift; sourceTree = "<group>"; };
 		3E850704279708F400A56E17 /* UserSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsView.swift; sourceTree = "<group>"; };
 		3E8507062797578300A56E17 /* UserSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsViewModel.swift; sourceTree = "<group>"; };
 		3E8645D42718A3C0009BFFAA /* EmailSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSender.swift; sourceTree = "<group>"; };
@@ -185,6 +188,7 @@
 		3E8EF681280F49030044B315 /* BalanceUpdateEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceUpdateEmailView.swift; sourceTree = "<group>"; };
 		3E8EF683280F4ECB0044B315 /* BalanceUpdateEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceUpdateEmailViewModel.swift; sourceTree = "<group>"; };
 		3E8FAA17279C336C00FBA06D /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		3E920617282CE4A2007BDD8A /* OrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewModel.swift; sourceTree = "<group>"; };
 		3E93A12C2816692E001E6AA7 /* PaymentMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
 		3E93A12E28172939001E6AA7 /* MultiSelectionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectionPickerView.swift; sourceTree = "<group>"; };
 		3E93A13028172E64001E6AA7 /* HalfSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfSheet.swift; sourceTree = "<group>"; };
@@ -310,6 +314,7 @@
 				3E67EC6A279467DF008A2B3D /* SubscriptionDetailsView.swift */,
 				3E7C9AFF2772065500B8A431 /* CreateAccountView.swift */,
 				3E873021275961B500F8E610 /* DrinkCardView.swift */,
+				3E84202A282A69AC003CE3F1 /* MultipleOrderCardView.swift */,
 				3E8730232759755100F8E610 /* ConfirmOrderView.swift */,
 				3E88B0F4276A7814003561E1 /* AddDrinkView.swift */,
 				3E678776275D62170072259F /* AddCustomerView.swift */,
@@ -416,6 +421,7 @@
 				3E6C68AF278C697C00EFE42C /* OrientationInfo.swift */,
 				3E8507062797578300A56E17 /* UserSettingsViewModel.swift */,
 				3E8EF683280F4ECB0044B315 /* BalanceUpdateEmailViewModel.swift */,
+				3E920617282CE4A2007BDD8A /* OrderViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -572,6 +578,7 @@
 				3E93A12D2816692E001E6AA7 /* PaymentMethod.swift in Sources */,
 				3E678775275D52FC0072259F /* ConfirmationViewModel.swift in Sources */,
 				3E64DA3727D90FF700978EBC /* TransactionListViewModel.swift in Sources */,
+				3E84202B282A69AC003CE3F1 /* MultipleOrderCardView.swift in Sources */,
 				3E7C9B002772065500B8A431 /* CreateAccountView.swift in Sources */,
 				3E70E0E8275EABE40020B429 /* BartenderSettingsView.swift in Sources */,
 				3E66B89F27CA216E0067C56F /* PhoneOrderView.swift in Sources */,
@@ -591,6 +598,7 @@
 				3E7BEFE126FCDD6D00453C1B /* DrinkModel.swift in Sources */,
 				3E7033B627E90CD500245A93 /* AsyncButton.swift in Sources */,
 				3E8FAA18279C336C00FBA06D /* SignInView.swift in Sources */,
+				3E920618282CE4A2007BDD8A /* OrderViewModel.swift in Sources */,
 				3E817156275575E500F4B0D3 /* HeaderView.swift in Sources */,
 				3E72E0E927F0F5ED0001A691 /* FeedbackMailView.swift in Sources */,
 				3E6E097D27D3417200BF13EE /* TabBarItem.swift in Sources */,
@@ -787,7 +795,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.3;
+				MARKETING_VERSION = 1.2.4;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joforsell.BarTab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -813,7 +821,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.3;
+				MARKETING_VERSION = 1.2.4;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joforsell.BarTab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
