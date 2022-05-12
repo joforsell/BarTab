@@ -71,8 +71,17 @@ class CustomerListViewModel: ObservableObject {
         customerRepository.subtractFromBalanceOf(customer, by: adjustment)
     }
     
-    func customerBoughtWithKey(_ drink: Drink, key: String) {
-        customerRepository.subtractFromBalanceOfKeyHolder(with: key, by: drink.price)
+    func customerBoughtWithKey(_ drinks: [Drink], key: String) {
+        if drinks.count == 1 {
+            customerRepository.subtractFromBalanceOfKeyHolder(with: key, by: drinks.first!.price)
+        } else if drinks.count > 1 {
+            let drinkPrices = drinks.map { $0.price }
+            let sum = drinkPrices.reduce(into: 0) { $0 += $1 }
+            customerRepository.subtractFromBalanceOfKeyHolder(with: key, by: sum)
+            print("Customer bought drinks for \(sum)")
+        } else {
+            return
+        }
     }
     
     func customerWithKey(_ key: String, completion: @escaping (Result<Customer, Error>) -> ()) {
@@ -81,10 +90,18 @@ class CustomerListViewModel: ObservableObject {
         }
     }
     
-    func customerBought(_ drink: Drink, customer: Customer) {
+    func customerBought(_ drinks: [Drink], customer: Customer) {
         guard customer.id != nil else { return }
         
-        customerRepository.subtractFromBalanceOf(customer, by: drink.price)
+        if drinks.count == 1 {
+            customerRepository.subtractFromBalanceOf(customer, by: drinks.first!.price)
+        } else if drinks.count > 1 {
+            let drinkPrices = drinks.map { $0.price }
+            let sum = drinkPrices.reduce(into: 0) { $0 += $1 }
+            customerRepository.subtractFromBalanceOf(customer, by: sum)
+        } else {
+            return
+        }
     }
     
     func sendEmails(from user: User, to customers: [Customer], with message: String, methods: [PaymentSelection]) async throws {

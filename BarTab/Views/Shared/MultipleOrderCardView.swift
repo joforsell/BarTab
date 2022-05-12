@@ -9,17 +9,19 @@ import SwiftUI
 import SwiftUIX
 
 struct MultipleOrderCardView: View {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.verticalSizeClass) var verticalSizeClass
     
     @EnvironmentObject var userHandler: UserHandling
     
-    @Binding var orderList: [DrinkViewModel]
+    @Binding var orderList: [OrderViewModel]
     
-    var drinkVM: DrinkViewModel
+    var orderVM: OrderViewModel
 
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .center) {
-                Image(drinkVM.drink.image.rawValue)
+                Image(orderVM.drink.image.rawValue)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .minimumScaleFactor(0.2)
@@ -28,12 +30,13 @@ struct MultipleOrderCardView: View {
                     .padding()
                 VStack(alignment: .leading) {
                     Spacer()
-                    Text(drinkVM.drink.name)
-                        .font(.caption2)
+                    Text(orderVM.drink.name)
+                        .font(isPhone() ? .caption2 : .title3)
                         .fixedSize()
                         .minimumScaleFactor(0.1)
 
-                    Text(Currency.display(drinkVM.drink.price, with: userHandler.user))
+                    Text(Currency.display(orderVM.drink.price, with: userHandler.user))
+                        .font(isPhone() ? .body : .title2)
                         .bold()
                         .fixedSize()
                         .minimumScaleFactor(0.1)
@@ -44,7 +47,7 @@ struct MultipleOrderCardView: View {
                 .overlay(alignment: .topTrailing) {
                     Button {
                         withAnimation {
-                            orderList.removeAll(where: { $0.id == drinkVM.id })
+                            orderList.removeAll(where: { $0.id == orderVM.id })
                         }
                     } label: {
                         Image(systemName: "xmark")
@@ -55,10 +58,14 @@ struct MultipleOrderCardView: View {
                 }
             }
             .background(VisualEffectBlurView(blurStyle: .dark))
-            .frame(width: 80, height: 100, alignment: .leading)
+            .frame(width: isPhone() ? 80 : 120, height: isPhone() ? 100 : 150)
             .clipShape(RoundedRectangle(cornerRadius: 10))
             .addBorder(Color.accentColor.opacity(0.8), width: 1, cornerRadius: 10)
         }
 
+    }
+    
+    private func isPhone() -> Bool {
+        return !(horizontalSizeClass == .regular && verticalSizeClass == .regular)
     }
 }
