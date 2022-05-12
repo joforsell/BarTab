@@ -55,7 +55,7 @@ struct TransactionsListView: View {
                 .foregroundColor(.white.opacity(0.3))
                 .padding(.bottom, 0)
             ScrollView {
-                ForEach(transactionListVM.transactions) { transaction in
+                ForEach(transactionListVM.transactions.reversed()) { transaction in
                     HStack {
                         Rectangle()
                             .frame(width: 4)
@@ -67,6 +67,7 @@ struct TransactionsListView: View {
                     }
                 }
             }
+            .padding(.bottom, 48)
         }
         .background(VisualEffectBlurView(blurStyle: .dark).ignoresSafeArea())
     }

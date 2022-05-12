@@ -56,17 +56,35 @@ struct BartenderSettingsView: View {
                         .foregroundColor(.accentColor)
                         .offset(x: -20)
                     
-                    // Settings fields and toggles
+                    // Bartender information
                     Group {
                         emailInput
                         associationInput
                         phoneNumberInput
+                    }
+                    
+                    Divider()
+                        .frame(width: 320)
+                    
+                    // Customer payment options, included in balance update emails
+                    Group {
                         paymentMethodFields
+                    }
+                    
+                    Divider()
+                        .frame(width: 320)
+
+                    // Settings
+                    Group {
                         currencyPicker
                         decimalsToggle
                         rfidToggle
                         stayAwakeToggle
                         backgroundColorIntensityPicker
+                    }
+                    
+                    // Feedback
+                    Group {
                         feedbackButton
                     }
                     

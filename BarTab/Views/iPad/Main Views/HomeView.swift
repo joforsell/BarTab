@@ -16,10 +16,12 @@ struct HomeView: View {
     @EnvironmentObject var confirmationVM: ConfirmationViewModel
     @StateObject var orientationInfo = OrientationInfo()
     
+    @AppStorage("backgroundColorIntensity") var backgroundColorIntensity: ColorIntensity = .medium
+
     @Namespace var orderNamespace
     
     @State var orderMultiple: Bool = false
-    @State var orderList = [DrinkViewModel]()
+    @State var orderList = [OrderViewModel]()
     
     @State var viewState: ViewState = .main
     @State var tappedDrink: String?
@@ -29,31 +31,56 @@ struct HomeView: View {
     var body: some View {
         ZStack {
             VStack {
-                HeaderView(viewState: $viewState)
+                HeaderView(viewState: $viewState, orderList: $orderList, orderMultiple: $orderMultiple, tappedDrink: $tappedDrink, orderNamespace: orderNamespace)
                     .environmentObject(userHandler)
                     .frame(height: 134)
                 switch viewState {
                 case .main:
                     HStack {
-                        ScrollView() {
-                            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 20), count: userHandler.user.drinkCardColumns), spacing: 20) {
-                                let sortedList = drinkListVM.sortDrinks(drinkListVM.drinkVMs, by: userHandler.user.drinkSorting)
-                                ForEach(sortedList) { drinkVM in
-                                    DrinkCardView(drinkVM: drinkVM)
-                                        .onTapGesture {
-                                            tappedDrink = drinkVM.id
-                                            confirmationVM.selectedDrink = drinkVM
+                        VStack {
+                            if orderMultiple {
+                                if orderList.isEmpty {
+                                    Text("Tap the item you want to add to the order")
+                                        .font(.title)
+                                } else {
+                                    ScrollView(.horizontal, showsIndicators: false) {
+                                        HStack(alignment: .center, spacing: 4) {
+                                            ForEach(orderList) { orderVM in
+                                                MultipleOrderCardView(orderList: $orderList, orderVM: orderVM)
+                                                    .frame(width: 120, height: 150)
+                                                    .environmentObject(userHandler)
+                                            }
                                         }
-                                        .aspectRatio(0.9, contentMode: .fit)
-                                        .matchedGeometryEffect(id: drinkVM.id, in: orderNamespace, isSource: true)
-                                        .environmentObject(customerListVM)
-                                        .environmentObject(drinkListVM)
-                                        .environmentObject(userHandler)
+                                    }
+                                    .frame(height: 160)
                                 }
                             }
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .animation(.easeInOut, value: userHandler.user.drinkCardColumns)
-                            .animation(.easeInOut, value: userHandler.user.drinkSorting)
+                            ScrollView(showsIndicators: false) {
+                                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 20), count: userHandler.user.drinkCardColumns), spacing: 20) {
+                                    let sortedList = drinkListVM.sortDrinks(drinkListVM.drinkVMs, by: userHandler.user.drinkSorting)
+                                    ForEach(sortedList) { drinkVM in
+                                        DrinkCardView(drinkVM: drinkVM)
+                                            .onTapGesture {
+                                                withAnimation {
+                                                    if orderMultiple {
+                                                        orderList.insert(OrderViewModel(drinkVM.drink), at: 0)
+                                                    } else {
+                                                        tappedDrink = drinkVM.id
+                                                        confirmationVM.selectedDrink = drinkVM
+                                                    }
+                                                }
+                                            }
+                                            .aspectRatio(0.9, contentMode: .fit)
+                                            .matchedGeometryEffect(id: drinkVM.id, in: orderNamespace, isSource: true)
+                                            .environmentObject(customerListVM)
+                                            .environmentObject(drinkListVM)
+                                            .environmentObject(userHandler)
+                                    }
+                                }
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .animation(.easeInOut, value: userHandler.user.drinkCardColumns)
+                                .animation(.easeInOut, value: userHandler.user.drinkSorting)
+                            }
                         }
                                                 
                         CustomerListView()
@@ -118,7 +145,7 @@ struct HomeView: View {
                 Image("backgroundbar")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .overlay(Color.black.opacity(0.5).blendMode(.overlay))
+                    .overlay(backgroundColorIntensity.overlayColor)
                     .ignoresSafeArea()
             )
             if tappedDrink != nil {
