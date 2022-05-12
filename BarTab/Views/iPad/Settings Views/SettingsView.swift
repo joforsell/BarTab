@@ -100,18 +100,7 @@ struct SettingsView: View {
                                     
                                     Spacer()
                                     
-                                    emailButton
-                                        .alert(errorTitle, isPresented: $showError) {
-                                            Button("Cancel") {
-                                                showError = false
-                                            }
-                                            AsyncButton(action: {
-                                                await emailButtonAction()
-                                            }, label: {
-                                                Text("OK")
-                                            })
-                                        }
-                                    
+                                    emailButton                                    
                                 }
                                 .padding()
                                 .background(Color(.black).opacity(0.5))
@@ -151,7 +140,7 @@ struct SettingsView: View {
                 }
             }
             .toast(isPresented: $isShowingEmailConfirmation, dismissAfter: 6, onDismiss: { isShowingEmailConfirmation = false }) {
-                ToastView(systemImage: ("envelope.fill", .accentColor, 50), title: "E-mail(s) sent", subTitle: "An e-mail showing current balance was sent to each bar guest with an associated e-mail address.")
+                ToastView(systemImage: ("envelope.fill", .accentColor, 50), title: "E-mail(s) sent", subTitle: "An e-mail showing current balance was sent to the chosen bar guests.")
             }
             .background(VisualEffectBlurView(blurStyle: .dark))
             .ignoresSafeArea(.keyboard)
@@ -171,25 +160,6 @@ struct SettingsView: View {
                 Image(systemName: "envelope.fill")
                     .font(.largeTitle)
                     .foregroundColor(.accentColor)
-            }
-        }
-    
-        
-        func emailButtonAction() async {
-            var customers = [Customer]()
-            customerListVM.customerVMs.forEach { customerVM in
-                customers.append(customerVM.customer)
-            }
-            do {
-//                try await customerListVM.sendEmails(from: userHandler.user, to: customers)
-                latestEmail = Date()
-                withAnimation {
-                    isShowingEmailConfirmation.toggle()
-                }
-            } catch {
-                errorTitle = "Error sending emails"
-                errorString = error.localizedDescription
-                showError = true
             }
         }
 }

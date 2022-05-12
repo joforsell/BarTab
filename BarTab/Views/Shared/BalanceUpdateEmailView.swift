@@ -307,8 +307,10 @@ struct BalanceUpdateEmailView: View {
     private var actionButtons: some View {
         HStack {
             Spacer()
-            Button("Close") {
+            Button {
                 presenting = false
+            } label: {
+                Text("Close")
             }
             .padding(.horizontal)
             Spacer()

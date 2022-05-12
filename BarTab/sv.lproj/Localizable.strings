@@ -12,6 +12,8 @@
 /* No comment provided by engineer. */
 "%@." = "%@.";
 
+"%@ items" = "%@ varor";
+
 /* No comment provided by engineer. */
 "$%@" = "%@ kr";
 
@@ -78,6 +80,8 @@
 /* No comment provided by engineer. */
 "Could not sign in." = "Kunde inte logga in.";
 
+"Close" = "Stäng";
+
 /* No comment provided by engineer. */
 "Create account" = "Skapa konto";
 
@@ -139,7 +143,7 @@
 /* No comment provided by engineer. */
 "First week for free!" = "Första veckan gratis!";
 
-"Inqueries can be sent to:" = "Om du har frågor eller funderingar:";
+"Inquiries can be sent to:" = "Om du har frågor eller funderingar:";
 
 /* No comment provided by engineer. */
 "Forget tallying purchases and adding up balance after every night. With BarTab you and your bar guests can easily keep track of running tabs." = "Glöm bort manuella bonglistor och att räkna samman saldon efter varje träff. Med BarTab håller du och dina bargäster enkelt koll på saldoställningar.";
@@ -160,7 +164,11 @@
 /* No comment provided by engineer. */
 "Lifetime" = "Livstid";
 
+"Low" = "Låg";
+
 "Lowest price first" = "Lägst pris först";
+
+"Medium" = "Medium";
 
 "Message" = "Meddelande";
 
@@ -169,10 +177,14 @@
 
 "Negative balance" = "Negativt saldo";
 
+"None" = "Ingen";
+
 "Not sending to:" = "Skickar inte till:";
 
 /* No comment provided by engineer. */
 "Opening balance" = "Ingående saldo";
+
+"Order items for %@" = "Beställ varor för %@";
 
 "On" = "På";
 
@@ -267,6 +279,8 @@
 
 /* No comment provided by engineer. */
 "Subtract" = "Ta bort";
+
+"Tap the item you want to add to the order" = "Tryck på varan du vill lägga till i din beställning";
 
 /* No comment provided by engineer. */
 "Terms of use" = "Användarvillkor";

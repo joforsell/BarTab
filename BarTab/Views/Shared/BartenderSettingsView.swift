@@ -472,7 +472,7 @@ struct BartenderSettingsView: View {
     
     private var backgroundColorIntensityPicker: some View {
         HStack {
-            Text("Background color intensity")
+            Text("Background image intensity")
                 .foregroundColor(.white)
             Spacer()
             Picker("Intensity", selection: $backgroundColorIntensity) {
