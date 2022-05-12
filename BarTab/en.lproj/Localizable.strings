@@ -27,9 +27,6 @@
 "Add an unlimited amount of bar guests with balances that are updated automatically and let them order from a drink list only limited by the contents of your bar." = "Add an unlimited amount of bar guests with balances that are updated automatically and let them order from a drink list only limited by the contents of your bar.";
 
 /* No comment provided by engineer. */
-"An e-mail showing current balance was sent to each bar guest with an associated e-mail address." = "An e-mail showing current balance was sent to each bar guest with an associated e-mail address.";
-
-/* No comment provided by engineer. */
 "and" = "and";
 
 /* No comment provided by engineer. */
@@ -46,6 +43,8 @@
 
 /* No comment provided by engineer. */
 "Association" = "Association";
+
+"Background image intensity" = "Intensitet på bakgrundsbild";
 
 /* No comment provided by engineer. */
 "Balance" = "Balance";
@@ -127,12 +126,14 @@
 
 "Hello %@!" = "Hello %@!";
 
+"High" = "Hög";
+
 "Highest price first" = "Highest price first";
 
 /* No comment provided by engineer. */
 "First week for free!" = "First week for free!";
 
-"Inqueries can be sent to:" = "Inqueries can be sent to:";
+"Inquiries can be sent to:" = "Inquiries can be sent to:";
 
 /* No comment provided by engineer. */
 "Forget tallying purchases and adding up balance after every night. With BarTab you and your bar guests can easily keep track of running tabs." = "Forget tallying purchases and adding up balance after every night. With BarTab you and your bar guests can easily keep track of running tabs.";
@@ -259,9 +260,6 @@
 "The scanned RFID tag is now assigned to %@" = "The scanned RFID tag is now assigned to %@";
 
 "There was an error" = "There was an error";
-
-/* No comment provided by engineer. */
-"This will send an e-mail showing current balance to each bar guest with an associated e-mail address." = "This will send an e-mail showing current balance to each bar guest with an associated e-mail address.";
 
 /* No comment provided by engineer. */
 "Unknown error." = "Unknown error.";

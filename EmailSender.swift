@@ -69,7 +69,7 @@ class EmailSender {
         let greeting = String(format: NSLocalizedString("Hello %@!", comment: ""), firstName ?? "")
         let currentBalanceText = String(format: NSLocalizedString("Your current balance at %@ is:", comment: ""), user.association ?? "BarTab")
         let missingEmail = String(format: NSLocalizedString("Email address missing", comment: ""))
-        let questionsText = String(format: NSLocalizedString("Inqueries can be sent to:", comment: ""))
+        let questionsText = String(format: NSLocalizedString("Inqueiries can be sent to:", comment: ""))
         let unsubscribeLinkText = String(format: NSLocalizedString("Unsubscribe", comment: ""))
         let unsubscribeMessageText = String(format: NSLocalizedString(" from future balance updates", comment: ""))
         let paymentOptions = EmailSender.makePaymentOptionComponents(for: methods)
