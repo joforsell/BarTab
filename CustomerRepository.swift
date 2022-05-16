@@ -61,15 +61,15 @@ class CustomerRepository: ObservableObject {
         Firestore.firestore().collection("customers").document(customer.id!).updateData([ "email" : email ])
     }
     
-    func addToBalanceOf(_ customer: Customer, by adjustment: Float) {
-        Firestore.firestore().collection("customers").document(customer.id!).updateData([ "balance" : FieldValue.increment(Int64(round(adjustment * 100) / 100.0)) ])
+    func addToBalanceOf(_ customer: Customer, by adjustment: Int) {
+        Firestore.firestore().collection("customers").document(customer.id!).updateData([ "balance" : FieldValue.increment(Int64(adjustment)) ])
     }
     
-    func subtractFromBalanceOf(_ customer: Customer, by adjustment: Float) {
-        Firestore.firestore().collection("customers").document(customer.id!).updateData([ "balance" : FieldValue.increment(Int64(-(round(adjustment * 100) / 100.0))) ])
+    func subtractFromBalanceOf(_ customer: Customer, by adjustment: Int) {
+        Firestore.firestore().collection("customers").document(customer.id!).updateData([ "balance" : FieldValue.increment(Int64(-adjustment)) ])
     }
     
-    func subtractFromBalanceOfKeyHolder(with key: String, by adjustment: Float) {
+    func subtractFromBalanceOfKeyHolder(with key: String, by adjustment: Int) {
         Firestore.firestore().collection("customers").whereField("key", isEqualTo: key).getDocuments() { snapshot, error in
             guard snapshot != nil else { return }
             for document in snapshot!.documents {
@@ -96,6 +96,14 @@ class CustomerRepository: ObservableObject {
     }
     
     func updateKey(of customer: Customer, with key: String) {
-        Firestore.firestore().collection("customers").document(customer.id!).updateData(["key" : key])
+        Firestore.firestore().collection("customers").document(customer.id!).updateData(["key": key])
+    }
+    
+    func updateTransactionNumber(of customer: Customer, to number: Int) {
+        Firestore.firestore().collection("customers").document(customer.id!).updateData(["numberOfTransactions": number])
+    }
+    
+    func updateBalance(of customer: Customer, to newBalance: Int) {
+        Firestore.firestore().collection("customers").document(customer.id!).updateData(["balance": newBalance])
     }
 }

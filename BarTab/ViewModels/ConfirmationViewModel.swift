@@ -13,14 +13,20 @@ class ConfirmationViewModel: ObservableObject {
     
     func makeTransaction(customer: Customer, drink: Drink) -> Transaction {
         let now = Date.now
-        return Transaction(name: drink.name, image: drink.image.rawValue, amount: (round(drink.price * 100) / 100.0), newBalance: (round((customer.balance - drink.price) * 100) / 100.0), date: now, customerID: customer.id!)
+        let newTransactionNumber = (customer.numberOfTransactions ?? 0) + 1
+        
+        return Transaction(name: drink.name, image: drink.image.rawValue, amount: drink.price, newBalance: customer.balance - drink.price, date: now, customerID: customer.id!, transactionNumber: newTransactionNumber)
     }
     
     func makeTransactions(customer: Customer, drinks: [Drink]) -> [Transaction] {
         let now = Date.now
         var transactions = [Transaction]()
+        var accumulatedPrice = 0
+        var newTransactionNumber = (customer.numberOfTransactions ?? 0) + 1
         for drink in drinks {
-            transactions.append(Transaction(name: drink.name, image: drink.image.rawValue, amount: (round(drink.price * 100) / 100.0), newBalance: (round((customer.balance - drink.price) * 100) / 100.0), date: now, customerID: customer.id!))
+            accumulatedPrice += drink.price
+            transactions.append(Transaction(name: drink.name, image: drink.image.rawValue, amount: drink.price, newBalance: customer.balance - accumulatedPrice, date: now, customerID: customer.id!, transactionNumber: newTransactionNumber))
+            newTransactionNumber += 1
         }
         return transactions
     }

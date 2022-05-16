@@ -65,7 +65,11 @@ struct DrinkSettingsDetailView: View {
                                 text: $drinkVM.priceAsString,
                                 keyboardTag: 2,
                                 keyboardType: .numbersAndPunctuation,
-                                isNumberInput: true)
+                                isNumberInput: true) {
+                    let priceAsFloat = (Float(drinkVM.priceAsString) ?? 0) * 100
+                    let adjustedPrice = Int(priceAsFloat)
+                    drinkListVM.updateDrinkPrice(of: drinkVM.drink, to: adjustedPrice)
+                }
                 
                 VStack(alignment: .leading) {
                     HStack {

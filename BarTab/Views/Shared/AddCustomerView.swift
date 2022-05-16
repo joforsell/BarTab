@@ -53,7 +53,7 @@ struct AddCustomerView: View {
                             if name.trimmingCharacters(in: .whitespaces).isEmpty {
                                 isShowingAlert = true
                             } else {
-                                customerListVM.addCustomer(name: name, balance: Float(balance) ?? 0, email: email)
+                                customerListVM.addCustomer(name: name, balance: (Int(balance) ?? 0) * 100, email: email)
                                 presentationMode.wrappedValue.dismiss()
                             }
                         } label: {

@@ -404,7 +404,7 @@ struct CustomerEmailRow: View {
                 .foregroundColor(customerVM.checked ? .accentColor : .gray)
             Text(customerVM.customer.name)
             Spacer()
-            Text(Currency.display(customerVM.customer.balance, with: userHandler.user))
+            Text(Currency.display(Float(customerVM.customer.balance), with: userHandler.user))
                 .foregroundColor(customerVM.balanceColor)
                 .multilineTextAlignment(.trailing)
         }

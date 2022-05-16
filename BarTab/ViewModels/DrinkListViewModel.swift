@@ -34,8 +34,8 @@ class DrinkListViewModel: ObservableObject {
             .store(in: &cancellables)
     }
                     
-    func addDrink(name: String, price: Float) {
-        let newDrink = Drink(name: name, price: (round(price * 100) / 100.0))
+    func addDrink(name: String, price: Int) {
+        let newDrink = Drink(name: name, price: price)
         drinkRepository.addDrink(newDrink)
     }
     
@@ -45,7 +45,7 @@ class DrinkListViewModel: ObservableObject {
         drinkRepository.removeDrink(drink)
     }
     
-    func updateDrinkPrice(of drink: Drink, to price: Float) {
+    func updateDrinkPrice(of drink: Drink, to price: Int) {
         guard drink.id != nil else { return }
         
         drinkRepository.updateDrinkPrice(of: drink, to: price)
@@ -55,6 +55,12 @@ class DrinkListViewModel: ObservableObject {
         guard drink.id != nil else { return }
         
         drinkRepository.updateDrinkName(of: drink, to: name)
+    }
+    
+    func oneTimeDrinkPriceAdjustment(for user: User) {
+        for drinkVM in drinkVMs {
+            drinkRepository.updateDrinkPrice(of: drinkVM.drink, to: drinkVM.drink.price * 100)
+        }
     }
     
     // MARK: - Sorting

@@ -61,7 +61,7 @@ struct AddDrinkView: View {
                             if name.trimmingCharacters(in: .whitespaces).isEmpty {
                                 isShowingAlert = true
                             } else {
-                                drinkListVM.addDrink(name: name, price: Float(price) ?? 0)
+                                drinkListVM.addDrink(name: name, price: (Int(price) ?? 0) * 100)
                                 detailViewShown = .none
                                 presentationMode.wrappedValue.dismiss()
                             }

@@ -20,6 +20,16 @@ struct CustomerSettingsDetailView: View {
     @Binding var customerVM: CustomerViewModel
     @Binding var detailsViewShown: DetailViewRouter
     
+    @State var isShowingCameraPicker = false
+    @State var image: Image? = nil
+    var profileImage: Image {
+        if let image = image {
+            return image
+        } else {
+            return Image(systemName: "person")
+        }
+    }
+    
     @State private var editingName = false
     @State private var editingEmail = false
     @State private var editingBalance = false
@@ -37,9 +47,9 @@ struct CustomerSettingsDetailView: View {
             VStack(alignment: .center, spacing: 16) {
                 Spacer()
                 
-                Image(systemName: "person")
+                profileImage
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
+                    .aspectRatio(contentMode: image == nil ? .fit : .fill)
                     .scaleEffect(0.7)
                     .foregroundColor(.white)
                     .frame(maxHeight: 200)
@@ -48,20 +58,21 @@ struct CustomerSettingsDetailView: View {
                         Circle()
                             .stroke(Color.white, lineWidth: 1)
                     }
-                
-                // TODO: Add functionality to change profile picture
-                //                    .overlay(alignment: .bottomTrailing) {
-                //                        Button {
-                //
-                //                        } label: {
-                //                            Image(systemName: "pencil.circle.fill")
-                //                                .resizable()
-                //                                .scaledToFit()
-                //                                .frame(width: 22)
-                //                                .foregroundColor(.white)
-                //                        }
-                //                        .offset(x: 40)
-                //                    }
+                    .overlay(alignment: .bottomTrailing) {
+                        Button {
+                            isShowingCameraPicker = true
+                        } label: {
+                            Image(systemName: "camera.on.rectangle.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 30)
+                                .foregroundColor(.accentColor)
+                        }
+                        .offset(x: 40)
+                        .sheet(isPresented: $isShowingCameraPicker) {
+                            ImagePickerHostView(isShown: $isShowingCameraPicker, image: $image)
+                        }
+                    }
                 
                 VStack(alignment: .leading, spacing: 2) {
                     HStack(alignment: .bottom) {
@@ -169,11 +180,11 @@ struct CustomerSettingsDetailView: View {
                                 self.avoider.editingField = 5
                             }, onCommit: {
                                 if addingToBalance {
-                                    customerListVM.addToBalance(of: customerVM.customer, by: Float(balanceAdjustment) ?? 0)
-                                    customerVM.customer.balance += Float(balanceAdjustment) ?? 0
+                                    customerListVM.addToBalance(of: customerVM.customer, by: (Int(balanceAdjustment) ?? 0) * 100)
+                                    customerVM.customer.balance += (Int(balanceAdjustment) ?? 0) * 100
                                 } else {
-                                    customerListVM.subtractFromBalance(of: customerVM.customer, by: Float(balanceAdjustment) ?? 0)
-                                    customerVM.customer.balance -= Float(balanceAdjustment) ?? 0
+                                    customerListVM.subtractFromBalance(of: customerVM.customer, by: (Int(balanceAdjustment) ?? 0) * 100)
+                                    customerVM.customer.balance -= (Int(balanceAdjustment) ?? 0) * 100
                                 }
                                 withAnimation {
                                     editingBalance = false
@@ -191,7 +202,7 @@ struct CustomerSettingsDetailView: View {
                                 }
                             }
                         } else {
-                            Text(Currency.display(customerVM.customer.balance, with: userHandler.user))
+                            Text(Currency.display(Float(customerVM.customer.balance), with: userHandler.user))
                                 .font(.title3)
                                 .foregroundColor(customerVM.balanceColor)
                         }
@@ -202,11 +213,11 @@ struct CustomerSettingsDetailView: View {
                         Button {
                             UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
                             if addingToBalance {
-                                customerListVM.addToBalance(of: customerVM.customer, by: Float(balanceAdjustment) ?? 0)
-                                customerVM.customer.balance += Float(balanceAdjustment) ?? 0
+                                customerListVM.addToBalance(of: customerVM.customer, by: (Int(balanceAdjustment) ?? 0) * 100)
+                                customerVM.customer.balance += (Int(balanceAdjustment) ?? 0) * 100
                             } else {
-                                customerListVM.subtractFromBalance(of: customerVM.customer, by: Float(balanceAdjustment) ?? 0)
-                                customerVM.customer.balance -= Float(balanceAdjustment) ?? 0
+                                customerListVM.subtractFromBalance(of: customerVM.customer, by: (Int(balanceAdjustment) ?? 0) * 100)
+                                customerVM.customer.balance -= (Int(balanceAdjustment) ?? 0) * 100
                             }
                             withAnimation {
                                 editingBalance = false

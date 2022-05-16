@@ -21,6 +21,20 @@ struct CustomInputView: View {
     var autocapitalizationType: UITextAutocapitalizationType = .none
     var disablingAutocorrection: Bool = true
     var isNumberInput: Bool = false
+    var onCommit: () -> Void
+    
+    init(title: LocalizedStringKey, image: String, editing: Binding<Bool>, text: Binding<String>, keyboardTag: Int, keyboardType: UIKeyboardType = .default, autocapitalizationType: UITextAutocapitalizationType = .none, disablingAutocorrection: Bool = true, isNumberInput: Bool = false, onCommit: @escaping () -> Void) {
+        self.title = title
+        self.image = image
+        _editing = editing
+        _text = text
+        self.keyboardTag = keyboardTag
+        self.keyboardType = keyboardType
+        self.autocapitalizationType = autocapitalizationType
+        self.disablingAutocorrection = disablingAutocorrection
+        self.isNumberInput = isNumberInput
+        self.onCommit = onCommit
+    }
     
     init(title: LocalizedStringKey, image: String, editing: Binding<Bool>, text: Binding<String>, keyboardTag: Int, keyboardType: UIKeyboardType = .default, autocapitalizationType: UITextAutocapitalizationType = .none, disablingAutocorrection: Bool = true, isNumberInput: Bool = false) {
         self.title = title
@@ -32,6 +46,7 @@ struct CustomInputView: View {
         self.autocapitalizationType = autocapitalizationType
         self.disablingAutocorrection = disablingAutocorrection
         self.isNumberInput = isNumberInput
+        self.onCommit = { }
     }
     
     var body: some View {
@@ -50,6 +65,7 @@ struct CustomInputView: View {
                             editing = false
                         }
                     } }, onCommit: {
+                        onCommit()
                         withAnimation {
                             editing.toggle()
                         }
@@ -72,6 +88,7 @@ struct CustomInputView: View {
             .offset(y: 4)
             .overlay(alignment: .trailing) {
                 Button {
+                    onCommit()
                     UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
                 } label: {
                     Image(systemName: editing ? "checkmark.rectangle.fill" : image)

@@ -51,4 +51,13 @@ class TransactionListViewModel: ObservableObject {
             }
         }
     }
+    
+    func oneTimeTransactionAdjustment(for: User) {
+        for transaction in transactions {
+            if let transactionID = transaction.id {
+                Firestore.firestore().collection("transactions").document(transactionID).updateData(["amount": transaction.amount * 100])
+                Firestore.firestore().collection("transactions").document(transactionID).updateData(["newBalance": transaction.newBalance * 100])
+            }
+        }
+    }
 }

@@ -55,7 +55,7 @@ struct TransactionsListView: View {
                 .foregroundColor(.white.opacity(0.3))
                 .padding(.bottom, 0)
             ScrollView {
-                ForEach(transactionListVM.transactions.reversed()) { transaction in
+                ForEach(transactionListVM.transactions.sorted { $0.transactionNumber ?? 0 > $1.transactionNumber ?? 0 }) { transaction in
                     HStack {
                         Rectangle()
                             .frame(width: 4)
@@ -113,7 +113,7 @@ struct TransactionsListView: View {
                         .lineLimit(1)
                         .minimumScaleFactor(0.5)
                     Spacer()
-                    Text(Currency.display(transactionVM.transaction.newBalance, with: userHandler.user))
+                    Text(Currency.display(Float(transactionVM.transaction.newBalance), with: userHandler.user))
                         .opacity(0.5)
                         .padding(.trailing, 4)
                 }
@@ -133,9 +133,9 @@ struct TransactionsListView: View {
         
         private func addOrRemove(_ transaction: Transaction) -> String {
             if transaction.name != "Opening balance" && transaction.name != "Added to balance" {
-                return Currency.remove(transactionVM.transaction.amount, with: userHandler.user)
+                return Currency.remove(Float(transactionVM.transaction.amount), with: userHandler.user)
             } else {
-                return Currency.add(transactionVM.transaction.amount, with: userHandler.user)
+                return Currency.add(Float(transactionVM.transaction.amount), with: userHandler.user)
             }
         }
     }

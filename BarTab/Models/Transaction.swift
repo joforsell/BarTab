@@ -12,10 +12,11 @@ struct Transaction: Codable, Identifiable {
     @DocumentID var id = UUID().uuidString
     let name: String
     let image: String
-    let amount: Float
-    let newBalance: Float
+    let amount: Int
+    let newBalance: Int
     let date: Date
     let customerID: String
+    let transactionNumber: Int?
 }
 
 enum TransactionIcon: String, Codable, CaseIterable {

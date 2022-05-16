@@ -16,4 +16,5 @@ struct User: Codable {
     var drinkSorting: DrinkListViewModel.DrinkSorting = .az
     var currency: Currency = .usd
     var showingDecimals: Bool = true
+    var isUpdated: Bool? = false
 }

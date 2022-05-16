@@ -172,4 +172,10 @@ class UserHandling: ObservableObject {
             }
         }
     }
+    
+    func setUpdatedState(to bool: Bool) {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        
+        db.document(userID).setData(["isUpdated": bool], merge: true)
+    }
 }
