@@ -19,7 +19,7 @@ struct HeaderView: View {
     var sum: String {
         let drinkPrices = orderList.map { $0.drink.price }
         let sum = drinkPrices.reduce(into: 0) { $0 += $1 }
-        return Currency.display(sum, with: userHandler.user)
+        return Currency.display(Float(sum), with: userHandler.user)
     }
     
     var body: some View {

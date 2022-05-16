@@ -72,6 +72,7 @@
 		3E72E0E927F0F5ED0001A691 /* FeedbackMailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E72E0E827F0F5ED0001A691 /* FeedbackMailView.swift */; };
 		3E72E0ED27F38BB50001A691 /* View+ConditionalModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E72E0EC27F38BB50001A691 /* View+ConditionalModifier.swift */; };
 		3E76DD1927E1D4D500F78DE5 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E76DD1827E1D4D500F78DE5 /* Currency.swift */; };
+		3E77F99B282FA823005E2EBE /* ImagePickerHostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E77F99A282FA823005E2EBE /* ImagePickerHostView.swift */; };
 		3E7BEFDC26FCDD1900453C1B /* CustomerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFDB26FCDD1900453C1B /* CustomerModel.swift */; };
 		3E7BEFDE26FCDD2800453C1B /* DrinkListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFDD26FCDD2800453C1B /* DrinkListViewModel.swift */; };
 		3E7BEFE126FCDD6D00453C1B /* DrinkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BEFE026FCDD6D00453C1B /* DrinkModel.swift */; };
@@ -95,6 +96,8 @@
 		3E8EF682280F49030044B315 /* BalanceUpdateEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EF681280F49030044B315 /* BalanceUpdateEmailView.swift */; };
 		3E8EF684280F4ECB0044B315 /* BalanceUpdateEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EF683280F4ECB0044B315 /* BalanceUpdateEmailViewModel.swift */; };
 		3E8FAA18279C336C00FBA06D /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8FAA17279C336C00FBA06D /* SignInView.swift */; };
+		3E8FB13E282E4716009E0B01 /* ImageCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8FB13D282E4716009E0B01 /* ImageCloud.swift */; };
+		3E8FB140282E57B8009E0B01 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8FB13F282E57B8009E0B01 /* ImagePicker.swift */; };
 		3E920618282CE4A2007BDD8A /* OrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E920617282CE4A2007BDD8A /* OrderViewModel.swift */; };
 		3E93A12D2816692E001E6AA7 /* PaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E93A12C2816692E001E6AA7 /* PaymentMethod.swift */; };
 		3E93A12F28172939001E6AA7 /* MultiSelectionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E93A12E28172939001E6AA7 /* MultiSelectionPickerView.swift */; };
@@ -167,6 +170,7 @@
 		3E72E0E827F0F5ED0001A691 /* FeedbackMailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackMailView.swift; sourceTree = "<group>"; };
 		3E72E0EC27F38BB50001A691 /* View+ConditionalModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+ConditionalModifier.swift"; sourceTree = "<group>"; };
 		3E76DD1827E1D4D500F78DE5 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		3E77F99A282FA823005E2EBE /* ImagePickerHostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerHostView.swift; sourceTree = "<group>"; };
 		3E7BEFDB26FCDD1900453C1B /* CustomerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerModel.swift; sourceTree = "<group>"; };
 		3E7BEFDD26FCDD2800453C1B /* DrinkListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkListViewModel.swift; sourceTree = "<group>"; };
 		3E7BEFE026FCDD6D00453C1B /* DrinkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkModel.swift; sourceTree = "<group>"; };
@@ -188,6 +192,8 @@
 		3E8EF681280F49030044B315 /* BalanceUpdateEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceUpdateEmailView.swift; sourceTree = "<group>"; };
 		3E8EF683280F4ECB0044B315 /* BalanceUpdateEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceUpdateEmailViewModel.swift; sourceTree = "<group>"; };
 		3E8FAA17279C336C00FBA06D /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		3E8FB13D282E4716009E0B01 /* ImageCloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCloud.swift; sourceTree = "<group>"; };
+		3E8FB13F282E57B8009E0B01 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		3E920617282CE4A2007BDD8A /* OrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewModel.swift; sourceTree = "<group>"; };
 		3E93A12C2816692E001E6AA7 /* PaymentMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
 		3E93A12E28172939001E6AA7 /* MultiSelectionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectionPickerView.swift; sourceTree = "<group>"; };
@@ -320,6 +326,8 @@
 				3E678776275D62170072259F /* AddCustomerView.swift */,
 				3E8EF681280F49030044B315 /* BalanceUpdateEmailView.swift */,
 				3E5734272811E1C70019EB9D /* EmailPreviewView.swift */,
+				3E8FB13F282E57B8009E0B01 /* ImagePicker.swift */,
+				3E77F99A282FA823005E2EBE /* ImagePickerHostView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -459,6 +467,7 @@
 				3EBC4985270A4D7F006B4857 /* CustomerRepository.swift */,
 				3EBC4987270B8845006B4857 /* DrinkRepository.swift */,
 				3E8645D42718A3C0009BFFAA /* EmailSender.swift */,
+				3E8FB13D282E4716009E0B01 /* ImageCloud.swift */,
 			);
 			name = Repositories;
 			path = ..;
@@ -618,6 +627,7 @@
 				3E5F33622712AF8B005340B6 /* AuthError.swift in Sources */,
 				3E5F33682712B7C9005340B6 /* UserError.swift in Sources */,
 				3E67E60927444E1700999511 /* CustomerViewModel.swift in Sources */,
+				3E8FB13E282E4716009E0B01 /* ImageCloud.swift in Sources */,
 				3E7BEFDE26FCDD2800453C1B /* DrinkListViewModel.swift in Sources */,
 				3E70E0EC275EAFE00020B429 /* CustomerSettingsDetailsView.swift in Sources */,
 				3E5F33642712AF95005340B6 /* UserHandling.swift in Sources */,
@@ -629,6 +639,7 @@
 				3E7033B827E90FA100245A93 /* UIApplication+safeAreaInsets.swift in Sources */,
 				3E6E097827D3386500BF13EE /* CustomTabBarContainerView.swift in Sources */,
 				3E70E0E2275EAB340020B429 /* SettingsView.swift in Sources */,
+				3E8FB140282E57B8009E0B01 /* ImagePicker.swift in Sources */,
 				3E5734282811E1C70019EB9D /* EmailPreviewView.swift in Sources */,
 				3E93A13128172E64001E6AA7 /* HalfSheet.swift in Sources */,
 				3E60E3A5271147A500F1363B /* UserModel.swift in Sources */,
@@ -639,6 +650,7 @@
 				3E65093926FCB26900ACDF41 /* BarTabApp.swift in Sources */,
 				3E76DD1927E1D4D500F78DE5 /* Currency.swift in Sources */,
 				3E873022275961B500F8E610 /* DrinkCardView.swift in Sources */,
+				3E77F99B282FA823005E2EBE /* ImagePickerHostView.swift in Sources */,
 				3E70E0F9275EB2EC0020B429 /* DrinkSettingsDetailsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

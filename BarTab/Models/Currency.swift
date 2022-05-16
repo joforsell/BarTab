@@ -12,7 +12,8 @@ enum Currency: String, CaseIterable, Codable {
     case sek, dkr, nok, usd, cad, eur, gbp
     
     static func display(_ amount: Float, with user: User) -> String {
-        let formattedAmount = user.showingDecimals ? String(format: "%.2f", amount) : String(format: "%.0f", amount)
+        let adjustedAmount = amount / 100
+        let formattedAmount = user.showingDecimals ? String(format: "%.2f", adjustedAmount) : String(format: "%.0f", adjustedAmount)
         switch user.currency {
         case sek, dkr, nok:
             return "\(formattedAmount) kr"
@@ -38,7 +39,8 @@ enum Currency: String, CaseIterable, Codable {
     }
     
     static func add(_ amount: Float, with user: User) -> String {
-        let formattedAmount = user.showingDecimals ? String(format: "%.2f", amount) : String(format: "%.0f", amount)
+        let adjustedAmount = amount / 100
+        let formattedAmount = user.showingDecimals ? String(format: "%.2f", adjustedAmount) : String(format: "%.0f", adjustedAmount)
         switch user.currency {
         case sek, dkr, nok:
             return "+\(formattedAmount) kr"
@@ -52,7 +54,8 @@ enum Currency: String, CaseIterable, Codable {
     }
 
     static func remove(_ amount: Float, with user: User) -> String {
-        let formattedAmount = user.showingDecimals ? String(format: "%.2f", amount) : String(format: "%.0f", amount)
+        let adjustedAmount = amount / 100
+        let formattedAmount = user.showingDecimals ? String(format: "%.2f", adjustedAmount) : String(format: "%.0f", adjustedAmount)
         switch user.currency {
         case sek, dkr, nok:
             return "-\(formattedAmount) kr"

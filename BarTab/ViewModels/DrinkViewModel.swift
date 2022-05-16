@@ -54,9 +54,9 @@ class DrinkViewModel: ObservableObject, Identifiable {
         $showingDecimals
             .map { showingDecimals in
                 if showingDecimals {
-                    return String(format: "%.2f", self.drink.price)
+                    return String(format: "%.2f", (self.drink.price))
                 } else {
-                    return String(format: "%.0f", self.drink.price)
+                    return String(format: "%.0f", (self.drink.price))
                 }
             }
             .assign(to: \.priceAsString, on: self)
@@ -73,13 +73,6 @@ class DrinkViewModel: ObservableObject, Identifiable {
             .debounce(for: 1, scheduler: RunLoop.main)
             .sink { name in
                 self.drinkRepository.updateDrinkName(of: self.drink, to: name)
-            }
-            .store(in: &cancellables)
-
-        $priceAsString
-            .debounce(for: 1, scheduler: RunLoop.main)
-            .sink { price in
-                self.drinkRepository.updateDrinkPrice(of: self.drink, to: Float(price) ?? 0)
             }
             .store(in: &cancellables)
         

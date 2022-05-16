@@ -28,8 +28,8 @@ class CustomerListViewModel: ObservableObject {
             .store(in: &subscriptions)
     }
     
-    func addCustomer(name: String, balance: Float = 0, key: String = "", email: String) {
-        let newCustomer = Customer(name: name, balance: (round(balance * 100) / 100.0), key: key, email: email)
+    func addCustomer(name: String, balance: Int = 0, key: String = "", email: String) {
+        let newCustomer = Customer(name: name, balance: balance, key: key, email: email)
         customerRepository.addCustomer(newCustomer)
     }
         
@@ -55,20 +55,24 @@ class CustomerListViewModel: ObservableObject {
         customerRepository.updateKey(of: customer, with: key)
     }
         
-    func addToBalance(of customer: Customer, by adjustment: Float) {
+    func addToBalance(of customer: Customer, by adjustment: Int) {
         guard customer.id != nil else { return }
-        
+        let newTransactionNumber = (customer.numberOfTransactions ?? 0) + 1
         let now = Date()
-        TransactionListViewModel.addTransaction(Transaction(name: "Added to balance", image: "addedBalance", amount: (round(adjustment * 100) / 100.0), newBalance: (round((customer.balance + adjustment) * 100) / 100.0), date: now, customerID: customer.id!))
+        
+        TransactionListViewModel.addTransaction(Transaction(name: "Added to balance", image: "addedBalance", amount: adjustment, newBalance: customer.balance + adjustment, date: now, customerID: customer.id!, transactionNumber: newTransactionNumber))
         customerRepository.addToBalanceOf(customer, by: adjustment)
+        customerRepository.updateTransactionNumber(of: customer, to: newTransactionNumber)
     }
     
-    func subtractFromBalance(of customer: Customer, by adjustment: Float) {
+    func subtractFromBalance(of customer: Customer, by adjustment: Int) {
         guard customer.id != nil else { return }
-        
+        let newTransactionNumber = (customer.numberOfTransactions ?? 0) + 1
         let now = Date()
-        TransactionListViewModel.addTransaction(Transaction(name: "Removed from balance", image: "removedBalance", amount: (round(adjustment * 100) / 100.0), newBalance: (round((customer.balance - adjustment) * 100) / 100.0), date: now, customerID: customer.id!))
+        
+        TransactionListViewModel.addTransaction(Transaction(name: "Removed from balance", image: "removedBalance", amount: adjustment, newBalance: customer.balance - adjustment, date: now, customerID: customer.id!, transactionNumber: newTransactionNumber))
         customerRepository.subtractFromBalanceOf(customer, by: adjustment)
+        customerRepository.updateTransactionNumber(of: customer, to: newTransactionNumber)
     }
     
     func customerBoughtWithKey(_ drinks: [Drink], key: String) {
@@ -78,7 +82,6 @@ class CustomerListViewModel: ObservableObject {
             let drinkPrices = drinks.map { $0.price }
             let sum = drinkPrices.reduce(into: 0) { $0 += $1 }
             customerRepository.subtractFromBalanceOfKeyHolder(with: key, by: sum)
-            print("Customer bought drinks for \(sum)")
         } else {
             return
         }
@@ -94,11 +97,27 @@ class CustomerListViewModel: ObservableObject {
         guard customer.id != nil else { return }
         
         if drinks.count == 1 {
-            customerRepository.subtractFromBalanceOf(customer, by: drinks.first!.price)
+            let newTransactionNumber = (customer.numberOfTransactions ?? 0) + 1
+            let drink = drinks.first!
+            let now = Date()
+
+            customerRepository.subtractFromBalanceOf(customer, by: drink.price)
+            TransactionListViewModel.addTransaction(Transaction(name: drink.name, image: drink.image.rawValue, amount: drink.price, newBalance: customer.balance - drink.price, date: now, customerID: customer.id!, transactionNumber: newTransactionNumber))
+            customerRepository.updateTransactionNumber(of: customer, to: newTransactionNumber)
         } else if drinks.count > 1 {
             let drinkPrices = drinks.map { $0.price }
             let sum = drinkPrices.reduce(into: 0) { $0 += $1 }
+            let now = Date()
+            var accumulatedPrice = 0
+            var newTransactionNumber = customer.numberOfTransactions ?? 1
+            
             customerRepository.subtractFromBalanceOf(customer, by: sum)
+            for drink in drinks {
+                accumulatedPrice += drink.price
+                TransactionListViewModel.addTransaction(Transaction(name: drink.name, image: drink.image.rawValue, amount: drink.price, newBalance: customer.balance - accumulatedPrice, date: now, customerID: customer.id!, transactionNumber: newTransactionNumber))
+                newTransactionNumber += 1
+            }
+            customerRepository.updateTransactionNumber(of: customer, to: newTransactionNumber)
         } else {
             return
         }
@@ -106,5 +125,11 @@ class CustomerListViewModel: ObservableObject {
     
     func sendEmails(from user: User, to customers: [Customer], with message: String, methods: [PaymentSelection]) async throws {
         try await EmailSender.sendEmails(to: customers, from: user, with: message, methods: methods)
+    }
+    
+    func oneTimeCustomerBalanceAdjustment(for user: User) {
+        for customerVM in customerVMs {
+            customerRepository.updateBalance(of: customerVM.customer, to: customerVM.customer.balance * 100)
+        }
     }
 }

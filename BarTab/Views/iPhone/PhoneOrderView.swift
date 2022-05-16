@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftUIX
 
 struct PhoneOrderView: View {
     @EnvironmentObject var avoider: KeyboardAvoider
@@ -18,12 +19,14 @@ struct PhoneOrderView: View {
     
     @Namespace var orderNamespace
     
+    @State var updating = false
+    
     @State var orderMultiple: Bool = false
     @State var orderList = [OrderViewModel]()
     var sum: String {
         let drinkPrices = orderList.map { $0.drink.price }
         let sum = drinkPrices.reduce(into: 0) { $0 += $1 }
-        return Currency.display(sum, with: userHandler.user)
+        return Currency.display(Float(sum), with: userHandler.user)
     }
     @State var tappedDrink: String?
     @State var flyToModal: Bool = false
@@ -149,7 +152,61 @@ struct PhoneOrderView: View {
                     .zIndex(3)
                     .padding(.bottom, 60)
             }
+            if updating {
+                updateView
+            }
         }
+        .onAppear {
+            updating = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                if let isUpdated = userHandler.user.isUpdated {
+                    if !isUpdated {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                            drinkListVM.oneTimeDrinkPriceAdjustment(for: userHandler.user)
+                            customerListVM.oneTimeCustomerBalanceAdjustment(for: userHandler.user)
+                            userHandler.setUpdatedState(to: true)
+                            for customerVM in customerListVM.customerVMs {
+                                let transactionListVM = TransactionListViewModel(customer: customerVM.customer)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    transactionListVM.oneTimeTransactionAdjustment(for: userHandler.user)
+                                }
+                            }
+                            updating = false
+                        }
+                    } else {
+                        updating = false
+                    }
+                } else {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                        drinkListVM.oneTimeDrinkPriceAdjustment(for: userHandler.user)
+                        customerListVM.oneTimeCustomerBalanceAdjustment(for: userHandler.user)
+                        userHandler.setUpdatedState(to: true)
+                        for customerVM in customerListVM.customerVMs {
+                            let transactionListVM = TransactionListViewModel(customer: customerVM.customer)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                transactionListVM.oneTimeTransactionAdjustment(for: userHandler.user)
+                            }
+                        }
+                        updating = false
+                    }
+                }
+            }
+        }
+    }
+    
+    var updateView: some View {
+        VStack {
+            Spacer()
+            HStack {
+            Spacer()
+                ProgressView()
+                    .progressViewStyle(.circular)
+            Spacer()
+            }
+            Spacer()
+        }
+        .background(VisualEffectBlurView(blurStyle: .dark)
+                        .ignoresSafeArea())
     }
     
     private func dismissConfirmOrderView() {

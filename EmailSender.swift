@@ -69,7 +69,7 @@ class EmailSender {
         let greeting = String(format: NSLocalizedString("Hello %@!", comment: ""), firstName ?? "")
         let currentBalanceText = String(format: NSLocalizedString("Your current balance at %@ is:", comment: ""), user.association ?? "BarTab")
         let missingEmail = String(format: NSLocalizedString("Email address missing", comment: ""))
-        let questionsText = String(format: NSLocalizedString("Inqueiries can be sent to:", comment: ""))
+        let questionsText = String(format: NSLocalizedString("Inquiries can be sent to:", comment: ""))
         let unsubscribeLinkText = String(format: NSLocalizedString("Unsubscribe", comment: ""))
         let unsubscribeMessageText = String(format: NSLocalizedString(" from future balance updates", comment: ""))
         let paymentOptions = EmailSender.makePaymentOptionComponents(for: methods)
@@ -164,7 +164,7 @@ class EmailSender {
                             <div class="col-lge" style="display:inline-block;width:100%;max-width:395px;vertical-align:top;padding-bottom:20px;font-family:Arial,sans-serif;font-size:16px;line-height:22px;color:#363636;">
                               <p style="margin-top:0;margin-bottom:12px;">\(greeting)</p>
                               <p style="margin-top:0;margin-bottom:18px;">\(currentBalanceText)</p>
-                              <p style="margin:0;background: #14213D; text-decoration: none; padding: 10px 25px; color: #\(color); border-radius: 4px; display:inline-block; mso-padding-alt:0;text-underline-color:#cccccc"><!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%;mso-text-raise:20pt">&nbsp;</i><![endif]--><span style="mso-text-raise:10pt;font-weight:bold;">\(Currency.display(customer.balance, with: user))</span><!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%">&nbsp;</i><![endif]--></a></p>
+                              <p style="margin:0;background: #14213D; text-decoration: none; padding: 10px 25px; color: #\(color); border-radius: 4px; display:inline-block; mso-padding-alt:0;text-underline-color:#cccccc"><!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%;mso-text-raise:20pt">&nbsp;</i><![endif]--><span style="mso-text-raise:10pt;font-weight:bold;">\(Currency.display(Float(customer.balance), with: user))</span><!--[if mso]><i style="letter-spacing: 25px;mso-font-width:-100%">&nbsp;</i><![endif]--></a></p>
                               <a href="https://bartab.info/history/\(customer.id ?? "")"><img src="https://firebasestorage.googleapis.com/v0/b/bartab-d48b2.appspot.com/o/history.png?alt=media&token=3f925ded-71ff-453b-a478-7822e20cbcc7" style="display: inline-block; width: 30px; height: auto; line-height: 50px; vertical-align: -8px; padding-left: 10px;"></a>
                             </div>
                             <!--[if mso]>

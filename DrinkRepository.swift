@@ -53,8 +53,8 @@ class DrinkRepository: ObservableObject {
         }
     }
     
-    func updateDrinkPrice(of drink: Drink, to price: Float) {
-        Firestore.firestore().collection("drinks").document(drink.id!).updateData(["price" : (round(price * 100) / 100.0)])
+    func updateDrinkPrice(of drink: Drink, to price: Int) {
+        Firestore.firestore().collection("drinks").document(drink.id!).updateData(["price" : price])
     }
     
     func updateDrinkName(of drink: Drink, to name: String) {

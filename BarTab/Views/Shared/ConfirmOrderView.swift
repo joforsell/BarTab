@@ -24,7 +24,7 @@ struct ConfirmOrderView: View, Animatable {
     
     @Binding var orderList: [OrderViewModel]
     @Binding var orderMultiple: Bool
-    var sum: Float {
+    var sum: Int {
         let drinkPrices = orderList.map { $0.drink.price }
         let sum = drinkPrices.reduce(into: 0) { $0 += $1 }
         return sum
@@ -64,14 +64,14 @@ struct ConfirmOrderView: View, Animatable {
                         .lineLimit(1)
                         .minimumScaleFactor(0.1)
                 
-                    Text(Currency.display(drinkVM.drink.price, with: userHandler.user)).font(.system(size: 60))
+                    Text(Currency.display(Float(drinkVM.drink.price), with: userHandler.user)).font(.system(size: 60))
                         .minimumScaleFactor(0.1)
                 } else {
                     Text("\(orderList.count) items").font(.system(size: 80, weight: .black))
                         .lineLimit(1)
                         .minimumScaleFactor(0.1)
                     
-                    Text(Currency.display(sum, with: userHandler.user)).font(.system(size: 60))
+                    Text(Currency.display(Float(sum), with: userHandler.user)).font(.system(size: 60))
                         .minimumScaleFactor(0.1)
                 }
                 Spacer()
@@ -92,18 +92,9 @@ struct ConfirmOrderView: View, Animatable {
                             Button("\(customerVM.customer.name)") {
                                 if orderList.isEmpty {
                                     customerListVM.customerBought([drinkVM.drink], customer: customerVM.customer)
-                                    if customerVM.customer.id != nil {
-                                        TransactionListViewModel.addTransaction(confirmationVM.makeTransaction(customer: customerVM.customer, drink: drinkVM.drink))
-                                    }
                                 } else {
                                     let drinks = orderList.map { $0.drink }
                                     customerListVM.customerBought(drinks, customer: customerVM.customer)
-                                    if customerVM.customer.id != nil {
-                                        let transactions = confirmationVM.makeTransactions(customer: customerVM.customer, drinks: drinks)
-                                        for transaction in transactions {
-                                            TransactionListViewModel.addTransaction(transaction)
-                                        }
-                                    }
                                 }
                                 currentCustomerName = customerVM.customer.name
                                 withAnimation {
@@ -184,7 +175,7 @@ struct ConfirmOrderView: View, Animatable {
                 orderMultiple = false
                 onClose()
             } }) {
-                ToastView(systemImage: ("checkmark.circle.fill", .accentColor, 50), title: "Your purchase was finalized", subTitle: "\(currentCustomerName) bought \(confirmationVM.selectedDrink?.drink.name.lowercased() ?? "\(orderList.count) items") for \(Currency.display(confirmationVM.selectedDrink?.drink.price ?? sum, with: userHandler.user)).")
+                ToastView(systemImage: ("checkmark.circle.fill", .accentColor, 50), title: "Your purchase was finalized", subTitle: "\(currentCustomerName) bought \(confirmationVM.selectedDrink?.drink.name.lowercased() ?? "\(orderList.count) items") for \(Currency.display(Float(confirmationVM.selectedDrink?.drink.price ?? sum), with: userHandler.user)).")
             }
             .background(VisualEffectBlurView(blurStyle: .dark))
             .clipShape(RoundedRectangle(cornerRadius: 20))

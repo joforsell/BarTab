@@ -35,7 +35,7 @@ struct MultipleOrderCardView: View {
                         .fixedSize()
                         .minimumScaleFactor(0.1)
 
-                    Text(Currency.display(orderVM.drink.price, with: userHandler.user))
+                    Text(Currency.display(Float(orderVM.drink.price), with: userHandler.user))
                         .font(isPhone() ? .body : .title2)
                         .bold()
                         .fixedSize()
