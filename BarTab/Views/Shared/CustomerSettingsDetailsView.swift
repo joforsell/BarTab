@@ -58,21 +58,21 @@ struct CustomerSettingsDetailView: View {
                         Circle()
                             .stroke(Color.white, lineWidth: 1)
                     }
-                    .overlay(alignment: .bottomTrailing) {
-                        Button {
-                            isShowingCameraPicker = true
-                        } label: {
-                            Image(systemName: "camera.on.rectangle.fill")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 30)
-                                .foregroundColor(.accentColor)
-                        }
-                        .offset(x: 40)
-                        .sheet(isPresented: $isShowingCameraPicker) {
-                            ImagePickerHostView(isShown: $isShowingCameraPicker, image: $image)
-                        }
-                    }
+//                    .overlay(alignment: .bottomTrailing) {
+//                        Button {
+//                            isShowingCameraPicker = true
+//                        } label: {
+//                            Image(systemName: "camera.on.rectangle.fill")
+//                                .resizable()
+//                                .scaledToFit()
+//                                .frame(width: 30)
+//                                .foregroundColor(.accentColor)
+//                        }
+//                        .offset(x: 40)
+//                        .sheet(isPresented: $isShowingCameraPicker) {
+//                            ImagePickerHostView(isShown: $isShowingCameraPicker, image: $image)
+//                        }
+//                    }
                 
                 VStack(alignment: .leading, spacing: 2) {
                     HStack(alignment: .bottom) {

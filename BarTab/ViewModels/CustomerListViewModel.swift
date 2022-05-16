@@ -57,21 +57,23 @@ class CustomerListViewModel: ObservableObject {
         
     func addToBalance(of customer: Customer, by adjustment: Int) {
         guard customer.id != nil else { return }
-        let newTransactionNumber = (customer.numberOfTransactions ?? 0) + 1
+        var newTransactionNumber = customer.numberOfTransactions ?? 1
         let now = Date()
         
         TransactionListViewModel.addTransaction(Transaction(name: "Added to balance", image: "addedBalance", amount: adjustment, newBalance: customer.balance + adjustment, date: now, customerID: customer.id!, transactionNumber: newTransactionNumber))
         customerRepository.addToBalanceOf(customer, by: adjustment)
+        newTransactionNumber += 1
         customerRepository.updateTransactionNumber(of: customer, to: newTransactionNumber)
     }
     
     func subtractFromBalance(of customer: Customer, by adjustment: Int) {
         guard customer.id != nil else { return }
-        let newTransactionNumber = (customer.numberOfTransactions ?? 0) + 1
+        var newTransactionNumber = (customer.numberOfTransactions ?? 0) + 1
         let now = Date()
         
         TransactionListViewModel.addTransaction(Transaction(name: "Removed from balance", image: "removedBalance", amount: adjustment, newBalance: customer.balance - adjustment, date: now, customerID: customer.id!, transactionNumber: newTransactionNumber))
         customerRepository.subtractFromBalanceOf(customer, by: adjustment)
+        newTransactionNumber += 1
         customerRepository.updateTransactionNumber(of: customer, to: newTransactionNumber)
     }
     
@@ -97,12 +99,13 @@ class CustomerListViewModel: ObservableObject {
         guard customer.id != nil else { return }
         
         if drinks.count == 1 {
-            let newTransactionNumber = (customer.numberOfTransactions ?? 0) + 1
+            var newTransactionNumber = customer.numberOfTransactions ?? 1
             let drink = drinks.first!
             let now = Date()
 
             customerRepository.subtractFromBalanceOf(customer, by: drink.price)
             TransactionListViewModel.addTransaction(Transaction(name: drink.name, image: drink.image.rawValue, amount: drink.price, newBalance: customer.balance - drink.price, date: now, customerID: customer.id!, transactionNumber: newTransactionNumber))
+            newTransactionNumber += 1
             customerRepository.updateTransactionNumber(of: customer, to: newTransactionNumber)
         } else if drinks.count > 1 {
             let drinkPrices = drinks.map { $0.price }

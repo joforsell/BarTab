@@ -171,10 +171,14 @@ struct PhoneOrderView: View {
                                     transactionListVM.oneTimeTransactionAdjustment(for: userHandler.user)
                                 }
                             }
-                            updating = false
+                            withAnimation {
+                                updating = false
+                            }
                         }
                     } else {
-                        updating = false
+                        withAnimation {
+                            updating = false
+                        }
                     }
                 } else {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
@@ -187,7 +191,9 @@ struct PhoneOrderView: View {
                                 transactionListVM.oneTimeTransactionAdjustment(for: userHandler.user)
                             }
                         }
-                        updating = false
+                        withAnimation {
+                            updating = false
+                        }
                     }
                 }
             }
