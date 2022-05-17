@@ -168,6 +168,9 @@ private extension PaywallView {
                 return paywallVM.purchase(package: monthlyPackage) { completed in
                     if completed {
                         authentication.userAuthState = .subscribed
+                        if let user = Auth.auth().currentUser {
+                            Purchases.shared.setEmail(user.email)
+                        }
                     }
                 }
             case .annual:
@@ -175,6 +178,9 @@ private extension PaywallView {
                 return paywallVM.purchase(package: annualPackage) { completed in
                     if completed {
                         authentication.userAuthState = .subscribed
+                        if let user = Auth.auth().currentUser {
+                            Purchases.shared.setEmail(user.email)
+                        }
                     }
                 }
             case .lifetime:
@@ -182,6 +188,9 @@ private extension PaywallView {
                 return paywallVM.purchase(package: lifetimePackage) { completed in
                     if completed {
                         authentication.userAuthState = .subscribed
+                        if let user = Auth.auth().currentUser {
+                            Purchases.shared.setEmail(user.email)
+                        }
                     }
                 }
             }
