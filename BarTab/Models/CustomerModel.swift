@@ -16,4 +16,5 @@ struct Customer: Codable, Identifiable {
     var email: String
     var userId: String?
     var numberOfTransactions: Int?
+    var profilePictureUrl: String?
 }

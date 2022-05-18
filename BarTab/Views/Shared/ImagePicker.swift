@@ -10,15 +10,18 @@ import SwiftUI
 
 struct ImagePicker: UIViewControllerRepresentable {
         
+    let customer: Customer
     @Binding var isShown: Bool
+    @Binding var error: UploadError?
     @Binding var image: Image?
+    @Binding var loading: Bool
 
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
         //
     }
     
     func makeCoordinator() -> ImagePickerCoordinator {
-        return ImagePickerCoordinator(isShown: $isShown, image: $image)
+        return ImagePickerCoordinator(customer: customer, isShown: $isShown, error: $error, image: $image, loading: $loading)
     }
     
     func makeUIViewController(context: Context) -> some UIViewController {
@@ -29,19 +32,40 @@ struct ImagePicker: UIViewControllerRepresentable {
 }
 
 class ImagePickerCoordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    
-    @Binding var isShown: Bool
-    @Binding var image: Image?
 
-    init(isShown: Binding<Bool>, image: Binding<Image?>) {
+    let customer: Customer
+    @Binding var isShown: Bool
+    @Binding var error: UploadError?
+    @Binding var image: Image?
+    @Binding var loading: Bool
+
+    init(customer: Customer, isShown: Binding<Bool>, error: Binding<UploadError?>, image: Binding<Image?>, loading: Binding<Bool>) {
+        self.customer = customer
         _isShown = isShown
+        _error = error
         _image = image
+        _loading = loading
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let uiImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-        image = Image(uiImage: uiImage)
-        isShown = false
+        loading = true
+        ImageCloud.uploadProfilePicture(uiImage, for: customer) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let error):
+                print("Failed: \(error)")
+                self.error = error
+                self.loading = false
+                self.isShown = false
+            case .success(let url):
+                print("Got url: \(url)")
+                CustomerRepository.updateProfilePictureUrl(for: self.customer, to: url)
+                self.image = Image(uiImage: uiImage)
+                self.loading = false
+                self.isShown = false
+            }
+        }
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

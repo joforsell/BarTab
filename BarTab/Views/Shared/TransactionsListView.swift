@@ -11,13 +11,13 @@ import SwiftUIX
 struct TransactionsListView: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject var transactionListVM: TransactionListViewModel
-    let customer: Customer?
+    @Binding var customer: Customer
     let onClose: () -> Void
     
-    init(customer: Customer, onClose: @escaping () -> Void) {
-        self.customer = customer
+    init(customer: Binding<Customer>, onClose: @escaping () -> Void) {
+        _customer = customer
         self.onClose = onClose
-        _transactionListVM = StateObject(wrappedValue: TransactionListViewModel(customer: customer))
+        _transactionListVM = StateObject(wrappedValue: TransactionListViewModel(customer: customer.wrappedValue))
     }
     
     var body: some View {
@@ -31,22 +31,51 @@ struct TransactionsListView: View {
                         onClose()
                     }
                 Spacer()
-                Text(customer?.name ?? "Unknown")
+                Text(customer.name)
                     .foregroundColor(.white)
                     .font(.title3)
                 Spacer()
-                Image(systemName: "person")
-                    .resizable()
-                    .scaledToFit()
-                    .scaleEffect(0.6)
-                    .foregroundColor(.white)
-                    .frame(height: 50)
-                    .clipShape(Circle())
-                    .overlay {
-                        Circle()
-                            .stroke(Color.white.opacity(0.3), lineWidth: 1)
+                Circle()
+                    .foregroundColor(.clear)
+                    .frame(width: 50, height: 50)
+                    .background {
+                        CacheableAsyncImage(url: $customer.profilePictureUrl, animation: .easeIn, transition: .opacity) { phase in
+                            switch phase {
+                            case .empty:
+                                ProgressView()
+                                    .frame(width: 50, height: 50)
+                                    .clipShape(Circle())
+                                    .overlay {
+                                        Circle()
+                                            .stroke(Color.white, lineWidth: 1)
+                                    }
+                            case .success(let image):
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(maxHeight: 50)
+                                    .clipShape(Circle())
+                                    .overlay {
+                                        Circle()
+                                            .stroke(Color.white.opacity(0.3), lineWidth: 1)
+                                    }
+                            case .failure( _):
+                                Image(systemName: "person")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .scaleEffect(0.6)
+                                    .frame(width: 50, height: 50)
+                                    .clipShape(Circle())
+                                    .overlay {
+                                        Circle()
+                                            .stroke(Color.white.opacity(0.3), lineWidth: 1)
+                                    }
+                            @unknown default:
+                                EmptyView()
+                            }
+                        }
                     }
-                    .padding()
+                    .padding(.trailing, 16)
             }
             .frame(height: 50)
             .padding(.top, 8)
