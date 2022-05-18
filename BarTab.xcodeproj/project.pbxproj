@@ -93,6 +93,8 @@
 		3E873022275961B500F8E610 /* DrinkCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E873021275961B500F8E610 /* DrinkCardView.swift */; };
 		3E8730242759755100F8E610 /* ConfirmOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8730232759755100F8E610 /* ConfirmOrderView.swift */; };
 		3E88B0F5276A7814003561E1 /* AddDrinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E88B0F4276A7814003561E1 /* AddDrinkView.swift */; };
+		3E89FAD028339EFF001C1531 /* CachedImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E89FACF28339EFF001C1531 /* CachedImageManager.swift */; };
+		3E89FAD22833A2E1001C1531 /* CacheableAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E89FAD12833A2E1001C1531 /* CacheableAsyncImage.swift */; };
 		3E8EF682280F49030044B315 /* BalanceUpdateEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EF681280F49030044B315 /* BalanceUpdateEmailView.swift */; };
 		3E8EF684280F4ECB0044B315 /* BalanceUpdateEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EF683280F4ECB0044B315 /* BalanceUpdateEmailViewModel.swift */; };
 		3E8FAA18279C336C00FBA06D /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8FAA17279C336C00FBA06D /* SignInView.swift */; };
@@ -189,6 +191,8 @@
 		3E873021275961B500F8E610 /* DrinkCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkCardView.swift; sourceTree = "<group>"; };
 		3E8730232759755100F8E610 /* ConfirmOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOrderView.swift; sourceTree = "<group>"; };
 		3E88B0F4276A7814003561E1 /* AddDrinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDrinkView.swift; sourceTree = "<group>"; };
+		3E89FACF28339EFF001C1531 /* CachedImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImageManager.swift; sourceTree = "<group>"; };
+		3E89FAD12833A2E1001C1531 /* CacheableAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheableAsyncImage.swift; sourceTree = "<group>"; };
 		3E8EF681280F49030044B315 /* BalanceUpdateEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceUpdateEmailView.swift; sourceTree = "<group>"; };
 		3E8EF683280F4ECB0044B315 /* BalanceUpdateEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceUpdateEmailViewModel.swift; sourceTree = "<group>"; };
 		3E8FAA17279C336C00FBA06D /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
@@ -284,7 +288,7 @@
 				3E817152275574AF00F4B0D3 /* Views */,
 				3E7BEFE226FCDD7400453C1B /* ViewModels */,
 				3E7BEFDF26FCDD2D00453C1B /* Models */,
-				3EBC4984270A4D64006B4857 /* Repositories */,
+				3EBC4984270A4D64006B4857 /* Network */,
 				3E5F335C2712AD87005340B6 /* User */,
 				3E65093C26FCB26900ACDF41 /* Assets.xcassets */,
 				3E68107E27081D6D00C0F5B0 /* GoogleService-Info.plist */,
@@ -445,6 +449,8 @@
 				3E7033B527E90CD500245A93 /* AsyncButton.swift */,
 				3E7033B927E9131E00245A93 /* ErrorPrompt.swift */,
 				3E93A13028172E64001E6AA7 /* HalfSheet.swift */,
+				3E89FACF28339EFF001C1531 /* CachedImageManager.swift */,
+				3E89FAD12833A2E1001C1531 /* CacheableAsyncImage.swift */,
 			);
 			path = "Utilities and helper views";
 			sourceTree = "<group>";
@@ -461,7 +467,7 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		3EBC4984270A4D64006B4857 /* Repositories */ = {
+		3EBC4984270A4D64006B4857 /* Network */ = {
 			isa = PBXGroup;
 			children = (
 				3EBC4985270A4D7F006B4857 /* CustomerRepository.swift */,
@@ -469,7 +475,7 @@
 				3E8645D42718A3C0009BFFAA /* EmailSender.swift */,
 				3E8FB13D282E4716009E0B01 /* ImageCloud.swift */,
 			);
-			name = Repositories;
+			name = Network;
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -576,6 +582,7 @@
 				3E8645D52718A3C0009BFFAA /* EmailSender.swift in Sources */,
 				3E678777275D62170072259F /* AddCustomerView.swift in Sources */,
 				3E7BEFE426FCDD9900453C1B /* CustomerListViewModel.swift in Sources */,
+				3E89FAD22833A2E1001C1531 /* CacheableAsyncImage.swift in Sources */,
 				3E6916D4276E78EE009E80D7 /* UpdateTagView.swift in Sources */,
 				3E5DFDC82787A8AA0056F0CC /* KeyboardAvoider.swift in Sources */,
 				3E5DFDCA2787A91E0056F0CC /* KeyboardAvoiderPreferences.swift in Sources */,
@@ -650,6 +657,7 @@
 				3E65093926FCB26900ACDF41 /* BarTabApp.swift in Sources */,
 				3E76DD1927E1D4D500F78DE5 /* Currency.swift in Sources */,
 				3E873022275961B500F8E610 /* DrinkCardView.swift in Sources */,
+				3E89FAD028339EFF001C1531 /* CachedImageManager.swift in Sources */,
 				3E77F99B282FA823005E2EBE /* ImagePickerHostView.swift in Sources */,
 				3E70E0F9275EB2EC0020B429 /* DrinkSettingsDetailsView.swift in Sources */,
 			);
@@ -797,7 +805,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = BarTab/BarTab.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"BarTab/Preview Content\"";
 				DEVELOPMENT_TEAM = 5PNV6G957X;
 				ENABLE_PREVIEWS = YES;
@@ -823,7 +831,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = BarTab/BarTab.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"BarTab/Preview Content\"";
 				DEVELOPMENT_TEAM = 5PNV6G957X;
 				ENABLE_PREVIEWS = YES;

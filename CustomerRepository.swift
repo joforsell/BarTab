@@ -61,6 +61,12 @@ class CustomerRepository: ObservableObject {
         Firestore.firestore().collection("customers").document(customer.id!).updateData([ "email" : email ])
     }
     
+    static func updateProfilePictureUrl(for customer: Customer, to url: URL) {
+        guard customer.id != nil else { return }
+        let urlString = url.absoluteString
+        Firestore.firestore().collection("customers").document(customer.id!).updateData(["profilePictureUrl": urlString])
+    }
+    
     func addToBalanceOf(_ customer: Customer, by adjustment: Int) {
         Firestore.firestore().collection("customers").document(customer.id!).updateData([ "balance" : FieldValue.increment(Int64(adjustment)) ])
     }

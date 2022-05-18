@@ -246,16 +246,52 @@ struct PhoneSettingsView: View {
         @EnvironmentObject var userHandler: UserHandling
         @Binding var customerVM: CustomerViewModel
         
+        let rowHeight: CGFloat = 32
+        var imageHeight: CGFloat {
+            rowHeight * 1.2
+        }
+        
         var body: some View {
             HStack {
-                Image(systemName: "person")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .scaleEffect(0.6)
-                    .clipShape(Circle())
-                    .overlay {
-                        Circle()
-                            .stroke(Color.white.opacity(0.3), lineWidth: 1)
+                Circle()
+                    .foregroundColor(.clear)
+                    .frame(width: imageHeight, height: imageHeight)
+                    .background {
+                        CacheableAsyncImage(url: $customerVM.profilePictureUrl, animation: .easeIn, transition: .opacity) { phase in
+                            switch phase {
+                            case .empty:
+                                ProgressView()
+                                    .frame(width: imageHeight, height: imageHeight)
+                                    .clipShape(Circle())
+                                    .overlay {
+                                        Circle()
+                                            .stroke(Color.white, lineWidth: 1)
+                                    }
+                            case .success(let image):
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(maxHeight: imageHeight)
+                                    .clipShape(Circle())
+                                    .overlay {
+                                        Circle()
+                                            .stroke(Color.white.opacity(0.3), lineWidth: 1)
+                                    }
+                            case .failure( _):
+                                Image(systemName: "person")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .scaleEffect(0.6)
+                                    .frame(width: imageHeight, height: imageHeight)
+                                    .clipShape(Circle())
+                                    .overlay {
+                                        Circle()
+                                            .stroke(Color.white.opacity(0.3), lineWidth: 1)
+                                    }
+                            @unknown default:
+                                EmptyView()
+                            }
+                        }
                     }
                 VStack(alignment: .leading) {
                     Text(customerVM.customer.name)
@@ -271,7 +307,7 @@ struct PhoneSettingsView: View {
                     .foregroundColor(.white.opacity(0.2))
             }
             .foregroundColor(.white)
-            .frame(height: 32)
+            .frame(height: rowHeight)
         }
     }
     

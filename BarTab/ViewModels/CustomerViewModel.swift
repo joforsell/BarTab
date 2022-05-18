@@ -15,6 +15,7 @@ class CustomerViewModel: ObservableObject, Identifiable {
     @Published var email = ""
     @Published var balanceAsString = ""
     @Published var checked = false
+    @Published var profilePictureUrl: String?
     @Published var dateOfLastTransaction: Date?
     
     var id = ""
@@ -67,6 +68,13 @@ class CustomerViewModel: ObservableObject, Identifiable {
                 return transactionListVM.transactions.last?.date
             }
             .assign(to: \.dateOfLastTransaction, on: self)
+            .store(in: &cancellables)
+        
+        $customer
+            .compactMap { customer in
+                customer.profilePictureUrl
+            }
+            .assign(to: \.profilePictureUrl, on: self)
             .store(in: &cancellables)
         
         $name

@@ -21,14 +21,7 @@ struct CustomerSettingsDetailView: View {
     @Binding var detailsViewShown: DetailViewRouter
     
     @State var isShowingCameraPicker = false
-    @State var image: Image? = nil
-    var profileImage: Image {
-        if let image = image {
-            return image
-        } else {
-            return Image(systemName: "person")
-        }
-    }
+    @State var image: Image?
     
     @State private var editingName = false
     @State private var editingEmail = false
@@ -40,6 +33,7 @@ struct CustomerSettingsDetailView: View {
     @State private var addingToBalance = true
     
     @State private var showError = false
+    @State var error: UploadError?
     
     var body: some View {
         HStack {
@@ -47,32 +41,103 @@ struct CustomerSettingsDetailView: View {
             VStack(alignment: .center, spacing: 16) {
                 Spacer()
                 
-                profileImage
-                    .resizable()
-                    .aspectRatio(contentMode: image == nil ? .fit : .fill)
-                    .scaleEffect(0.7)
-                    .foregroundColor(.white)
-                    .frame(maxHeight: 200)
-                    .clipShape(Circle())
-                    .overlay {
-                        Circle()
-                            .stroke(Color.white, lineWidth: 1)
+                if let image = image {
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .scaleEffect(0.7)
+                        .foregroundColor(.white)
+                        .frame(maxHeight: 200)
+                        .clipShape(Circle())
+                        .overlay {
+                            Circle()
+                                .stroke(Color.white, lineWidth: 1)
+                        }
+                        .overlay(alignment: .bottom) {
+                            Button {
+                                isShowingCameraPicker = true
+                            } label: {
+                                Image(systemName: "camera.on.rectangle.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 30)
+                                    .foregroundColor(.accentColor)
+                            }
+                            .offset(x: 100)
+                        }
+                        .sheet(isPresented: $isShowingCameraPicker) {
+                            ImagePickerHostView(customer: customerVM.customer, isShown: $isShowingCameraPicker, error: $error, image: $image)
+                        }
+                } else {
+                    CacheableAsyncImage(url: $customerVM.profilePictureUrl, animation: .easeInOut, transition: .move(edge: .trailing)) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView()
+                                .frame(width: 200, height: 200)
+                                .clipShape(Circle())
+                                .overlay {
+                                    Circle()
+                                        .stroke(Color.white, lineWidth: 1)
+                                }
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .scaleEffect(0.7)
+                                .foregroundColor(.white)
+                                .frame(maxHeight: 200)
+                                .clipShape(Circle())
+                                .overlay {
+                                    Circle()
+                                        .stroke(Color.white, lineWidth: 1)
+                                }
+                                .overlay(alignment: .bottom) {
+                                    Button {
+                                        isShowingCameraPicker = true
+                                    } label: {
+                                        Image(systemName: "camera.on.rectangle.fill")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 30)
+                                            .foregroundColor(.accentColor)
+                                    }
+                                    .offset(x: 100)
+                                }
+                        case .failure( _):
+                            Image(systemName: "person")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .scaleEffect(0.7)
+                                .foregroundColor(.white)
+                                .frame(maxHeight: 200)
+                                .clipShape(Circle())
+                                .overlay {
+                                    Circle()
+                                        .stroke(Color.white, lineWidth: 1)
+                                }
+                                .overlay(alignment: .bottom) {
+                                    Button {
+                                        isShowingCameraPicker = true
+                                    } label: {
+                                        Image(systemName: "camera.on.rectangle.fill")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 30)
+                                            .foregroundColor(.accentColor)
+                                    }
+                                    .offset(x: 100)
+                                }
+                        @unknown default:
+                            EmptyView()
+                        }
                     }
-//                    .overlay(alignment: .bottomTrailing) {
-//                        Button {
-//                            isShowingCameraPicker = true
-//                        } label: {
-//                            Image(systemName: "camera.on.rectangle.fill")
-//                                .resizable()
-//                                .scaledToFit()
-//                                .frame(width: 30)
-//                                .foregroundColor(.accentColor)
-//                        }
-//                        .offset(x: 40)
-//                        .sheet(isPresented: $isShowingCameraPicker) {
-//                            ImagePickerHostView(isShown: $isShowingCameraPicker, image: $image)
-//                        }
-//                    }
+                    .sheet(isPresented: $isShowingCameraPicker) {
+                        ImagePickerHostView(customer: customerVM.customer, isShown: $isShowingCameraPicker, error: $error, image: $image)
+                    }
+                }
+                    
+                
+                
                 
                 VStack(alignment: .leading, spacing: 2) {
                     HStack(alignment: .bottom) {
@@ -370,6 +435,7 @@ struct CustomerSettingsDetailView: View {
             }
         }
         .preferredColorScheme(.dark)
+        
     }
     
     private func isPhone() -> Bool {
