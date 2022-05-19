@@ -77,14 +77,45 @@ private struct CustomerRow: View {
     
     var body: some View {
         HStack {
-            Image(systemName: "person")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .scaleEffect(0.6)
-                .clipShape(Circle())
-                .overlay {
-                    Circle()
-                        .stroke(Color.white.opacity(0.3), lineWidth: 1)
+            Circle()
+                .foregroundColor(.clear)
+                .frame(width: 50, height: 50)
+                .background {
+                    CacheableAsyncImage(url: $customerVM.profilePictureUrl, animation: .easeIn, transition: .opacity) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView()
+                                .frame(width: 50, height: 50)
+                                .clipShape(Circle())
+                                .overlay {
+                                    Circle()
+                                        .stroke(Color.white, lineWidth: 1)
+                                }
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(maxHeight: 50)
+                                .clipShape(Circle())
+                                .overlay {
+                                    Circle()
+                                        .stroke(Color.white.opacity(0.3), lineWidth: 1)
+                                }
+                        case .failure( _):
+                            Image(systemName: "person")
+                                .resizable()
+                                .scaledToFit()
+                                .scaleEffect(0.6)
+                                .frame(width: 50, height: 50)
+                                .clipShape(Circle())
+                                .overlay {
+                                    Circle()
+                                        .stroke(Color.white.opacity(0.3), lineWidth: 1)
+                                }
+                        @unknown default:
+                            EmptyView()
+                        }
+                    }
                 }
             VStack(alignment: .leading) {
                 Text(customerVM.customer.name)

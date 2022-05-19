@@ -46,14 +46,11 @@ struct PaywallView: View {
             ScrollView {
                 VStack {
                     Spacer()
-                    Image("beer")
+                    Image("yellow_logo_no_bg")
                         .resizable()
                         .scaledToFit()
-                        .foregroundColor(.accentColor)
-                        .frame(width: columnWidth * 0.3)
+                        .frame(width: columnWidth * 0.8)
                         .padding()
-                    Image("logotext")
-                        .frame(width: columnWidth * 0.1)
                         .padding(.bottom, 48)
                     Spacer()
                     sellingPoints
@@ -74,10 +71,10 @@ struct PaywallView: View {
                         subContinueButton
                         HStack {
                             Spacer()
-                            Link(LocalizedStringKey("Privacy policy"), destination: URL(string: "https://bartab.info/privacypolicy.html")!)
+                            Link(LocalizedStringKey("Privacy policy"), destination: URL(string: "https://bartab.info/privacypolicy")!)
                                 .foregroundColor(.accentColor)
                             Text("and")
-                            Link(LocalizedStringKey("Terms of use"), destination: URL(string: "https://bartab.info/termsandconditions.html")!)
+                            Link(LocalizedStringKey("Terms of use"), destination: URL(string: "https://bartab.info/termsandconditions")!)
                                 .foregroundColor(.accentColor)
                             Spacer()
                         }

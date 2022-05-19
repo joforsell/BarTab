@@ -27,18 +27,17 @@ struct CreateAccountView: View {
     @State private var isShowingToast = false
     
     @FocusState private var focused: FocusedField?
+    
+    let columnWidth: CGFloat = 300
 
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
             KeyboardAvoiding(with: avoider) {
                 Spacer()
-                Image("beer")
+                Image("yellow_logo_no_bg")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 150)
-                    .foregroundColor(.accentColor)
-                Image("logotext")
-                    .frame(width: 50)
+                    .frame(width: columnWidth * 0.8)
                 Spacer()
                 emailInput
                 passwordInput
@@ -58,11 +57,11 @@ struct CreateAccountView: View {
                 finishButton
                 Spacer()
                 HStack {
-                    Link("Privacy policy", destination: URL(string: "https://bartab.info/privacypolicy.html")!)
+                    Link("Privacy policy", destination: URL(string: "https://bartab.info/privacypolicy")!)
                     Spacer()
-                    Link("Terms of use", destination: URL(string: "https://bartab.info/termsandconditions.html")!)
+                    Link("Terms of use", destination: URL(string: "https://bartab.info/termsandconditions")!)
                 }
-                .frame(width: 300)
+                .frame(width: columnWidth)
                 .padding(.vertical)
             }
         }
@@ -123,7 +122,7 @@ struct CreateAccountView: View {
             }
             
         }
-        .frame(width: 300, height: 24)
+        .frame(width: columnWidth, height: 24)
         .padding()
         .foregroundColor(.white)
         .background(Color.gray.opacity(0.2))
@@ -203,7 +202,7 @@ struct CreateAccountView: View {
                     .offset(y: -10)
             }
         }
-        .frame(width: 300, height: 24)
+        .frame(width: columnWidth, height: 24)
         .padding()
         .foregroundColor(.white)
         .background(Color.gray.opacity(0.2))
@@ -215,7 +214,7 @@ struct CreateAccountView: View {
     
     private var finishButton: some View {
         Color.clear
-            .frame(width: 300, height: 16)
+            .frame(width: columnWidth, height: 16)
             .padding()
             .overlay {
                 Button {
