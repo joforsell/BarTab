@@ -20,8 +20,10 @@ struct CustomerSettingsDetailView: View {
     @Binding var customerVM: CustomerViewModel
     @Binding var detailsViewShown: DetailViewRouter
     
+    @State var isShowingImageAlternatives = false
     @State var isShowingCameraPicker = false
     @State var image: Image?
+    @State var isCamera = false
     
     @State private var editingName = false
     @State private var editingEmail = false
@@ -55,7 +57,7 @@ struct CustomerSettingsDetailView: View {
                         }
                         .overlay(alignment: .bottom) {
                             Button {
-                                isShowingCameraPicker = true
+                                isShowingImageAlternatives = true
                             } label: {
                                 Image(systemName: "camera.on.rectangle.fill")
                                     .resizable()
@@ -65,8 +67,8 @@ struct CustomerSettingsDetailView: View {
                             }
                             .offset(x: 100)
                         }
-                        .sheet(isPresented: $isShowingCameraPicker) {
-                            ImagePickerHostView(customer: customerVM.customer, isShown: $isShowingCameraPicker, error: $error, image: $image)
+                        .fullScreenCover(isPresented: $isShowingCameraPicker) {
+                            ImagePickerHostView(customer: customerVM.customer, isShown: $isShowingCameraPicker, error: $error, image: $image, isCamera: isCamera)
                         }
                 } else {
                     CacheableAsyncImage(url: $customerVM.profilePictureUrl, animation: .easeInOut, transition: .move(edge: .trailing)) { phase in
@@ -83,8 +85,8 @@ struct CustomerSettingsDetailView: View {
                             image
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-                                .scaleEffect(0.7)
                                 .foregroundColor(.white)
+                                .scaleEffect(isPhone() ? 1 : 0.4)
                                 .frame(maxHeight: 200)
                                 .clipShape(Circle())
                                 .overlay {
@@ -93,7 +95,7 @@ struct CustomerSettingsDetailView: View {
                                 }
                                 .overlay(alignment: .bottom) {
                                     Button {
-                                        isShowingCameraPicker = true
+                                        isShowingImageAlternatives = true
                                     } label: {
                                         Image(systemName: "camera.on.rectangle.fill")
                                             .resizable()
@@ -117,7 +119,7 @@ struct CustomerSettingsDetailView: View {
                                 }
                                 .overlay(alignment: .bottom) {
                                     Button {
-                                        isShowingCameraPicker = true
+                                        isShowingImageAlternatives = true
                                     } label: {
                                         Image(systemName: "camera.on.rectangle.fill")
                                             .resizable()
@@ -131,8 +133,8 @@ struct CustomerSettingsDetailView: View {
                             EmptyView()
                         }
                     }
-                    .sheet(isPresented: $isShowingCameraPicker) {
-                        ImagePickerHostView(customer: customerVM.customer, isShown: $isShowingCameraPicker, error: $error, image: $image)
+                    .fullScreenCover(isPresented: $isShowingCameraPicker) {
+                        ImagePickerHostView(customer: customerVM.customer, isShown: $isShowingCameraPicker, error: $error, image: $image, isCamera: isCamera)
                     }
                 }
                     
@@ -432,6 +434,11 @@ struct CustomerSettingsDetailView: View {
                         .opacity(0.6)
                         .contentShape(Rectangle().size(width: 40, height: 40))
                 }
+            }
+        }
+        .overlay(alignment: .center) {
+            if isShowingImageAlternatives {
+                ImageAlternativesView(isShowingImageAlternatives: $isShowingImageAlternatives, isShowingCameraPicker: $isShowingCameraPicker, isCamera: $isCamera)
             }
         }
         .preferredColorScheme(.dark)

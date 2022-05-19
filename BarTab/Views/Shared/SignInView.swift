@@ -28,17 +28,16 @@ struct SignInView: View {
     
     @FocusState private var focused: FocusedField?
     
+    let columnWidth: CGFloat = 300
+    
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
             Spacer()
             KeyboardAvoiding(with: avoider) {
-                Image("beer")
+                Image("yellow_logo_no_bg")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 150)
-                    .foregroundColor(.accentColor)
-                Image("logotext")
-                    .frame(width: 50)
+                    .frame(width: columnWidth * 0.8)
                 Spacer()
                 emailInput
                 passwordInput
@@ -73,9 +72,9 @@ struct SignInView: View {
                         Text("Forgot password?")
                     }
                 }
-                .frame(width: 300)
+                .frame(width: columnWidth)
                 Divider()
-                    .frame(width: 300)
+                    .frame(width: columnWidth)
                     .padding()
                 Button {
                     isShowingCreateAccountView = true
@@ -157,7 +156,7 @@ struct SignInView: View {
             }
             
         }
-        .frame(width: 300, height: 24)
+        .frame(width: columnWidth, height: 24)
         .padding()
         .foregroundColor(.white)
         .background(Color.gray.opacity(0.2))
@@ -238,7 +237,7 @@ struct SignInView: View {
                     .offset(y: -10)
             }
         }
-        .frame(width: 300, height: 24)
+        .frame(width: columnWidth, height: 24)
         .padding()
         .foregroundColor(.white)
         .background(Color.gray.opacity(0.2))
@@ -250,7 +249,7 @@ struct SignInView: View {
     
     private var finishButton: some View {
         Color.clear
-            .frame(width: 300, height: 16)
+            .frame(width: columnWidth, height: 16)
             .padding()
             .overlay {
                 Button {

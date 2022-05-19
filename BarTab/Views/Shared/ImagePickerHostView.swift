@@ -16,9 +16,10 @@ struct ImagePickerHostView: View {
     @Binding var error: UploadError?
     @Binding var image: Image?
     @State var loading = false
+    let isCamera: Bool
 
     var body: some View {
-        ImagePicker(customer: customer, isShown: $isShown, error: $error, image: $image, loading: $loading)
+        ImagePicker(customer: customer, isShown: $isShown, error: $error, image: $image, loading: $loading, isCamera: isCamera)
             .overlay {
                 if loading {
                     VStack(alignment: .center) {

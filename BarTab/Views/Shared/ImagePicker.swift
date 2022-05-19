@@ -15,6 +15,7 @@ struct ImagePicker: UIViewControllerRepresentable {
     @Binding var error: UploadError?
     @Binding var image: Image?
     @Binding var loading: Bool
+    let isCamera: Bool
 
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
         //
@@ -27,6 +28,9 @@ struct ImagePicker: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> some UIViewController {
         let picker = UIImagePickerController()
         picker.delegate = context.coordinator
+        if isCamera {
+            picker.sourceType = .camera
+        }
         return picker
     }
 }
