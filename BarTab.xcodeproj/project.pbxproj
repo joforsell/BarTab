@@ -90,24 +90,24 @@
 		3E84202B282A69AC003CE3F1 /* MultipleOrderCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E84202A282A69AC003CE3F1 /* MultipleOrderCardView.swift */; };
 		3E850705279708F400A56E17 /* UserSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E850704279708F400A56E17 /* UserSettingsView.swift */; };
 		3E8507072797578300A56E17 /* UserSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8507062797578300A56E17 /* UserSettingsViewModel.swift */; };
-		3E8645D52718A3C0009BFFAA /* EmailSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8645D42718A3C0009BFFAA /* EmailSender.swift */; };
 		3E873022275961B500F8E610 /* DrinkCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E873021275961B500F8E610 /* DrinkCardView.swift */; };
 		3E8730242759755100F8E610 /* ConfirmOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8730232759755100F8E610 /* ConfirmOrderView.swift */; };
 		3E88B0F5276A7814003561E1 /* AddDrinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E88B0F4276A7814003561E1 /* AddDrinkView.swift */; };
 		3E89FAD028339EFF001C1531 /* CachedImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E89FACF28339EFF001C1531 /* CachedImageManager.swift */; };
 		3E89FAD22833A2E1001C1531 /* CacheableAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E89FAD12833A2E1001C1531 /* CacheableAsyncImage.swift */; };
+		3E8DE2012838425A00148C62 /* EmailSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8DE1FD2838425A00148C62 /* EmailSender.swift */; };
+		3E8DE2022838425A00148C62 /* ImageCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8DE1FE2838425A00148C62 /* ImageCloud.swift */; };
+		3E8DE2032838425A00148C62 /* CustomerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8DE1FF2838425A00148C62 /* CustomerRepository.swift */; };
+		3E8DE2042838425A00148C62 /* DrinkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8DE2002838425A00148C62 /* DrinkRepository.swift */; };
 		3E8EF682280F49030044B315 /* BalanceUpdateEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EF681280F49030044B315 /* BalanceUpdateEmailView.swift */; };
 		3E8EF684280F4ECB0044B315 /* BalanceUpdateEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EF683280F4ECB0044B315 /* BalanceUpdateEmailViewModel.swift */; };
 		3E8FAA18279C336C00FBA06D /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8FAA17279C336C00FBA06D /* SignInView.swift */; };
-		3E8FB13E282E4716009E0B01 /* ImageCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8FB13D282E4716009E0B01 /* ImageCloud.swift */; };
 		3E8FB140282E57B8009E0B01 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8FB13F282E57B8009E0B01 /* ImagePicker.swift */; };
 		3E920618282CE4A2007BDD8A /* OrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E920617282CE4A2007BDD8A /* OrderViewModel.swift */; };
 		3E93A12D2816692E001E6AA7 /* PaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E93A12C2816692E001E6AA7 /* PaymentMethod.swift */; };
 		3E93A12F28172939001E6AA7 /* MultiSelectionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E93A12E28172939001E6AA7 /* MultiSelectionPickerView.swift */; };
 		3E93A13128172E64001E6AA7 /* HalfSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E93A13028172E64001E6AA7 /* HalfSheet.swift */; };
 		3E96528F27824BBD00815A74 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E96528E27824BBD00815A74 /* StoreKit.framework */; };
-		3EBC4986270A4D7F006B4857 /* CustomerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBC4985270A4D7F006B4857 /* CustomerRepository.swift */; };
-		3EBC4988270B8845006B4857 /* DrinkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBC4987270B8845006B4857 /* DrinkRepository.swift */; };
 		3EEF5BD427CF67D000CC9AAF /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEF5BD327CF67D000CC9AAF /* CustomTabBarView.swift */; };
 		3EF404A027E373C900F67C3F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3EF404A227E373C900F67C3F /* Localizable.strings */; };
 		3EF404A427E53E7200F67C3F /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF404A327E53E7200F67C3F /* Keys.swift */; };
@@ -189,24 +189,24 @@
 		3E84202A282A69AC003CE3F1 /* MultipleOrderCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleOrderCardView.swift; sourceTree = "<group>"; };
 		3E850704279708F400A56E17 /* UserSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsView.swift; sourceTree = "<group>"; };
 		3E8507062797578300A56E17 /* UserSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsViewModel.swift; sourceTree = "<group>"; };
-		3E8645D42718A3C0009BFFAA /* EmailSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSender.swift; sourceTree = "<group>"; };
 		3E873021275961B500F8E610 /* DrinkCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkCardView.swift; sourceTree = "<group>"; };
 		3E8730232759755100F8E610 /* ConfirmOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOrderView.swift; sourceTree = "<group>"; };
 		3E88B0F4276A7814003561E1 /* AddDrinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDrinkView.swift; sourceTree = "<group>"; };
 		3E89FACF28339EFF001C1531 /* CachedImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImageManager.swift; sourceTree = "<group>"; };
 		3E89FAD12833A2E1001C1531 /* CacheableAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheableAsyncImage.swift; sourceTree = "<group>"; };
+		3E8DE1FD2838425A00148C62 /* EmailSender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailSender.swift; sourceTree = "<group>"; };
+		3E8DE1FE2838425A00148C62 /* ImageCloud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCloud.swift; sourceTree = "<group>"; };
+		3E8DE1FF2838425A00148C62 /* CustomerRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerRepository.swift; sourceTree = "<group>"; };
+		3E8DE2002838425A00148C62 /* DrinkRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrinkRepository.swift; sourceTree = "<group>"; };
 		3E8EF681280F49030044B315 /* BalanceUpdateEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceUpdateEmailView.swift; sourceTree = "<group>"; };
 		3E8EF683280F4ECB0044B315 /* BalanceUpdateEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceUpdateEmailViewModel.swift; sourceTree = "<group>"; };
 		3E8FAA17279C336C00FBA06D /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
-		3E8FB13D282E4716009E0B01 /* ImageCloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCloud.swift; sourceTree = "<group>"; };
 		3E8FB13F282E57B8009E0B01 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		3E920617282CE4A2007BDD8A /* OrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewModel.swift; sourceTree = "<group>"; };
 		3E93A12C2816692E001E6AA7 /* PaymentMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
 		3E93A12E28172939001E6AA7 /* MultiSelectionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectionPickerView.swift; sourceTree = "<group>"; };
 		3E93A13028172E64001E6AA7 /* HalfSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfSheet.swift; sourceTree = "<group>"; };
 		3E96528E27824BBD00815A74 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		3EBC4985270A4D7F006B4857 /* CustomerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerRepository.swift; sourceTree = "<group>"; };
-		3EBC4987270B8845006B4857 /* DrinkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkRepository.swift; sourceTree = "<group>"; };
 		3EEF5BD327CF67D000CC9AAF /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
 		3EF404A127E373C900F67C3F /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3EF404A327E53E7200F67C3F /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
@@ -289,8 +289,8 @@
 				3E65093826FCB26900ACDF41 /* BarTabApp.swift */,
 				3E817152275574AF00F4B0D3 /* Views */,
 				3E7BEFE226FCDD7400453C1B /* ViewModels */,
+				3E8DE1FC2838425A00148C62 /* Network */,
 				3E7BEFDF26FCDD2D00453C1B /* Models */,
-				3EBC4984270A4D64006B4857 /* Network */,
 				3E5F335C2712AD87005340B6 /* User */,
 				3E65093C26FCB26900ACDF41 /* Assets.xcassets */,
 				3E68107E27081D6D00C0F5B0 /* GoogleService-Info.plist */,
@@ -470,17 +470,17 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		3EBC4984270A4D64006B4857 /* Network */ = {
+		3E8DE1FC2838425A00148C62 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				3EBC4985270A4D7F006B4857 /* CustomerRepository.swift */,
-				3EBC4987270B8845006B4857 /* DrinkRepository.swift */,
-				3E8645D42718A3C0009BFFAA /* EmailSender.swift */,
-				3E8FB13D282E4716009E0B01 /* ImageCloud.swift */,
+				3E8DE1FD2838425A00148C62 /* EmailSender.swift */,
+				3E8DE1FE2838425A00148C62 /* ImageCloud.swift */,
+				3E8DE1FF2838425A00148C62 /* CustomerRepository.swift */,
+				3E8DE2002838425A00148C62 /* DrinkRepository.swift */,
 			);
 			name = Network;
-			path = ..;
-			sourceTree = "<group>";
+			path = BarTab/Network;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -582,13 +582,13 @@
 				3E72E0ED27F38BB50001A691 /* View+ConditionalModifier.swift in Sources */,
 				3EF404A427E53E7200F67C3F /* Keys.swift in Sources */,
 				3E8730242759755100F8E610 /* ConfirmOrderView.swift in Sources */,
-				3E8645D52718A3C0009BFFAA /* EmailSender.swift in Sources */,
 				3E678777275D62170072259F /* AddCustomerView.swift in Sources */,
 				3E7BEFE426FCDD9900453C1B /* CustomerListViewModel.swift in Sources */,
 				3E89FAD22833A2E1001C1531 /* CacheableAsyncImage.swift in Sources */,
 				3E6916D4276E78EE009E80D7 /* UpdateTagView.swift in Sources */,
 				3E5DFDC82787A8AA0056F0CC /* KeyboardAvoider.swift in Sources */,
 				3E5DFDCA2787A91E0056F0CC /* KeyboardAvoiderPreferences.swift in Sources */,
+				3E8DE2032838425A00148C62 /* CustomerRepository.swift in Sources */,
 				3EEF5BD427CF67D000CC9AAF /* CustomTabBarView.swift in Sources */,
 				3E5EE16427823A060044B178 /* PaywallViewModel.swift in Sources */,
 				3E66B8A127CA217B0067C56F /* PhoneCustomerListView.swift in Sources */,
@@ -627,18 +627,15 @@
 				3E6C68B0278C697C00EFE42C /* OrientationInfo.swift in Sources */,
 				3E64DA3927D932A100978EBC /* TransactionsListView.swift in Sources */,
 				3E8EF682280F49030044B315 /* BalanceUpdateEmailView.swift in Sources */,
-				3EBC4988270B8845006B4857 /* DrinkRepository.swift in Sources */,
 				3E6E702D279D7B2000FB1639 /* BackgroundBlob.swift in Sources */,
 				3E6F1A2927712B5300661021 /* CustomInputView.swift in Sources */,
 				3E8507072797578300A56E17 /* UserSettingsViewModel.swift in Sources */,
 				3E70E0EA275EAF100020B429 /* ToastView.swift in Sources */,
 				3E81715A275576B400F4B0D3 /* CustomerListView.swift in Sources */,
-				3EBC4986270A4D7F006B4857 /* CustomerRepository.swift in Sources */,
 				3E93A12F28172939001E6AA7 /* MultiSelectionPickerView.swift in Sources */,
 				3E5F33622712AF8B005340B6 /* AuthError.swift in Sources */,
 				3E5F33682712B7C9005340B6 /* UserError.swift in Sources */,
 				3E67E60927444E1700999511 /* CustomerViewModel.swift in Sources */,
-				3E8FB13E282E4716009E0B01 /* ImageCloud.swift in Sources */,
 				3E7BEFDE26FCDD2800453C1B /* DrinkListViewModel.swift in Sources */,
 				3E70E0EC275EAFE00020B429 /* CustomerSettingsDetailsView.swift in Sources */,
 				3E5F33642712AF95005340B6 /* UserHandling.swift in Sources */,
@@ -646,10 +643,13 @@
 				3E850705279708F400A56E17 /* UserSettingsView.swift in Sources */,
 				3E817158275576AB00F4B0D3 /* OrderView.swift in Sources */,
 				3E6E097B27D3416100BF13EE /* TabBarItemsPreferenceKey.swift in Sources */,
+				3E8DE2012838425A00148C62 /* EmailSender.swift in Sources */,
 				3E6916D8276E88BB009E80D7 /* View+Centered.swift in Sources */,
+				3E8DE2022838425A00148C62 /* ImageCloud.swift in Sources */,
 				3E7033B827E90FA100245A93 /* UIApplication+safeAreaInsets.swift in Sources */,
 				3E6E097827D3386500BF13EE /* CustomTabBarContainerView.swift in Sources */,
 				3E70E0E2275EAB340020B429 /* SettingsView.swift in Sources */,
+				3E8DE2042838425A00148C62 /* DrinkRepository.swift in Sources */,
 				3E8FB140282E57B8009E0B01 /* ImagePicker.swift in Sources */,
 				3E5734282811E1C70019EB9D /* EmailPreviewView.swift in Sources */,
 				3E93A13128172E64001E6AA7 /* HalfSheet.swift in Sources */,
