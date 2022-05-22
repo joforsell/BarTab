@@ -10,22 +10,28 @@ import Combine
 
 class DrinkListViewModel: ObservableObject {
     @Published var drinkRepository = DrinkRepository()
+    @Published var userHandler: UserHandling
     @Published var drinkVMs = [DrinkViewModel]()
 
-    var showingDecimals: Bool
-    
-    func setup(_ showingDecimals: Bool) {
-        self.showingDecimals = showingDecimals
-    }
+    var showingDecimals = true
     
     var cancellables = Set<AnyCancellable>()
     
-    init(showingDecimals: Bool = true) {
-        self.showingDecimals = showingDecimals
+    init(userHandler: UserHandling) {
+        
+        self.userHandler = userHandler
+        
+        userHandler.$user
+            .map { user in
+                return user.showingDecimals
+            }
+            .assign(to: \.showingDecimals, on: self)
+            .store(in: &cancellables)
         
         drinkRepository.$drinks
             .map { drinks in
                 let sortedDrinks = drinks.sorted { $0.name < $1.name}
+                let showingDecimals = self.userHandler.user.showingDecimals
                 return sortedDrinks.map { drink in
                     DrinkViewModel(showingDecimals: showingDecimals, drink: drink)
                 }

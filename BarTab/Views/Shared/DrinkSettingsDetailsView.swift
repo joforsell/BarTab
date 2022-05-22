@@ -102,6 +102,9 @@ struct DrinkSettingsDetailView: View {
             }
             Spacer()
         }
+        .onAppear {
+            drinkVM.showingDecimals = userHandler.user.showingDecimals
+        }
         .onChange(of: userHandler.user.showingDecimals) { showingDecimals in
             drinkVM.showingDecimals = showingDecimals
         }

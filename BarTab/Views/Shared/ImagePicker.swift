@@ -58,12 +58,10 @@ class ImagePickerCoordinator: NSObject, UINavigationControllerDelegate, UIImageP
             guard let self = self else { return }
             switch result {
             case .failure(let error):
-                print("Failed: \(error)")
                 self.error = error
                 self.loading = false
                 self.isShown = false
             case .success(let url):
-                print("Got url: \(url)")
                 CustomerRepository.updateProfilePictureUrl(for: self.customer, to: url)
                 self.image = Image(uiImage: uiImage)
                 self.loading = false
