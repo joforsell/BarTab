@@ -38,6 +38,32 @@ enum Currency: String, CaseIterable, Codable {
         }
     }
     
+    static func displayDecimalAgnostic(_ amount: Float, with user: User) -> String {
+        let adjustedAmount = amount / 100
+        switch user.currency {
+        case sek, dkr, nok:
+            return "\(adjustedAmount) kr"
+        case usd, cad:
+            if amount < 0 {
+                let redactedAmountString = String(adjustedAmount).replacingOccurrences(of: "-", with: "")
+                return "-$\(redactedAmountString)"
+            }
+            return "$\(adjustedAmount)"
+        case eur:
+            if amount < 0 {
+                let redactedAmountString = String(adjustedAmount).replacingOccurrences(of: "-", with: "")
+                return "-€\(redactedAmountString)"
+            }
+            return "€\(adjustedAmount)"
+        case gbp:
+            if amount < 0 {
+                let redactedAmountString = String(adjustedAmount).replacingOccurrences(of: "-", with: "")
+                return "-£\(redactedAmountString)"
+            }
+            return "£\(adjustedAmount)"
+        }
+    }
+    
     static func add(_ amount: Float, with user: User) -> String {
         let adjustedAmount = amount / 100
         let formattedAmount = user.showingDecimals ? String(format: "%.2f", adjustedAmount) : String(format: "%.0f", adjustedAmount)

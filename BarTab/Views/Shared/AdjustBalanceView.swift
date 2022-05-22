@@ -6,72 +6,222 @@
 //
 
 import SwiftUI
+import SwiftUIX
+import ToastUI
 
 struct AdjustBalanceView: View {
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var userHandler: UserHandling
+    @EnvironmentObject var avoider: KeyboardAvoider
     
+    init(customerName: String, currentBalance: Int, showingAdjustmentView: Binding<Bool>) {
+        self.customerName = customerName
+        self.currentBalance = currentBalance
+        self._showingAdjustmentView = showingAdjustmentView
+        UITextView.appearance().backgroundColor = .clear
+    }
+    
+    let customerName: String
     let currentBalance: Int
     var stringedBalance: String {
         let adjustedBalance = Float(currentBalance) / 100
         return Currency.display(adjustedBalance, with: userHandler.user)
     }
     
+    @FocusState private var isMessageFocused: Bool
+    
+    @Binding var showingAdjustmentView: Bool
+    @State var message = ""
     @State var adding = true
-    @State var balanceAdjustment = 0
+    @State var balanceAdjustment = ""
+    @State var showingNumpad = false
+    @State var showingToast = false
+    
+    let columnWidth: CGFloat = 300
     
     var body: some View {
-        VStack {
-            HStack {
-                Text(stringedBalance)
-                    .font(.title2)
-                    .fontWeight(.bold)
+        ScrollView {
+            VStack {
+                HStack {
+                    Text(customerName)
+                        .font(.title2)
+                    Spacer()
+                }
+                .padding(.horizontal, 44)
+                .padding(.top, 48)
+                HStack {
+                    Text(stringedBalance)
+                        .font(.title3, weight: .light)
+                    Spacer()
+                }
+                .padding(.horizontal, 44)
+                
+                HStack {
+                    if !adding {
+                        Text("-")
+                            .font(.largeTitle, weight: .black)
+                    }
+                    Text(Currency.displayDecimalAgnostic((Float(balanceAdjustment) ?? 0) * 100, with: userHandler.user))
+                        .font(.largeTitle, weight: .black)
+                }
+                .padding()
+                .frame(width: UIScreen.main.bounds.width * 0.8, height: 60)
+                .background(VisualEffectBlurView(blurStyle: .dark).opacity(0.4))
+                .addBorder(adding ? Color.lead : Color.deficit, width: 2, cornerRadius: 10)
+                .padding()
+                .animation(.easeInOut, value: adding)
+                .onTapGesture {
+                    withAnimation {
+                        showingNumpad.toggle()
+                    }
+                }
+                
+                addOrSubtractButtons
+                messageBox
+                Spacer()
+                actionButtons
+            }
+        }
+        .overlay(alignment: .bottom) {
+            if showingNumpad {
+                NumPadView(balanceAdjustment: $balanceAdjustment, showingNumpad: $showingNumpad)
+                    .frame(height: 400)
+                    .transition(.move(edge: .bottom))
+            }
+        }
+        .background(VisualEffectBlurView(blurStyle: .dark))
+        .toast(isPresented: $showingToast, dismissAfter: 3, onDismiss: {
+            withAnimation {
+                showingToast = false
+                showingAdjustmentView = false
+            }
+        }) {
+            ToastView(systemImage: ("dollarsign.circle.fill", .accentColor, 50), title: "Adjustment successfully made", subTitle: LocalizedStringKey("\(addedOrSubtracted) \(balanceAdjustment) \(toOrFrom) the balance of \(customerName)."))
+        }
+    }
+    
+    private var addOrSubtractButtons: some View {
+        HStack {
+            Button {
+                adding = true
+            } label: {
+                VStack(alignment: .center) {
+                    Spacer()
+                    Image(systemName: "plus")
+                        .font(.title2, weight: .bold)
+                        .frame(width: 20, height: 20)
+                    Text("Add")
+                        .font(.caption2)
+                        .textCase(.uppercase)
+                        .fixedSize()
+                    Spacer()
+                }
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity, maxHeight: 60)
+                .background(Color.lead).opacity(adding ? 0.8 : 0.2)
+                .addBorder(Color.lead.opacity(adding ? 1 : 0.5), width: adding ? 2 : 0, cornerRadius: 10)
+            }
+            Button {
+                adding = false
+            } label: {
+                VStack(alignment: .center) {
+                    Spacer()
+                    Image(systemName: "minus")
+                        .font(.title2, weight: .bold)
+                        .frame(width: 20, height: 20)
+                    Text("Subtract")
+                        .font(.caption2)
+                        .textCase(.uppercase)
+                        .fixedSize()
+                    Spacer()
+                }
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity, maxHeight: 60)
+                .background(Color.deficit).opacity(!adding ? 0.8 : 0.2)
+                .addBorder(Color.deficit.opacity(!adding ? 1 : 0.5), width: !adding ? 2 : 0, cornerRadius: 10)
+            }
+        }
+        .frame(width: columnWidth)
+    }
+    
+    private var toOrFrom: String {
+        if adding {
+            return String(format: NSLocalizedString("to", comment: ""))
+        } else {
+            return String(format: NSLocalizedString("from", comment: ""))
+        }
+    }
+    
+    private var addedOrSubtracted: String {
+        if adding {
+            return String(format: NSLocalizedString("Added", comment: ""))
+        } else {
+            return String(format: NSLocalizedString("Subtracted", comment: ""))
+        }
+    }
+    
+    private var messageBox: some View {
+        TextEditor(text: $message)
+            .focused($isMessageFocused)
+            .frame(width: columnWidth, height: 240)
+            .padding()
+            .foregroundColor(.white)
+            .background(Color.gray.opacity(0.2))
+            .cornerRadius(6)
+            .addBorder(isMessageFocused ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
+            .animation(.easeInOut, value: isMessageFocused)
+            .autocapitalization(.sentences)
+            .disableAutocorrection(true)
+            .onChange(of: isMessageFocused, perform: { focus in
+                if focus {
+                    self.avoider.editingField = 1
+                }
+            })
+            .avoidKeyboard(tag: 1)
+            .overlay(alignment: .topTrailing) {
+                Button {
+                    UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
+                } label: {
+                    Image(systemName: isMessageFocused ? "checkmark.rectangle.fill" : "text.quote")
+                        .resizable()
+                        .scaledToFit()
+                        .opacity(isMessageFocused ? 1 : 0.5)
+                        .frame(height: 30)
+                        .foregroundColor(isMessageFocused ? .accentColor : .white)
+                        .animation(.easeInOut, value: isMessageFocused)
+                }
+                .offset(x: -18, y: 12)
             }
             .overlay(alignment: .topLeading) {
-                Text("Current balance:")
+                Text("Note")
+                    .font(.caption2)
                     .textCase(.uppercase)
-                    .font(.footnote)
-                    .offset(x: -20, y: -20)
-            }
-            .padding(.top, 48)
-            HStack {
-                Button {
-                    adding = true
-                } label: {
-                    VStack(alignment: .center) {
-                        Spacer()
-                        Image(systemName: "plus")
-                            .font(.title2, weight: .bold)
-                        Text("Add")
-                            .font(.caption2)
-                            .textCase(.uppercase)
-                            .padding()
-                        Spacer()
-                    }
                     .foregroundColor(.white)
-                    .frame(maxWidth: .infinity, maxHeight: 60)
-                    .background(Color.lead).opacity(adding ? 0.5 : 0.2)
-                    .addBorder(Color.lead.opacity(adding ? 1 : 0.5), width: adding ? 2 : 0, cornerRadius: 10)
-                }
-                Button {
-                    adding = false
-                } label: {
-                    VStack(alignment: .center) {
-                        Spacer()
-                        Image(systemName: "minus")
-                            .font(.title2, weight: .bold)
-                        Text("Subtract")
-                            .font(.caption2)
-                            .textCase(.uppercase)
-                            .padding()
-                        Spacer()
-                    }
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity, maxHeight: 60)
-                    .background(Color.deficit).opacity(!adding ? 0.5 : 0.2)
-                    .addBorder(Color.deficit.opacity(!adding ? 1 : 0.5), width: !adding ? 2 : 0, cornerRadius: 10)
-                }
+                    .opacity(0.5)
+                    .offset(x: 16, y: 8)
             }
-            .frame(width: 300)
+            .padding(.vertical, 48)
+    }
+    
+    private var actionButtons: some View {
+        HStack {
+            Spacer()
+            Button {
+                dismiss()
+            } label: {
+                Text("Cancel")
+            }
+            Spacer()
+            Button {
+                showingToast = true
+            } label: {
+                Image(systemName: "checkmark")
+                    .font(.largeTitle, weight: .bold)
+                    .foregroundColor(.black)
+                    .frame(width: 100, height: 44)
+                    .background(Color.accentColor)
+                    .cornerRadius(10)
+            }
             Spacer()
         }
     }
