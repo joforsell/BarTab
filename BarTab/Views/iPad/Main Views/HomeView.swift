@@ -11,7 +11,7 @@ import Firebase
 
 struct HomeView: View {
     @EnvironmentObject var avoider: KeyboardAvoider
-    @StateObject var drinkListVM = DrinkListViewModel()
+    @StateObject var drinkListVM = DrinkListViewModel(userHandler: UserHandling())
     @StateObject var customerListVM = CustomerListViewModel()
     @StateObject var userHandler = UserHandling()
     @EnvironmentObject var confirmationVM: ConfirmationViewModel
