@@ -105,6 +105,8 @@ struct TransactionsListView: View {
         @EnvironmentObject var userHandler: UserHandling
 
         @StateObject var transactionVM: TransactionViewModel
+        
+        @State var note: String?
 
         var body: some View {
             HStack {
@@ -116,6 +118,18 @@ struct TransactionsListView: View {
             .foregroundColor(.white)
             .frame(height: 60, alignment: .leading)
             .cornerRadius(10)
+            .onTapGesture {
+                if transactionVM.transaction.note != nil && transactionVM.transaction.note?.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
+                    withAnimation {
+                        note = transactionVM.transaction.note
+                    }
+                }
+            }
+            .overlay {
+                if note != nil {
+                    NoteView(note: $note)
+                }
+            }
         }
         
         var transactionImage: some View {
@@ -125,6 +139,12 @@ struct TransactionsListView: View {
                     .scaledToFit()
                     .maxHeight(38)
                     .foregroundColor(.accentColor)
+                    .overlay(alignment: .topLeading) {
+                        if transactionVM.transaction.note != nil && transactionVM.transaction.note?.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
+                            Image(systemName: "quote.bubble.fill")
+                                .offset(x: -6, y: -6)
+                        }
+                    }
             }
             .frame(width: 30)
             .padding(8)

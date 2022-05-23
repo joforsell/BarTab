@@ -12,16 +12,17 @@ import ToastUI
 struct AdjustBalanceView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var userHandler: UserHandling
+    @EnvironmentObject var customerListVM: CustomerListViewModel
     @EnvironmentObject var avoider: KeyboardAvoider
     
-    init(customerName: String, currentBalance: Int, showingAdjustmentView: Binding<Bool>) {
-        self.customerName = customerName
+    init(customer: Customer, currentBalance: Int, showingAdjustmentView: Binding<Bool>) {
+        self.customer = customer
         self.currentBalance = currentBalance
         self._showingAdjustmentView = showingAdjustmentView
         UITextView.appearance().backgroundColor = .clear
     }
     
-    let customerName: String
+    let customer: Customer
     let currentBalance: Int
     var stringedBalance: String {
         let adjustedBalance = Float(currentBalance) / 100
@@ -40,15 +41,19 @@ struct AdjustBalanceView: View {
     let columnWidth: CGFloat = 300
     
     var body: some View {
-        ScrollView {
+        ScrollView(showsIndicators: false) {
             VStack {
+                Text("Adjust balance")
+                    .font(.largeTitle, weight: .bold)
+                    .multilineTextAlignment(.center)
+                    .padding(.top, 48)
+                    .padding(.bottom, 24)
                 HStack {
-                    Text(customerName)
+                    Text(customer.name)
                         .font(.title2)
                     Spacer()
                 }
                 .padding(.horizontal, 44)
-                .padding(.top, 48)
                 HStack {
                     Text(stringedBalance)
                         .font(.title3, weight: .light)
@@ -85,18 +90,23 @@ struct AdjustBalanceView: View {
         .overlay(alignment: .bottom) {
             if showingNumpad {
                 NumPadView(balanceAdjustment: $balanceAdjustment, showingNumpad: $showingNumpad)
-                    .frame(height: 400)
+                    .frame(height: min(400, UIScreen.main.bounds.height / 2))
                     .transition(.move(edge: .bottom))
             }
         }
         .background(VisualEffectBlurView(blurStyle: .dark))
         .toast(isPresented: $showingToast, dismissAfter: 3, onDismiss: {
             withAnimation {
+                if adding {
+                    customerListVM.addToBalance(of: customer, by: Int((Float(balanceAdjustment) ?? 0) * 100), with: message)
+                } else {
+                    customerListVM.subtractFromBalance(of: customer, by: Int((Float(balanceAdjustment) ?? 0) * 100), with: message)
+                }
                 showingToast = false
                 showingAdjustmentView = false
             }
         }) {
-            ToastView(systemImage: ("dollarsign.circle.fill", .accentColor, 50), title: "Adjustment successfully made", subTitle: LocalizedStringKey("\(addedOrSubtracted) \(balanceAdjustment) \(toOrFrom) the balance of \(customerName)."))
+            ToastView(systemImage: ("dollarsign.circle.fill", .accentColor, 50), title: "Adjustment successfully made", subTitle: LocalizedStringKey("\(addedOrSubtracted) \(balanceAdjustment) \(toOrFrom) the balance of \(customer.name)."))
         }
     }
     
@@ -224,5 +234,6 @@ struct AdjustBalanceView: View {
             }
             Spacer()
         }
+        .padding(.bottom, 48)
     }
 }
