@@ -9,6 +9,7 @@ import Foundation
 import FirebaseFirestoreSwift
 
 struct Transaction: Codable, Identifiable {
+    
     @DocumentID var id = UUID().uuidString
     let name: String
     let image: String
@@ -17,9 +18,16 @@ struct Transaction: Codable, Identifiable {
     let date: Date
     let customerID: String
     let transactionNumber: Int?
-}
-
-enum TransactionIcon: String, Codable, CaseIterable {
-    case openingBalance
-    case addedBalance
+    let note: String?
+    
+    init(name: String, image: String, amount: Int, newBalance: Int, date: Date, customerID: String, transactionNumber: Int?, note: String? = nil) {
+        self.name = name
+        self.image = image
+        self.amount = amount
+        self.newBalance = newBalance
+        self.date = date
+        self.customerID = customerID
+        self.transactionNumber = transactionNumber
+        self.note = note
+    }
 }

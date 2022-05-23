@@ -156,16 +156,44 @@ struct CustomerSettingsDetailView: View {
                                 keyboardTag: 4,
                                 keyboardType: .emailAddress)
                 
-
-                Button {
-                    adjustingBalance = true
-                } label: {
-                    Text("Adjust balance")
-                        .frame(width: 300, height: 44, alignment: .center)
-                        .background(Color.accentColor)
-                        .cornerRadius(4)
-                        .foregroundColor(.white)
+                VStack(alignment: .leading, spacing: 2) {
+                    HStack(alignment: .bottom) {
+                        Text(Currency.display(Float(customerVM.customer.balance), with: userHandler.user))
+                            .font(.title3)
+                        Spacer()
+                    }
+                    .offset(y: 4)
+                    .overlay(alignment: .trailing) {
+                        Button {
+                            adjustingBalance = true
+                        } label: {
+                            RoundedRectangle(cornerRadius: 4)
+                                .foregroundColor(.accentColor)
+                                .aspectRatio(4 / 3, contentMode: .fit)
+                                .overlay {
+                                    Image(systemName: "plus.forwardslash.minus")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .foregroundColor(.black)
+                                        .scaleEffect(0.7)
+                                }
+                        }
+                    }
+                    .overlay(alignment: .topLeading) {
+                        Text("Balance")
+                            .font(.caption2)
+                            .textCase(.uppercase)
+                            .foregroundColor(.white)
+                            .opacity(0.5)
+                            .offset(y: -10)
+                    }
+                    
                 }
+                .frame(width: 300, height: 24)
+                .padding()
+                .foregroundColor(.white)
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(6)
                                 
                 VStack(alignment: .leading) {
                     HStack {
@@ -248,7 +276,7 @@ struct CustomerSettingsDetailView: View {
         }
         .preferredColorScheme(.dark)
         .fullScreenCover(isPresented: $adjustingBalance) {
-            AdjustBalanceView(customerName: customerVM.name, currentBalance: customerVM.customer.balance, showingAdjustmentView: $adjustingBalance)
+            AdjustBalanceView(customer: customerVM.customer, currentBalance: customerVM.customer.balance, showingAdjustmentView: $adjustingBalance)
                 .clearModalBackground()
         }
     }

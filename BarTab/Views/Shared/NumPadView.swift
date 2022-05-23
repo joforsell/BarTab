@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftUIX
 
 struct NumPadView: View {
     @Binding var balanceAdjustment: String
@@ -20,14 +21,16 @@ struct NumPadView: View {
             } label: {
                 Image(systemName: "keyboard.chevron.compact.down")
                     .foregroundColor(.white)
+                    .padding()
             }
-            .padding()
+            .contentShape(Rectangle())
             firstRow
             secondRow
             thirdRow
             fourthRow
         }
         .foregroundColor(.black)
+        .background(VisualEffectBlurView(blurStyle: .dark))
     }
     
     private var firstRow: some View {
