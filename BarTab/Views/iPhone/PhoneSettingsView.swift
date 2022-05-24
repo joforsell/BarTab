@@ -33,8 +33,6 @@ struct PhoneSettingsView: View {
                 Button {
                     settingsState.settingsTab = .drinks
                     detailViewState.detailView = .none
-                    print(settingsState.settingsTab)
-                    print(detailViewState.detailView)
                 } label: {
                     Image("beer")
                         .resizable()
@@ -48,8 +46,6 @@ struct PhoneSettingsView: View {
                 Button {
                     settingsState.settingsTab = .customers
                     detailViewState.detailView = .none
-                    print(settingsState.settingsTab)
-                    print(detailViewState.detailView)
                 } label: {
                     Image(systemName: "person.2")
                         .resizable()
@@ -63,8 +59,6 @@ struct PhoneSettingsView: View {
                 Button {
                     settingsState.settingsTab = .bartender
                     detailViewState.detailView = .none
-                    print(settingsState.settingsTab)
-                    print(detailViewState.detailView)
                 } label: {
                     Image("bartender")
                         .resizable()

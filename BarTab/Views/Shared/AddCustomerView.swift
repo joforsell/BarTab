@@ -53,7 +53,10 @@ struct AddCustomerView: View {
                             if name.trimmingCharacters(in: .whitespaces).isEmpty {
                                 isShowingAlert = true
                             } else {
-                                customerListVM.addCustomer(name: name, balance: (Int(balance) ?? 0) * 100, email: email)
+                                let fixedCommasBalance = balance.replacingOccurrences(of: ",", with: ".")
+                                let calculatedBalance = (Float(fixedCommasBalance) ?? 0) * 100
+                                let balanceAsInt = Int(calculatedBalance)
+                                customerListVM.addCustomer(name: name, balance: balanceAsInt, email: email)
                                 presentationMode.wrappedValue.dismiss()
                             }
                         } label: {

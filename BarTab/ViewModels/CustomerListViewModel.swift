@@ -59,7 +59,6 @@ class CustomerListViewModel: ObservableObject {
         guard customer.id != nil else { return }
         var newTransactionNumber = customer.numberOfTransactions ?? 1
         let now = Date()
-        print("Using transaction number: \(newTransactionNumber)")
         
         TransactionListViewModel.addTransaction(Transaction(name: "Added to balance", image: "addedBalance", amount: adjustment, newBalance: customer.balance + adjustment, date: now, customerID: customer.id!, transactionNumber: newTransactionNumber, note: note))
         customerRepository.addToBalanceOf(customer, by: adjustment)
@@ -71,7 +70,6 @@ class CustomerListViewModel: ObservableObject {
         guard customer.id != nil else { return }
         var newTransactionNumber = customer.numberOfTransactions ?? 1
         let now = Date()
-        print("Using transaction number: \(newTransactionNumber)")
         
         TransactionListViewModel.addTransaction(Transaction(name: "Removed from balance", image: "removedBalance", amount: adjustment, newBalance: customer.balance - adjustment, date: now, customerID: customer.id!, transactionNumber: newTransactionNumber, note: note))
         customerRepository.subtractFromBalanceOf(customer, by: adjustment)

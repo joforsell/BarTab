@@ -9,6 +9,9 @@ import SwiftUI
 import SwiftUIX
 
 struct NoteView: View {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.verticalSizeClass) var verticalSizeClass
+
     @Binding var note: String?
     @State private var expanded = false
     @State private var viewSize: CGSize = .zero
@@ -22,7 +25,7 @@ struct NoteView: View {
             .fixedSize(horizontal: false, vertical: expanded ? true : false)
             .padding()
             .padding(.trailing, 16)
-            .frame(width: UIScreen.main.bounds.width * 0.8, alignment: .leading)
+            .frame(maxWidth: isPhone() ? UIScreen.main.bounds.width * 0.8 : .infinity, alignment: .leading)
             .background(VisualEffectBlurView(blurStyle: .dark))
             .addBorder(Color.white.opacity(0.5), width: 1, cornerRadius: 6)
             .onTapGesture {
@@ -50,5 +53,9 @@ struct NoteView: View {
                     }
                 }
             }
+    }
+    
+    private func isPhone() -> Bool {
+        return !(horizontalSizeClass == .regular && verticalSizeClass == .regular)
     }
 }

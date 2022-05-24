@@ -61,8 +61,11 @@ struct AddDrinkView: View {
                             if name.trimmingCharacters(in: .whitespaces).isEmpty {
                                 isShowingAlert = true
                             } else {
-                                drinkListVM.addDrink(name: name, price: (Int(price) ?? 0) * 100)
-                                detailViewState.detailView = .drink(drinkVM: DrinkViewModel(showingDecimals: userHandler.user.showingDecimals, drink: Drink(name: name, price: (Int(price) ?? 0) * 100)))
+                                let fixedCommasPrice = price.replacingOccurrences(of: ",", with: ".")
+                                let calculatedPrice = (Float(fixedCommasPrice) ?? 0) * 100
+                                let priceAsInt = Int(calculatedPrice)
+                                drinkListVM.addDrink(name: name, price: priceAsInt)
+                                detailViewState.detailView = .drink(drinkVM: DrinkViewModel(showingDecimals: userHandler.user.showingDecimals, drink: Drink(name: name, price: priceAsInt)))
                                 presentationMode.wrappedValue.dismiss()
                             }
                         } label: {
