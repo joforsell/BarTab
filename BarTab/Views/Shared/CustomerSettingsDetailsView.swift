@@ -16,13 +16,12 @@ struct CustomerSettingsDetailView: View {
     @EnvironmentObject var customerListVM: CustomerListViewModel
     @EnvironmentObject var avoider: KeyboardAvoider
     @EnvironmentObject var userHandler: UserHandling
+    @EnvironmentObject var settingsStateContainer: SettingsStateContainer
     
-    @Binding var customerVM: CustomerViewModel
-    @Binding var detailsViewShown: DetailViewRouter
+    @StateObject var customerVM: CustomerViewModel
     
     @State var isShowingImageAlternatives = false
     @State var isShowingCameraPicker = false
-    @State var image: Image?
     @State var isCamera = false
     
     @State private var editingName = false
@@ -45,99 +44,70 @@ struct CustomerSettingsDetailView: View {
             VStack(alignment: .center, spacing: 16) {
                 Spacer()
                 
-                if let image = image {
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .scaleEffect(0.7)
-                        .foregroundColor(.white)
-                        .frame(maxHeight: 200)
-                        .clipShape(Circle())
-                        .overlay {
-                            Circle()
-                                .stroke(Color.white, lineWidth: 1)
-                        }
-                        .overlay(alignment: .bottom) {
-                            Button {
-                                isShowingImageAlternatives = true
-                            } label: {
-                                Image(systemName: "camera.on.rectangle.fill")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 30)
-                                    .foregroundColor(.accentColor)
+                CacheableAsyncImage(url: $customerVM.profilePictureUrl, animation: .easeInOut, transition: .move(edge: .trailing)) { phase in
+                    switch phase {
+                    case .empty:
+                        ProgressView()
+                            .frame(width: 200, height: 200)
+                            .clipShape(Circle())
+                            .overlay {
+                                Circle()
+                                    .stroke(Color.white, lineWidth: 1)
                             }
-                            .offset(x: 100)
-                        }
-                        .fullScreenCover(isPresented: $isShowingCameraPicker) {
-                            ImagePickerHostView(customer: customerVM.customer, isShown: $isShowingCameraPicker, error: $error, image: $image, isCamera: isCamera)
-                        }
-                } else {
-                    CacheableAsyncImage(url: $customerVM.profilePictureUrl, animation: .easeInOut, transition: .move(edge: .trailing)) { phase in
-                        switch phase {
-                        case .empty:
-                            ProgressView()
-                                .frame(width: 200, height: 200)
-                                .clipShape(Circle())
-                                .overlay {
-                                    Circle()
-                                        .stroke(Color.white, lineWidth: 1)
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .foregroundColor(.white)
+                            .scaleEffect(isPhone() ? 1 : 0.4)
+                            .frame(maxHeight: 200)
+                            .clipShape(Circle())
+                            .overlay {
+                                Circle()
+                                    .stroke(Color.white, lineWidth: 1)
+                            }
+                            .overlay(alignment: .bottom) {
+                                Button {
+                                    isShowingImageAlternatives = true
+                                } label: {
+                                    Image(systemName: "camera.on.rectangle.fill")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 30)
+                                        .foregroundColor(.accentColor)
                                 }
-                        case .success(let image):
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .foregroundColor(.white)
-                                .scaleEffect(isPhone() ? 1 : 0.4)
-                                .frame(maxHeight: 200)
-                                .clipShape(Circle())
-                                .overlay {
-                                    Circle()
-                                        .stroke(Color.white, lineWidth: 1)
+                                .offset(x: 100)
+                            }
+                    case .failure( _):
+                        Image(systemName: "person")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .scaleEffect(0.7)
+                            .foregroundColor(.white)
+                            .frame(maxHeight: 200)
+                            .clipShape(Circle())
+                            .overlay {
+                                Circle()
+                                    .stroke(Color.white, lineWidth: 1)
+                            }
+                            .overlay(alignment: .bottom) {
+                                Button {
+                                    isShowingImageAlternatives = true
+                                } label: {
+                                    Image(systemName: "camera.on.rectangle.fill")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 30)
+                                        .foregroundColor(.accentColor)
                                 }
-                                .overlay(alignment: .bottom) {
-                                    Button {
-                                        isShowingImageAlternatives = true
-                                    } label: {
-                                        Image(systemName: "camera.on.rectangle.fill")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 30)
-                                            .foregroundColor(.accentColor)
-                                    }
-                                    .offset(x: 100)
-                                }
-                        case .failure( _):
-                            Image(systemName: "person")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .scaleEffect(0.7)
-                                .foregroundColor(.white)
-                                .frame(maxHeight: 200)
-                                .clipShape(Circle())
-                                .overlay {
-                                    Circle()
-                                        .stroke(Color.white, lineWidth: 1)
-                                }
-                                .overlay(alignment: .bottom) {
-                                    Button {
-                                        isShowingImageAlternatives = true
-                                    } label: {
-                                        Image(systemName: "camera.on.rectangle.fill")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 30)
-                                            .foregroundColor(.accentColor)
-                                    }
-                                    .offset(x: 100)
-                                }
-                        @unknown default:
-                            EmptyView()
-                        }
+                                .offset(x: 100)
+                            }
+                    @unknown default:
+                        EmptyView()
                     }
-                    .fullScreenCover(isPresented: $isShowingCameraPicker) {
-                        ImagePickerHostView(customer: customerVM.customer, isShown: $isShowingCameraPicker, error: $error, image: $image, isCamera: isCamera)
-                    }
+                }
+                .fullScreenCover(isPresented: $isShowingCameraPicker) {
+                    ImagePickerHostView(customer: $customerVM.customer, isShown: $isShowingCameraPicker, error: $error, isCamera: isCamera)
                 }
                     
                 
@@ -243,7 +213,7 @@ struct CustomerSettingsDetailView: View {
                                   primaryButton: .default(Text("Cancel")),
                                   secondaryButton: .destructive(Text("Delete")) {
                                 customerListVM.removeCustomer(customerVM.customer)
-                                detailsViewShown = .none
+                                settingsStateContainer.detailViewState.detailView = .none
                             })
                         }
                     }
@@ -258,7 +228,7 @@ struct CustomerSettingsDetailView: View {
             if isPhone() {
                 Button {
                     withAnimation {
-                        detailsViewShown = .none
+                        settingsStateContainer.detailViewState.detailView = .none
                     }
                 } label: {
                     Image(systemName: "chevron.left")
@@ -276,7 +246,7 @@ struct CustomerSettingsDetailView: View {
         }
         .preferredColorScheme(.dark)
         .fullScreenCover(isPresented: $adjustingBalance) {
-            AdjustBalanceView(customer: customerVM.customer, currentBalance: customerVM.customer.balance, showingAdjustmentView: $adjustingBalance)
+            AdjustBalanceView(customer: $customerVM.customer, currentBalance: customerVM.customer.balance)
                 .clearModalBackground()
         }
     }

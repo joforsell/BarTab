@@ -17,11 +17,10 @@ struct BartenderSettingsView: View {
     @EnvironmentObject var avoider: KeyboardAvoider
     @EnvironmentObject var customerListVM: CustomerListViewModel
     @EnvironmentObject var drinkListVM: DrinkListViewModel
+    @EnvironmentObject var settingsState: SettingsState
     
     @AppStorage("keepAwake") var keepAwake = false
     @AppStorage("backgroundColorIntensity") var backgroundColorIntensity: ColorIntensity = .medium
-    
-    @Binding var settingsShown: SettingsRouter
     
     @State private var editingAssociation = false
     @State private var editingEmail = false
@@ -91,7 +90,7 @@ struct BartenderSettingsView: View {
                     Spacer()
                 }
                 .sheet(isPresented: $showingUserInformation) {
-                    UserSettingsView(settingsShown: $settingsShown)
+                    UserSettingsView()
                         .clearModalBackground()
                 }
                 .center(.horizontal)
@@ -102,7 +101,7 @@ struct BartenderSettingsView: View {
                                 if isPhone() {
                                     showingUserInformation = true
                                 } else {
-                                    settingsShown = .user
+                                    settingsState.settingsTab = .user
                                 }
                             }
                         } label: {

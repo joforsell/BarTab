@@ -10,10 +10,9 @@ import SwiftUI
 
 struct ImagePicker: UIViewControllerRepresentable {
         
-    let customer: Customer
+    @Binding var customer: Customer
     @Binding var isShown: Bool
     @Binding var error: UploadError?
-    @Binding var image: Image?
     @Binding var loading: Bool
     let isCamera: Bool
 
@@ -22,7 +21,7 @@ struct ImagePicker: UIViewControllerRepresentable {
     }
     
     func makeCoordinator() -> ImagePickerCoordinator {
-        return ImagePickerCoordinator(customer: customer, isShown: $isShown, error: $error, image: $image, loading: $loading)
+        return ImagePickerCoordinator(customer: $customer, isShown: $isShown, error: $error, loading: $loading)
     }
     
     func makeUIViewController(context: Context) -> some UIViewController {
@@ -37,17 +36,15 @@ struct ImagePicker: UIViewControllerRepresentable {
 
 class ImagePickerCoordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
-    let customer: Customer
+    @Binding var customer: Customer
     @Binding var isShown: Bool
     @Binding var error: UploadError?
-    @Binding var image: Image?
     @Binding var loading: Bool
 
-    init(customer: Customer, isShown: Binding<Bool>, error: Binding<UploadError?>, image: Binding<Image?>, loading: Binding<Bool>) {
-        self.customer = customer
+    init(customer: Binding<Customer>, isShown: Binding<Bool>, error: Binding<UploadError?>, loading: Binding<Bool>) {
+        _customer = customer
         _isShown = isShown
         _error = error
-        _image = image
         _loading = loading
     }
     
@@ -63,7 +60,7 @@ class ImagePickerCoordinator: NSObject, UINavigationControllerDelegate, UIImageP
                 self.isShown = false
             case .success(let url):
                 CustomerRepository.updateProfilePictureUrl(for: self.customer, to: url)
-                self.image = Image(uiImage: uiImage)
+                self.customer.profilePictureUrl = url.absoluteString
                 self.loading = false
                 self.isShown = false
             }
