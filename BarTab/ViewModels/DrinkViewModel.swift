@@ -42,25 +42,26 @@ class DrinkViewModel: ObservableObject, Identifiable {
         
         $drink
             .map { drink in
+                let drinkPrice = Float(drink.price) / 100
                 if self.showingDecimals {
-                    return String(format: "%.2f", drink.price)
+                    return String(format: "%.2f", drinkPrice)
                 } else {
-                    return String(format: "%.0f", drink.price)
+                    return String(format: "%.0f", drinkPrice)
                 }
             }
             .assign(to: \.priceAsString, on: self)
             .store(in: &cancellables)
         
-        $showingDecimals
-            .map { showingDecimals in
-                if showingDecimals {
-                    return String(format: "%.2f", (self.drink.price))
-                } else {
-                    return String(format: "%.0f", (self.drink.price))
-                }
-            }
-            .assign(to: \.priceAsString, on: self)
-            .store(in: &cancellables)
+//        $showingDecimals
+//            .map { showingDecimals in
+//                if showingDecimals {
+//                    return String(format: "%.2f", (self.drink.price))
+//                } else {
+//                    return String(format: "%.0f", (self.drink.price))
+//                }
+//            }
+//            .assign(to: \.priceAsString, on: self)
+//            .store(in: &cancellables)
         
         $drink
             .map { drink in

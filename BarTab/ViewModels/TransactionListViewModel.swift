@@ -23,7 +23,6 @@ class TransactionListViewModel: ObservableObject {
             .order(by: "date")
             .getDocuments() { querySnapshot, error in
                 if let err = error {
-                    print("Error getting documents: \(err)")
                 } else {
                     if let snapshot = querySnapshot {
                         self.transactions = snapshot.documents.compactMap { document in
