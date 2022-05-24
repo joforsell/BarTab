@@ -15,8 +15,8 @@ struct AddDrinkView: View {
 
     @EnvironmentObject var drinkListVM: DrinkListViewModel
     @EnvironmentObject var avoider: KeyboardAvoider
-    
-    @Binding var detailViewShown: DetailViewRouter
+    @EnvironmentObject var detailViewState: DetailViewState
+    @EnvironmentObject var userHandler: UserHandling
     
     @State private var name = ""
     @State private var price = ""
@@ -62,7 +62,7 @@ struct AddDrinkView: View {
                                 isShowingAlert = true
                             } else {
                                 drinkListVM.addDrink(name: name, price: (Int(price) ?? 0) * 100)
-                                detailViewShown = .none
+                                detailViewState.detailView = .drink(drinkVM: DrinkViewModel(showingDecimals: userHandler.user.showingDecimals, drink: Drink(name: name, price: (Int(price) ?? 0) * 100)))
                                 presentationMode.wrappedValue.dismiss()
                             }
                         } label: {

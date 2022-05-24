@@ -16,8 +16,8 @@ struct DrinkSettingsDetailView: View {
     @EnvironmentObject var userHandler: UserHandling
     @EnvironmentObject var drinkListVM: DrinkListViewModel
     @EnvironmentObject var avoider: KeyboardAvoider
-    @Binding var drinkVM: DrinkViewModel
-    @Binding var detailsViewShown: DetailViewRouter
+    @EnvironmentObject var settingsStateContainer: SettingsStateContainer
+    @ObservedObject var drinkVM: DrinkViewModel
     
     @State private var editingName = false
     @State private var editingPrice = false
@@ -92,7 +92,7 @@ struct DrinkSettingsDetailView: View {
                                   primaryButton: .default(Text("Cancel")),
                                   secondaryButton: .destructive(Text("Delete")) {
                                 drinkListVM.removeDrink(drinkVM.drink)
-                                detailsViewShown = .none
+                                settingsStateContainer.detailViewState.detailView = .none
                             })
                         }
                     }
@@ -112,7 +112,7 @@ struct DrinkSettingsDetailView: View {
             if isPhone() {
                 Button {
                     withAnimation {
-                        detailsViewShown = .none
+                        settingsStateContainer.detailViewState.detailView = .none
                     }
                 } label: {
                     Image(systemName: "chevron.left")

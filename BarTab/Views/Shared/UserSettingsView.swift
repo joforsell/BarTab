@@ -13,12 +13,12 @@ import Firebase
 struct UserSettingsView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.verticalSizeClass) var verticalSizeClass
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
 
     @EnvironmentObject var userHandler: UserHandling
     @EnvironmentObject var authentication: Authentication
+    @EnvironmentObject var settingsStateContainer: SettingsStateContainer
     @ObservedObject var userSettingsVM = UserSettingsViewModel()
-    @Binding var settingsShown: SettingsRouter
     
     @State private var isShowingAccountLinkModal = false
     @State private var isShowingDeleteAlert = false
@@ -98,9 +98,9 @@ struct UserSettingsView: View {
             Button {
                 withAnimation {
                     if isPhone() {
-                        presentationMode.wrappedValue.dismiss()
+                        dismiss()
                     } else {
-                        settingsShown = .bartender
+                        settingsStateContainer.settingsState.settingsTab = .bartender
                     }
                 }
             } label: {

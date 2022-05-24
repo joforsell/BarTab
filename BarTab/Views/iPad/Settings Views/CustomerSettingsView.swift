@@ -9,9 +9,9 @@ import SwiftUI
 
 struct CustomerSettingsView: View {
     @EnvironmentObject var customerListVM: CustomerListViewModel
+    @EnvironmentObject var settingsStateContainer: SettingsStateContainer
     
     var geometry: GeometryProxy
-    @Binding var detailViewShown: DetailViewRouter
     
     @State private var isShowingAddCustomerView = false
     @State private var currentCustomerShown: CustomerViewModel?
@@ -29,10 +29,10 @@ struct CustomerSettingsView: View {
                                 .contentShape(Rectangle())
                                 .onTapGesture {
                                     if currentCustomerShown?.id == customerVM.id {
-                                        detailViewShown = .none
+                                        settingsStateContainer.detailViewState.detailView = .none
                                         currentCustomerShown = nil
                                     } else {
-                                        detailViewShown = .customer(customerVM: $customerVM, detailsViewShown: $detailViewShown)
+                                        settingsStateContainer.detailViewState.detailView = .customer(customerVM: customerVM)
                                         currentCustomerShown = customerVM
                                     }
                                 }

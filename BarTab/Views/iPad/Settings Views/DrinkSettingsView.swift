@@ -10,9 +10,9 @@ import SwiftUI
 struct DrinkSettingsView: View {
     @EnvironmentObject var drinkListVM: DrinkListViewModel
     @EnvironmentObject var userHandler: UserHandling
+    @EnvironmentObject var settingsStateContainer: SettingsStateContainer
     
     var geometry: GeometryProxy
-    @Binding var detailViewShown: DetailViewRouter
     
     @State var editMode: EditMode = .inactive
     @State private var showingAddDrinkView = false
@@ -32,10 +32,10 @@ struct DrinkSettingsView: View {
                                 .contentShape(Rectangle())
                                 .onTapGesture {
                                     if currentDrinkShown?.id == drinkVM.id {
-                                        detailViewShown = .none
+                                        settingsStateContainer.detailViewState.detailView = .none
                                         currentDrinkShown = nil
                                     } else {
-                                        detailViewShown = .drink(drinkVM: $drinkVM, detailsViewShown: $detailViewShown)
+                                        settingsStateContainer.detailViewState.detailView = .drink(drinkVM: drinkVM)
                                         currentDrinkShown = drinkVM
                                     }
                                 }
@@ -58,7 +58,7 @@ struct DrinkSettingsView: View {
                         .frame(width: 80)
                 }
                 .sheet(isPresented: $showingAddDrinkView) {
-                    AddDrinkView(detailViewShown: $detailViewShown)
+                    AddDrinkView()
                         .clearModalBackground()
                 }
             }

@@ -11,15 +11,14 @@ import SwiftUIX
 struct ImagePickerHostView: View {
     
     
-    let customer: Customer
+    @Binding var customer: Customer
     @Binding var isShown: Bool
     @Binding var error: UploadError?
-    @Binding var image: Image?
     @State var loading = false
     let isCamera: Bool
 
     var body: some View {
-        ImagePicker(customer: customer, isShown: $isShown, error: $error, image: $image, loading: $loading, isCamera: isCamera)
+        ImagePicker(customer: $customer, isShown: $isShown, error: $error, loading: $loading, isCamera: isCamera)
             .overlay {
                 if loading {
                     VStack(alignment: .center) {
