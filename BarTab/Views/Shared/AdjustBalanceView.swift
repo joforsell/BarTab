@@ -51,12 +51,14 @@ struct AdjustBalanceView: View {
                         .font(.title2)
                     Spacer()
                 }
+                .frame(width: columnWidth)
                 .padding(.horizontal, 44)
                 HStack {
                     Text(stringedBalance)
                         .font(.title3, weight: .light)
                     Spacer()
                 }
+                .frame(width: columnWidth)
                 .padding(.horizontal, 44)
                 
                 HStack {
@@ -68,7 +70,7 @@ struct AdjustBalanceView: View {
                         .font(.largeTitle, weight: .black)
                 }
                 .padding()
-                .frame(width: UIScreen.main.bounds.width * 0.8, height: 60)
+                .frame(width: min(UIScreen.main.bounds.width * 0.8, columnWidth), height: 60)
                 .background(VisualEffectBlurView(blurStyle: .dark).opacity(0.4))
                 .addBorder(adding ? Color.lead : Color.deficit, width: 2, cornerRadius: 10)
                 .padding()
@@ -85,6 +87,7 @@ struct AdjustBalanceView: View {
                 actionButtons
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .overlay(alignment: .bottom) {
             if showingNumpad {
                 NumPadView(balanceAdjustment: $balanceAdjustment, showingNumpad: $showingNumpad)
@@ -105,7 +108,7 @@ struct AdjustBalanceView: View {
                     }
                 } else {
                     customerListVM.subtractFromBalance(of: customer, by: Int((Float(balanceAdjustment) ?? 0) * 100), with: message)
-                    customer.balance += Int((Float(balanceAdjustment) ?? 0) * 100)
+                    customer.balance -= Int((Float(balanceAdjustment) ?? 0) * 100)
                     if customer.numberOfTransactions != nil {
                         customer.numberOfTransactions! += 1
                     } else {
@@ -225,7 +228,6 @@ struct AdjustBalanceView: View {
     
     private var actionButtons: some View {
         HStack {
-            Spacer()
             Button {
                 dismiss()
             } label: {
@@ -242,8 +244,9 @@ struct AdjustBalanceView: View {
                     .background(Color.accentColor)
                     .cornerRadius(10)
             }
-            Spacer()
         }
+        .frame(width: columnWidth)
+        .padding(.horizontal)
         .padding(.bottom, 48)
     }
 }

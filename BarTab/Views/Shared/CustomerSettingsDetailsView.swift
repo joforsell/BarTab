@@ -33,7 +33,8 @@ struct CustomerSettingsDetailView: View {
     @State private var balanceAdjustment = ""
     @State private var addingToBalance = true
     
-    @State var adjustingBalance = false
+    @State private var adjustingBalance = false
+    @State private var iPadAdjustingBalance = false
     
     @State private var showError = false
     @State var error: UploadError?
@@ -135,7 +136,11 @@ struct CustomerSettingsDetailView: View {
                     .offset(y: 4)
                     .overlay(alignment: .trailing) {
                         Button {
-                            adjustingBalance = true
+                            if isPhone() {
+                                adjustingBalance = true
+                            } else {
+                                iPadAdjustingBalance = true
+                            }
                         } label: {
                             RoundedRectangle(cornerRadius: 4)
                                 .foregroundColor(.accentColor)
@@ -246,6 +251,10 @@ struct CustomerSettingsDetailView: View {
         }
         .preferredColorScheme(.dark)
         .fullScreenCover(isPresented: $adjustingBalance) {
+            AdjustBalanceView(customer: $customerVM.customer, currentBalance: customerVM.customer.balance)
+                .clearModalBackground()
+        }
+        .sheet(isPresented: $iPadAdjustingBalance) {
             AdjustBalanceView(customer: $customerVM.customer, currentBalance: customerVM.customer.balance)
                 .clearModalBackground()
         }
