@@ -44,10 +44,8 @@ class DrinkViewModel: ObservableObject, Identifiable {
             .map { drink in
                 let drinkPrice = Float(drink.price) / 100
                 if self.showingDecimals {
-                    print("showingDecimals is true")
                     return String(format: "%.2f", drinkPrice)
                 } else {
-                    print("showingDecimals is false")
                     return String(format: "%.0f", drinkPrice)
                 }
             }
