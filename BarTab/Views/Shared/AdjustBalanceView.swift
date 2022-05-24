@@ -15,23 +15,21 @@ struct AdjustBalanceView: View {
     @EnvironmentObject var customerListVM: CustomerListViewModel
     @EnvironmentObject var avoider: KeyboardAvoider
     
-    init(customer: Customer, currentBalance: Int, showingAdjustmentView: Binding<Bool>) {
-        self.customer = customer
+    init(customer: Binding<Customer>, currentBalance: Int) {
+        _customer = customer
         self.currentBalance = currentBalance
-        self._showingAdjustmentView = showingAdjustmentView
         UITextView.appearance().backgroundColor = .clear
     }
     
-    let customer: Customer
+    @Binding var customer: Customer
     let currentBalance: Int
     var stringedBalance: String {
-        let adjustedBalance = Float(currentBalance) / 100
+        let adjustedBalance = Float(currentBalance)
         return Currency.display(adjustedBalance, with: userHandler.user)
     }
     
     @FocusState private var isMessageFocused: Bool
     
-    @Binding var showingAdjustmentView: Bool
     @State var message = ""
     @State var adding = true
     @State var balanceAdjustment = ""
@@ -99,11 +97,23 @@ struct AdjustBalanceView: View {
             withAnimation {
                 if adding {
                     customerListVM.addToBalance(of: customer, by: Int((Float(balanceAdjustment) ?? 0) * 100), with: message)
+                    customer.balance += Int((Float(balanceAdjustment) ?? 0) * 100)
+                    if customer.numberOfTransactions != nil {
+                        customer.numberOfTransactions! += 1
+                    } else {
+                        customer.numberOfTransactions = 1
+                    }
                 } else {
                     customerListVM.subtractFromBalance(of: customer, by: Int((Float(balanceAdjustment) ?? 0) * 100), with: message)
+                    customer.balance += Int((Float(balanceAdjustment) ?? 0) * 100)
+                    if customer.numberOfTransactions != nil {
+                        customer.numberOfTransactions! += 1
+                    } else {
+                        customer.numberOfTransactions = 1
+                    }
                 }
                 showingToast = false
-                showingAdjustmentView = false
+                dismiss()
             }
         }) {
             ToastView(systemImage: ("dollarsign.circle.fill", .accentColor, 50), title: "Adjustment successfully made", subTitle: LocalizedStringKey("\(addedOrSubtracted) \(balanceAdjustment) \(toOrFrom) the balance of \(customer.name)."))

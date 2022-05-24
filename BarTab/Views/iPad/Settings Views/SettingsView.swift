@@ -13,9 +13,8 @@ struct SettingsView: View {
     @EnvironmentObject var avoider: KeyboardAvoider
     @EnvironmentObject var customerListVM: CustomerListViewModel
     @EnvironmentObject var userHandler: UserHandling
-    
-    @State private var settingsShown: SettingsRouter = .drinks
-    @State private var detailViewShown: DetailViewRouter = .none
+    @EnvironmentObject var settingsState: SettingsState
+    @EnvironmentObject var detailViewState: DetailViewState
     
     @AppStorage("latestEmail") var latestEmail: Date = Date(timeIntervalSinceReferenceDate: 60000)
     
@@ -42,12 +41,12 @@ struct SettingsView: View {
                                 VStack(alignment: .center) {
                                     HStack {
                                         Button {
-                                            if settingsShown == .drinks {
-                                                settingsShown = .none
+                                            if settingsState.settingsTab == .drinks {
+                                                settingsState.settingsTab = .none
                                             } else {
-                                                settingsShown = .drinks
+                                                settingsState.settingsTab = .drinks
                                             }
-                                            detailViewShown = .none
+                                            detailViewState.detailView = .none
                                         } label: {
                                             Image("beer")
                                                 .resizable()
@@ -57,17 +56,17 @@ struct SettingsView: View {
                                     }
                                     .frame(width: routerButtonSize, height: routerButtonSize)
                                     .padding()
-                                    .background(settingsShown == .drinks ? Color("AppBlue") : Color.clear)
+                                    .background(settingsState.settingsTab == .drinks ? Color("AppBlue") : Color.clear)
                                     .cornerRadius(10)
                                     
                                     
                                     Button {
-                                        if settingsShown == .customers {
-                                            settingsShown = .none
+                                        if settingsState.settingsTab == .customers {
+                                            settingsState.settingsTab = .none
                                         } else {
-                                            settingsShown = .customers
+                                            settingsState.settingsTab = .customers
                                         }
-                                        detailViewShown = .none
+                                        detailViewState.detailView = .none
                                     } label: {
                                         Image(systemName: "person.2")
                                             .resizable()
@@ -76,17 +75,17 @@ struct SettingsView: View {
                                     }
                                     .frame(width: routerButtonSize, height: routerButtonSize)
                                     .padding()
-                                    .background(settingsShown == .customers ? Color("AppBlue") : Color.clear)
+                                    .background(settingsState.settingsTab == .customers ? Color("AppBlue") : Color.clear)
                                     .cornerRadius(10)
                                     
                                     
                                     Button {
-                                        if settingsShown == .bartender {
-                                            settingsShown = .none
+                                        if settingsState.settingsTab == .bartender {
+                                            settingsState.settingsTab = .none
                                         } else {
-                                            settingsShown = .bartender
+                                            settingsState.settingsTab = .bartender
                                         }
-                                        detailViewShown = .none
+                                        detailViewState.detailView = .none
                                     } label: {
                                         Image("bartender")
                                             .resizable()
@@ -95,7 +94,7 @@ struct SettingsView: View {
                                     }
                                     .frame(width: routerButtonSize, height: routerButtonSize)
                                     .padding()
-                                    .background(settingsShown == .bartender ? Color("AppBlue") : Color.clear)
+                                    .background(settingsState.settingsTab == .bartender ? Color("AppBlue") : Color.clear)
                                     .cornerRadius(10)
                                     
                                     Spacer()
@@ -105,27 +104,27 @@ struct SettingsView: View {
                                 .padding()
                                 .background(Color(.black).opacity(0.5))
                                 
-                                switch settingsShown {
+                                switch settingsState.settingsTab {
                                 case .drinks:
-                                    DrinkSettingsView(geometry: geo, detailViewShown: $detailViewShown)
+                                    DrinkSettingsView(geometry: geo)
                                 case .customers:
-                                    CustomerSettingsView(geometry: geo, detailViewShown: $detailViewShown)
+                                    CustomerSettingsView(geometry: geo)
                                 case .bartender:
-                                    BartenderSettingsView(settingsShown: $settingsShown)
+                                    BartenderSettingsView()
                                 case .user:
                                     withAnimation {
-                                        UserSettingsView(settingsShown: $settingsShown)
+                                        UserSettingsView()
                                             .transition(.move(edge: .bottom))
                                     }
                                 case .none:
                                     EmptyView()
                                 }
                                 
-                                switch detailViewShown {
-                                case .drink(let drinkVM, let detailsViewShown):
-                                    DrinkSettingsDetailView(drinkVM: drinkVM, detailsViewShown: detailsViewShown)
-                                case .customer(let customerVM, let detailsViewShown):
-                                    CustomerSettingsDetailView(customerVM: customerVM, detailsViewShown: detailsViewShown)
+                                switch detailViewState.detailView {
+                                case .drink(let drinkVM):
+                                    DrinkSettingsDetailView(drinkVM: drinkVM)
+                                case .customer(let customerVM):
+                                    CustomerSettingsDetailView(customerVM: customerVM)
                                 case .none:
                                     EmptyView()
                                 }
@@ -162,14 +161,4 @@ struct SettingsView: View {
                     .foregroundColor(.accentColor)
             }
         }
-}
-
-enum SettingsRouter {
-    case drinks, customers, bartender, user, none
-}
-
-indirect enum DetailViewRouter {
-    case drink(drinkVM: Binding<DrinkViewModel>, detailsViewShown: Binding<DetailViewRouter>)
-    case customer(customerVM: Binding<CustomerViewModel>, detailsViewShown: Binding<DetailViewRouter>)
-    case none
 }

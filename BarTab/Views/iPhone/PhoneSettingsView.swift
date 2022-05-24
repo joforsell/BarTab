@@ -13,11 +13,11 @@ struct PhoneSettingsView: View {
     @EnvironmentObject var customerListVM: CustomerListViewModel
     @EnvironmentObject var userHandler: UserHandling
     @EnvironmentObject var avoider: KeyboardAvoider
+    @EnvironmentObject var settingsState: SettingsState
+    @EnvironmentObject var detailViewState: DetailViewState
     
     @AppStorage("backgroundColorIntensity") var backgroundColorIntensity: ColorIntensity = .medium
 
-    @State private var settingsShown: SettingsRouter = .drinks
-    @State private var detailsShown: DetailViewRouter = .none
     @State private var showingUser = false
     @State private var showingAddDrinkView = false
     @State private var showingAddCustomerView = false
@@ -31,8 +31,10 @@ struct PhoneSettingsView: View {
         VStack {
             HStack(spacing: 16) {
                 Button {
-                    settingsShown = .drinks
-                    detailsShown = .none
+                    settingsState.settingsTab = .drinks
+                    detailViewState.detailView = .none
+                    print(settingsState.settingsTab)
+                    print(detailViewState.detailView)
                 } label: {
                     Image("beer")
                         .resizable()
@@ -40,12 +42,14 @@ struct PhoneSettingsView: View {
                         .foregroundColor(.accentColor)
                         .frame(width: routerButtonSize, height: routerButtonSize)
                         .padding(routerButtonPadding)
-                        .background(settingsShown == .drinks ? Color("AppBlue") : Color.clear)
+                        .background(settingsState.settingsTab == .drinks ? Color("AppBlue") : Color.clear)
                         .cornerRadius(routerButtonCornerRadius)
                 }
                 Button {
-                    settingsShown = .customers
-                    detailsShown = .none
+                    settingsState.settingsTab = .customers
+                    detailViewState.detailView = .none
+                    print(settingsState.settingsTab)
+                    print(detailViewState.detailView)
                 } label: {
                     Image(systemName: "person.2")
                         .resizable()
@@ -53,12 +57,14 @@ struct PhoneSettingsView: View {
                         .foregroundColor(.accentColor)
                         .frame(width: routerButtonSize, height: routerButtonSize)
                         .padding(routerButtonPadding)
-                        .background(settingsShown == .customers ? Color("AppBlue") : Color.clear)
+                        .background(settingsState.settingsTab == .customers ? Color("AppBlue") : Color.clear)
                         .cornerRadius(routerButtonCornerRadius)
                 }
                 Button {
-                    settingsShown = .bartender
-                    detailsShown = .none
+                    settingsState.settingsTab = .bartender
+                    detailViewState.detailView = .none
+                    print(settingsState.settingsTab)
+                    print(detailViewState.detailView)
                 } label: {
                     Image("bartender")
                         .resizable()
@@ -66,12 +72,12 @@ struct PhoneSettingsView: View {
                         .foregroundColor(.accentColor)
                         .frame(width: routerButtonSize, height: routerButtonSize)
                         .padding(routerButtonPadding)
-                        .background(settingsShown == .bartender ? Color("AppBlue") : Color.clear)
+                        .background(settingsState.settingsTab == .bartender ? Color("AppBlue") : Color.clear)
                         .cornerRadius(routerButtonCornerRadius)
                 }
             }
             ScrollView(showsIndicators: false) {
-                switch settingsShown {
+                switch settingsState.settingsTab {
                 case .drinks:
                     drinkScrollList
                         .padding(.bottom, 48)
@@ -89,9 +95,9 @@ struct PhoneSettingsView: View {
         }
         .frame(maxWidth: .infinity)
         .overlay(alignment: .bottomTrailing) {
-            if settingsShown == .drinks && showingButton {
+            if settingsState.settingsTab == .drinks && showingButton {
                 addDrinkButton
-            } else if settingsShown == .customers && showingButton {
+            } else if settingsState.settingsTab == .customers && showingButton {
                 addCustomerButton
             }
         }
@@ -137,20 +143,20 @@ struct PhoneSettingsView: View {
         }
         .offset(y: -50)
         .sheet(isPresented: $showingAddDrinkView) {
-            AddDrinkView(detailViewShown: $detailsShown)
+            AddDrinkView()
                 .clearModalBackground()
         }
     }
     
     @ViewBuilder
     private var drinkScrollList: some View {
-        switch detailsShown {
-        case .drink(let drinkVM, let detailsViewShown):
+        switch detailViewState.detailView {
+        case .drink(let drinkVM):
             KeyboardAvoiding(with: avoider) {
-                DrinkSettingsDetailView(drinkVM: drinkVM, detailsViewShown: detailsViewShown)
+                DrinkSettingsDetailView(drinkVM: drinkVM)
                     .transition(.move(edge: .trailing))
             }
-        case .customer(_, _):
+        case .customer( _):
             EmptyView()
         case .none:
             VStack(spacing: 4) {
@@ -164,7 +170,7 @@ struct PhoneSettingsView: View {
                             .onTapGesture {
                                 withAnimation {
                                     showingButton = false
-                                    detailsShown = .drink(drinkVM: $drinkVM, detailsViewShown: $detailsShown)
+                                    detailViewState.detailView = .drink(drinkVM: drinkVM)
                                 }
                             }
                         Divider()
@@ -208,12 +214,12 @@ struct PhoneSettingsView: View {
     
     @ViewBuilder
     private var customerScrollList: some View {
-        switch detailsShown {
-        case .drink(_, _):
+        switch detailViewState.detailView {
+        case .drink( _):
             EmptyView()
-        case .customer(let customerVM, let detailsViewShown):
+        case .customer(let customerVM):
             KeyboardAvoiding(with: avoider) {
-                CustomerSettingsDetailView(customerVM: customerVM, detailsViewShown: detailsViewShown)
+                CustomerSettingsDetailView(customerVM: customerVM)
             }
             .transition(.move(edge: .trailing))
         case .none:
@@ -228,7 +234,7 @@ struct PhoneSettingsView: View {
                             .onTapGesture {
                                 withAnimation {
                                     showingButton = false
-                                    detailsShown = .customer(customerVM: $customerVM, detailsViewShown: $detailsShown)
+                                    detailViewState.detailView = .customer(customerVM: customerVM)
                                 }
                             }
                         Divider()
@@ -313,7 +319,7 @@ struct PhoneSettingsView: View {
     
     private var bartenderView: some View {
         KeyboardAvoiding(with: avoider) {
-            BartenderSettingsView(settingsShown: $settingsShown)
+            BartenderSettingsView()
         }
     }
 

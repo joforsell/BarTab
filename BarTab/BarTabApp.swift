@@ -13,6 +13,7 @@ import Purchases
 struct BarTabApp: App {
     @StateObject var authentication = Authentication()
     @StateObject var confirmationVM = ConfirmationViewModel()
+    @StateObject var settingsStateContainer = SettingsStateContainer()
         
     init() {
         FirebaseApp.configure()
@@ -23,9 +24,12 @@ struct BarTabApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .preferredColorScheme(.dark)
                 .environmentObject(authentication)
                 .environmentObject(confirmationVM)
+                .environmentObject(settingsStateContainer)
+                .environmentObject(settingsStateContainer.settingsState)
+                .environmentObject(settingsStateContainer.detailViewState)
+                .preferredColorScheme(.dark)
         }
     }
 }
