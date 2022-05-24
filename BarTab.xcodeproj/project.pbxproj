@@ -81,6 +81,7 @@
 		3E7C9B002772065500B8A431 /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7C9AFF2772065500B8A431 /* CreateAccountView.swift */; };
 		3E7C9B022772069700B8A431 /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7C9B012772069700B8A431 /* PaywallView.swift */; };
 		3E801E8128362049002E7220 /* ImageAlternativesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E801E8028362049002E7220 /* ImageAlternativesView.swift */; };
+		3E80CACC283CC25F00076C26 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E80CACB283CC25F00076C26 /* Keys.swift */; };
 		3E81034E283AC92900D76718 /* NumPadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E81034D283AC92900D76718 /* NumPadView.swift */; };
 		3E8134B02764DEBB00637E61 /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 3E8134AF2764DEBB00637E61 /* SwiftUIX */; };
 		3E813C3B2785D24700CC2EAA /* Purchases in Frameworks */ = {isa = PBXBuildFile; productRef = 3E813C3A2785D24700CC2EAA /* Purchases */; };
@@ -98,15 +99,12 @@
 		3E88B0F5276A7814003561E1 /* AddDrinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E88B0F4276A7814003561E1 /* AddDrinkView.swift */; };
 		3E89FAD028339EFF001C1531 /* CachedImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E89FACF28339EFF001C1531 /* CachedImageManager.swift */; };
 		3E89FAD22833A2E1001C1531 /* CacheableAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E89FAD12833A2E1001C1531 /* CacheableAsyncImage.swift */; };
-<<<<<<< HEAD
 		3E8DE1E82837845700148C62 /* AdjustBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8DE1E72837845600148C62 /* AdjustBalanceView.swift */; };
 		3E8DE1EA2837894100148C62 /* Color+CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8DE1E92837894100148C62 /* Color+CustomColors.swift */; };
-=======
 		3E8DE2012838425A00148C62 /* EmailSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8DE1FD2838425A00148C62 /* EmailSender.swift */; };
 		3E8DE2022838425A00148C62 /* ImageCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8DE1FE2838425A00148C62 /* ImageCloud.swift */; };
 		3E8DE2032838425A00148C62 /* CustomerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8DE1FF2838425A00148C62 /* CustomerRepository.swift */; };
 		3E8DE2042838425A00148C62 /* DrinkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8DE2002838425A00148C62 /* DrinkRepository.swift */; };
->>>>>>> e170dbb00eed4972f04f992d6f36f56a451dc51a
 		3E8EF682280F49030044B315 /* BalanceUpdateEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EF681280F49030044B315 /* BalanceUpdateEmailView.swift */; };
 		3E8EF684280F4ECB0044B315 /* BalanceUpdateEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8EF683280F4ECB0044B315 /* BalanceUpdateEmailViewModel.swift */; };
 		3E8FAA18279C336C00FBA06D /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8FAA17279C336C00FBA06D /* SignInView.swift */; };
@@ -117,7 +115,6 @@
 		3E96528F27824BBD00815A74 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E96528E27824BBD00815A74 /* StoreKit.framework */; };
 		3EEF5BD427CF67D000CC9AAF /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEF5BD327CF67D000CC9AAF /* CustomTabBarView.swift */; };
 		3EF404A027E373C900F67C3F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3EF404A227E373C900F67C3F /* Localizable.strings */; };
-		3EF404A427E53E7200F67C3F /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF404A327E53E7200F67C3F /* Keys.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -189,6 +186,7 @@
 		3E7C9AFF2772065500B8A431 /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
 		3E7C9B012772069700B8A431 /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
 		3E801E8028362049002E7220 /* ImageAlternativesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAlternativesView.swift; sourceTree = "<group>"; };
+		3E80CACB283CC25F00076C26 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		3E81034D283AC92900D76718 /* NumPadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumPadView.swift; sourceTree = "<group>"; };
 		3E817153275574F600F4B0D3 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		3E817155275575E500F4B0D3 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
@@ -204,15 +202,12 @@
 		3E88B0F4276A7814003561E1 /* AddDrinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDrinkView.swift; sourceTree = "<group>"; };
 		3E89FACF28339EFF001C1531 /* CachedImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImageManager.swift; sourceTree = "<group>"; };
 		3E89FAD12833A2E1001C1531 /* CacheableAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheableAsyncImage.swift; sourceTree = "<group>"; };
-<<<<<<< HEAD
 		3E8DE1E72837845600148C62 /* AdjustBalanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdjustBalanceView.swift; sourceTree = "<group>"; };
 		3E8DE1E92837894100148C62 /* Color+CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+CustomColors.swift"; sourceTree = "<group>"; };
-=======
 		3E8DE1FD2838425A00148C62 /* EmailSender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailSender.swift; sourceTree = "<group>"; };
 		3E8DE1FE2838425A00148C62 /* ImageCloud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCloud.swift; sourceTree = "<group>"; };
 		3E8DE1FF2838425A00148C62 /* CustomerRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerRepository.swift; sourceTree = "<group>"; };
 		3E8DE2002838425A00148C62 /* DrinkRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrinkRepository.swift; sourceTree = "<group>"; };
->>>>>>> e170dbb00eed4972f04f992d6f36f56a451dc51a
 		3E8EF681280F49030044B315 /* BalanceUpdateEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceUpdateEmailView.swift; sourceTree = "<group>"; };
 		3E8EF683280F4ECB0044B315 /* BalanceUpdateEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceUpdateEmailViewModel.swift; sourceTree = "<group>"; };
 		3E8FAA17279C336C00FBA06D /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
@@ -223,7 +218,6 @@
 		3E96528E27824BBD00815A74 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		3EEF5BD327CF67D000CC9AAF /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
 		3EF404A127E373C900F67C3F /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
-		3EF404A327E53E7200F67C3F /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -332,13 +326,13 @@
 				3E81E720283B804400C3F2A5 /* NoteView.swift */,
 				3E70E0F8275EB2EC0020B429 /* DrinkSettingsDetailsView.swift */,
 				3E70E0EB275EAFE00020B429 /* CustomerSettingsDetailsView.swift */,
-				3E8DE1E72837845600148C62 /* AdjustBalanceView.swift */,
 				3E81034D283AC92900D76718 /* NumPadView.swift */,
 				3E801E8028362049002E7220 /* ImageAlternativesView.swift */,
 				3E8FB13F282E57B8009E0B01 /* ImagePicker.swift */,
 				3E77F99A282FA823005E2EBE /* ImagePickerHostView.swift */,
 				3E70E0E7275EABE40020B429 /* BartenderSettingsView.swift */,
 				3E93A12E28172939001E6AA7 /* MultiSelectionPickerView.swift */,
+				3E8DE1E72837845600148C62 /* AdjustBalanceView.swift */,
 				3E72E0E827F0F5ED0001A691 /* FeedbackMailView.swift */,
 				3E850704279708F400A56E17 /* UserSettingsView.swift */,
 				3E8FAA17279C336C00FBA06D /* SignInView.swift */,
@@ -466,8 +460,8 @@
 				3E6E702C279D7B2000FB1639 /* BackgroundBlob.swift */,
 				3E5DFDC62787A4770056F0CC /* KeyboardAvoider */,
 				3E6F1A2827712B5300661021 /* CustomInputView.swift */,
+				3E80CACB283CC25F00076C26 /* Keys.swift */,
 				3E70E0E9275EAF100020B429 /* ToastView.swift */,
-				3EF404A327E53E7200F67C3F /* Keys.swift */,
 				3E7033B527E90CD500245A93 /* AsyncButton.swift */,
 				3E7033B927E9131E00245A93 /* ErrorPrompt.swift */,
 				3E89FACF28339EFF001C1531 /* CachedImageManager.swift */,
@@ -598,13 +592,9 @@
 				3E67EC6B279467DF008A2B3D /* SubscriptionDetailsView.swift in Sources */,
 				3E7033BA27E9131E00245A93 /* ErrorPrompt.swift in Sources */,
 				3E72E0ED27F38BB50001A691 /* View+ConditionalModifier.swift in Sources */,
-				3EF404A427E53E7200F67C3F /* Keys.swift in Sources */,
 				3E8730242759755100F8E610 /* ConfirmOrderView.swift in Sources */,
-<<<<<<< HEAD
-				3E8645D52718A3C0009BFFAA /* EmailSender.swift in Sources */,
+				3E80CACC283CC25F00076C26 /* Keys.swift in Sources */,
 				3E81034E283AC92900D76718 /* NumPadView.swift in Sources */,
-=======
->>>>>>> e170dbb00eed4972f04f992d6f36f56a451dc51a
 				3E678777275D62170072259F /* AddCustomerView.swift in Sources */,
 				3E7BEFE426FCDD9900453C1B /* CustomerListViewModel.swift in Sources */,
 				3E89FAD22833A2E1001C1531 /* CacheableAsyncImage.swift in Sources */,
@@ -671,11 +661,8 @@
 				3E6E097B27D3416100BF13EE /* TabBarItemsPreferenceKey.swift in Sources */,
 				3E8DE2012838425A00148C62 /* EmailSender.swift in Sources */,
 				3E6916D8276E88BB009E80D7 /* View+Centered.swift in Sources */,
-<<<<<<< HEAD
 				3E81E723283B9D5000C3F2A5 /* View+ReadSize.swift in Sources */,
-=======
 				3E8DE2022838425A00148C62 /* ImageCloud.swift in Sources */,
->>>>>>> e170dbb00eed4972f04f992d6f36f56a451dc51a
 				3E7033B827E90FA100245A93 /* UIApplication+safeAreaInsets.swift in Sources */,
 				3E6E097827D3386500BF13EE /* CustomTabBarContainerView.swift in Sources */,
 				3E70E0E2275EAB340020B429 /* SettingsView.swift in Sources */,
