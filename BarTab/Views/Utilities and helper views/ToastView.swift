@@ -24,7 +24,7 @@ struct ToastView: View {
             }
             VStack(alignment: .leading) {
                 Text(title)
-                    .font(.title)
+                    .font(.title, weight: .bold)
                     .lineLimit(1)
                     .minimumScaleFactor(0.1)
                 if let subTitle = subTitle {

@@ -55,23 +55,25 @@ class CustomerListViewModel: ObservableObject {
         customerRepository.updateKey(of: customer, with: key)
     }
         
-    func addToBalance(of customer: Customer, by adjustment: Int) {
+    func addToBalance(of customer: Customer, by adjustment: Int, with note: String? = nil) {
         guard customer.id != nil else { return }
         var newTransactionNumber = customer.numberOfTransactions ?? 1
         let now = Date()
+        print("Using transaction number: \(newTransactionNumber)")
         
-        TransactionListViewModel.addTransaction(Transaction(name: "Added to balance", image: "addedBalance", amount: adjustment, newBalance: customer.balance + adjustment, date: now, customerID: customer.id!, transactionNumber: newTransactionNumber))
+        TransactionListViewModel.addTransaction(Transaction(name: "Added to balance", image: "addedBalance", amount: adjustment, newBalance: customer.balance + adjustment, date: now, customerID: customer.id!, transactionNumber: newTransactionNumber, note: note))
         customerRepository.addToBalanceOf(customer, by: adjustment)
         newTransactionNumber += 1
         customerRepository.updateTransactionNumber(of: customer, to: newTransactionNumber)
     }
     
-    func subtractFromBalance(of customer: Customer, by adjustment: Int) {
+    func subtractFromBalance(of customer: Customer, by adjustment: Int, with note: String? = nil) {
         guard customer.id != nil else { return }
-        var newTransactionNumber = (customer.numberOfTransactions ?? 0) + 1
+        var newTransactionNumber = customer.numberOfTransactions ?? 1
         let now = Date()
+        print("Using transaction number: \(newTransactionNumber)")
         
-        TransactionListViewModel.addTransaction(Transaction(name: "Removed from balance", image: "removedBalance", amount: adjustment, newBalance: customer.balance - adjustment, date: now, customerID: customer.id!, transactionNumber: newTransactionNumber))
+        TransactionListViewModel.addTransaction(Transaction(name: "Removed from balance", image: "removedBalance", amount: adjustment, newBalance: customer.balance - adjustment, date: now, customerID: customer.id!, transactionNumber: newTransactionNumber, note: note))
         customerRepository.subtractFromBalanceOf(customer, by: adjustment)
         newTransactionNumber += 1
         customerRepository.updateTransactionNumber(of: customer, to: newTransactionNumber)

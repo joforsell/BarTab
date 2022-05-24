@@ -19,21 +19,17 @@ final class CachedImageManager: ObservableObject {
         if let url = url {
             if let imageData = cache.object(forKey: url as NSString) {
                 self.currentState = .success(data: imageData)
-                print("Got image from cache")
                 return
             }
             do {
                 let data = try await ImageCloud.fetchProfilePicture(from: url)
                 self.currentState = .success(data: data)
                 cache.set(object: data as NSData, forKey: url as NSString)
-                print("Got image from server")
             } catch {
                 self.currentState = .failed(error: error)
-                print("Error fetching: \(error.localizedDescription)")
             }
         } else {
             self.currentState = .failed(error: ImageError.noImage)
-            print("No string passed in")
         }
     }
 }

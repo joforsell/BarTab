@@ -43,8 +43,6 @@ class ImageCloud {
     
     static func uploadProfilePicture(_ image: UIImage, for customer: Customer, completion: @escaping (Result<URL, UploadError>) -> ()) {
         
-        print("Calling static function")
-
         guard let customerID = customer.id else {
             completion(.failure(.missingId))
             return
@@ -72,7 +70,6 @@ class ImageCloud {
                     }
                     
                     completion(.success(downloadURL))
-                    print("Should send URL back")
                     return
                 }
             }

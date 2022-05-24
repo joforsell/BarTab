@@ -88,7 +88,7 @@ struct ConfirmOrderView: View, Animatable {
                         .padding()
                 } else {
                     Menu {
-                        ForEach(customerListVM.customerVMs) { customerVM in
+                        ForEach(customerListVM.customerVMs.sorted { $0.name < $1.name }) { customerVM in
                             Button("\(customerVM.customer.name)") {
                                 if orderList.isEmpty {
                                     customerListVM.customerBought([drinkVM.drink], customer: customerVM.customer)

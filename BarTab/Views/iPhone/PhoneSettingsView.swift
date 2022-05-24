@@ -154,7 +154,7 @@ struct PhoneSettingsView: View {
             EmptyView()
         case .none:
             VStack(spacing: 4) {
-                ForEach($drinkListVM.drinkVMs) { $drinkVM in
+                ForEach($drinkListVM.drinkVMs.sorted { $0.wrappedValue.drink.name < $1.wrappedValue.drink.name }) { $drinkVM in
                     VStack(spacing: 0) {
                         DrinkRow(drinkVM: $drinkVM)
                             .padding(.horizontal)
@@ -218,7 +218,7 @@ struct PhoneSettingsView: View {
             .transition(.move(edge: .trailing))
         case .none:
             VStack(spacing: 4) {
-                ForEach($customerListVM.customerVMs) { $customerVM in
+                ForEach($customerListVM.customerVMs.sorted { $0.wrappedValue.customer.name < $1.wrappedValue.customer.name }) { $customerVM in
                     VStack(spacing: 0) {
                         CustomerRow(customerVM: $customerVM)
                             .padding(.horizontal)
