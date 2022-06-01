@@ -51,18 +51,7 @@ class DrinkViewModel: ObservableObject, Identifiable {
             }
             .assign(to: \.priceAsString, on: self)
             .store(in: &cancellables)
-        
-//        $showingDecimals
-//            .map { showingDecimals in
-//                if showingDecimals {
-//                    return String(format: "%.2f", (self.drink.price))
-//                } else {
-//                    return String(format: "%.0f", (self.drink.price))
-//                }
-//            }
-//            .assign(to: \.priceAsString, on: self)
-//            .store(in: &cancellables)
-        
+              
         $drink
             .map { drink in
                 drink.image
