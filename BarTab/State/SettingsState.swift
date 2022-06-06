@@ -8,5 +8,5 @@
 import Foundation
 
 class SettingsState: ObservableObject {
-    @Published var settingsTab: SettingsTab = .drinks
+    @Published var settingsTab: SettingsTab = .bartender
 }

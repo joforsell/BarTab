@@ -1,3 +1,4 @@
+/* (No Comment) */
 " from future balance updates" = " från framtida saldouppdateringar";
 
 /* No comment provided by engineer. */
@@ -7,20 +8,25 @@
 "%@ / year" = "%@ / år";
 
 /* No comment provided by engineer. */
+"%@ %@ %@ the balance of %@." = "%@ %@ %@ saldot för %@.";
+
+/* No comment provided by engineer. */
 "%@ bought %@ for %@." = "%@ köpte %@ för %@.";
 
 /* No comment provided by engineer. */
 "%@." = "%@.";
 
-"%@ items" = "%@ varor";
+/* No comment provided by engineer. */
+"%lld items" = "%lld varor";
 
 /* No comment provided by engineer. */
 "$%@" = "%@ kr";
 
-"A-Z" = "A-Ö";
-
 /* No comment provided by engineer. */
 "A network error occurred. Please try again." = "Ett nätverksfel inträffade. Försök igen.";
+
+/* (No Comment) */
+"A-Z" = "A-Ö";
 
 /* No comment provided by engineer. */
 "Add" = "Lägg till";
@@ -28,6 +34,16 @@
 /* No comment provided by engineer. */
 "Add an unlimited amount of bar guests with balances that are updated automatically and let them order from a drink list only limited by the contents of your bar." = "Lägg till obegränsat antal bargäster med automatiskt uppdaterande saldo och låt dem beställa från en dryckeslista som bara begränsas av ditt barskåp.";
 
+/* No comment provided by engineer. */
+"Added" = "Tillagd";
+
+/* No comment provided by engineer. */
+"Adjust balance" = "Justera saldo";
+
+/* No comment provided by engineer. */
+"Adjustment successfully made" = "Justering utförd";
+
+/* No comment provided by engineer. */
 "All" = "Alla";
 
 /* No comment provided by engineer. */
@@ -51,17 +67,26 @@
 /* No comment provided by engineer. */
 "Association" = "Organisation";
 
+/* (No Comment) */
+"Background image intensity" = "Intensitet på bakgrundsbild";
+
 /* No comment provided by engineer. */
 "Balance" = "Saldo";
 
+/* (No Comment) */
 "Balance update" = "Saldouppdatering";
 
+/* No comment provided by engineer. */
 "Bank Account" = "Bankgiro";
 
 /* No comment provided by engineer. */
 "Cancel" = "Avbryt";
 
+/* No comment provided by engineer. */
 "Check bar guests with:" = "Välj bargäster med:";
+
+/* No comment provided by engineer. */
+"Close" = "Stäng";
 
 /* No comment provided by engineer. */
 "Connected e-mail address:" = "Kopplad mailadress:";
@@ -70,17 +95,22 @@
 "Could not create account." = "Kunde inte skapa konto.";
 
 /* No comment provided by engineer. */
+"Could not fetch download link." = "Kunde inte hämta nedladdningslänk.";
+
+/* No comment provided by engineer. */
 "Could not find a user with the given e-mail address." = "Hittade ingen användare kopplad till den angivna mailadressen.";
+
+/* No comment provided by engineer. */
+"Could not make image data." = "Kunde inte skapa bilddata.";
 
 /* No comment provided by engineer. */
 "Could not send" = "Kunde inte skicka";
 
+/* (No Comment) */
 "Could not send new password." = "Kunde inte skicka nytt lösenord";
 
 /* No comment provided by engineer. */
 "Could not sign in." = "Kunde inte logga in.";
-
-"Close" = "Stäng";
 
 /* No comment provided by engineer. */
 "Create account" = "Skapa konto";
@@ -97,6 +127,7 @@
 /* No comment provided by engineer. */
 "Currency" = "Valuta";
 
+/* (No Comment) */
 "Current balance at %@" = "Nuvarande saldo hos %@";
 
 /* No comment provided by engineer. */
@@ -111,6 +142,7 @@
 /* No comment provided by engineer. */
 "Delete drink" = "Radera dryck";
 
+/* (No Comment) */
 "Display decimals" = "Visa decimaler";
 
 /* No comment provided by engineer. */
@@ -122,28 +154,26 @@
 /* No comment provided by engineer. */
 "E-mail address" = "Mailadress";
 
+/* No comment provided by engineer. */
 "E-mail sent" = "Mail sändes";
-
-"Email address missing" = "Mailadress saknas";
 
 /* No comment provided by engineer. */
 "E-mail(s) sent" = "Mail skickades";
 
+/* (No Comment) */
+"Email address missing" = "Mailadress saknas";
+
 /* No comment provided by engineer. */
 "Error sending emails" = "Fel vid skickande av mail";
 
-"Having issues or missing a feature?" = "Stött på problem eller saknar en funktion?";
+/* No comment provided by engineer. */
+"Failed to upload picture" = "Uppladdningen misslyckades";
 
-"Hello %@!" = "Hej %@!";
-
-"Highest price first" = "Högst pris först";
-
+/* No comment provided by engineer. */
 "Feedback" = "Återkoppling";
 
 /* No comment provided by engineer. */
 "First week for free!" = "Första veckan gratis!";
-
-"Inquiries can be sent to:" = "Om du har frågor eller funderingar:";
 
 /* No comment provided by engineer. */
 "Forget tallying purchases and adding up balance after every night. With BarTab you and your bar guests can easily keep track of running tabs." = "Glöm bort manuella bonglistor och att räkna samman saldon efter varje träff. Med BarTab håller du och dina bargäster enkelt koll på saldoställningar.";
@@ -151,11 +181,25 @@
 /* No comment provided by engineer. */
 "Forgot password?" = "Glömt lösenord?";
 
+/* (No Comment) */
+"Having issues or missing a feature?" = "Stött på problem eller saknar en funktion?";
+
+/* (No Comment) */
+"Hello %@!" = "Hej %@!";
+
+/* (No Comment) */
+"Highest price first" = "Högst pris först";
+
+/* (No Comment) */
+"Inquiries can be sent to:" = "Om du har frågor eller funderingar:";
+
 /* No comment provided by engineer. */
 "Invalid e-mail address." = "Ej giltig mailadress.";
 
+/* No comment provided by engineer. */
 "Keep device awake" = "Håll systemet vaket";
 
+/* (No Comment) */
 "Let me know" = "Skicka gärna feedback";
 
 /* No comment provided by engineer. */
@@ -164,31 +208,44 @@
 /* No comment provided by engineer. */
 "Lifetime" = "Livstid";
 
+/* No comment provided by engineer. */
 "Low" = "Låg";
 
+/* (No Comment) */
 "Lowest price first" = "Lägst pris först";
 
+/* No comment provided by engineer. */
 "Medium" = "Medium";
 
+/* No comment provided by engineer. */
 "Message" = "Meddelande";
 
 /* No comment provided by engineer. */
 "Name" = "Namn";
 
+/* No comment provided by engineer. */
 "Negative balance" = "Negativt saldo";
 
+/* No comment provided by engineer. */
 "None" = "Ingen";
 
+/* No comment provided by engineer. */
 "Not sending to:" = "Skickar inte till:";
+
+/* No comment provided by engineer. */
+"Note" = "Notering";
+
+/* (No Comment) */
+"Off" = "Av";
+
+/* (No Comment) */
+"On" = "På";
 
 /* No comment provided by engineer. */
 "Opening balance" = "Ingående saldo";
 
+/* No comment provided by engineer. */
 "Order items for %@" = "Beställ varor för %@";
-
-"On" = "På";
-
-"Off" = "Av";
 
 /* No comment provided by engineer. */
 "Password" = "Lösenord";
@@ -199,6 +256,7 @@
 /* No comment provided by engineer. */
 "Pay only once!" = "Betala bara en gång!";
 
+/* No comment provided by engineer. */
 "Payment methods" = "Betalningsmetoder";
 
 /* No comment provided by engineer. */
@@ -210,8 +268,10 @@
 /* No comment provided by engineer. */
 "Please enter an e-mail address." = "Du måste ange en mailadress.";
 
+/* No comment provided by engineer. */
 "Positive balance" = "Positivt saldo";
 
+/* No comment provided by engineer. */
 "Preview" = "Förhandsgranska";
 
 /* No comment provided by engineer. */
@@ -220,6 +280,7 @@
 /* No comment provided by engineer. */
 "Privacy policy" = "Integritetspolicy";
 
+/* (No Comment) */
 "Reply to" = "Skicka svar till";
 
 /* No comment provided by engineer. */
@@ -230,6 +291,9 @@
 
 /* No comment provided by engineer. */
 "RFID tag was updated" = "RFID-brickan uppdaterades";
+
+/* No comment provided by engineer. */
+"Saving" = "Sparar";
 
 /* No comment provided by engineer. */
 "Scan a tag to assign it to" = "Läs av en bricka för att koppla den till";
@@ -243,13 +307,16 @@
 /* No comment provided by engineer. */
 "Select the bar guest making the purchase." = "Välj vem som betalar för att slutföra köpet.";
 
+/* No comment provided by engineer. */
 "Send" = "Skicka";
 
 /* No comment provided by engineer. */
 "Send e-mail with current balance" = "Maila aktuellt saldo";
 
+/* (No Comment) */
 "Send feedback" = "Skicka feedback";
 
+/* No comment provided by engineer. */
 "Sending to:" = "Skickar till:";
 
 /* No comment provided by engineer. */
@@ -264,8 +331,10 @@
 /* No comment provided by engineer. */
 "Stay on top of things" = "Håll enkelt koll";
 
+/* (No Comment) */
 "Subject" = "Ämne";
 
+/* No comment provided by engineer. */
 "Subject nor message cannot be left empty." = "Ämne och meddelande kan inte lämnas tomma.";
 
 /* No comment provided by engineer. */
@@ -280,11 +349,16 @@
 /* No comment provided by engineer. */
 "Subtract" = "Ta bort";
 
+/* No comment provided by engineer. */
+"Subtracted" = "Borttaget";
+
+/* No comment provided by engineer. */
 "Tap the item you want to add to the order" = "Tryck på varan du vill lägga till i din beställning";
 
 /* No comment provided by engineer. */
 "Terms of use" = "Användarvillkor";
 
+/* (No Comment) */
 "Thank you for your feedback!" = "Tack för din feedback!";
 
 /* No comment provided by engineer. */
@@ -302,10 +376,17 @@
 /* No comment provided by engineer. */
 "The scanned RFID tag is now assigned to %@" = "Den skannade RFID-brickan är nu kopplad till %@";
 
+/* (No Comment) */
 "There was an error" = "Ett fel uppstod";
 
 /* No comment provided by engineer. */
 "This will send an e-mail showing current balance to the chosen bar guests." = "Detta skickar ett mail med aktuellt saldo till valda bargäster.";
+
+/* No comment provided by engineer. */
+"to" = "till";
+
+/* No comment provided by engineer. */
+"Unable to specify user." = "Kunde inte specificera användare.";
 
 /* No comment provided by engineer. */
 "Unknown error." = "Okänt fel.";
@@ -313,10 +394,14 @@
 /* No comment provided by engineer. */
 "Unlimited list of bar guests" = "Obegränsad bargästlista";
 
+/* (No Comment) */
 "Unsubscribe" = "Avanmäl dig";
 
 /* No comment provided by engineer. */
 "Update \nRFID tag" = "Uppdatera \nRFID-bricka";
+
+/* No comment provided by engineer. */
+"Use offer code" = "Använd kod";
 
 /* No comment provided by engineer. */
 "Use RFID tags" = "Använd RFID-brickor";
@@ -330,6 +415,7 @@
 /* No comment provided by engineer. */
 "You can only send e-mail(s) once every minute." = "Du kan bara skicka mail en gång i minuten.";
 
+/* (No Comment) */
 "Your current balance at %@ is:" = "Ditt nuvarande saldo hos %@ är:";
 
 /* No comment provided by engineer. */
@@ -338,4 +424,6 @@
 /* No comment provided by engineer. */
 "Your purchase was finalized" = "Ditt köp slutfördes";
 
+/* (No Comment) */
 "Z-A" = "Ö-A";
+

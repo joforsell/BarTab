@@ -69,20 +69,9 @@ struct PaywallView: View {
                     .padding(.horizontal, isPhone() ? 8 : 0)
                     Group {
                         subContinueButton
-                        HStack {
-                            Spacer()
-                            Link(LocalizedStringKey("Privacy policy"), destination: URL(string: "https://bartab.info/privacypolicy")!)
-                                .foregroundColor(.accentColor)
-                            Text("and")
-                            Link(LocalizedStringKey("Terms of use"), destination: URL(string: "https://bartab.info/termsandconditions")!)
-                                .foregroundColor(.accentColor)
-                            Spacer()
-                        }
-                            .frame(width: columnWidth * 0.8)
-                            .font(.callout)
-                            .padding(.bottom, 16)
+                        offerCodeButton
+                        informationLinks
                         logoutButton
-                            .padding(.bottom, 48)
                     }
                     HStack(spacing: 2) {
                         Button {
@@ -209,6 +198,34 @@ private extension PaywallView {
         .padding(.horizontal, isPhone() ? 8 : 0)
     }
     
+    private var offerCodeButton: some View {
+        Button {
+            Purchases.shared.presentCodeRedemptionSheet()
+        } label: {
+            Text("Use offer code")
+                .padding(.horizontal)
+                .padding(.vertical, 8)
+                .font(.callout)
+                .addBorder(Color.accentColor, width: 1, cornerRadius: 6)
+        }
+        .padding(.bottom, 48)
+    }
+    
+    private var informationLinks: some View {
+        HStack {
+            Spacer()
+            Link(LocalizedStringKey("Privacy policy"), destination: URL(string: "https://bartab.info/privacypolicy")!)
+                .foregroundColor(.accentColor)
+            Text("and")
+            Link(LocalizedStringKey("Terms of use"), destination: URL(string: "https://bartab.info/termsandconditions")!)
+                .foregroundColor(.accentColor)
+            Spacer()
+        }
+            .frame(width: columnWidth * 0.8)
+            .font(.callout)
+            .padding(.bottom, 16)
+    }
+    
     private var logoutButton: some View {
         Button {
             UserHandling.signOut { _ in }
@@ -218,6 +235,7 @@ private extension PaywallView {
                 .font(.callout)
                 .fontWeight(.semibold)
         }
+        .padding(.bottom, 48)
     }
     
     private struct ContinueButtonText: View {

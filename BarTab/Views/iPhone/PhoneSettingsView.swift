@@ -31,6 +31,19 @@ struct PhoneSettingsView: View {
         VStack {
             HStack(spacing: 16) {
                 Button {
+                    settingsState.settingsTab = .bartender
+                    detailViewState.detailView = .none
+                } label: {
+                    Image("bartender")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .foregroundColor(.accentColor)
+                        .frame(width: routerButtonSize, height: routerButtonSize)
+                        .padding(routerButtonPadding)
+                        .background(settingsState.settingsTab == .bartender ? Color("AppBlue") : Color.clear)
+                        .cornerRadius(routerButtonCornerRadius)
+                }
+                Button {
                     settingsState.settingsTab = .drinks
                     detailViewState.detailView = .none
                 } label: {
@@ -54,19 +67,6 @@ struct PhoneSettingsView: View {
                         .frame(width: routerButtonSize, height: routerButtonSize)
                         .padding(routerButtonPadding)
                         .background(settingsState.settingsTab == .customers ? Color("AppBlue") : Color.clear)
-                        .cornerRadius(routerButtonCornerRadius)
-                }
-                Button {
-                    settingsState.settingsTab = .bartender
-                    detailViewState.detailView = .none
-                } label: {
-                    Image("bartender")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .foregroundColor(.accentColor)
-                        .frame(width: routerButtonSize, height: routerButtonSize)
-                        .padding(routerButtonPadding)
-                        .background(settingsState.settingsTab == .bartender ? Color("AppBlue") : Color.clear)
                         .cornerRadius(routerButtonCornerRadius)
                 }
             }

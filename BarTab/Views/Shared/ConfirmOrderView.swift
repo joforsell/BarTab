@@ -74,18 +74,13 @@ struct ConfirmOrderView: View, Animatable {
                     Text(Currency.display(Float(sum), with: userHandler.user)).font(.system(size: 60))
                         .minimumScaleFactor(0.1)
                 }
-                Spacer()
-            }
-            .foregroundColor(.white)
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-            .padding(40)
-            .padding(.top, 48)
-            VStack {
                 if userHandler.user.usingTags {
                     Image(systemName: "wave.3.right.circle.fill")
                         .font(.system(size: isPhone() ? 80 : 140))
                         .foregroundColor(.accentColor)
                         .padding()
+                        .addBorder(Color.accentColor.opacity(0.5), width: 1, cornerRadius: 6)
+                        .center(.horizontal)
                 } else {
                     Menu {
                         ForEach(customerListVM.customerVMs.sorted { $0.name < $1.name }) { customerVM in
@@ -104,9 +99,13 @@ struct ConfirmOrderView: View, Animatable {
                         }
                     } label: {
                         Image(systemName: "person.2.fill")
-                            .font(.system(size: isPhone() ? 80 : 140))
-                            .foregroundColor(.accentColor)
+                            .font(.system(size: isPhone() ? 40 : 140))
+                            .foregroundColor(.black)
+                            .padding()
+                            .background(Color.accentColor)
+                            .cornerRadius(6)
                     }
+                    .center(.horizontal)
                 }
                 Text(userHandler.user.usingTags ? LocalizedStringKey("Scan your tag to finalize your purchase.") : LocalizedStringKey("Select the bar guest making the purchase."))
                     .font(.headline)
@@ -114,6 +113,7 @@ struct ConfirmOrderView: View, Animatable {
                     .lineLimit(1)
                     .minimumScaleFactor(0.1)
                     .padding(.horizontal)
+                    .center(.horizontal)
                 if orderList.isEmpty {
                     Button {
                         withAnimation {
@@ -128,8 +128,14 @@ struct ConfirmOrderView: View, Animatable {
                             .opacity(0.8)
                             .padding()
                     }
+                    .center(.horizontal)
                 }
+                Spacer()
             }
+            .foregroundColor(.white)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+            .padding(40)
+            .padding(.top, 48)
             VStack {
                 HStack {
                     Spacer()

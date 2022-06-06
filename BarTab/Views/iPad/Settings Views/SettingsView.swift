@@ -39,20 +39,36 @@ struct SettingsView: View {
                         KeyboardAvoiding(with: avoider) {
                             HStack(spacing: 0) {
                                 VStack(alignment: .center) {
-                                    HStack {
-                                        Button {
-                                            if settingsState.settingsTab == .drinks {
-                                                settingsState.settingsTab = .none
-                                            } else {
-                                                settingsState.settingsTab = .drinks
-                                            }
-                                            detailViewState.detailView = .none
-                                        } label: {
-                                            Image("beer")
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fit)
-                                                .foregroundColor(.accentColor)
+                                    Button {
+                                        if settingsState.settingsTab == .bartender {
+                                            settingsState.settingsTab = .none
+                                        } else {
+                                            settingsState.settingsTab = .bartender
                                         }
+                                        detailViewState.detailView = .none
+                                    } label: {
+                                        Image("bartender")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .foregroundColor(.accentColor)
+                                    }
+                                    .frame(width: routerButtonSize, height: routerButtonSize)
+                                    .padding()
+                                    .background(settingsState.settingsTab == .bartender ? Color("AppBlue") : Color.clear)
+                                    .cornerRadius(10)
+
+                                    Button {
+                                        if settingsState.settingsTab == .drinks {
+                                            settingsState.settingsTab = .none
+                                        } else {
+                                            settingsState.settingsTab = .drinks
+                                        }
+                                        detailViewState.detailView = .none
+                                    } label: {
+                                        Image("beer")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .foregroundColor(.accentColor)
                                     }
                                     .frame(width: routerButtonSize, height: routerButtonSize)
                                     .padding()
@@ -76,25 +92,6 @@ struct SettingsView: View {
                                     .frame(width: routerButtonSize, height: routerButtonSize)
                                     .padding()
                                     .background(settingsState.settingsTab == .customers ? Color("AppBlue") : Color.clear)
-                                    .cornerRadius(10)
-                                    
-                                    
-                                    Button {
-                                        if settingsState.settingsTab == .bartender {
-                                            settingsState.settingsTab = .none
-                                        } else {
-                                            settingsState.settingsTab = .bartender
-                                        }
-                                        detailViewState.detailView = .none
-                                    } label: {
-                                        Image("bartender")
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .foregroundColor(.accentColor)
-                                    }
-                                    .frame(width: routerButtonSize, height: routerButtonSize)
-                                    .padding()
-                                    .background(settingsState.settingsTab == .bartender ? Color("AppBlue") : Color.clear)
                                     .cornerRadius(10)
                                     
                                     Spacer()

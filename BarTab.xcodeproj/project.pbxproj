@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E227080284E8F2300B2A857 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3E22707E284E8F2300B2A857 /* InfoPlist.strings */; };
 		3E5734262811519B0019EB9D /* FlowGrid in Frameworks */ = {isa = PBXBuildFile; productRef = 3E5734252811519B0019EB9D /* FlowGrid */; };
 		3E5734282811E1C70019EB9D /* EmailPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5734272811E1C70019EB9D /* EmailPreviewView.swift */; };
 		3E5DE2B32746E75600B5723D /* DrinkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5DE2B22746E75600B5723D /* DrinkViewModel.swift */; };
@@ -123,6 +124,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E22707F284E8F2300B2A857 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3E4F9B302810A58900EDECE6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3E5734272811E1C70019EB9D /* EmailPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailPreviewView.swift; sourceTree = "<group>"; };
 		3E5DE2B22746E75600B5723D /* DrinkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkViewModel.swift; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 				3E68107E27081D6D00C0F5B0 /* GoogleService-Info.plist */,
 				3EF404A227E373C900F67C3F /* Localizable.strings */,
 				3E65094126FCB26900ACDF41 /* Info.plist */,
+				3E22707E284E8F2300B2A857 /* InfoPlist.strings */,
 				3E65093E26FCB26900ACDF41 /* Preview Content */,
 			);
 			path = BarTab;
@@ -602,6 +605,7 @@
 				3E65094026FCB26900ACDF41 /* Preview Assets.xcassets in Resources */,
 				3E65093D26FCB26900ACDF41 /* Assets.xcassets in Resources */,
 				3E68107F27081D6D00C0F5B0 /* GoogleService-Info.plist in Resources */,
+				3E227080284E8F2300B2A857 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -714,6 +718,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		3E22707E284E8F2300B2A857 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3E22707F284E8F2300B2A857 /* sv */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		3EF404A227E373C900F67C3F /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

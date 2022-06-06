@@ -44,7 +44,7 @@
 /* No comment provided by engineer. */
 "Association" = "Association";
 
-"Background image intensity" = "Intensitet på bakgrundsbild";
+"Background image intensity" = "Background image intensity";
 
 /* No comment provided by engineer. */
 "Balance" = "Balance";
@@ -126,7 +126,7 @@
 
 "Hello %@!" = "Hello %@!";
 
-"High" = "Hög";
+"High" = "High";
 
 "Highest price first" = "Highest price first";
 
