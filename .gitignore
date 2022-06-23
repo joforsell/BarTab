@@ -1,3 +1,4 @@
 # The web application has a seperate git repository
 webdev/
 keys.*
+GoogleService-Info.*
