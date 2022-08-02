@@ -9,10 +9,12 @@ import Foundation
 import Purchases
 import SwiftUI
 import FirebaseFunctions
+import FirebaseAuth
 
 class PaywallViewModel: ObservableObject {
     @Published var selectedSub: Subscription = .annual
     @Published var offerings: Purchases.Offering?
+    var authentication: Authentication?
         
     init() {
         fetchOfferings()
@@ -33,6 +35,42 @@ class PaywallViewModel: ObservableObject {
         case monthly
         case annual
         case lifetime
+    }
+    
+    func handleSubscribeButton() {
+        switch selectedSub {
+        case .monthly:
+            guard let monthlyPackage = offerings?.monthly else { return }
+            return purchase(package: monthlyPackage) { [weak self] completed in
+                if completed {
+                    self?.authentication?.userAuthState = .subscribed
+                    if let user = Auth.auth().currentUser {
+                        Purchases.shared.setEmail(user.email)
+                    }
+                }
+            }
+        case .annual:
+            guard let annualPackage = offerings?.annual else { return }
+            return purchase(package: annualPackage) { [weak self] completed in
+                if completed {
+                    self?.authentication?.userAuthState = .subscribed
+                    if let user = Auth.auth().currentUser {
+                        Purchases.shared.setEmail(user.email)
+                    }
+                }
+            }
+        case .lifetime:
+            guard let lifetimePackage = offerings?.lifetime else { return }
+            return purchase(package: lifetimePackage) { [weak self] completed in
+                if completed {
+                    self?.authentication?.userAuthState = .subscribed
+                    if let user = Auth.auth().currentUser {
+                        Purchases.shared.setEmail(user.email)
+                    }
+                }
+            }
+        }
+
     }
     
     func fetchOfferings() {
@@ -65,5 +103,9 @@ class PaywallViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    func setup(_ authentication: Authentication) {
+        self.authentication = authentication
     }
 }

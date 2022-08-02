@@ -118,6 +118,9 @@ struct PaywallView: View {
                 .center(.horizontal)
             }
         }
+        .onAppear {
+            paywallVM.setup(authentication)
+        }
     }
 }
 
@@ -148,38 +151,7 @@ private extension PaywallView {
     
     private var subContinueButton: some View {
         Button {
-            switch paywallVM.selectedSub {
-            case .monthly:
-                guard let monthlyPackage = paywallVM.offerings?.monthly else { return }
-                return paywallVM.purchase(package: monthlyPackage) { completed in
-                    if completed {
-                        authentication.userAuthState = .subscribed
-                        if let user = Auth.auth().currentUser {
-                            Purchases.shared.setEmail(user.email)
-                        }
-                    }
-                }
-            case .annual:
-                guard let annualPackage = paywallVM.offerings?.annual else { return }
-                return paywallVM.purchase(package: annualPackage) { completed in
-                    if completed {
-                        authentication.userAuthState = .subscribed
-                        if let user = Auth.auth().currentUser {
-                            Purchases.shared.setEmail(user.email)
-                        }
-                    }
-                }
-            case .lifetime:
-                guard let lifetimePackage = paywallVM.offerings?.lifetime else { return }
-                return paywallVM.purchase(package: lifetimePackage) { completed in
-                    if completed {
-                        authentication.userAuthState = .subscribed
-                        if let user = Auth.auth().currentUser {
-                            Purchases.shared.setEmail(user.email)
-                        }
-                    }
-                }
-            }
+            paywallVM.handleSubscribeButton()
         } label: {
             RoundedRectangle(cornerRadius: 6)
                 .frame(height: 80)

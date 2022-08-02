@@ -11,20 +11,9 @@ import SwiftUIX
 struct SignInView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.verticalSizeClass) var verticalSizeClass
-
     @EnvironmentObject var avoider: KeyboardAvoider
     
-    @State private var email = ""
-    @State private var password = ""
-    
-    @State private var editingEmail = false
-    @State private var editingPassword = false
-    
-    @State private var showingPassword = false
-    @State private var isShowingAlert = false
-    @State private var alertTitle: LocalizedStringKey = ""
-    @State private var alertMessage: LocalizedStringKey = ""
-    @State private var isShowingCreateAccountView = false
+    @StateObject var vm = SignInViewModel()
     
     @FocusState private var focused: FocusedField?
     
@@ -42,11 +31,11 @@ struct SignInView: View {
                 emailInput
                 passwordInput
                     .overlay(alignment: .trailing) {
-                        if !editingPassword {
+                        if !vm.editingPassword {
                             Button {
-                                showingPassword.toggle()
+                                vm.showingPassword.toggle()
                             } label: {
-                                Image(systemName: showingPassword ? "eye.fill" : "eye.slash.fill")
+                                Image(systemName: vm.showingPassword ? "eye.fill" : "eye.slash.fill")
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 40)
@@ -61,13 +50,7 @@ struct SignInView: View {
                 HStack {
                     Spacer()
                     Button {
-                        UserHandling.resetPassword(for: email) { error in
-                            if let error = error {
-                                alertTitle = "Could not send new password."
-                                alertMessage = error.localizedErrorDescription ?? "Unknown error."
-                                isShowingAlert = true
-                            }
-                        }
+                        vm.handleResetPassword()
                     } label: {
                         Text("Forgot password?")
                     }
@@ -77,12 +60,12 @@ struct SignInView: View {
                     .frame(width: columnWidth)
                     .padding()
                 Button {
-                    isShowingCreateAccountView = true
+                    vm.isShowingCreateAccountView = true
                 } label: {
                     Text("Create new account")
                         .font(.caption)
                 }
-                .sheet(isPresented: $isShowingCreateAccountView) {
+                .sheet(isPresented: $vm.isShowingCreateAccountView) {
                     CreateAccountView()
                         .clearModalBackground()
                 }
@@ -108,21 +91,21 @@ struct SignInView: View {
         VStack(alignment: .leading, spacing: 2) {
             HStack(alignment: .bottom) {
                 TextField("",
-                          text: $email,
+                          text: $vm.email,
                           onEditingChanged: { editingChanged in
                     self.avoider.editingField = 12
                     if editingChanged {
                         withAnimation {
-                            editingEmail = true
+                            vm.editingEmail = true
                         }
                     } else {
                         withAnimation {
-                            editingEmail = false
+                            vm.editingEmail = false
                         }
                     } },
                           onCommit: {
                     withAnimation {
-                        editingEmail.toggle()
+                        vm.editingEmail.toggle()
                     }
                 }
                 )
@@ -137,13 +120,13 @@ struct SignInView: View {
                 Button {
                     UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
                 } label: {
-                    Image(systemName: editingEmail ? "checkmark.rectangle.fill" : "person.crop.square.filled.and.at.rectangle.fill")
+                    Image(systemName: vm.editingEmail ? "checkmark.rectangle.fill" : "person.crop.square.filled.and.at.rectangle.fill")
                         .resizable()
                         .scaledToFit()
-                        .opacity(editingEmail ? 1 : 0.5)
-                        .foregroundColor(editingEmail ? .accentColor : .white)
+                        .opacity(vm.editingEmail ? 1 : 0.5)
+                        .foregroundColor(vm.editingEmail ? .accentColor : .white)
                 }
-                .disabled(!editingEmail)
+                .disabled(!vm.editingEmail)
             }
             
             .overlay(alignment: .topLeading) {
@@ -161,7 +144,7 @@ struct SignInView: View {
         .foregroundColor(.white)
         .background(Color.gray.opacity(0.2))
         .cornerRadius(6)
-        .addBorder(editingEmail ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
+        .addBorder(vm.editingEmail ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
         .avoidKeyboard(tag: 12)
         
     }
@@ -170,9 +153,9 @@ struct SignInView: View {
         VStack(alignment: .leading, spacing: 2) {
             HStack(alignment: .bottom) {
                 ZStack {
-                    SecureField("", text: $password, onCommit: {
+                    SecureField("", text: $vm.password, onCommit: {
                         withAnimation {
-                            editingPassword = false
+                            vm.editingPassword = false
                         }
                     })
                     .font(.title3)
@@ -184,16 +167,16 @@ struct SignInView: View {
                     .onChange(of: focused, perform: { focus in
                         if focus == .secure {
                             avoider.editingField = 13
-                            editingPassword = true
+                            vm.editingPassword = true
                         } else {
-                            editingPassword = false
+                            vm.editingPassword = false
                         }
                     })
-                    .opacity(showingPassword ? 0 : 1)
+                    .opacity(vm.showingPassword ? 0 : 1)
                     
-                    TextField("", text: $password, onCommit: {
+                    TextField("", text: $vm.password, onCommit: {
                         withAnimation {
-                            editingPassword = false
+                            vm.editingPassword = false
                         }
                     })
                     .font(.title3)
@@ -205,12 +188,12 @@ struct SignInView: View {
                     .onChange(of: focused, perform: { focus in
                         if focus == .password {
                             avoider.editingField = 13
-                            editingPassword = true
+                            vm.editingPassword = true
                         } else {
-                            editingPassword = false
+                            vm.editingPassword = false
                         }
                     })
-                    .opacity(showingPassword ? 1 : 0)
+                    .opacity(vm.showingPassword ? 1 : 0)
                 }
 
                 
@@ -218,7 +201,7 @@ struct SignInView: View {
             }
             .offset(y: 4)
             .overlay(alignment: .trailing) {
-                if editingPassword {
+                if vm.editingPassword {
                     Button {
                         UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
                     } label: {
@@ -242,7 +225,7 @@ struct SignInView: View {
         .foregroundColor(.white)
         .background(Color.gray.opacity(0.2))
         .cornerRadius(6)
-        .addBorder(editingPassword ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
+        .addBorder(vm.editingPassword ? .accentColor : Color.clear, width: 1, cornerRadius: 6)
         .avoidKeyboard(tag: 13)
         
     }
@@ -253,21 +236,7 @@ struct SignInView: View {
             .padding()
             .overlay {
                 Button {
-                    if email.trimmingCharacters(in: .whitespaces).isEmpty {
-                        alertTitle = "Please enter an e-mail address."
-                        isShowingAlert = true
-                    } else if password.trimmingCharacters(in: .whitespaces).isEmpty {
-                        alertTitle = "Please enter a password."
-                        isShowingAlert = true
-                    } else {
-                        UserHandling.signIn(withEmail: email, password: password) { error in
-                            if let error = error {
-                                alertTitle = "Could not sign in."
-                                alertMessage = error.localizedErrorDescription ?? "Unknown error."
-                                isShowingAlert = true
-                            }
-                        }
-                    }
+                    vm.handleSignInButton()
                 } label: {
                     RoundedRectangle(cornerRadius: 6)
                         .foregroundColor(.accentColor)
@@ -279,8 +248,8 @@ struct SignInView: View {
                         }
                 }
             }
-            .alert(isPresented: $isShowingAlert) {
-                Alert(title: Text(alertTitle), message: Text(alertMessage), dismissButton: .default(Text("OK").foregroundColor(.accentColor)))
+            .alert(isPresented: $vm.isShowingAlert) {
+                Alert(title: Text(vm.alertTitle), message: Text(vm.alertMessage), dismissButton: .default(Text("OK").foregroundColor(.accentColor)))
             }
     }
     

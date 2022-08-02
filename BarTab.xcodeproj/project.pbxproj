@@ -119,9 +119,21 @@
 		3E93A12F28172939001E6AA7 /* MultiSelectionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E93A12E28172939001E6AA7 /* MultiSelectionPickerView.swift */; };
 		3E96528F27824BBD00815A74 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E96528E27824BBD00815A74 /* StoreKit.framework */; };
 		3EA5D4CB2899A7AE00C30D5A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3EA5D4CA2899A7AE00C30D5A /* GoogleService-Info.plist */; };
+		3EA5D4D32899A9AE00C30D5A /* SignInTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA5D4D22899A9AE00C30D5A /* SignInTests.swift */; };
+		3EA5D4DC2899B33F00C30D5A /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA5D4DB2899B33F00C30D5A /* SignInViewModel.swift */; };
 		3EEF5BD427CF67D000CC9AAF /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEF5BD327CF67D000CC9AAF /* CustomTabBarView.swift */; };
 		3EF404A027E373C900F67C3F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3EF404A227E373C900F67C3F /* Localizable.strings */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3EA5D4D42899A9AE00C30D5A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3E65092D26FCB26900ACDF41 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3E65093426FCB26900ACDF41;
+			remoteInfo = BarTab;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		3E22707F284E8F2300B2A857 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -228,6 +240,9 @@
 		3E93A12E28172939001E6AA7 /* MultiSelectionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectionPickerView.swift; sourceTree = "<group>"; };
 		3E96528E27824BBD00815A74 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		3EA5D4CA2899A7AE00C30D5A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3EA5D4D02899A9AE00C30D5A /* BarTabTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BarTabTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3EA5D4D22899A9AE00C30D5A /* SignInTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInTests.swift; sourceTree = "<group>"; };
+		3EA5D4DB2899B33F00C30D5A /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		3EEF5BD327CF67D000CC9AAF /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
 		3EF404A127E373C900F67C3F /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -250,6 +265,13 @@
 				3E67EC782794CC97008A2B3D /* FirebaseStorage in Frameworks */,
 				3E67EC702794CC97008A2B3D /* FirebaseAuth in Frameworks */,
 				3E813C3B2785D24700CC2EAA /* Purchases in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3EA5D4CD2899A9AE00C30D5A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,6 +311,7 @@
 			isa = PBXGroup;
 			children = (
 				3E65093726FCB26900ACDF41 /* BarTab */,
+				3EA5D4D12899A9AE00C30D5A /* BarTabTests */,
 				3E65093626FCB26900ACDF41 /* Products */,
 				3E1B21D82767F8F000F68C56 /* Frameworks */,
 			);
@@ -298,6 +321,7 @@
 			isa = PBXGroup;
 			children = (
 				3E65093526FCB26900ACDF41 /* BarTab.app */,
+				3EA5D4D02899A9AE00C30D5A /* BarTabTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -457,6 +481,7 @@
 				3E7BEFE326FCDD9900453C1B /* CustomerListViewModel.swift */,
 				3E67E60827444E1700999511 /* CustomerViewModel.swift */,
 				3E7BEFDD26FCDD2800453C1B /* DrinkListViewModel.swift */,
+				3EA5D4DB2899B33F00C30D5A /* SignInViewModel.swift */,
 				3E5DE2B22746E75600B5723D /* DrinkViewModel.swift */,
 				3E678774275D52FC0072259F /* ConfirmationViewModel.swift */,
 				3E5EE16327823A060044B178 /* PaywallViewModel.swift */,
@@ -520,6 +545,14 @@
 			path = BarTab/Network;
 			sourceTree = SOURCE_ROOT;
 		};
+		3EA5D4D12899A9AE00C30D5A /* BarTabTests */ = {
+			isa = PBXGroup;
+			children = (
+				3EA5D4D22899A9AE00C30D5A /* SignInTests.swift */,
+			);
+			path = BarTabTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -554,17 +587,39 @@
 			productReference = 3E65093526FCB26900ACDF41 /* BarTab.app */;
 			productType = "com.apple.product-type.application";
 		};
+		3EA5D4CF2899A9AE00C30D5A /* BarTabTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3EA5D4D62899A9AE00C30D5A /* Build configuration list for PBXNativeTarget "BarTabTests" */;
+			buildPhases = (
+				3EA5D4CC2899A9AE00C30D5A /* Sources */,
+				3EA5D4CD2899A9AE00C30D5A /* Frameworks */,
+				3EA5D4CE2899A9AE00C30D5A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3EA5D4D52899A9AE00C30D5A /* PBXTargetDependency */,
+			);
+			name = BarTabTests;
+			productName = BarTabTests;
+			productReference = 3EA5D4D02899A9AE00C30D5A /* BarTabTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		3E65092D26FCB26900ACDF41 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1250;
+				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
 					3E65093426FCB26900ACDF41 = {
 						CreatedOnToolsVersion = 12.5;
+					};
+					3EA5D4CF2899A9AE00C30D5A = {
+						CreatedOnToolsVersion = 13.3.1;
+						TestTargetID = 3E65093426FCB26900ACDF41;
 					};
 				};
 			};
@@ -592,6 +647,7 @@
 			projectRoot = "";
 			targets = (
 				3E65093426FCB26900ACDF41 /* BarTab */,
+				3EA5D4CF2899A9AE00C30D5A /* BarTabTests */,
 			);
 		};
 /* End PBXProject section */
@@ -606,6 +662,13 @@
 				3EA5D4CB2899A7AE00C30D5A /* GoogleService-Info.plist in Resources */,
 				3E65093D26FCB26900ACDF41 /* Assets.xcassets in Resources */,
 				3E227080284E8F2300B2A857 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3EA5D4CE2899A9AE00C30D5A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -627,6 +690,7 @@
 				3E7BEFE426FCDD9900453C1B /* CustomerListViewModel.swift in Sources */,
 				3E89FAD22833A2E1001C1531 /* CacheableAsyncImage.swift in Sources */,
 				3E6916D4276E78EE009E80D7 /* UpdateTagView.swift in Sources */,
+				3EA5D4DC2899B33F00C30D5A /* SignInViewModel.swift in Sources */,
 				3E5DFDC82787A8AA0056F0CC /* KeyboardAvoider.swift in Sources */,
 				3E5DFDCA2787A91E0056F0CC /* KeyboardAvoiderPreferences.swift in Sources */,
 				3E8DE2032838425A00148C62 /* CustomerRepository.swift in Sources */,
@@ -715,7 +779,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3EA5D4CC2899A9AE00C30D5A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3EA5D4D32899A9AE00C30D5A /* SignInTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3EA5D4D52899A9AE00C30D5A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3E65093426FCB26900ACDF41 /* BarTab */;
+			targetProxy = 3EA5D4D42899A9AE00C30D5A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		3E22707E284E8F2300B2A857 /* InfoPlist.strings */ = {
@@ -910,6 +990,46 @@
 			};
 			name = Release;
 		};
+		3EA5D4D72899A9AE00C30D5A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5PNV6G957X;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.joforsell.BarTabTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BarTab.app/BarTab";
+			};
+			name = Debug;
+		};
+		3EA5D4D82899A9AE00C30D5A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5PNV6G957X;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.joforsell.BarTabTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BarTab.app/BarTab";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -927,6 +1047,15 @@
 			buildConfigurations = (
 				3E65094526FCB26900ACDF41 /* Debug */,
 				3E65094626FCB26900ACDF41 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3EA5D4D62899A9AE00C30D5A /* Build configuration list for PBXNativeTarget "BarTabTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3EA5D4D72899A9AE00C30D5A /* Debug */,
+				3EA5D4D82899A9AE00C30D5A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
